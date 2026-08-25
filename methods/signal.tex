@@ -1,0 +1,456 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{titling}
+\usepackage{graphicx}
+\usepackage{tikz-cd}
+\usepackage[hidelinks]{hyperref}
+\usepackage{nameref}
+\usepackage{fancyhdr}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{refcount}
+\usepackage{physics}
+
+% \tikzcdset{scale cd/.style={every label/.append style={scale=#1},
+%     cells={nodes={scale=#1}}}}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{osservazione}{Osservazione}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposizione}
+\newtheorem{definition}{Definizione}
+\newtheorem{axiom}{Assioma}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+    \section{Introduzione}
+        E' opportuno introdurre questa nuova sezione con una propria definizione di \textit{segnale}:
+
+        \begin{definition}[Definizione di segnale]
+            Un segnale è una qualsiasi funzione di variabili indipendenti, ovvero
+            \[
+                f: \Omega \subseteq \mathbb{R}^{n} \rightarrow \mathbb{R}
+            \]
+            \[
+                \mathbf{t} \in \Omega \mapsto f(\mathbf{t})
+            \]
+        \end{definition}
+
+        Da un punto di vista fisico, un segnale è \textit{una variazione di una precisa quantità fisica in funzione di tempo, spazio, o qualsiasi altra variabile indipendente}.
+        Noi lavoreremo per la maggior parte con segnali tempo-varianti.
+
+        \vspace{10pt}
+        Determinato il significato, matematico e fisico, del segnale, possiamo procedere a definire una serie di elementi utili nell'analisi di quest'ultimi.
+
+        \begin{definition}[Definizione di supporto]
+            Sia $f: \Omega \subseteq \mathbb{R} \rightarrow \mathbb{R}$ un segnale.
+            Si dice supporto di $f$ il seguente insieme
+            \[
+                S(f) = \overline{\{t \in \Omega \; : \; f(t) \neq 0\}}
+            \]
+        \end{definition}
+
+        In altre parole, il supporto del segnale è la chiusura (nel senso topologico) dell'insieme degli elementi in cui il segnale non è nullo.
+
+        \begin{definition}[Definizione di segnale localmente sommabile]
+            Sia $f: \Omega \subseteq \mathbb{R} \rightarrow \mathbb{R}$ un segnale.
+            Questi si dice localmente sommabile se $\forall \: a < b < \infty \in \Omega$, si ha che
+            \[
+                \int_{a}^{b} \abs{f(t)} \: dt < \infty 
+            \]
+        \end{definition}
+
+        \begin{definition}[Definizione di segnale sommabile]
+            Sia $f: \Omega \subseteq \mathbb{R} \rightarrow \mathbb{R}$ un segnale.
+            Questi si dice sommabile, o assolutamente integrabile, se
+            \[
+                \int_{\Omega} \abs{f(t)} \: dt < \infty 
+            \]
+        \end{definition}
+
+
+    \newpage
+    \section{Teoria delle distribuzioni}
+        Denotiamo con il termine distribuzioni tutti quelli oggetti matematici che si \textit{comportano} come funzioni, ovvero oggetti che mappano un input ad un determinato output.
+        In altre parole, le distribuzioni rappresentano una \textit{generalizzazione} del concetto di funzione.
+        Questi oggetti sono caratterizzati, ovvero sono determinati nella loro interezza, a seconda dell'effetto che hanno, intesi come funzionali lineari, su uno spazio di appositamente scelte funzioni lisce su $\mathbb{R}$, il cui supporto è compatto, chiamate \textit{funzioni di test}.
+
+        \vspace{10pt}
+        \begin{definition}[Definizione di spazio di funzioni di test]
+            Sia $\mathcal{D} = C^{\infty}_{c}(\mathbb{R})$, dove per ogni $\phi \in \mathcal{D}$, si ha che
+            \begin{itemize}
+                \item $\phi$ è infinitamente differenziabile.
+                \item $S(\phi)$ è compatto (per il teorema di Heine-Borel, in $\mathbb{R}^{n}$, questo equivale a dire che $S(\phi)$ è chiuso e limitato).
+            \end{itemize}
+
+            Allora $\mathcal{D}$ è uno spazio vettoriale su $\mathbb{R}$.
+        \end{definition}
+
+        \vspace{10pt}
+        \begin{definition}[Definizione di distribuzione]
+            Una distribuzione $T: \mathcal{D} \rightarrow \mathbb{R}$ è, formalmente, un funzionale lineare continuo (nel senso topologico del termine) definito su uno spazio $\mathcal{D}$ di funzioni di test.
+            In altre parole, essa è un elemento dello spazio duale topologico $\mathcal{D}^{'}$.  
+        \end{definition}
+
+
+        \vspace{10pt}
+        \begin{proposition}
+            Sia $T \in \mathcal{D}^{'}$ una distribuzione.
+            Si definisce $T = 0$ per un insieme $U \subseteq \mathbb{R}$ aperto se $\forall \phi \in \mathcal{D}$ tale per cui $S(\phi) \subseteq U$, si ha che $\langle T, \phi \rangle = 0$.
+            Allora, data una arbitraria unione di insiemi $V = \bigcup \{U_{\alpha}\}_{\alpha \in A}$ tali per cui $T = 0$ per ogni $U_{\alpha}$, si ha che $T = 0$ per $V$.
+        \end{proposition}
+
+        \begin{proof}[Dimostrazione]
+            Si consideri una funzione di test $\phi \in \mathcal{D}$ tale per cui $S(\phi) \subseteq V$.
+            Dato che $S(\phi)$ è un insieme compatto, per Heine-Borel, si ha che, per ogni copertura aperta di $S(\phi)$, questa ammette sottocopertura finita.
+            Di conseguenza, è possibile determinare $k$ elementi di $\{U_{\alpha}\}_{\alpha \in A}$, tali per cui
+            \[
+                S(\phi) \subseteq \bigcup_{i = 1}^{k} U_{i}
+            \]
+            Per ognuno di questi insiemi $U_{i}$ è possibile determinare una funzione di test $\psi_{i}$ tale per cui $S(\psi_{i}) \subseteq U_{i}$ e che $\forall x \in S(\phi), \; \exists \psi_{i} \; | \; \psi_{i}(x) > 0$.
+            Si consideri allora una funzione $\psi_{0} \in C^{\infty}(\mathbb{R})$ tale per cui $\psi_{0}(x) = 0$ per tutti gli $x \in S(\phi)$ e $\psi_{0}(x) > 0$ per tutti gli $x \notin S(\phi)$.
+            Allora
+            \[
+                \kappa(x) = \sum_{i = 0}^{k} \psi_{i}(x) \neq 0, \; \forall x \in \mathbb{R} \implies \frac{1}{\kappa} \in C^{\infty}(\mathbb{R})
+            \]
+            Si può osservare quanto segue
+            \[
+                \rho_{i}(x) = \frac{\psi_{i}(x)}{\kappa(x)} \in C^{\infty}_{c}(U_{i}) 
+            \]
+            Se $x \in S(\phi)$, si ha che
+            \[
+                \sum_{i = 1}^{k} \rho_{i} (x) = \sum_{i = 1}^{k} \frac{\psi_{i}(x)}{\kappa(x)} = \sum_{i = 1}^{k} \frac{\psi_{i}(x)}{\sum_{i = 1}^{k} \psi_{i}(x) + 0} = \frac{\sum_{i = 1}^{k} \psi_{i}(x)}{\sum_{i = 1}^{k} \psi_{i}(x)} = 1
+            \]
+            $\sum_{i = 1}^{k} \rho_{i}(x)$ è una combinazione lineare di funzioni test aventi supporto, rispettivamente, negli insiemi $U_{i}$.
+            Allora
+            \[
+                \phi = \phi \cdot 1 = \phi \cdot \sum_{i = 1}^{k} \rho_{i} = \sum_{i = 1}^{k} \phi \cdot \rho_{i} \implies \langle T, \phi \rangle = \langle T, \sum_{i = 1}^{k} \phi \cdot \rho_{i} \rangle = \sum_{i = 1}^{k} \langle T, \phi \cdot \rho_{i} \rangle
+            \]
+            Dato che $\phi \cdot \rho_{i} \in \mathcal{D}$ e $S(\phi \cdot \rho_{i}) \subseteq U_{i}$
+            \[
+                \sum_{i = 1}^{k} \langle T, \phi \cdot \rho_{i} \rangle = \sum_{i = 1}^{k} 0 = 0
+            \]
+        \end{proof}
+
+        \vspace{10pt}
+        \begin{definition}[Definizione di supporto di una distribuzione]
+            Sia $T \in \mathcal{D}^{'}$ una distribuzione. 
+            Sia allora $V = \bigcup \{U \; : \; U \; \textnormal{aperto tale per cui} \; T = 0\}$.
+            Il supporto di $T$ diventa
+            \[
+                S(T) = \mathbb{R} \setminus V
+            \]
+        \end{definition}
+
+        Le distribuzioni così definite ci conferiscono una serie di proprietà particolarmente comode:
+
+        \begin{itemize}
+            \item Linearità secondo distribuzione: $\langle \alpha T + \beta S, \phi\rangle = \alpha \langle T, \phi \rangle + \beta \langle S, \phi \rangle$
+            \item Linearità secondo funzione di test: $\langle T, \alpha \phi + \beta \psi \rangle = \alpha \langle T, \phi \rangle + \beta \langle T, \psi \rangle$
+        \end{itemize}
+
+        E' importante sottolineare che funzioni localmente integrabili su $\mathbb{R}$ sono a loro volta distribuzioni mediante l'operazione di integrazione.
+        In altre parole, data una funzione localmente $f$ integrabile su $\mathbb{R}$, è possibile definire la seguente distribuzione $F$
+        \[
+            F \in \mathcal{D}^{*}, \; F(\phi) := \int_{\mathbb{R}} f(t) \phi(t) \; dt
+        \]
+
+        In virtù di ciò, definiamo le seguenti operazioni:
+
+        \begin{definition}[Traslazione di distribuzione]
+            Sia $T \in \mathcal{D}^{*}$ una distribuzione.
+            Definiamo la traslazione di $T$ di un $\tau \in \mathbb{R}$ come una distribuzione $T_{\tau}$ tale per cui
+            \[
+                \langle T_{\tau}, \phi \rangle = \langle T, \phi(t - \tau) \rangle
+            \]
+        \end{definition}
+
+        \begin{definition}[Scala di distribuzione]
+            Sia $T \in \mathcal{D}^{*}$ una distribuzione.
+            Definiamo la scala di $T$ secondo un $\alpha > 0$ come una distribuzione $T(\alpha t)$ tale per cui
+            \[
+                \langle T(\alpha t), \phi \rangle = \frac{1}{\alpha} \langle T, \phi(\alpha^{-1} t)\rangle
+            \]
+        \end{definition}
+
+        \begin{definition}{Derivata di distribuzione}
+            Sia $T \in \mathcal{D}^{*}$ una distribuzione.
+            Definiamo la derivata di distribuzione $T^{(n)}$ come 
+            \[
+                \langle T^{(n)}, \phi \rangle = (-1)^{n} \langle T, \phi^{(n)} \rangle
+            \]
+        \end{definition}
+
+        Grazie alla definizione di derivata di distribuzione, possiamo verificare che questo operatore rispetti la regola di Leibnitz.
+        Sia $T \in \mathcal{D}^{*}$ una distribuzione e sia $f \in C^{\infty}(\mathbb{R})$, allora
+        \[
+            \langle (T f)', \phi \rangle = -\langle T f, \phi' \rangle = \langle T, -\phi' f \rangle
+        \]
+        \[
+            \langle T' f + T f', \phi \rangle = \langle T', \phi f \rangle + \langle T, \phi f' \rangle = \langle T, \phi f' - (\phi f)' \rangle = \langle T, \phi f' - \phi f' - \phi' f \rangle = \langle T, - \phi' f \rangle = \langle (T f)', \phi \rangle
+        \]
+
+
+
+    \newpage
+    \section{Operazioni sulle distribuzioni}
+        \begin{definition}[Definizione di convoluzione tra distribuzione e funzione test]
+            Sia $T \in \mathcal{D}^{*}$ una distribuzione e sia $\phi \in \mathcal{D}$ una funzione di test.
+            Si definisce allora la convoluzione $T * \phi$ come segue
+            \[
+                (T * \phi) (x) = \langle T, \tau_{x} \overline{\phi} \rangle
+            \]
+
+            Se $T$ ha supporto compatto, allora anche la risultante convoluzione ha supporto compatto, ed è quindi una funzione di test, ovvero $T * \phi \in \mathcal{D}$.
+        \end{definition}
+
+        \begin{definition}[Definizione di convoluzione fra distribuzioni]
+            Siano $T, S \in \mathcal{D}^{*}$ due distribuzioni tale per cui $S$ ha supporto compatto.
+            Si definisce allora la convoluzione $T * S \in \mathcal{D}^{*}$ come segue
+            \[
+                \langle T * S, \phi \rangle = \langle T, \overline{S} * \phi \rangle = \langle T, \langle \overline{S}, \tau_{x} \overline{\phi} \rangle \rangle = \langle T, \langle S, \tau_{x} \phi \rangle \rangle = \langle T(x), \langle S(y), \phi (x + y) \rangle \rangle
+            \]
+        \end{definition}
+
+        Qualora dovessimo trattare di distribuzioni determinate da segnali regolari, attingiamo alla seguente definizione integrale di convoluzione
+
+        \vspace{10pt}
+        Siano $f, g: \mathbb{R} \rightarrow \mathbb{R}$ due segnali regolari. 
+        Si definisce allora la convoluzione $f * g: \mathbb{R} \rightarrow \mathbb{R}$ fra $f, g$ come
+        \[
+            (f * g) (t) = \int_{-\infty}^{\infty} f(\tau)g(t - \tau) \: d\tau \iff \int_{-\infty}^{\infty} \abs{f(\tau)} \abs{g(t - \tau)} \: d\tau < \infty, \; \forall t \in \mathbb{R}
+        \]
+
+        Alcune delle proprietà della convoluzione sono
+        \begin{enumerate}
+            \item Commutatività:
+            \[
+                f * g = \int_{-\infty}^{\infty} f(\tau) g(t - \tau) \: d\tau = - \int_{\infty}^{-\infty} f(t - u) g(u) \: du = \int_{-\infty}^{\infty} g(u) f(t - u) \: du = g * f
+            \]
+
+            \item Bilinearità:
+            \[
+                (\alpha f + \beta g) * (\lambda h + \mu k) = \alpha \lambda (f * h) + \alpha \mu (f * k) + \beta \lambda (g * h) + \beta \mu (g * k)
+            \]
+
+            \item Neutralità secondo delta di Dirac:
+            \[
+                f * \delta  = f
+            \]
+        \end{enumerate}
+
+
+        \vspace{10pt}
+        Per quanto riguarda i sistemi lineari tempo-invarianti (LTI), la convoluzione rappresenta lo strumento attraverso il quale esprimiamo l'uscita rispetto ad un segnale in ingresso
+        \[
+            x(t) \mapsto y(t) = x * h = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) \: dt
+        \]
+        dove h rappresenta la \textit{risposta all'impulso} del sistema LTI, ovvero la risposta ad una perturbazione assimilabile ad una delta di Dirac.
+
+        \vspace{10pt}
+        Dimostriamo questo fatto nella seguente maniera.
+        Dinanzi tutto, partiamo dal pressupposto che, dato un segnare regolare ad energia finita $x(t)$, si ha che
+        \[
+            x * \delta = x \implies x(t) = \int_{-\infty}^{\infty} x(\tau) \delta(t - \tau) \: d\tau
+        \]
+
+        Possiamo allora rappresentare la risposta del sistema ad un generico segnale in ingresso come un operatore lineare $\mathcal{H}$.
+        Di conseguenza
+        \[
+            y(t) = \mathcal{H}(x(t)) = \mathcal{H}\qty(\int_{-\infty}^{\infty} x(\tau) \delta(t - \tau) \: d\tau)
+        \]
+        per la linearità dell'operatore $\mathcal{H}$
+        \[
+            \mathcal{H}\qty(\int_{-\infty}^{\infty} x(\tau) \delta(t - \tau) \: d\tau) = \int_{-\infty}^{\infty} \mathcal{H}(x(\tau) \delta(t - \tau)) \: d\tau = \int_{-\infty}^{\infty} x(\tau) \mathcal{H}(\delta(t - \tau)) \: d\tau
+        \]
+        denotando la risposta all'impulso di Dirac del sistema come $h(t) = \mathcal{H}(\delta(t))$, si arriva alla conclusione che
+        \[
+            y(t) = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) \: d\tau
+        \]
+
+        \begin{definition}[Definizione di sistema causale]
+            Sia $h(t): \mathbb{R} \rightarrow \mathbb{R}$ la risposta all'impulso di un sistema LTI.
+            Il sistema si dice causale se il supporto di $h$ è contenuto in $[0, +\infty)$ e, dato un segnale regolare $x(t)$ in ingresso, vale la seguente relazione
+            \[
+                \int_{-\infty}^{\infty} x(\tau) h(t - \tau) \: d\tau = \int_{-\infty}^{t} x(\tau) h(t - \tau) \: d\tau
+            \]
+        \end{definition}
+
+        
+        
+    \newpage
+    \section{Trasformata di Fourier}
+        Sia $x(t) \in L^{1}(\mathbb{R})$ un segnale.
+        Si definisce la sua trasformata di Fourier nel seguente modo
+        \[
+            \hat{x}(\omega) = \int_{-\infty}^{\infty} x(t)e^{-i \omega t} \: dt
+        \]
+
+        Dimostriamo allora come è possibile ottenere $\hat{x}$ a partire da una serie di Fourier.
+        Si immagini di considerare $x(t)$ come fosse un segnale periodico a periodo $\mathbb{R}$.
+        Di conseguenza, questi ha una serie di Fourier i cui coefficienti sono dati da
+        \[
+            c_{k} = \frac{1}{T} \int_{-T/2}^{T/2} x(t) e^{-i k \omega_{0} t} \: dt \implies T c_{k} \int_{-T/2}^{T/2} x(t) e^{-i k \omega_{0} t} \: dt
+        \]
+
+        Prendendo il limite per $T \rightarrow \infty$, si ha che
+        \[
+            \lim_{T \rightarrow \infty} (T c_{k}) = \lim_{T \rightarrow \infty} \; \int_{-T/2}^{T/2} x(t) e^{-i k \omega_{0} t} \: dt = \int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt = \hat{x}(\omega)
+        \]
+
+        \vspace{10pt}
+        Alcune delle proprietà principali della trasformata di Fourier sono:
+        \begin{enumerate}
+            \item Linearità:
+            \[
+                \mathcal{F}\{x + h\} = \int_{-\infty}^{\infty} (x(t) + h(t)) e^{-i \omega t} \: dt = \int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt + \int_{-\infty}^{\infty} h(t) e^{-i \omega t} \: dt = \mathcal{F}\{x\} + \mathcal{F}\{h\}
+            \]
+            \item Modulazione del segnale in ingresso:
+            \[
+                \mathcal{F}(x(t) e^{i \omega_{0} t}) = \int_{-\infty}^{\infty} x(t) e^{i (\omega_{0} - \omega) t} \: dt = \mathcal{F}\{x\}(\omega - \omega_{0})
+            \]
+            \item Traslazione del segnale in ingresso:
+            \[
+                \mathcal{F}\{x(t - t_{0})\} = \int_{-\infty}^{\infty} x(t - t_{0}) e^{-i \omega t} \: dt = \int_{-\infty}^{\infty} x(u) e^{-i \omega (u + t_{0})} \: dt = e^{-i \omega t_{0}} \mathcal{F}\{x(t)\}
+            \]
+            \item Riscalamento del segnale in ingresso:
+            \[
+                \forall \alpha \neq 0, \; \mathcal{F}\{x(\alpha t)\} = \int_{-\infty}^{\infty} x(\alpha t) e^{-i \omega t} \: dt = \frac{1}{\alpha} \int_{-\infty}^{\infty} x(u) e^{-i \omega \frac{u}{\alpha}} \: dt = \frac{1}{\alpha} \mathcal{F}\{x\}\qty(\frac{\omega}{\alpha})
+            \]
+
+            \item Derivata del segnale in ingresso: Sia $x(t) \in L^{1}(\mathbb{R})$ tale per cui $x'(t) \in L^{1}(\mathbb{R})$
+            \[
+                \mathcal{F}\{x'(t)\} = \int_{-\infty}^{\infty} x'(t) e^{-i \omega t} \: dt = x(t) e^{-i \omega t} \rvert_{-\infty}^{\infty} - (-i \omega) \int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt
+            \]
+            In virtù del fatto che $x(t)$ abbia derivata in $L^{1}(\mathbb{R})$, si ha che per $t \rightarrow \pm \infty$, $x(t) \rightarrow 0$, quindi
+            \[
+                \mathcal{F}\{x'(t)\} = 0 + i \omega \int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt = i \omega \mathcal{F}\{x(t)\}
+            \]
+
+            \item Derivata di trasformata:
+            \[
+                \mathcal{F}'\{x(t)\}(\omega) = \frac{d}{d\omega} \int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt = \int_{-\infty}^{\infty} x(t) \frac{d}{d\omega} e^{-i \omega t} \: dt = \int_{-\infty}^{\infty} x(t) \cdot -it e^{-i \omega t} \: dt
+            \]
+            \[
+                = -i \int_{-\infty}^{\infty} (t \cdot x(t)) e^{-i \omega t} \: dt = -i \mathcal{F}\{t x(t)\}
+            \]
+
+            \item Convoluzione di segnali in ingresso:
+            \[
+                \mathcal{F}\{x(t) * y(t)\} = \int_{-\infty}^{\infty} \qty(\int_{-\infty}^{\infty} x(\tau) y(t - \tau) \: d\tau) e^{-i \omega t} \: dt = \int_{-\infty}^{\infty} x(\tau) \qty[\int_{-\infty}^{\infty} y(t - \tau) e^{-i \omega t} \: dt] \: d\tau = 
+            \]
+            \[
+                \int_{-\infty}^{\infty} x(\tau) \qty[\int_{-\infty}^{\infty} y(u) e^{-i \omega (u + \tau)} \: du] \: d\tau = \int_{-\infty}^{\infty} x(\tau) e^{-i \omega \tau} \: d\tau \int_{-\infty}^{\infty} y(u) e^{-i \omega u} \: du = \mathcal{F}\{x(t)\} \mathcal{F}\{y(t)\}
+            \]
+        \end{enumerate}
+
+        \vspace{10pt}
+        Un'altra peculiare proprietà della trasformata di Fourier è la seguente, ovvero
+        \[
+            \mathcal{F}\{x(-t)\}(\omega) = \mathcal{F}\{x(t)\}(-\omega)
+        \]
+        La cui dimostrazione è suggerita dal fatto che
+        \[
+            \mathcal{F}\{x(-t)\} = \int_{-\infty}^{\infty} x(-t) e^{-i \omega t} \: dt = \int_{-\infty}^{\infty} x(u) e^{-i (-\omega) u} \: du = \mathcal{F}\{x(u)\}(-\omega)
+        \]
+
+        \vspace{10pt}
+        \begin{lemma}[Lemma di Riemann-Lebesgue]
+            Sia $x(t) \in L^{1}(\mathbb{R})$ un segnale assolutamente integrabile tale per cui $x'(t) \in L^{1}(\mathbb{R})$. 
+            Allora
+            \[
+                \lim_{\omega \rightarrow \pm \infty} \hat{x}(\omega) = 0
+            \]
+        \end{lemma}
+
+        \begin{proof}[Dimostrazione]
+            Si consideri l'espressione intera della trasformata 
+            \[
+                \hat{x}(\omega) = \int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt \implies \abs{\int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt} \leq \int_{-\infty}^{\infty} |x(t)| |e^{-i \omega t}| \: dt \leq \int_{-\infty}^{\infty} |x(t)| \: dt < \infty, \; \forall \omega \in \mathbb{R}
+            \]
+
+            Applicando l'integrazione per parti e opportunamente scegliendo $dv = e^{-i \omega t} \: dt$, $u = x(t)$, si ottiene
+            \[
+                \int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt = x(t) e^{-i \omega t} \left. \frac{1}{-i \omega} \right\rvert_{-\infty}^{\infty} + \frac{1}{i \omega} \int_{-\infty}^{\infty} x'(t) e^{-i \omega t} \: dt 
+            \]
+            \[
+                = \frac{1}{i \omega} \qty[-x(t) e^{-i \omega t} \rvert_{-\infty}^{\infty} + \int_{-\infty}^{\infty} x'(t) e^{-i \omega t} \: dt]
+            \]
+
+            Osservando attentamente il comportamento di $x'(t)$, si ha
+            \[
+                x'(t) \in L^{1}(\mathbb{R}) \implies -x(t) e^{-i \omega t} \rvert_{-\infty}^{\infty} = 0, \forall \omega \in \mathbb{R}
+            \]
+
+            Per quanto riguarda il termine integrale, invece
+            \[
+                \int_{-\infty}^{\infty} x'(t) e^{-i \omega t} \: dt = \mathcal{F}\{x'(t)\}(\omega) \implies \abs{\mathcal{F}\{x'(t)\}(\omega)} < \infty, \; \forall \omega \in \mathbb{R}
+            \]
+
+            La somma diventa allora
+            \[
+                -x(t) e^{-i \omega t} \rvert_{-\infty}^{\infty} + \int_{-\infty}^{\infty} x'(t) e^{-i \omega t} \: dt = 0 + z, \; |z| < M, \; \forall \omega \in \mathbb{R}
+            \]
+        
+            per qualche $M \in \mathbb{R}$. Mettendo il tutto assieme, si ottiene
+            \[
+                \lim_{\omega \rightarrow \pm \infty} \hat{x}(\omega) = \lim_{\omega \rightarrow \pm \infty} \frac{1}{i \omega} \cdot z = 0
+            \]
+        \end{proof}
+
+        \subsection{Antitrasformata di Fourier}
+            \begin{theorem}[Esistenza dell'antitraformata]
+                Sia $x(t) \in L^{1}(\mathbb{R})$ continua, e sia la sua traformata $\mathcal{F}\{x(t)\}$ a sua volta in $L^{1}(\mathbb{R})$.
+                Allora $\mathcal{F}\{x(t)\}$ è antitrasformabile con antitrasformata
+                \[
+                    x(t) = \frac{1}{2 \pi} \int_{-\infty}^{\infty} \mathcal{F}\{x(t)\} e^{i \omega t} \: d\omega = \frac{1}{2 \pi} \mathcal{F}\{\mathcal{F}\{x(t)\}\}(-t)
+                \]
+            \end{theorem}
+
+        \subsection{Estensione della trasformata di Fourier alle distribuzioni}
+            Sia $x(t) \in L^{1}(\mathbb{R})$, e sia $\hat{x}(\omega)$ la sua trasformata.
+            Si ricordi che, conseguenza del fatto che $x(t)$ sia assolutamente integrabile si ottiene
+            \[
+                \hat{x}(\omega) = \int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt \implies \abs{\int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt} \leq \int_{-\infty}^{\infty} |x(t)| |e^{-i \omega t}| \: dt \leq \int_{-\infty}^{\infty} |x(t)| \: dt < \infty, \; \forall \omega \in \mathbb{R}
+            \]
+
+            Allora, data una $\phi \in \mathcal{D}$
+            \[
+                \abs{\phi(\omega) \hat{x}(\omega)} \leq k \abs{\phi(\omega)}
+            \]
+
+            Dato che la funzione $\phi(\omega) \hat{x}(\omega)$ è limitata e possiede un supporto compatto, essa è a sua volta assolutamente integrabile ($\phi(\omega) \hat{x}(\omega) \in L^{1}(\mathbb{R})$).
+            Adesso, è necessario introdurre un nuovo spazio di funzioni:
+
+            \begin{definition}[Spazio di Schwartz]
+                Lo spazio di Schartz (anche chiamato lo spazio delle funzioni "rapidamente decrescenti") è lo spazio complesso $\mathcal{S}$ di tutte le funzioni complesse di classe $C^{\infty}(\mathbb{R})$ tali per cui
+                \[
+                    \psi \in \mathcal{S} \implies \lim_{t \rightarrow \pm \infty} \psi^{(n)}(t)Q(t) = 0, \; \forall Q \in \mathbb{R}[t], \; \forall n \in \mathbb{N}
+                \]
+            \end{definition}
+
+            Armati di questa nuova definizione, prendiamo allora in considerazione il funzionale lineare $\langle \hat{x}, \cdot \rangle \in \mathcal{S}^{*}$
+            \[
+                \langle \hat{x}, \phi \rangle = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt \: \phi(\omega) \: d\omega = \int_{-\infty}^{\infty} x(t) \int_{-\infty}^{\infty} e^{-i \omega t} \phi(\omega) \: d\omega \: dt = \int_{-\infty}^{\infty} x(t) \hat{\phi}(t) \: dt = \langle x, \hat{\phi} \rangle
+            \]
+
+            Questo ci permette di definire la trasformata di Fourier per le distribuzioni, nello specifico distribuzioni temperate, ovvero i funzionali lineari nello spazio di Schwartz ($\mathcal{S}^{*}$).
+
+            \vspace{10pt}
+            Inoltre, è possibile dimostrare la formula di inversione anche per la trasformata di distribuzione
+            \[
+                \frac{1}{2 \pi} \langle \hat{\hat{x}}(-t), \phi \rangle = \frac{1}{2 \pi} \langle \hat{x}, \hat{\phi}(-t) \rangle = \langle x, \frac{1}{2 \pi} \hat{\hat{\phi}}(-t) \rangle = \langle x, \phi \rangle
+            \]
+            Di conseguenza, seguono, nelle trasformate di distribuzioni, tutte le proprietà delle trasformate di Fourier su funzioni assolutamente integrabili.
+
+            Alcune trasformate di distribuzioni note sono:
+            \begin{enumerate}
+                \item $\displaystyle \mathcal{F}\{u(t)\} = \PV \qty{\frac{1}{i \omega}} + \pi \delta(\omega)$
+                \item $\displaystyle \mathcal{F}\{\delta(t)\} = 1$
+            \end{enumerate}
+
+\end{document}

@@ -1,0 +1,182 @@
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{titling}
+\usepackage{graphicx}
+\usepackage{tikz-cd}
+\usepackage{nameref}
+\usepackage{fancyhdr}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{refcount}
+
+% \tikzcdset{scale cd/.style={every label/.append style={scale=#1},
+%     cells={nodes={scale=#1}}}}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{osservazione}{Osservazione}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposizione}
+\newtheorem{definition}{Definizione}
+
+\setlength{\parindent}{0pt}
+\newcommand{\mfrac}[2]{\displaystyle\frac{#1}{#2}}
+
+\begin{document}
+
+\section{Integrali di linea}
+    Data una curva $\gamma: I \subset \mathbb{R} \rightarrow \mathbb{R}^{n}$ di classe $C^{1}$ si definiscono due tipi di integrali di linea lungo $\gamma$:
+    \begin{itemize}
+        \item Integrale di linea di una funzione scalare: Data $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$, allora $\displaystyle \int_{\gamma} f$
+        \item Integrale di linea di un campo vettoriale: Dato $\mathbf{F}: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$, allora $\displaystyle \int_{\gamma} \mathbf{F}$
+    \end{itemize}
+
+    \subsection{Integrale di linea di I specie}
+        Dato un campo scalare $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ continuo e una curva $\gamma: [a, b] \subset \mathbb{R} \rightarrow \mathbb{R}^{n}$ di classe $C^{1}$, si definisce integrale di linea di I specie la seguente espressione
+        \[
+            \int_{\gamma} f = \int_{a}^{b} f(\gamma(t)) || \gamma'(t) || dt
+        \]
+    
+        Si consideri una generica curva $\overline{\gamma}$ data dalla composizione di $\gamma$ con l'orologio $\varphi: [\alpha, \beta] \rightarrow [a, b]$ di classe $C^{1}$ biettivo.
+        Sia $\overline{\gamma}$ equivalente o antiequivalente a $\gamma$, si ha comunque che
+        \[
+            \int_{\overline{\gamma}} f = \int_{\alpha}^{\beta} f(\gamma(\varphi(t))) \: || \gamma'(\varphi(t)) \: \varphi'(t)|| dt
+        \]
+        Se $\varphi' > 0$, allora
+        \[
+            \int_{\alpha}^{\beta} f(\gamma(\varphi(t))) \: || \gamma'(\varphi(t)) \: \varphi'(t)|| dt = \int_{\alpha}^{\beta} f(\gamma(\varphi(t))) \: || \gamma'(\varphi(t)) || \: \varphi'(t) dt = \int_{a}^{b} f(\gamma(\varphi)) \: || \gamma'(\varphi) || \: d\varphi = \int_{\gamma} f
+        \]
+        Se $\varphi' < 0$, allora
+        \[
+            \int_{\alpha}^{\beta} f(\gamma(\varphi(t))) \: || \gamma'(\varphi(t)) \: \varphi'(t)|| dt = -\int_{\alpha}^{\beta} f(\gamma(\varphi(t))) \: || \gamma'(\varphi(t)) || \: \varphi'(t) dt = \int_{a}^{b} f(\gamma(\varphi)) \: || \gamma'(\varphi) || \: d\varphi = \int_{\gamma} f
+        \]
+    
+    \subsection{Integrale di linea di II specie}
+        Dato un campo vettoriale $\mathbf{F}: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$ continuo e una curva $\gamma: [a, b] \subset \mathbb{R} \rightarrow \mathbb{R}^{n}$ di classe $C^{1}$, si definisce integrale di linea di II specie la seguente espressione
+        \[
+            \int_{\gamma} \mathbf{F} = \int_{a}^{b} \mathbf{F}(\gamma(t)) \cdot \gamma'(t) \: dt = \int_{a}^{b} \sum_{i = 1}^{n} F_{i}(\gamma(t)) \: \gamma'_{i}(t) \: dt
+        \]
+        Si consideri una generica curva $\overline{\gamma}$ data dalla composizione di $\gamma$ con l'orologio $\varphi: [\alpha, \beta] \rightarrow [a, b]$ di classe $C^{1}$ biettivo.
+        Sia $\overline{\gamma}$ equivalente o antiequivalente a $\gamma$, si ha comunque che
+        \[
+            \int_{\overline{\gamma}} \mathbf{F} = \int_{\alpha}^{\beta} \left[ \mathbf{F}(\gamma(\varphi(t))) \cdot \gamma'(\varphi(t)) \right]\: \varphi'(t) dt
+        \]
+        Se $\varphi' > 0$, allora
+        \[
+            \int_{\alpha}^{\beta} \left[ \mathbf{F}(\gamma(\varphi(t))) \cdot \gamma'(\varphi(t)) \right]\: \varphi'(t) dt = \int_{a}^{b} \mathbf{F}(\gamma(\varphi)) \cdot \gamma'(\varphi) \: d\varphi = \int_{\gamma} \mathbf{F}
+        \]
+        Se $\varphi' < 0$, allora
+        \[
+            \int_{\alpha}^{\beta} \left[ \mathbf{F}(\gamma(\varphi(t))) \cdot \gamma'(\varphi(t)) \right]\: \varphi'(t) dt = \int_{b}^{a} \mathbf{F}(\gamma(\varphi)) \cdot \gamma'(\varphi) \: d\varphi = -\int_{\gamma} \mathbf{F}
+        \]
+    
+        \subsubsection{Circuitazione di un campo vettoriale}
+            Sia $\mathbf{F}: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$ un campo vettoriale continuo e sia $\gamma: [a, b] \subset \mathbb{R} \rightarrow \mathbb{R}^{n}$ una curva di classe $C^{1}$ chiusa.
+            Allora
+            \[
+                \oint_{\gamma} \mathbf{F} = \int_{\gamma} \mathbf{F} 
+            \]
+            si chiama circuitazione di $\mathbf{F}$ lungo $\gamma$.
+        
+
+\newpage
+\section{Integrali di superficie}
+    \subsection{Definizione di superficie in $\mathbb{R}^{3}$}
+        Una superficie $\sigma$ è una mappa della forma $\sigma: D \subset \mathbb{R}^{2} \rightarrow \mathbb{R}^{3}$ che assegna ad ogni punto $(u, v)$ del dominio $D$ un punto in $\mathbb{R}^{3}$.
+        L'area di un elemento infinitesimo di superficie in $\mathbb{R}^{3}$ è data dal prodotto fra le derivate parziali della mappa moltiplicate per i rispettivi cambiamenti infinitesimi
+        \[
+            d\Sigma = \left|\left| \frac{\partial \sigma}{\partial u} \times \frac{\partial \sigma}{\partial v} \right|\right| \: du \: dv
+        \]
+
+        Il supporto della superficie è $\Sigma = \{ \sigma(u, v) \; ; \; (u, v) \in D \}$, mentre il vettore normale alla superficie in un punto $(u_{0}, v_{0})$ è dato da
+        \[
+            \mathbf{\hat{N}}|_{(u_{0}, v_{0})} = \frac{\partial \sigma}{\partial u} \times \frac{\partial \sigma}{\partial y}, \quad \text{con} \; \frac{\partial \sigma}{\partial \{u, v\}} = \frac{\partial \sigma_{x}}{\partial \{u, v\}} \mathbf{i} + \frac{\partial \sigma_{y}}{\partial \{u, v\}} \mathbf{j} + \frac{\partial \sigma_{z}}{\partial \{u, v\}} \mathbf{k}
+        \]
+        quindi l'area infinitesima diventa
+        \[
+            d\Sigma = ||\mathbf{\hat{N}}|| \: du dv
+        \]
+
+        \vspace{10pt}
+        \subsubsection{Superfici cartesiane}
+            Una superficie cartesiana è una superficie generata dal grafico di una funzione a due variabili, ovvero
+            \[
+                \sigma: \mathbb{R}^{2} \rightarrow \mathbb{R}^{3}
+            \]
+            \[
+                (x, y) \mapsto (x, y, f(x, y))
+            \]
+
+            Il cui vettore normale è dato da
+            \[
+                \mathbf{\hat{N}} = \frac{\partial \sigma}{\partial x} \times \frac{\partial \sigma}{\partial y} = \det\left( \begin{bmatrix} 
+                    \mathbf{i} & \mathbf{j} & \mathbf{k} \\
+                    1 & 0 & \partial_{x} f \\
+                    0 & 1 & \partial_{y} f
+                \end{bmatrix}\right) = (-\partial_{x} f, -\partial_{y} f, 1)
+            \]
+            \[
+                ||\mathbf{\hat{N}}|| = \sqrt{\displaystyle \left( -\frac{\partial f}{\partial x} \right)^{2} + \left( -\frac{\partial f}{\partial y} \right)^{2} + 1} = \sqrt{||\nabla f(x, y)||^{2} + 1}
+            \]
+
+        \vspace{10pt}
+        \subsubsection{Equivalenza ed antiequivalenza delle superfici}
+            Due superfici $\sigma_{1}: D \rightarrow \mathbb{R}^{3}$ e $\sigma_{2}: D' \rightarrow \mathbb{R}^{3}$ che hanno lo stesso supporto e fra cui esiste una riparametrizzazione $\Phi: D' \rightarrow D$ biettiva e di classe $C^{1}$ tale che
+            \[
+                \forall (u, v) \in D', \;\; \sigma_{1}(\Phi(u, v)) = \sigma_{2}(u, v)
+            \]
+            sono dette:
+            \begin{itemize}
+                \item Equivalenti, se $\det(J_{\Phi}) > 0$, 
+                \item Antiequivalenti, se $\det(J_{\Phi}) < 0$, 
+            \end{itemize}
+        
+        \vspace{10pt}
+        \subsubsection{Superfici orientabili}
+            Una superficie $\sigma: D \subset \mathbb{R}^{2} \rightarrow \mathbb{R}^{3}$ con supporto $\Sigma = \sigma(D)$ si dice orientabile se per quasiasi curva $\gamma: [a, b] \rightarrow \Sigma$ chiusa si ha che
+            \[
+                \lim_{t \rightarrow b^{-}} \mathbf{\hat{n}}(\gamma(t)) = \mathbf{\hat{n}}(\gamma(a))
+            \]
+
+    \subsection{Integrale di superficie della prima specie}
+        Dato un campo scalare $f: K \subset \mathbb{R}^{3} \rightarrow \mathbb{R}$ e una superficie $\sigma: D \subset \mathbb{R}^{2} \rightarrow \mathbb{R}^{3}$ di supporto $\Sigma$, si definisce integrale di superficie della prima specie la seguente espressione 
+        \[
+            \int_{\Sigma} f(x, y, z) = \iint_{D} f(\sigma(u, v)) \: \left|\left| \frac{\partial \sigma}{\partial u} \times \frac{\partial \sigma}{\partial v} \right|\right| du dv
+        \]
+        ovvero la somma di $f$ lungo $\sigma$ pesata secondo l'area di $\sigma$.
+
+        \vspace{10pt}
+        Sia $\sigma'$ una riparametrizzazione di $\sigma$ secondo un cambio di variabile $\Phi: D' \rightarrow D$ biettivo di classe $C^{1}$.
+        Indipendentemente dal fatto che $\sigma'$ sia equivalente o antiequivalente a $\sigma$, si ha che
+        \[
+            \int_{\Sigma'} f(x, y, z) = \iint_{D'} f(\sigma(\Phi(u, v))) \: \left|\left| \frac{\partial \sigma}{\partial u} \times \frac{\partial \sigma}{\partial v} \right|\right| | \det(J_{\Phi}) | du dv = \int_{\Sigma} f(x, y z)
+        \]
+
+    \vspace{10pt}
+    \subsection{Integrale di superficie della seconda specie o flusso di un campo vettoriale}
+        Dato un campo vettoriale $\mathbf{F}: K \subset \mathbb{R}^{3} \rightarrow \mathbb{R}^{3}$ e una superficie $\sigma: D \subset \mathbb{R}^{2} \rightarrow \mathbb{R}^{3}$ di supporto $\Sigma$, si definisce integrale di superficie della seconda specie, o flusso di $\mathbf{F}$ circa $\sigma$, la seguente espressione 
+        \[
+            \int_{\Sigma} \mathbf{F} \cdot d\mathbf{A} = \iint_{D} \mathbf{F}(\sigma(u, v)) \cdot \mathbf{\hat{N}}(u, v) \: du dv = \iint_{D} \mathbf{F}(\sigma(u, v)) \cdot \left( \frac{\partial \sigma}{\partial u} \times \frac{\partial \sigma}{\partial v} \right) \: du dv
+        \]
+    
+        \vspace{10pt}
+        Sia $\sigma'$ una riparametrizzazione di $\sigma$ secondo un cambio di variabile $\Phi: D' \rightarrow D$ biettivo di classe $C^{1}$.
+        A seconda del fatto che $\sigma'$ sia equivalente o antiequivalente a $\sigma$, si ha che
+        \[
+            \int_{\Sigma'} \mathbf{F} \cdot d\mathbf{A} = \iint_{D'} \mathbf{F}(\sigma(\Phi(u, v))) \cdot \mathbf{\hat{N}}(\Phi(u, v))  \det(J_{\Phi}) \: du dv
+        \]
+
+        se $\det(J_{\Phi}) > 0$, allora
+        \[
+            \iint_{D'} \mathbf{F}(\sigma(\Phi(u, v))) \cdot \mathbf{\hat{N}}(\Phi(u, v))  \det(J_{\Phi}) \: du dv = \iint_{D} \mathbf{F}(\sigma(\Phi)) \cdot \mathbf{\hat{N}}(\Phi) d \Phi = \int_{\Sigma} \mathbf{F} \cdot d \mathbf{A}
+        \]
+
+        se invece $\det(J_{\Phi}) < 0$, allora
+        \[
+            \iint_{D'} \mathbf{F}(\sigma(\Phi(u, v))) \cdot \mathbf{\hat{N}}(\Phi(u, v))  \det(J_{\Phi}) \: du dv = - \iint_{D} \mathbf{F}(\sigma(\Phi)) \cdot \mathbf{\hat{N}}(\Phi) d \Phi = - \int_{\Sigma} \mathbf{F} \cdot d \mathbf{A}
+        \]
+
+\end{document}

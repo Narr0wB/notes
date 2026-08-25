@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage[a4paper, margin=1in]{geometry}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corollario}[theorem]
+
+\begin{document}
+\setlength{\parindent}{0pt}
+
+\section{Teorema della dimensione}
+\begin{theorem}[Teorema della dimensione]
+    Sia $f : V \rightarrow W$ un'applicazione lineare fra due spazi vettoriali sussistenti su un campo $F$, allora $\dim(\textnormal{Im}(f)) + \dim(\ker(f)) = \dim(V)$.
+\end{theorem}
+
+\begin{proof}[Dimostrazione] 
+    Sia $B = \{ \mathbf{b_1}, ..., \mathbf{b_n} \}$ una base di $V$. Allora, per il teorema dell'immagine di base, si ha che $f(B) = \{f(\mathbf{b_1}), ..., f(\mathbf{b_n})\}$ è un generatore di $\textnormal{Im}(f)$. 
+    
+    \vspace{10pt}
+    Sia $U = \{ \mathbf{u} \in f(B) \; | \; \mathbf{u} \; \textnormal{è linearmente indipendente} \}$ e $K = f(B) \setminus U$. Intuitivamente, $U$ è una base di $\textnormal{Im}(f)$, e quindi
+    $\forall \mathbf{w} \in \textnormal{Im}(f) \; \exists a_1, ..., a_s \in F \; | \; \mathbf{w} = a_1 \mathbf{u_1} + ... + a_s \mathbf{u_s}$. Inoltre, è possibile osservare che:
+    \[
+        V = \mathcal{V}_U \oplus \mathcal{V}_K \; \textnormal{dove} \;\: \mathcal{V}_U = \textnormal{span}\{\mathbf{b} \in B \; | \; f(\mathbf{b}) \in U\} \; \textnormal{e} \; \mathcal{V}_K = \textnormal{span}\{\mathbf{b} \in B \; | \; f(\mathbf{b}) \in K\} 
+    \]
+    Dunque è possibile esprimere ogni generico vettore $\mathbf{v} \in V$ come $\mathbf{v} = \mathbf{v}_U + \mathbf{v}_K$ dove $\mathbf{v}_U \in \mathcal{V}_U$ e $\mathbf{v}_K \in \mathcal{V}_K$.
+    Non è difficile dimostrare che $\mathcal{V}_U$ è isomorfo a $\textnormal{Im}(f)$, infatti:
+    \[
+        \forall \mathbf{v}_U \in \mathcal{V}_U, \; f(\mathbf{v}_U) = f(\sum_{f(\mathbf{b_i}) \in U} a_i \mathbf{b_i}) = \sum_{f(\mathbf{b_i}) \in U} a_i f(\mathbf{b_i})
+    \]
+    Dato che $U$ è una base di $\textnormal{Im}(f)$, per ogni generico $\mathbf{v}_U \in \mathcal{V}_U$ la scomposizione secondo $U$ di $f(\mathbf{v}_U)$ è unica (teorema dell'unicità della scomposizione), innestando una biezione fra $\mathcal{V}_U$ e $\textnormal{Im}(f)$. Allora $\dim(\textnormal{Im}(f)) = \dim(\mathcal{V}_U) = |U|$.
+
+    \vspace{10pt}
+    Si prenda in considerazione il kernel di $f$, ovvero l'insieme di tutti i vettori in $V$ che soddisfano:
+    \[
+        f(\mathbf{v}) = f(\mathbf{v}_U + \mathbf{v}_K) = \mathbf{0}_W \implies f(\mathbf{v}_U) = -f(\mathbf{v}_K) 
+    \]
+
+    Anche in questo caso non è difficile trovare una biezione lineare fra $\mathcal{V}_K$ e $\ker(f)$, in quanto:
+    \[
+        \forall \mathbf{v}_K \in \mathcal{V}_K \; \textnormal{esiste uno e un solo} \; \mathbf{v}_U \in \mathcal{V}_U \; | \; f(\mathbf{v}_U) = -f(\mathbf{v}_K) \implies \; \exists \mathbf{v} = \mathbf{v}_U + \mathbf{v}_K \in \ker(f)
+    \]
+    Allora si ha che $\dim(\ker(f)) = \dim(\mathcal{V}_K) = |K|$.
+
+    \vspace{10pt}
+    Infine, $|B| = |f(B)| = |U| + |f(B) \setminus U| \implies |B| = |U| + |K| \implies \dim(V) = \dim(\textnormal{Im}(f)) + \dim(\ker(f))$
+\end{proof}
+
+\end{document}

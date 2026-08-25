@@ -1,0 +1,1168 @@
+\documentclass{book}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{titling}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{nameref}
+\usepackage{fancyhdr}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{refcount}
+\usepackage{fancyvrb}
+\usepackage{titlesec}
+\usepackage{physics}
+
+\graphicspath{{./assignment1/plots}, {./assignment2/plots}}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{osservazione}{Osservazione}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposizione}
+\newtheorem{definition}{Definizione}
+
+\titleformat*{\section}{\Large\bfseries}
+
+\setlength{\parindent}{0pt}
+\newcommand{\mfrac}[2]{\displaystyle\frac{#1}{#2}}
+
+\title{Electronic Devices: Laboratory Assignments Report}
+\author{Ilias El Fourati (s338295)}
+\date{}
+
+\begin{document}
+    \maketitle
+
+    \chapter*{Assignment 1}
+        \stepcounter{chapter}
+
+        \vspace{10pt}
+        \section{Parameters}
+            Given $n = 5$, $s = 9$ and student number s338295, the parameters for this assignment are as follows:
+
+            \begin{center}
+                \renewcommand{\arraystretch}{1.8}
+                \begin{tabular}{ | m{4.5cm} | m{7.5cm} | m{2.5cm} | }
+                    \hline 
+                        \textbf{Variable} & \textbf{Expression} & \textbf{Value} \\
+                    \hline
+                        Doping type & If $(n + s) \mod 2$ = 0, then n-type, else p-type & 0 (n-type) \\ 
+                    \hline
+                        Doping amount ($N_{D}$) & $N_{D} = (s \mod 9 + 1) \cdot 10^{16} \; \text{cm}^{-3}$ & $1 \cdot 10^{16} \; \text{cm}^{-3}$ \\
+                    \hline 
+                        Width ($w$) & $w = (n + s) \cdot (8 + 2 + 9 + 5) \; \mu\text{m}$ & $336 \; \mu\text{m}$ \\
+                    \hline
+                        Height ($y$) & $y = s \cdot (3 + 3) \; \mu\text{m}$ & $54 \; \mu\text{m}$ \\ 
+                    \hline
+                        Bias ($V_{b_0}$) & $\displaystyle V_{b_0} = \frac{n}{s}$ V (rounded to the first decimal digit) & 0.5 V \\[4pt]
+                    \hline
+                        Energy gap ($E_{g}$) at 300K & Material constant & 1.12 eV \\
+                    \hline
+                        Energy gap ($E_{g}\vert_{600K}$) at 600K & Material constant & 1.037 eV \\
+                    \hline
+                        Average electron lifetime ($\tau_{n}$) & Material constant & $1 \cdot 10^{-6}$ s \\
+                    \hline
+                        Average hole lifetime ($\tau_{p}$) & Material constant & $1 \cdot 10^{-6}$ s \\
+                    \hline
+                        Electron mobility ($\mu_{n}$) at 300K & Material constant & $1258 \; \text{cm}^{2}/$Vs \\
+                    \hline
+                        Hole mobility ($\mu_{p}$) at 300K & Material constant & $446 \; \text{cm}^{2}/$Vs \\
+                    \hline
+                        Intrinsic carrier concentration at 300K ($n_i$) & $n_{i} = \sqrt{N_{c}N_{v}}\exp\left(-\frac{E_{g}}{2k_{B}(T = 300K)}\right) \; \text{cm}^{-3}$  &  $1.01 \cdot 10^{10} \; \text{cm}^{-3}$ \\
+                    \hline
+                        Intrinsic carrier concentration at 600K ($n_i \vert_{600K}$) & $n_{i} \vert_{600K} = \sqrt{N_{c}N_{v}}\exp\left(-\frac{E_{g}}{2k_{B}(T = 600K)}\right) \; \text{cm}^{-3}$ & $3.4 \cdot 10^{15} \; \text{cm}^{-3}$ \\
+                    \hline
+                        Optical generation rate ($G_{\text{opt}}$) & $G_{\text{opt}} = s \cdot 10^{a} \; \text{cm}^{-3}\text{s}^{-1}$, with $a = 20 + (ns \mod 3)$ & $9 \cdot 10^{20} \; \text{cm}^{-3}\text{s}^{-1}$ \\
+                    \hline 
+                        Reduced width ($w_{r}$) & $s \; \mu$m & $9 \; \mu$m \\
+                    \hline 
+                \end{tabular}
+                \renewcommand{\arraystretch}{1}
+            \end{center}
+
+        \vspace{30pt}
+        \section{Preliminaries and methodology}
+            We are tasked with analyzing a sample of semiconducting, n-type doped silicon at a temperature of 300K.
+            The concentration of dopant is equal to $N_D$ (refer to the Parameters section for values).
+            Here is an ordered list of what is asked of us:
+
+            \begin{enumerate}[label=(QA\arabic*), leftmargin=1.5cm]
+                \item Assuming equilibrium conditions, plot the energy band diagram obtained by means of simulation and compare energy differences $E_{c} - E_{f}$, $E_{f} - E_{v}, E_{f} - E_{f_i}$ with theoretical results.
+                \item Assuming equilibrium conditions, plot electron and hole concentrations obtained by means of simulation and compare with theoretical results.
+                \item Assuming positive bias $V_{b_0}$:
+                    \begin{enumerate}[label=(QA3.\arabic*)]
+                        \item Plot the energy band diagram obtained by means of simulation and compare energy differences $E_{c} - E_{f}$, $E_{f} - E_{v}, E_{f} - E_{f_i}$ with theoretical results. 
+                        \item Plot the electric field obtained by means of simulation and compare with theoretical results.
+                        \item Plot the I-V characteristic obtained by means of simulation and numerically evaluate the resistance of the sample. Compare with theoretical results.
+                    \end{enumerate}
+                \item Re-evaluate (QA1) and (QA2) at a temperature of 600K and describe major changes in the properties of the semiconducting sample. 
+            \end{enumerate}
+
+            Then, we are asked to analyze the same semiconducting sample, at a temperature of 300K, under uniform high-level injection by optical generation ($G_{\text{opt}}$) on the $yz$ face, located at $x = 0$.
+
+            \begin{enumerate}[label=(QB\arabic*), leftmargin=1.5cm]
+                \item Assuming no bias across the sample:
+                \begin{enumerate}[label=(QB1.\arabic*)]
+                    \item Analytically evaluate diffusion length and compare with the one obtained by means of simulation. Compare device width to diffusion length and determine appropriate device approximation (short, medium, long approximation).
+                    \item Plot minority carrier concentrations obtained by means of simulation and compare with theoretical results.
+                \end{enumerate}
+                \item Reducing the device width to $w_{r}$, re-evaluate (QB1) (only minority carriers).
+                \item For biases $V_{b} \in \{-1, -0.5, 0.5, 1\}$ V:
+                \begin{enumerate}[label=(QB3.\arabic*)]
+                    \item Plot hole and electron concentrations obtained by means of simulation and compare with theoretical results. Determine the relationship between $V_{b}$ and electron/hole concentrations.
+                    \item Plot total current obtained by means of simulation and compare with theoretical results. 
+                \end{enumerate}
+            \end{enumerate}
+
+            \vspace{10pt}
+            The following tools will be employed to assist us in our analysis: 
+            \begin{itemize}
+                \item nanoHUB PADRE as a device simulator.
+                \item (Python) Matplotlib for graphs and plotting.
+                \item (Python) NumPy for fast, optmized computation.
+            \end{itemize}
+
+            \vspace{10pt}
+            For sake of clarity, from now on we will use the overline to distinguish between theoretical values and ones obtained by means of simulation.
+            Experimental values will be expressed with an overline while theoretical values will remain unchanged ($\overline{E_{f}}$ for experimental vs $E_{f}$ for theoretical, for example).
+
+        \newpage
+        \section{Excercise A: Analysis}
+            \textbf{(QA1)} We begin our analysis by plotting the simulation data.
+            As we can see from Figure~\ref{fig:exA_band_diagram_eq}, the band diagram is flat---as expected, since we are in equilibrium---with Fermi level ($E_{f}$) sitting close to the conduction band energy level ($E_{c}$).
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\linewidth]{QA_1_plot.png}
+                \caption{Band diagram of the n-type semiconductor sample at thermodynamic equilibrium}
+                \label{fig:exA_band_diagram_eq}
+            \end{figure}
+
+            As regards energy differences between levels, we first calculate the theoretical values using Shockley's equations 
+            \[
+                E_{f} - E_{f_i} = k_{B}T \ln \qty( \frac{N_{D}}{n_{i}} ) = 0.357 \; \text{eV}
+            \]
+            \[
+                E_{c} - E_{f} = \frac{E_{g}}{2} - (E_{f} - E_{f_i}) = 0.203 \; \text{eV}
+            \]
+            \[
+                E_{f} - E_{v} = \frac{E_{g}}{2} + (E_{f} - E_{f_i}) = 0.917 \; \text{eV}
+            \]
+            
+            The experimental values we obtain from PADRE, with error $\varepsilon$ with respect to their theoretical counterparts, are
+            \[
+                \overline{E_{f} - E_{f_i}} \approx 0.357 \; \text{eV}, \quad \varepsilon = 0.01 \%
+            \]
+            \[
+                \overline{E_{c} - E_{f}} \approx 0.208 \; \text{eV}, \quad \varepsilon = 2.72 \%
+            \]
+            \[
+                \overline{E_{f} - E_{v}} \approx 0.911\; \text{eV}, \quad \varepsilon = 0.60 \%
+            \]
+
+
+            \vspace{30pt}
+            \textbf{(QA2)} Now, analytical values for carrier concentrations, given that we are in extrinsic-region conditions, are
+            \[
+                n_{n0} = N_{D} = 1 \cdot 10^{16} \; \text{cm}^{-3}
+            \]
+            \[
+                p_{n0} = \frac{n_{i}^{2}}{N_{D}} = 10201 \; \text{cm}^{-3}
+            \]
+
+            With experimental counterparts
+            \[
+                \overline{n_{n0}} \approx 1 \cdot 10^{16} \; \text{cm}^{-3}, \quad \varepsilon \approx 0\%
+            \]
+            \[
+                \overline{p_{n0}} \approx 9925 \; \text{cm}^{-3}, \quad \varepsilon = 2.7\%
+            \]
+
+            We then plot electron and hole concentrations in, respectively, the conduction and valence band as seen in Figure~\ref{fig:exA_conc_diagram_all_eq}
+
+            \begin{figure}[H]
+                \centering
+                \begin{subfigure}[b]{0.49\linewidth}
+                    \includegraphics[width=\linewidth]{QA_2_plot.png}
+                    \caption{Simulated electron and hole concentrations at thermodynamic equilibrium (log scale)}
+                    \label{fig:exA_conc_diagram_eq}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[b]{0.49\linewidth}
+                    \includegraphics[width=\linewidth]{QA_2_plot_2.png}
+                    \caption{Theoretial electron and hole concentrations at thermodynamic equilibrium (log scale)}
+                    \label{fig:exA_conc_diagram_theoretical_eq}
+                \end{subfigure}
+
+                \caption{}
+                \label{fig:exA_conc_diagram_all_eq}
+            \end{figure}
+
+
+
+            \vspace{30pt}
+            \textbf{(QA3.1)} Let us now apply a positive bias, of magnitude $V_{b_0}$, to the electrode at $x = 0 \mu\text{m}$.
+            We then proceed by analyzing the band diagram, shown in Figure~\ref{fig:exA_band_diagram_bias}, in these new conditions.
+            The bands are positively tilted to the right, which is consistent from a theoretical standpoint, since applying a conventional potential to the left-most node is equivalent to applying an electron potential (potential seen by a ``negative'' charge) to the right-most node.
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\linewidth]{QA_3_plot.png}
+                \caption{Band diagram under positive bias $V_{b_0}$ at $x = 0$}
+                \label{fig:exA_band_diagram_bias}
+            \end{figure}
+
+            Assuming ohmic contacts, there is no carrier injection in the semiconductor sample, meaning that carrier concentrations must stay constant. 
+            Then, by once again invoking Shockley's equations, we expect distances between Fermi and intrinsic Fermi energy levels to be constant through $x$.
+            \[
+                E_{f} - E_{f_i} = k_{b} T \ln\qty(\frac{N_{D}}{n_{i}}) = 0.357 \; \text{eV}
+            \]
+            \[
+                E_{c} - E_{f} = \frac{E_{g}}{2} - (E_{f} - E_{f_i}) = 0.203 \; \text{eV}
+            \]
+            \[
+                E_{f} - E_{v} = \frac{E_{g}}{2} + (E_{f} - {E_{f_i}}) = 0.917 \; \text{eV}
+            \]
+
+            By means of simulation, we get the following values
+            \[
+                \overline{E_{f} - E_{f_i}} \approx 0.357 \; \text{eV}, \quad \varepsilon = 0.01 \%
+            \]
+            \[
+                \overline{E_{c} - E_{f}} \approx 0.208 \; \text{eV}, \quad \varepsilon = 2.72 \%
+            \]
+            \[
+                \overline{E_{f} - E_{v}} \approx 0.911\; \text{eV}, \quad \varepsilon = 0.60 \%
+            \]
+            Which are almost identical to the ones collected at equilibrium.
+
+
+            \vspace{30pt}
+            \textbf{(QA3.2)} Moving onto the electric field present in the semiconductor sample, PADRE gives us the following data
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\linewidth]{QA_3_plot_2.png}
+                \caption{Electric field as a function of $x$ throughout the semiconductor sample}
+                \label{fig:exA_efield}
+            \end{figure}
+
+            Since we determined previously that the concentrations of carriers are the same at each point in $x$, we can assume charge neutrality ($\rho(x) = 0$) all throughout the sample.
+            By using Poisson's equation, we get that the electric field inside the semiconductor is constant, meaning that the voltage itself is linear
+            \[
+                \frac{\partial^{2} \phi}{\partial x^{2}} = - \frac{\partial E} {\partial x} = - \frac{\rho(x)}{\varepsilon} = 0 \implies E(x) = E_{0}, \; \phi(x) = -E_{0} x + \phi_{0}
+            \]
+
+            Given applied bias $V_{b_0}$ and boundary conditions $\phi(0) = V_{b_0}$, $\phi(w) = 0$, we can calculate an expression for $\phi(x)$, thus
+            \[
+                \phi(x) = \frac{V_{b_0}}{w}(w - x) \implies E(x) = - \frac{\partial}{\partial x} \qty[ \frac{V_{b_0}}{w}(w - x) ] = \frac{V_{b_0}}{w} = 14.88 \; \text{V/cm}
+            \]
+
+            PADRE gives us a value for the field
+            \[
+                \overline{E} \approx 14.881 \; \text{V/cm}, \quad \varepsilon \approx 0 \% 
+            \]
+
+            \vspace{30pt}
+            \textbf{(QA3.3)} Analyzing the current driven by the electric field, we have the following I-V characteristic
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\linewidth]{QA_3_plot_3.png}
+                \caption{Current-Voltage characteristic of the sample}
+                \label{fig:a1_exA_bias_IV}
+            \end{figure}
+
+            To calculate the net current, we first need the current density $J$, which is given by $J = J_{n} + J_{p}$.
+            The drift-diffusion model allows the computation of specific band current densities $J_{n}$ and $J_{p}$, and, having confirmed that carrier concentrations are constant throughout the sample $\qty( \mfrac{\partial \{n, p\}}{\partial x} = 0 )$, we determine that the only component acting on the current densities is drift
+            \[
+                J_{n} = q n \mu_{n} E + q D_{n} \frac{\partial n}{\partial x} = q n \mu_{n} E = q N_{D} \mu_{n} E
+            \]
+            \[
+                J_{p} = q p \mu_{p} E - q D_{p} \frac{\partial p}{\partial x} = q p \mu_{p} E = q \frac{n_{i}^{2}}{N_{D}} \mu_{p} E
+            \]
+            \[
+                J = J_{n} + J_{p} = q N_{D} \mu_{n} E + q \frac{n_{i}^{2}}{N_{D}} \mu_{p} E \implies I = JA = A E \qty [ q N_{D} \mu_{n} + q \frac{n_{i}^{2}}{N_{D}} \mu_{p} ] = 1.832 \cdot 10^{-5} \; \text{A}
+            \]
+
+            We then get a theroetical resistance of
+            \[
+                R = \frac{V_{b_0}}{I} = 2.729 \cdot 10^{4} \; \Omega
+            \]
+
+            Compared against an experimental resistance of
+            \[
+                \overline{R} \approx 2.794 \cdot 10^{4} \; \Omega, \quad \varepsilon = 2.38 \%
+            \]
+
+            \vspace{30pt}
+            \textbf{(QA4)} Bringing the temperature of the sample to 600K, let us now call $n_{i} \stackrel{\text{def}}{=} n_{i}\vert_{600K}$ and $E_{g} \stackrel{\text{def}}{=} E_{g}\vert_{600K}$.
+            PADRE reports the following band diagram and electron/hole concentrations
+
+            \begin{figure}[ht]
+                \centering
+                \begin{subfigure}[t]{0.49\linewidth}
+                    \includegraphics[width=\linewidth]{QA_4_plot.png}
+                    \caption{Band diagram of the semiconducting sample at 600K}
+                    \label{fig:a1_exA_band_diagram_600K}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[t]{0.49\linewidth}
+                    \includegraphics[width=\linewidth]{QA_4_plot_2.png}
+                    \caption{Carrier concentrations at 600K}
+                    \label{fig:a1_exA_conc_diagram_600K}
+                \end{subfigure}
+            \end{figure}
+
+            At 600K we find ourselves in intrinsic-region conditions, and cannot just assume the concentration of electrons in the conduction band to be $N_{D}$.
+            Using charge neutrality, let us determine $n$
+            \[
+                q \qty( -n + N_{D} + \frac{n_{i}^{2}}{n} ) = 0 \implies n^{2} - N_{D}n - n_{i}^{2} = 0 \implies n = \frac{N_{D} + \sqrt{N_{D}^{2} + 4 n_{i}^{2}}}{2} = 1.104 \cdot 10^{16} \; \text{cm}^{-3}
+            \]
+
+            Through Shockley's equations, we observe that the energy differences become lower, which is due to the fact that the Fermi level assumes a configuration that is closer to the intrinsic Fermi level
+            \[
+                (E_{f} - E_{f_i})\vert_{600K} = k_{b} T \ln\qty(\frac{n}{n_{i}}) = 0.0609 \; \text{eV}
+            \]
+            \[
+                (E_{c} - E_{f})\vert_{600K} = \frac{E_{g}}{2} - (E_{f} - E_{f_i})\vert_{600K} = 0.457 \; \text{eV}
+            \]
+            \[
+                (E_{f} - E_{v})\vert_{600K} = \frac{E_{g}}{2} + (E_{f} - {E_{f_i}})\vert_{600K} = 0.579 \; \text{eV}
+            \]
+
+            For carrier concentrations, we already have the value for $n$. Let us calculate the hole concentration through the mass-action law
+            \[
+                p = \frac{n_{i}^{2}}{n} = 1.04 \cdot 10^{15} \; \text{cm}^{-3}
+            \]
+
+            Meanwhile, the experimental results yield
+            \[
+                \overline{E_{f} - E_{f_i}}\vert_{600K} \approx 0.0599\; \text{eV}, \quad \varepsilon = 1.7 \%
+            \]
+            \[
+                \overline{E_{c} - E_{f}}\vert_{600K} \approx 0.465 \; \text{eV}, \quad \varepsilon = 1.6 \%
+            \]
+            \[
+                \overline{E_{f} - E_{v}}\vert_{600K} \approx 0.562 \; \text{eV}, \quad \varepsilon = 3 \%
+            \]
+            \[
+                \overline{n} \approx 1.109 \cdot 10^{16} \; \text{cm}^{-3}, \quad \varepsilon = 0.4 \%
+            \]
+            \[
+                \overline{p} \approx 1.09 \cdot 10^{15} \; \text{cm}^{-3}, \quad \varepsilon = 4.1 \%
+            \]
+
+            The properties of the semiconducting sample that changed as a result of a conspicuous hike in temperature are:
+
+            \begin{enumerate}
+                \item Intrinsic charge carrier concentration ($n_{i}$) increased exponentially from $3.3 \cdot 10^{10} \; \text{cm}^{-3}$ to $3.4 \cdot 10^{15} \; \text{cm}^{-3}$ due to thermal generation.
+                \[
+                    n_{i}(T) = \sqrt{N_{c}(T) N_{v}(T)} \exp\qty(-\frac{E_{g}}{2 k_{b} T})
+                \]
+
+                \item Hole concentration ($p_{n0}$) increased by a factor of $10^{11}$ and electron concentration ($n_{n0}$) increased by $\approx 10 \%$ as a direct result of the increase in intrinsic concentration $n_{i}$.
+
+                \item Electron mobility $\mu_{n}$ decreased by a factor of $\approx 4.1$ and hole mobility $\mu_{p}$ decreased by a factor of $\approx 3.7$ 
+                \[
+                    \frac{\mu_{n}(600K)}{\mu_{n}(300K)} \approx 0.24, \quad \frac{\mu_{p}(600K)}{\mu_{p}(300K)} \approx 0.27
+                \]
+
+                \item Electron and hole diffusion coefficients ($D_{n}$, $D_{p}$) decreased along with the mobilities, as shown by the Einstein relations
+                \[
+                    D_{n} = \mu_{n} \frac{k_{b} T}{q}, \quad D_{p} = \mu_{p} \frac{k_{b} T}{q}
+                \]
+
+                \item Resistivity of the sample ($\rho$) increased due to a (net $\approx$ 4x) decrease in mobility and a slight ($\approx 10 \%$) increase in charge carrier concentrations, given by the formula
+                \[
+                    J = q( n \mu_{n} +  p \mu_{p}) E \implies \sigma = q (n \mu_{n} + p \mu_{p}) \implies \rho = \frac{1}{q (n \mu_{n} + p \mu_{p})}
+                \]
+            \end{enumerate}
+
+        \newpage
+        \section{Excercise B: Analysis}
+            \textbf{(QB1.1)} We begin our analysis by calculating the diffusion length in our semiconductor sample.
+            The diffusion length is the distance an excess carrier travels by diffusion before it recombines, and is given by the formula
+            \[
+                L_{n} = \sqrt{D_{n} \tau_{n}}, \quad L_{p} = \sqrt{D_{p} \tau_{p}} 
+            \]
+            \[
+                L_{n} = \sqrt{\mu_{n} V_{T} \tau_{n}} = 57 \; \mu\text{m}
+            \]
+            \[
+                L_{p} = \sqrt{\mu_{p} V_{T} \tau_{p}} = 34 \; \mu\text{m}
+            \]
+            Compared to the width of the device, both diffusion lengths for holes and for electrons are significantly small ($L << w$), meaning that a long-device approximation would produce reliable results.
+
+            \vspace{30pt}
+            \textbf{(QB1.2)} To find the minority carrier concentration---in this case, holes---we need to resort to the continuity equations, which state
+            \[
+                \frac{\partial p}{\partial t} = -\frac{1}{q} \frac{\partial J_{p}}{\partial x} + G_{\text{opt}} - U_{p}
+            \]
+            Since the system we are analyzing is in steady-state and there is no electric field inside the sample, change with respect to time is null and so is the drift component of the curren density, yielding
+            \[
+                0 = -\frac{1}{q}\qty[ -q D_{p} \frac{\partial^{2} (p_{n0} + \Delta p)}{\partial x^{2}}] + G_{\text{opt}} - \frac{\Delta p}{\tau_{p}} \implies 0 = D_{p} \frac{\partial^{2} \Delta p}{\partial x^{2}} - \frac{\Delta p}{\tau_{p}} + G_{\text{opt}} 
+            \]
+
+            By using the principle of superposition for second-order linear differential equations, we assume the solution to be of the form
+            \[
+                \Delta p = \Delta p_{1} + \Delta p_{2}, \quad \Delta p_{1} = Ae^{-\frac{x}{L_{p}}} + Be^{\frac{x}{L_{p}}}, \; \Delta p_{2} = G_{\text{opt}}\tau_{p}
+            \]
+
+            Setting boundary conditions at the ohmic contacts (the contacts force concentration at $x = 0$ and $x = 336$ to be the same as in equilibrium) $\Delta p(0) = \Delta p(w) = 0$, one arrives at the following solution
+            \[
+                \Delta p(x) = G_{\text{opt}}\tau_{p} \qty[ 1 - \frac{\cosh\qty(\frac{x - \frac{w}{2}}{L_{p}})}{\cosh\qty(\frac{w}{2L_{p}})}] \implies p(x) = p_{n0} + \Delta p(x)
+            \]
+
+            Both the experimental and theoretical minority carrier concentrations are shown in Figure~\ref{fig:a1_exB_eq_minority_conc}
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\linewidth]{QB_1_plot.png}
+                \caption{Minority carrier concentration under optical generation. The maximum error is $\varepsilon \approx 6.62 \%$ at $x = \frac{w}{2}$}
+                \label{fig:a1_exB_eq_minority_conc}
+            \end{figure}
+            
+            Meanwhile the experimental excess carriers in both the conduction and valence bands are shown in Figure~\ref{fig:a1_exB_eq_excess_np}
+
+            \begin{figure}[ht]
+                \centering
+                \begin{subfigure}[t]{0.49\linewidth}
+                    \includegraphics[width=\linewidth]{QB_1_plot_2.png}
+                    \caption{Excess electron concentration under optical generation.}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[t]{0.49\linewidth}
+                    \includegraphics[width=\linewidth]{QB_1_plot_3.png}
+                    \caption{Excess hole concentration under optical generation.}
+                \end{subfigure}
+
+                \caption{Experimental excess carriers concentrations}
+                \label{fig:a1_exB_eq_excess_np}
+            \end{figure}
+
+            
+            \vspace{30pt}
+            \textbf{(QB1.2 facultative)} To extract the value for the diffusion length from the experimental graph, we must first understand the process to do so.
+            For $x << \frac{w}{2}$, we have that $\Delta p(x) \approx G_{\text{opt}}\tau_{p} (1 - e^{-\frac{x}{L_{p}}})$, meaning that
+            \[
+                \Delta p'(x = 0) \approx \frac{G_{\text{opt}}\tau_{p}}{L_{p}}
+            \] 
+
+            By extrcting the coefficient of the line that is tanget to $\overline{\Delta p(x)}$ at $x = 0$, we then may be able to calculate $\overline{L_{p}}$ as $\overline{L_{p}} = \displaystyle \frac{G_{\text{opt}}\tau_{p}}{\Delta p'(0)} $
+            \[
+                \overline{\Delta p'(x = 0)} \approx 2.727 \cdot 10^{17} \; \text{cm}^{-4} \implies \overline{L_{p}} \approx 33 \; \mu\text{m}, \quad \varepsilon = 2.9 \%
+            \]
+
+
+            \vspace{30pt}
+            \textbf{(QB2)} Reducing the device's width to $w_{r}$, the diffusion length becomes much greater than the length of the device ($L_{p} >> w_{r}$), implying that a short-device approximation would be best to analyze this sample. The following experimental results are produced
+
+            \begin{figure}[ht]
+                \centering
+                \begin{subfigure}[t]{0.49\linewidth}
+                    \includegraphics[width=\linewidth]{QB_2_plot.png}
+                    \caption{Minority carrier concentration under optical generation. Error is $\varepsilon \approx 0.24 \%$ at $x = \frac{w_{r}}{2}$}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[t]{0.49\linewidth}
+                    \includegraphics[width=\linewidth]{QB_2_plot_2.png}
+                    \caption{Excess minority carrier concentration under optical generation}
+                \end{subfigure}
+
+                \caption{}
+                \label{fig:a1_exB_eq_short_minority_conc}
+            \end{figure}
+
+            As seen above, reducing the overall width of the device leads to a several-order-of-magnitude reduction in the peak concentration of minority carriers (almost $10^{-2}$).
+            This is due to the fact that the ohmic contacts are closer to each other, imposing stricter boundary conditions on the device, effectively draining it of excess carriers.
+            The latter diffuse easily towards the contacts (since $L_{p} >> w_{r}$), recombining much faster than they would under silicon recombination at rate $\tau_{p}$.
+
+
+            \newpage
+            \textbf{(QB3.1)} Let us now conclude this assignment with the analysis of the semiconducting device under both optical generation and bias.
+            We refer once more to the continuity equations to obtain an analytical expression for the electron and hole concentrations, assuming steady-state conditions and constant electric field
+            \[
+                0 = \frac{1}{q}\qty[ q \mu_{n} \frac{\partial (n_{n0} + \Delta n)}{\partial x} E + q D_{n} \frac{\partial^{2} (n_{n0} + \Delta n)}{\partial x^{2}}] - \frac{\Delta n}{\tau_{n}} + G_{\text{opt}} \implies D_{n} \frac{\partial^{2} \Delta n}{\partial x^{2}} + \mu_{n} E \frac{\partial \Delta n}{\partial x} - \frac{\Delta n}{\tau_{n}} + G_{\text{opt}} = 0
+            \]
+            \[
+                0 = -\frac{1}{q}\qty[ q \mu_{p} \frac{\partial (p_{n0} + \Delta p)}{\partial x} E -q D_{p} \frac{\partial^{2} (p_{n0} + \Delta p)}{\partial x^{2}}] - \frac{\Delta p}{\tau_{p}} + G_{\text{opt}} \implies D_{p} \frac{\partial^{2} \Delta p}{\partial x^{2}} - \mu_{p} E \frac{\partial \Delta p}{\partial x} - \frac{\Delta p}{\tau_{p}} + G_{\text{opt}} = 0
+            \]
+
+            Which leads us to
+            \[
+                \Delta n(x) = G_{\text{opt}} \tau_{n} + C_{n, 1} e^{\lambda_{n, 1} x} + C_{n, 2} e^{\lambda_{n, 2} x}
+            \]
+            \[
+                \Delta p(x) = G_{\text{opt}} \tau_{p} + C_{p, 1} e^{\lambda_{p, 1} x} + C_{p, 2} e^{\lambda_{p, 2} x}
+            \]
+
+            Greatly simplifying the expressions, we obtain the following graphs
+
+            \begin{figure}[ht]
+                \centering
+                \begin{subfigure}[t]{0.49\linewidth}
+                    \includegraphics[width=\linewidth]{QB_3_plot_4.png}
+                    \caption{Theoretical electron concentration at different biases}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[t]{0.49\linewidth}
+                    \includegraphics[width=\linewidth]{QB_3_plot_5.png}
+                    \caption{Theoretical hole concentration at different biases}
+                \end{subfigure}
+            \end{figure}
+
+            \begin{figure}[ht]
+                \centering
+                \begin{subfigure}[t]{0.49\linewidth}
+                    \includegraphics[width=\linewidth]{QB_3_plot.png}
+                    \caption{Experimental electron concentration at different biases}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[t]{0.49\linewidth}
+                    \includegraphics[width=\linewidth]{QB_3_plot_2.png}
+                    \caption{Experimental hole concentration at different biases}
+                \end{subfigure}
+            \end{figure}
+
+            The experimental and the theoretical results are almost identical, with an average error of $\varepsilon \approx 3.1 \%$  across both electron and hole concentrations.
+
+            \vspace{10pt}
+            As seen by the graphs, no matter the sign of the applied bias, i.e. no matter the direction of the electric field inside the semiconducting sample, we have that, as the magnitude of bias gets higher, the peak of carrier concentration, be it electrons or holes, both decreases and shifts.
+            The decrease is due to the fact that a stronger bias implies a stronger electric field, meaning a stronger force on the carriers towards the ohmic contacts, which then remove the excess carriers introduced by the optical generation.
+
+            \vspace{10pt}
+            As regards the shift of the peak, we have two different situations: for holes, it is due to the fact that the new point of ``maximum-lifetime'' is the point where, moved by the electric force, hole-charges pile up ``downstream'' (along the direction of the electric force).
+            For electrons, seeing that they are the majority carriers, they can easily rearrange themselves to maintain charge neutrality, following the shift that affects holes.
+
+            \vspace{30pt}
+            \textbf{(QB3.2)} At last, we derive the theoretical value for total current density knowing that $J =$ const., meaning
+            \[
+                J = J_{p}(0) + J_{n}(0) = \qty[ q \mu_{p} p(0) E - q D_{p} \left. \frac{\partial p}{\partial x} \right|_{x = 0} + q \mu_{n} n(0) E + q D_{n} \left. \frac{\partial n}{\partial x} \right|_{x = 0} ]
+            \]
+            Since we already have the values for $n, p$ at $x = 0$ (the boundary conditions imposed by the contacts), we calculate the gradients using the analytical formulas derived above
+            \[
+                J = \qty[ q \mu_{p} \frac{n_{i}^{2}}{N_{D}} E - q D_{p} \left. \frac{\partial p}{\partial x} \right|_{x = 0} + q \mu_{n} N_{D} E + q D_{n} \left. \frac{\partial n}{\partial x} \right|_{x = 0} ]
+            \]
+
+            Graphing the theoretical and experimental currents desities, we have
+
+            \begin{figure}[ht]
+                \centering
+                \begin{subfigure}[t]{0.49\linewidth}
+                    \includegraphics[width=\linewidth]{QB_3_plot_6.png}
+                    \caption{Theoretical current density flowing through the sample at different biases}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[t]{0.49\linewidth}
+                    \includegraphics[width=\linewidth]{QB_3_plot_3.png}
+                    \caption{Experimental current density flowing through the sample at different biases}
+                \end{subfigure}
+            \end{figure}
+
+            The sample still acts as a resistance with a (quasi-)linear I-V chacteristic.
+            Optical generation had the effect of slightly lowering said resistance, from $\approx 3 \cdot 10^{4} \; \Omega$ to $\approx 2.9 \cdot 10^{4} \; \Omega$.
+
+
+    \newpage
+    \chapter*{Assignment 2}
+        \stepcounter{chapter}
+            
+        \section{Parameters}
+            Given $n = 5$, $s = 9$ and student number s338295, the parameters for this assignment are as follows:
+
+            \begin{center}
+                \renewcommand{\arraystretch}{1.8}
+                \begin{tabular}{ | m{4.5cm} | m{7.5cm} | m{2.5cm} | }
+                    \hline 
+                        \textbf{Variable} & \textbf{Expression} & \textbf{Value} \\
+                    \hline
+                        Acceptor amount ($N_{A}$) & $N_{A} = (s \mod 9 + 1) \cdot 10^{16} \; \text{cm}^{-3}$ & $1 \cdot 10^{16} \; \text{cm}^{-3}$ \\
+                    \hline
+                        Donor amount ($N_{D}$) & $N_{D} = (n \mod 9 + 1) \cdot 10^{16} \; \text{cm}^{-3}$ & $6 \cdot 10^{16} \; \text{cm}^{-3}$ \\
+                    \hline 
+                        Width ($w$) & $w = (n + s) \cdot (8 + 2 + 9 + 5) \; \mu\text{m}$ & $336 \; \mu\text{m}$ \\
+                    \hline
+                        Height ($y$) & $y = s \cdot (3 + 3) \; \mu\text{m}$ & $54 \; \mu\text{m}$ \\ 
+                    \hline
+                        Builtin potential ($V_{bi}$) & $\displaystyle V_{T} \ln\qty(\frac{N_{A}N_{D}}{n_{i}^{2}})$ V &  0.76 V \\[6pt]
+                    \hline
+                        Bias sign (sgn) & $\displaystyle (-1)^{(n+s) \mod 2}$ & +1 \\[4pt]
+                    \hline
+                        Bias ($V_{a}$) & $\displaystyle V_{a} = \text{sgn} \cdot \qty[ e^{-(\frac{n}{n+s})^{2}} - (1 - V_{bi})]$ V & 0.6 V \\[4pt]
+                    \hline
+                        Energy gap ($E_{g}$) & Material constant & 1.12 eV \\
+                    \hline
+                        Average electron lifetime ($\tau_{n}$) & Material constant & $2 \cdot 10^{-7}$ s \\
+                    \hline
+                        Average hole lifetime ($\tau_{p}$) & Material constant & $2 \cdot 10^{-7}$ s \\
+                    \hline
+                        Electron mobility ($\mu_{n}$) & Material constant & $1258 \; \text{cm}^{2}/$Vs \\
+                    \hline
+                        Hole mobility ($\mu_{p}$) & Material constant & $446 \; \text{cm}^{2}/$Vs \\
+                    \hline
+                        Intrinsic carrier concentration ($n_i$) & $n_{i} = \sqrt{N_{c}N_{v}}\exp\left(-\frac{E_{g}}{2k_{B}(T = 300K)}\right) \; \text{cm}^{-3}$  &  $1.01 \cdot 10^{10} \; \text{cm}^{-3}$ \\
+                    \hline 
+                \end{tabular}
+                \renewcommand{\arraystretch}{1}
+            \end{center}
+
+        \vspace{30pt}
+        \section{Preliminaries and methodology}
+            In this assignment, we are tasked with the analysis of an asymmetric, abrupt PN junction, at a temperature of 300K.
+            The concentrations of n-type and p-type dopants are, respectively, $N_{D}, N_{A}$ (refer to the Parameters section above for values).
+            The p-side of the junction is located in the lower half of the $x$ coordinate space, while the n-side is located in the higher half of the $x$ coordinate space.
+            The junction is located at $x_{j} = \frac{w}{2}$.
+            We start our analysis in equilibrium conditions:
+
+            \begin{enumerate}[label=(QA\arabic*), leftmargin=1.5cm]
+                \item Plot the band diagram obtained by means of simulation, describe the behaviour of energy bands near the junction and compare experimental and theoretical values for the built-in potential $V_{bi}$.
+                \item Plot the net space charge obtained by means of simulation and compare with theoretical resuls. Calculate depletion region coordinates and compare with theoretical results.
+                \item Plot the electric field obtained by means of simulation and compare with theoretical results.
+            \end{enumerate}
+
+            \vspace{10pt}
+            Then, considering the same PN semiconducting sample:
+            \begin{enumerate}[label=(QB\arabic*), leftmargin=1.5cm]
+                \item Assuming a bias $V_{a}$ applied to the p-side
+                \begin{enumerate}[label=(QB1.\arabic*)]
+                    \item Plot the band diagram obtained by means of simulation and compare with equilibrium conditions.
+                    \item Plot the net space charge obtained by means of simulation, determine depletion region coordinates and compare with theoretical results. Highlight differences with equilibrium conditions.
+                    \item Plot the electric field obtained by means of simulation and compare with theoretical results. Highlight differences with equilibrium conditions.
+                    \item Plot the current densities ($J_{\text{tot}}, J_{p}, J_{n}$) obtained by means of simulation and compare with theoretical results. Comment on the behaviour of the current densities inside the depletion region.
+                \end{enumerate}
+                \item Evaluate the I-V chacteristic for a bias range of $V_{b} \in \displaystyle \qty[ -\frac{s}{5}, \frac{n}{5} ]$.
+            \end{enumerate}
+
+            \vspace{10pt}
+            These tools will be employed to assist us in our analysis: 
+            \begin{itemize}
+                \item nanoHUB PADRE as a device simulator.
+                \item (Python) Matplotlib for graphs and plotting.
+                \item (Python) NumPy for fast, optmized computation.
+            \end{itemize}
+
+            \vspace{10pt}
+            For sake of clarity, from now on we will use the overline to distinguish between theoretical values and ones obtained by means of simulation.
+            Experimental values will be expressed with an overline while theoretical values will remain unchanged ($\overline{E_{f}}$ for experimental vs $E_{f}$ for theoretical, for example).
+
+
+        \newpage
+        \section{Excercise A: Analysis}
+            \textbf{(QA1)} The band diagram that we obtain from PADRE is shown in Figure~\ref{fig:a2_exA_eq_band}
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\linewidth]{QA1_plot.png}
+                \caption{Band diagram zoomed in at the junction}
+                \label{fig:a2_exA_eq_band}
+            \end{figure}
+
+            We can see that the energy levels of the p-side are higher compared to the n-side, and that the two regions are connected by a continuous curve over the depletion region.
+            This is due to the fact that at the interface between p-side and n-side majority carriers from both sides greatly diffuse in opposite regions, thus creating a thin ``depletion layer'', where the only charges present are the immovable dopant ions.
+
+            \vspace{10pt}
+            In the n-side, positive donor atoms radiate an electric field that flows towards the negative acceptor atoms over in the p-side, creating a conventional potential $V_{bi}$ across the depletion region.
+            This potential accounts for the difference in energy between p-side and n-side.
+            We can calculate this potential by exploiting the constant fermi level $E_{f}$: the difference in extraction work ($q\phi_{n} - q\phi_{p}$) is equal to the energy delta
+            \[
+                qV_{bi} = q\phi_{Sn} - q\phi_{Sp} = \qty(q\chi + \frac{E_{g}}{2} - k_{b} T \ln\qty(\frac{N_{D}}{n_{i}})) - \qty(q\chi + \frac{E_{g}}{2} + k_{b} T \ln\qty(\frac{N_{A}}{n_{i}})) = - k_{b} T \ln\qty(\frac{N_{A} N_{D}}{n_{i}^{2}})
+            \]
+            \[
+                V_{bi} = \frac{qV_{bi}}{-q} = 0.76 \; \text{V}
+            \]
+            And a theoretical value of
+            \[
+                \overline{V_{bi}} \approx 0.757 \; \text{V}, \quad \varepsilon = 0.3 \%
+            \]
+
+
+            \vspace{30pt}
+            \textbf{(QA2)} As regards the net space charge, we get an experimental curve as shown in Figure~\ref{fig:a2_exA_eq_charge_exp}
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\linewidth]{QA2_plot.png}
+                \caption{Simulated net space charge concentration plotted against the $x$ coordinate}
+                \label{fig:a2_exA_eq_charge_exp}
+            \end{figure}
+
+            It is expected to see the n-side net charge region narrower and taller than the p-type region, given the asymmetric nature of the junction.
+            Per unit length, the n-side has six times the depletion charge concentration that is present in the p-side.
+            
+            \vspace{10pt}
+            We then derive the theoretical expression for the net space charge and, consequently, the width of the n-depletion-layer and p-depletion-layer.
+            Let us assume that the depletion layers are completely devoid of their majority carriers, thus creating a charge distribution as follows
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\linewidth]{QA2_plot_2.png}
+                \caption{Theoretical net space charge concentration plotted against the $x$ coordinate}
+                \label{fig:a2_exA_eq_charge_thr}
+            \end{figure}
+
+            With depletion lengths equal to
+            \[
+                x_{p} = \frac{N_{D}}{N_{A} + N_{D}} x_{d} = \sqrt{\frac{2 \varepsilon_{s}}{q} \frac{N_{D}}{N_{A}(N_{A} + N_{D})} V_{bi}} = 0.29 \; \mu\text{m}
+            \]
+            \[
+                x_{n} = \frac{N_{A}}{N_{A} + N_{D}} x_{d} = \sqrt{\frac{2 \varepsilon_{s}}{q} \frac{N_{A}}{N_{D}(N_{A} + N_{D})} V_{bi}} = 0.0484 \; \mu\text{m}
+            \]
+            \[
+                x_{d} = x_{p} + x_{n} = 0.338 \; \mu\text{m}
+            \]
+
+            Since the assumption of complete depletion is just an approximation, it is possible, as seen in Figure~\ref{fig:a2_exA_eq_charge_exp}, that some non-linearities arise.
+            Thus the experimental depletion widths are (approximately)
+            \[
+                \overline{x_{p}} \approx 0.35 \; \mu\text{m} 
+            \]
+            \[
+                \overline{x_{n}} \approx 0.1 \; \mu\text{m} 
+            \]
+            \[
+                \overline{x_{d}} = \overline{x_{p}} + \overline{x_{n}} \approx 0.45 \; \mu\text{m}
+            \]
+
+            \vspace{30pt}
+            \textbf{(QA3)} Let us now study the electric field distribution inside the PN junction.
+            The experimental results are shown in Figure~\ref{fig:a2_exA_eq_efield_exp}
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\linewidth]{QA3_plot.png} 
+                \caption{Experimental distribution of electric field}
+                \label{fig:a2_exA_eq_efield_exp}
+            \end{figure}
+
+            Analytically, the Poisson equation states that the first-order spatial derivative of the electric field at any point $x$ is proportional to the charge distribution
+            \[
+                \frac{\partial E}{\partial x} = \frac{\rho(x)}{\varepsilon_{s}} \implies E(x) = \int_{-\infty}^{x} \frac{\rho(t)}{\varepsilon_{s}} dt \implies E(x) = 
+                \begin{cases} 
+                    x < x_{j}-x_{p}, & 0 \\
+                    x_{j}-x_{p} \leq x < x_{j}, & -\frac{qN_{A}}{\varepsilon_{s}}((x - x_{j}) + x_{p}) \\
+                    x_{j} \leq x < x_{j} + x_{n}, & -\frac{qN_{A}}{\varepsilon_{s}}x_{p} + \frac{qN_{D}}{\varepsilon_{s}}(x - x_{j}) \\
+                    x > x_{j} + x_{n}, & 0 \\
+                \end{cases}
+            \]
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\linewidth]{QA3_plot_2.png} 
+                \caption{Theoretical distribution of electric field inside the junction}
+                \label{fig:a2_exA_eq_efield_thr}
+            \end{figure}
+
+            We get a theoretical peak of electric field at $x=x_{j}$
+            \[
+                E(x_{j}) = -\frac{q N_{A}}{\varepsilon_{s}}x_{p} = -44615.38 \; \text{V/cm}
+            \]
+            And an experimental peak of electric field 
+            \[
+                \overline{E}(x_{j}) \approx -43218.18 \; \text{V/cm}, \quad \varepsilon = 3.1 \%
+            \]
+
+
+        \newpage
+        \section{Excercise B: Analysis}
+            \textbf{(QB1.1)} Applying bias $V_{a}$, the band diagram becomes the following
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.75\linewidth]{QB1_plot.png}
+                \caption{Non-equilibrium and equilibrium band diagrams superposed}
+                \label{fig:a2_exB_bias_eq_band}
+            \end{figure}
+
+            NOTE: The quasi-fermi leves were not reported in the graph above due to a bug in the PADRE simulator.
+
+            \vspace{5pt}
+            As seen in Figure~\ref{fig:a2_exB_bias_eq_band}, under a positive bias, energy levels on the p-side are much lower compared to equilibrium conditions.
+            Given that the quasi-neutral regions are good conductors, the voltage drop across them is negligible, and most of the bias is actually applied to the depletion region.
+            Applying a positive bias (i.e. a positive voltage from n to p) counteracts the built-in voltage ($V_{bi}$) of the junction, thus reducing the depletion layers' width and, consequently, both the magnitude of electric field therein and the potential created by it.
+
+
+            \vspace{10pt}
+            \textbf{(QB1.2)} The net charge profile greatly changes, as shown in Figure~\ref{fig:a2_exB_bias_eq_charge}
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.7\linewidth]{QB1_plot_2.png}
+                \caption{Non-equilibrium and equilibrium net space charge concentrations}
+                \label{fig:a2_exB_bias_eq_charge}
+            \end{figure}
+
+            Under bias, unsurprisingly, the widths of depleted regions are shorter.
+            Analytically, since $x_{d}, x_{p}, x_{n} \propto \sqrt{V_{bi} - V_{a}}$, as we reduce the overall tension over the junction, we reduce the widths.
+            Moreover, we see that the peaks of charge concentration also change, most probably due to the fact that, having lowered the voltage barrier, injected carriers diffuse through the depletion layer altering the instantaneous charge concentration.
+            The analytical charge profile becomes
+            \[
+                \rho(x) = \begin{cases}
+                    x < x_{j} - x_{p}, & 0 \\
+                    x_{j} - x_{p} \leq x < x_{j}, & -qN_{A} \\
+                    x_{j} \leq x \leq x_{j} + x_{n}, & qN_{D} \\
+                    x > x_{j} + x_{n}, & 0 
+                \end{cases}
+            \]
+
+            And regarding the depletion widths under bias, we have
+            \[
+                x_{p} = \frac{N_{D}}{N_{A} + N_{D}} x_{d} = \sqrt{\frac{2 \varepsilon_{s}}{q} \frac{N_{D}}{N_{A}(N_{A} + N_{D})} (V_{bi} - V_{a})} = 0.133 \; \mu\text{m}
+            \]
+            \[
+                x_{n} = \frac{N_{A}}{N_{A} + N_{D}} x_{d} = \sqrt{\frac{2 \varepsilon_{s}}{q} \frac{N_{A}}{N_{D}(N_{A} + N_{D})} (V_{bi} - V_{a})} = 0.022 \; \mu\text{m}
+            \]
+            \[
+                x_{d} = x_{p} + x_{n} = 0.155 \; \mu\text{m}
+            \]
+
+            Which, experimentally, amount to
+            \[
+                \overline{x_{p}} \approx 0.184 \; \mu\text{m} 
+            \]
+            \[
+                \overline{x_{n}} \approx 0.045 \; \mu\text{m} 
+            \]
+            \[
+                \overline{x_{d}} = \overline{x_{p}} + \overline{x_{n}} \approx 0.229 \; \mu\text{m}
+            \]
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\linewidth]{QB1_plot_3.png}
+                \caption{Non-equilibrium and equilibrium analytical net space charge concentrations}
+                \label{fig:a2_exB_eq_bias_charge_thr}
+            \end{figure}
+
+
+            \vspace{30pt}
+            \textbf{(QB1.3)} The electric field inside the depletion region becomes
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\linewidth]{QB1_plot_4.png}
+                \caption{Non-equilibrium and equilibrium electric field}
+                \label{fig:a2_exB_eq_bias_efield}
+            \end{figure}
+
+            The magnitude of the electric field has been affected, given that the peak of electric field ($E(x = x_{j})$) is directly proportional to $x_{p}$, which is itself proportional to the square root of the junction voltage.
+            Analytically, we once again apply Poisson to obtain
+            \[
+                \frac{\partial E}{\partial x} = \frac{\rho(x)}{\varepsilon_{s}} \implies E(x) = \int_{-\infty}^{x} \frac{\rho(t)}{\varepsilon_{s}} dt \implies E(x) = 
+                \begin{cases} 
+                    x < x_{j}-x_{p}, & 0 \\
+                    x_{j}-x_{p} \leq x < x_{j}, & -\frac{qN_{A}}{\varepsilon_{s}}((x - x_{j}) + x_{p}) \\
+                    x_{j} \leq x < x_{j} + x_{n}, & -\frac{qN_{A}}{\varepsilon_{s}}x_{p} + \frac{qN_{D}}{\varepsilon_{s}}(x - x_{j}) \\
+                    x > x_{j} + x_{n}, & 0 \\
+                \end{cases}
+            \]
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\linewidth]{QB1_plot_5.png}
+                \caption{Non-equilibrium and equilibrium analytical electric field}
+                \label{fig:a2_exB_eq_bias_efield_thr}
+            \end{figure}
+
+            With peaks, respectively
+            \[
+                E(x_{j}) = -17533 \; \text{V/cm}
+            \]
+            \[
+                \overline{E}(x_{j}) \approx -19879 \; \text{V/cm}, \quad \varepsilon = 11 \%
+            \]
+
+            \vspace{30pt}
+            \textbf{(QB1.4)} To be able to apply an external voltage to the device strictly implies the movement of charge through the sample. 
+            As such, we first analyze the current densities obtained by means of simulation
+
+            \begin{figure}[ht]
+                \begin{subfigure}[t]{0.49\linewidth}
+                    \centering
+                    \includegraphics[width=\linewidth]{QB1_plot_6.png}
+                    \caption{Electron current density}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[t]{0.49\linewidth}
+                    \centering
+                    \includegraphics[width=\linewidth]{QB1_plot_7.png}
+                    \caption{Hole current density}
+                \end{subfigure}
+            \end{figure}
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.49\linewidth]{QB1_plot_8.png}
+                \caption{Total current density}
+            \end{figure}
+
+            We can observe that both the electron and hole current densities are constant inside the depletion zone.
+            Assuming a quasi-null recombination rate inside the junction, by the continuity equations we have that
+            \[
+                0 = \frac{\partial J_{\{n, p\}}}{\partial x} \implies J_{\{n, p\}} = \text{const.}, \; \forall x \in [x_{j} - x_{p}, x_{j} + x_{n}]
+            \]
+
+            For current densities inside the quasi-neutral regions, we can determine them analytically by solving the continuity equation under boundary conditions provided by the junction laws
+            \[
+                \Delta p(x) = \frac{n_{i}^{2}}{N_{D}}(e^{\frac{V_{a}}{V_{T}}} - 1)e^{-\frac{(x - x_{j}) - x_{n}}{L_{p_n}}} \implies J_{p, \text{diff}}(x) = \frac{qD_{p_n}}{L_{p_n}}\Delta p(x_{j} + x_{n})e^{-\frac{(x - x_{j}) - x_{n}}{L_{p_n}}}
+            \]
+            \[
+                \Delta n(x) = \frac{n_{i}^{2}}{N_{A}}(e^{\frac{V_{a}}{V_{T}}} - 1)e^{\frac{(x - x_{j}) + x_{p}}{L_{n_p}}} \implies J_{n, \text{diff}}(x) = \frac{qD_{n_p}}{L_{n_p}}\Delta n(x_{j} - x_{p})e^{\frac{(x - x_{j}) + x_{p}}{L_{n_p}}}
+            \]
+            \[
+                J_{\text{tot}} = J_{n, \text{diff}}(x_{j} - x_{p}) + J_{p, \text{diff}}(x_{j} + x_{n}) = \qty[\frac{qD_{p_n}}{L_{p_n}} \frac{n_{i}^{2}}{N_{D}} + \frac{qD_{n_p}}{L_{n_p}} \frac{n_{i}^{2}}{N_{A}}]\qty(e^{\frac{V_{a}}{V_{T}}} - 1) = J_{s}\qty(e^{\frac{V_{a}}{V_{T}}} - 1)
+            \]
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\linewidth]{QB1_plot_9.png}
+                \caption{Analytical current densities}
+            \end{figure}
+
+            With total currents being
+            \[
+                J_{\text{tot}} = 0.271 \; \text{A/cm}^{2}
+            \]
+            \[
+                \overline{J_{\text{tot}}} \approx 0.236 \; \text{A/cm}^{2}, \quad \varepsilon = 15 \%
+            \]
+
+            \vspace{50pt}
+            \textbf{(QB2)} Plotting the I-V characteristic obtained from PADRE, we get
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.75\linewidth]{QB2_plot.png}
+                \caption{I-V characteristic of the PN junction}
+                \label{fig:a2_exB_IV}
+            \end{figure}
+
+            \newpage
+            Where 
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.25\linewidth]{unnamed.jpg}
+            \end{figure}
+
+            As we can see in Figure~\ref{fig:a2_exB_IV}, the current behaves almost as described by the analytical expression of $J_{\text{tot}}$.
+            It grows exponentially as the bias applied grows, and plateus at $I_{s}$ for reverse biases ($V << 0$).
+            The current is appreciable only after the voltage surpasses a threshold we call ``turn-on voltage'' ($V_{\gamma}$), which sits around $\approx 0.6-0.7$ V for silicon, in accordance with our experimental data ($\overline{V_{\gamma}} \approx 0.6$V).
+
+            \vspace{10pt}
+            It is also possible to notice that for voltages moderately greater than the turn-on voltage we have the characteristic turn ``linear'', meaning that the exponential behaviour of carrier diffusion is outshined by the resistive behaviour of the sample.
+            This is due to the fact that, after having neutralized the built-in voltage, the PN junction (which at this point we may call diode) acts as two conductors in direct contact with each other.
+            The only limit to the current is, then, the internal resistances of the p and n-sides, thus transforming our device into a de-facto resistor.
+
+    \newpage
+    \pagestyle{plain}
+    \chapter*{Scripts}
+        \stepcounter{chapter}
+        
+        \section*{Assignment 1, Ex. A}
+        \stepcounter{section}
+        \begin{Verbatim}[gobble=4]
+        title Homogenous n-type doped silicon
+
+        $ Given n=5 and s=9 and student number s338295, we have the following parameters:
+        $ TYPE: 14 mod 2 = 0 -> n-type
+        $ DOPING AMOUNT: 9 mod 9 + 1 = 1 -> N = 1e+16
+        $ x: 14 x 24 = 336 -> x = 336um
+        $ y: 9 x 6 = 54 -> y = 54um
+
+        mesh rect nx=500 ny=10 width=1 outf=mesh
+
+        x.m  n=1    l=0   r=1
+        x.m  n=500  l=336 r=1
+        y.m  n=1    l=0   r=1
+        y.m  n=10   l=54  r=1
+
+        region num=1 ix.l=1 ix.h=500 iy.l=1 iy.h=10 silicon
+
+        $ Let us define the electrodes
+        elec num=1 ix.l=1    ix.h=1    iy.l=1 iy.h=10
+        elec num=2 ix.l=500  ix.h=500  iy.l=1 iy.h=10
+
+        dop reg=1 n.type conc=1e+16 x.l=0 x.r=336 y.top=0 y.bot=54 uniform
+        plot.1d dop a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=dop
+
+        material name=silicon EG300=1.11676 PERMITTIVITY=11.8
+        system electrons holes newton
+
+        $ models temperature=300 
+        $ solve init
+        $ plot.1d pot       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=pot
+        $ plot.1d qfn       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=qfn
+        $ plot.1d qfp       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=qfp
+        $ plot.1d band.val  a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=vbiv
+        $ plot.1d band.cond a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=cbiv
+        $ plot.1d hole      a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=holeiv
+        $ plot.1d ele       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=eleiv
+        $ plot.1d e.field   a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=efieldiv
+
+        $ log outfile=bias_IV_char
+
+        $ solve vstep=0.1 nsteps=5 elect=1
+        $ plot.1d pot       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=bias_pot
+        $ plot.1d qfn       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=bias_qfn
+        $ plot.1d qfp       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=bias_qfp
+        $ plot.1d band.val  a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=bias_vbiv
+        $ plot.1d band.cond a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=bias_cbiv
+        $ plot.1d e.field   a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=bias_efieldiv
+
+        $ log off
+
+        models temperature=600
+        solve init
+        plot.1d pot       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=htemp_pot
+        plot.1d qfn       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=htemp_qfp
+        plot.1d band.val  a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=htemp_vbiv
+        plot.1d band.cond a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=htemp_cbiv
+        plot.1d hole      a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=htemp_holeiv
+        plot.1d ele       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=htemp_eleiv
+
+        end
+        \end{Verbatim}
+
+        \newpage
+        \section*{Assignment 1, Ex. B}
+        \begin{Verbatim}[gobble=4]
+        title Homogenous n-type doped silicon with optical generation
+
+        mesh rect nx=500 ny=10 width=1 outf=mesh
+
+        x.m  n=1    l=0    r=1
+        x.m  n=500  l=336  r=1
+        y.m  n=1    l=0    r=1
+        y.m  n=10   l=54   r=1
+        $ x.m  n=1    l=0    r=1
+        $ x.m  n=500  l=9    r=1
+
+        region num=1 ix.l=1 ix.h=500 iy.l=1 iy.h=10 silicon
+
+        $ Let us define the electrodes
+        elec num=1 ix.l=1    ix.h=1    iy.l=1 iy.h=10
+        elec num=2 ix.l=500  ix.h=500  iy.l=1 iy.h=10
+
+        dop reg=1 n.type conc=1e+16 x.l=0 x.r=336 y.top=0 y.bot=54 uniform
+        $ dop reg=1 n.type conc=1e+16 x.l=0 x.r=9 y.top=0 y.bot=54 uniform
+
+        $ Plot the doping of the semiconductor as a sanity-check
+        plot.1d dop a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=dop
+        $ plot.1d dop a.x=0 b.x=9 a.y=27 b.y=27 ascii outf=dop
+
+        material name=silicon taun0=1e-06 taup0=1e-06 MUP=446 MUN=1258
+        system electrons holes newton
+
+        models srh temperature=300 
+        solve init
+        solve prev v1=-1 elect=1 gen=9e+20 reg.gen=1 absorp=0 dir.gen=x
+        $ solve prev v1=-0.5 elect=1 gen=9e+20 reg.gen=1 absorp=0 dir.gen=x
+        $ solve prev v1=0.5 elect=1 gen=9e+20 reg.gen=1 absorp=0 dir.gen=x
+        $ solve prev v1=1 elect=1 gen=9e+20 reg.gen=1 absorp=0 dir.gen=x
+        plot.1d hole      a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=holeiv
+        plot.1d ele       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=eleiv
+        plot.1d j.total   a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=eleiv 
+        $ plot.1d hole      a.x=0 b.x=9 a.y=27 b.y=27 ascii outf=holeiv
+        $ plot.1d ele       a.x=0 b.x=9 a.y=27 b.y=27 ascii outf=eleiv
+        $ plot.1d j.total   a.x=0 b.x=9 a.y=27 b.y=27 ascii outf=eleiv 
+        \end{Verbatim}
+
+
+        \newpage
+        \section*{Assignment 2, Ex. A}
+        \begin{Verbatim}[gobble=4]
+        title Asymmetric PN junction at equilibrium
+
+        mesh rect nx=300 ny=5 width=1 outf=mesh
+        x.m n=1   l=0   r=1
+        x.m n=100 l=168 r=0.8
+        x.m n=200 l=336 r=1.2
+        y.m n=1   l=0   r=1
+        y.m n=5   l=54  r=1
+
+        region num=1 ix.l=1   ix.h=100 iy.l=1 iy.h=5 silicon
+        region num=2 ix.l=100 ix.h=200 iy.l=1 iy.h=5 silicon
+
+        elec num=1 ix.l=1   ix.h=1   iy.l=1 iy.h=5
+        elec num=2 ix.l=200 ix.h=200 iy.l=1 iy.h=5
+
+        dop reg=1 p.type conc=1e+16 uniform
+        dop reg=2 n.type conc=6e+16 uniform
+        plot.1d dop a.x=0 b.x=336 a.y=0 b.y=54 ascii outf=dop
+
+        material name=silicon EG300=1.11676 PERMITTIVITY=11.8 taup0=2e-7 taun0=2e-7
+        system electrons holes newton
+
+        models temperature=300
+        solve init
+        plot.1d pot       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=pot
+        plot.1d qfn       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=qfn
+        plot.1d qfp       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=qfp
+        plot.1d band.val  a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=vbiv
+        plot.1d band.cond a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=cbiv
+        plot.1d hole      a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=holeiv
+        plot.1d ele       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=eleiv
+        plot.1d e.field   a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=efieldiv
+        plot.1d net.ch    a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=netch
+
+        end
+        \end{Verbatim}
+
+
+        \newpage
+        \section*{Assignment 2, Ex. B}
+        \begin{Verbatim}[gobble=4]
+        title Asymmetric PN junction under bias 
+
+        mesh rect nx=200 ny=3 width=1 outf=mesh
+        x.m n=1   l=0   r=1
+        x.m n=100 l=168 r=0.8
+        x.m n=200 l=336 r=1.2
+        y.m n=1   l=0   r=1
+        y.m n=3   l=54  r=1
+
+        region num=1 ix.l=1   ix.h=100 iy.l=1 iy.h=3 silicon
+        region num=2 ix.l=100 ix.h=200 iy.l=1 iy.h=3 silicon
+
+        elec num=1 ix.l=1   ix.h=1   iy.l=1 iy.h=3
+        elec num=2 ix.l=200 ix.h=200 iy.l=1 iy.h=3
+
+        dop reg=1 p.type conc=1e+16 uniform
+        dop reg=2 n.type conc=6e+16 uniform
+        plot.1d dop a.x=0 b.x=336 a.y=0 b.y=54 ascii outf=dop
+
+        material name=silicon taup0=2e-7 taun0=2e-7
+        system electrons holes newton
+
+        models srh temperature=300
+        solve init
+        solve prev v1=0.6 elect=1
+        plot.1d pot       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=pot
+        plot.1d qfn       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=qfn
+        plot.1d qfp       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=qfp
+        plot.1d band.val  a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=vbiv
+        plot.1d band.cond a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=cbiv
+        plot.1d e.field   a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=efieldiv
+        plot.1d net.ch    a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=netch
+        plot.1d j.electr  a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=jele
+        plot.1d j.hole    a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=jhole
+        plot.1d j.total   a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=jtot
+
+        $ log outfile=bias_IV_char
+
+        $ solve init
+        $ solve vstep=-0.1 nsteps=18 elect=1
+        $ solve vstep=0.1 nsteps=10 elect=1
+
+        $ log off
+
+        end 
+        \end{Verbatim}
+            
+
+\end{document}

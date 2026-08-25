@@ -1,0 +1,36 @@
+
+title Asymmetric PN junction at equilibrium
+
+mesh rect nx=300 ny=5 width=1 outf=mesh
+x.m n=1   l=0   r=1
+x.m n=100 l=168 r=0.8
+x.m n=200 l=336 r=1.2
+y.m n=1   l=0   r=1
+y.m n=5   l=54  r=1
+
+region num=1 ix.l=1   ix.h=100 iy.l=1 iy.h=5 silicon
+region num=2 ix.l=100 ix.h=200 iy.l=1 iy.h=5 silicon
+
+elec num=1 ix.l=1   ix.h=1   iy.l=1 iy.h=5
+elec num=2 ix.l=200 ix.h=200 iy.l=1 iy.h=5
+
+dop reg=1 p.type conc=1e+16 uniform
+dop reg=2 n.type conc=6e+16 uniform
+plot.1d dop a.x=0 b.x=336 a.y=0 b.y=54 ascii outf=dop
+
+material name=silicon EG300=1.11676 PERMITTIVITY=11.8 taup0=2e-7 taun0=2e-7
+system electrons holes newton
+
+models temperature=300
+solve init
+plot.1d pot       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=pot
+plot.1d qfn       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=qfn
+plot.1d qfp       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=qfp
+plot.1d band.val  a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=vbiv
+plot.1d band.cond a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=cbiv
+plot.1d hole      a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=holeiv
+plot.1d ele       a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=eleiv
+plot.1d e.field   a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=efieldiv
+plot.1d net.ch    a.x=0 b.x=336 a.y=27 b.y=27 ascii outf=netch
+
+end

@@ -1,0 +1,372 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage[a4paper, margin=1in]{geometry}
+
+\tikzcdset{scale cd/.style={every label/.append style={scale=#1},
+    cells={nodes={scale=#1}}}}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{osservazione}{Osservazione}
+
+\begin{document}
+\setlength{\parindent}{0pt}
+
+\section{Applicazioni lineari}
+\subsection{Definizione}
+    Siano $V, W$ due spazi vettoriali sussistenti su un campo $F$, la mappa $f: V \rightarrow W$ è definita applicazione lineare se soddisfa le seguenti condizioni di linearità:
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\forall \mathbf{a}, \mathbf{b} \in V, \; f(\mathbf{a} + \mathbf{b}) = f(\mathbf{a}) + f(\mathbf{b}) \in W$ 
+        \item $\forall \mathbf{a} \in V, \; \forall \lambda \in F, \; f(\lambda \mathbf{a}) = \lambda f(\mathbf{a}) \in W$ 
+    \end{enumerate}
+
+    \vspace{10pt}
+    \begin{theorem}[Teorema dell'esistenza ed unicità dell'estensione lineare]
+       Siano $V, W$ due spazi vettoriali, sia $B = \{\mathbf{b_1}, ..., \mathbf{b_n}\}$ una base di $V$ e sia $G$ un insieme di n vettori di $W$, allora esiste una e una sola
+       applicazione lineare $T : V \rightarrow W$ tale per cui $T(\mathbf{b_i}) = \mathbf{g_i}, \; i \in \{1, ..., n\}$.
+    \end{theorem}
+
+    \begin{proof}[Dimostrazione]
+        Per un generico $\mathbf{v} \in V$, lo si scomponga unicamente secondo $B$ e si definisca un'applicazione lineare $T: V \rightarrow W$ per cui:
+        \[
+            T(\mathbf{v}) = T(\sum a_i \mathbf{b_i}) = \sum a_i \mathbf{g_i}
+        \]
+        Allora, per costruzione, si ha che:
+        \[
+           T(\mathbf{b_i}) = T(1 \cdot \mathbf{b_i} + \sum_{j \neq i} 0 \cdot \mathbf{b_j}) = \mathbf{g_i}
+        \]
+
+        Si supponga che vi sia un'altra mappa lineare $L : V \rightarrow W$ tale per cui $L(\mathbf{b_i}) = \mathbf{g_i}$, allora:
+        \[
+            L(\mathbf{v}) = L(\sum a_i \mathbf{b_i}) = \sum a_i L(\mathbf{b_i}) = \sum a_i \mathbf{g_i} = T(\mathbf{v})
+        \]
+    \end{proof}
+
+    \vspace{10pt}
+    \begin{theorem}[Teorema dell'immagine di base]
+        Sia $f : V \rightarrow W$ un'applicazione lineare e sia $B = \{\mathbf{b_1}, ..., \mathbf{b_n}\}$ una base di $V$, allora $f(B) = \{f(\mathbf{b_1}), ..., f(\mathbf{b_n})\}$ è un generatore di $\textnormal{Im}(f)$.
+    \end{theorem}
+
+    \begin{proof}[Dimostrazione]
+        Si prenda un $\mathbf{w} \in \textnormal{Im}(f)$, allora $\exists \mathbf{v} \in V$ tale cui $f(\mathbf{v}) = \mathbf{w}$. Dato che $B$ è una base di $V$, si ha:
+        \[
+            \mathbf{w} = f(\mathbf{v}) = f(\sum_{i} a_i \mathbf{b_i}) = \sum_{i} f(a_i \mathbf{b_i}) = \sum_{i} a_i f(\mathbf{b_i}) \implies \textnormal{Im}(f) \subset \textnormal{span}(f(B))
+        \]
+
+        Sia $\mathbf{k} \in \textnormal{span}(\{f(\mathbf{b_1}), ..., f(\mathbf{b_n})\})$, allora:
+        \[
+            \mathbf{k} = \sum_{i} c_i f(\mathbf{b_i}) = f(\sum_{i} c_i \mathbf{b_i}) \implies \exists \mathbf{u} = \sum_{i} c_i \mathbf{b_i} \in V \; | \; f(\mathbf{u}) = \mathbf{k} \implies \textnormal{span}(f(B)) \subset \textnormal{Im}(f)
+        \]
+
+        Quindi $\textnormal{Im}(f) = \textnormal{span}(f(B))$. 
+    \end{proof}
+
+
+
+\vspace{10pt}
+\subsection{Matrici associate e cambi di base}
+    Ogni applicazione lineare $f: V \rightarrow W$ può essere definita come:
+    \[
+        f(\mathbf{v}) = M_{f}^{E, F}\mathbf{v}\rvert_{E}
+    \]
+    dove $M_{f}^{E, F}$ è la matrice associata ad $f$; $E$ ed $F$ sono, rispettivamente, delle basi di $V$ e $W$ e $\mathbf{v}\rvert_{E}$ è il vettore $\mathbf{v}$ scomposto secondo la base $E$.
+    Sia $n$ la dimensione di $V$ e $m$ la dimensione di $W$, allora è possibile definire $M_{f}^{E, F}$ come
+    \[
+        M_{f}^{E, F} = \begin{bmatrix} f(\mathbf{e_1})\rvert_{F} & f(\mathbf{e_2})\rvert_{F} & ... & f(\mathbf{e_n})\rvert_{F} \end{bmatrix}
+    \]
+
+    \vspace{10pt}
+    Per operare un cambio di base $\mathbf{v}\rvert_{E} \rightarrow \mathbf{v}\rvert_{E'}$ è necessario determinare la matrice $M_{\textnormal{id}_V}^{E, E'}$ con $E = \{\mathbf{e_1}, ..., \mathbf{e_n}\}, \; E' = \{\mathbf{e'_1}, ..., \mathbf{e'_n}\}$ basi di $V$:  
+    \[
+        \mathbf{v}\rvert_{E'} = M_{\textnormal{id}_V}^{E, E'} \mathbf{v}\rvert_{E} = \begin{bmatrix} \mathbf{e_1}\rvert_{E'} & \mathbf{e_2}\rvert_{E'} & ... & \mathbf{e_n}\rvert_{E'} \end{bmatrix} \mathbf{v}\rvert_{E}
+    \]
+    in altre parole, la matrice associata al cambio di base da $E$ a $E'$ ha per colonne i vettori della base $E$ scritti secondo la base $E'$.
+    Inoltre, in virtù del fatto che è possibile passare da una base all'altra in maniera biunivoca, si ha:
+    \[
+        \mathbf{v}\rvert_{E} = 
+        M_{\textnormal{id}_V}^{E', E} \mathbf{v}\rvert_{E'} = 
+        M_{\textnormal{id}_V}^{E', E} (M_{\textnormal{id}_V}^{E, E'} \mathbf{v}\rvert_{E}) \implies 
+        M_{\textnormal{id}_V}^{E', E} M_{\textnormal{id}_V}^{E, E'} = I \implies 
+        M_{\textnormal{id}_V}^{E', E} = (M_{\textnormal{id}_V}^{E, E'})^{-1} \; \textnormal{e viceversa}
+    \]
+    Si indichi d'ora in poi la matrice di cambio base $M_{\textnormal{id}_V}^{E, E'}$ come $P^{E, E'}$
+
+    \vspace{10pt}
+    \begin{theorem}[Teorema del cambio di base]
+        Siano $V, W$ due spazi vettoriali e siano $E, E'$ basi di $V$, $F, F'$ basi di $W$. Sia $f : V \rightarrow W$ un'applicazione lineare e sia 
+        $P = P^{E, E'}$, $Q = P^{F, F'}$, $A = M_{f}^{E, F}$, $A' = M_{f}^{E', F'}$ allora $A = Q^{-1} A' P$
+    \end{theorem}
+
+    \begin{proof}[Dimostrazione]
+        \hfill \break
+        \[
+            \begin{tikzcd}[scale cd=1.3, row sep=huge, column sep=huge]
+                V_{E'}  \arrow[r, "M_{f}^{E', F'}"]               & W_{F'} \arrow[d, "Q^{-1}"] \\
+                V_{E}   \arrow[u, "P"] \arrow[r, "M_{f}^{E, F}"]  & W_{F}
+            \end{tikzcd}
+        \]
+        Come è possibile osservare dal diagramma commutativo soprastante, l'effetto di una mappa da $V_E$ a $W_F$ è identico all'effetto di una composizione delle mappe, rispettivamente,
+        da $V_E$ a $V_E'$, da $V_E'$ a $W_F'$, ed infine da $W_F'$ a $W_F$. In simboli:
+        \[
+            \mathbf{u}\rvert_{F} = Q^{-1}\mathbf{u}\rvert_{F'} = Q^{-1} (A' \mathbf{v}\rvert_{E'}) = Q^{-1} A' (P \: \mathbf{v}\rvert_{E}) = (Q^{-1} A' P) \mathbf{v}\rvert_{E} = A \mathbf{v}\rvert_{E}
+        \]
+    \end{proof}
+
+    \begin{corollary}
+        Siano $P, Q \in \mathbb{R}^{n, n}$ e siano $A, A' \in \mathbb{R}^{n, n}$ due matrici tali per cui $A' = Q^{-1}AP$, allora rank($A$) = rank($A'$)
+    \end{corollary}
+
+
+
+\vspace{10pt}
+\subsection{Nucleo di un'applicazione lineare}
+    Sia $f: V \rightarrow W$ un'applicazione lineare, il nucleo (anche chiamato kernel) $\ker(f) := K \subset V$ di $f$ è definito come l'insieme di quei vettori tali per cui $\mathbf{v} \in K \iff f(\mathbf{v}) = \mathbf{0}$.
+    E' possibile dimostrare che il kernel di un'applicazione lineare è un sottospazio vettoriale, in quanto:
+
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\forall \mathbf{v}, \mathbf{w} \in K, \; f(\mathbf{v} + \mathbf{w}) = f(\mathbf{v}) + f(\mathbf{w}) = \mathbf{0} \implies \mathbf{v} + \mathbf{w} \in K$ 
+        \item $\forall \mathbf{v}, \; \forall \lambda \in \mathbb{R}, \; f(\lambda \mathbf{v}) = \lambda f(\mathbf{v}) = \mathbf{0} \implies \lambda \mathbf{v} \in K$ 
+    \end{enumerate} 
+
+
+    
+\vspace{10pt}
+\subsection{Teorema della dimensione}
+    \begin{theorem}[Teorema della dimensione]
+        Sia $f : V \rightarrow W$ un'applicazione lineare fra due spazi vettoriali sussistenti su un campo $F$, allora $\dim(\textnormal{Im}(f)) + \dim(\ker(f)) = \dim(V)$.
+    \end{theorem}
+
+    \begin{proof}[Dimostrazione] 
+        Sia $B = \{ \mathbf{b_1}, ..., \mathbf{b_n} \}$ una base di $V$. Allora, per il teorema dell'immagine di base, si ha che $f(B) = \{f(\mathbf{b_1}), ..., f(\mathbf{b_n})\}$ è un generatore di $\textnormal{Im}(f)$. 
+        
+        \vspace{10pt}
+        Sia $U = \{ \mathbf{u} \in f(B) \; | \; \mathbf{u} \; \textnormal{è linearmente indipendente} \}$ e $K = f(B) \setminus U$. Intuitivamente, $U$ è una base di $\textnormal{Im}(f)$, e quindi
+        $\forall \mathbf{w} \in \textnormal{Im}(f) \; \exists a_1, ..., a_s \in F \; | \; \mathbf{w} = a_1 \mathbf{u_1} + ... + a_s \mathbf{u_s}$. Inoltre, è possibile osservare che:
+        \[
+            V = \mathcal{V}_U \oplus \mathcal{V}_K \; \textnormal{dove} \;\: \mathcal{V}_U = \textnormal{span}\{\mathbf{b} \in B \; | \; f(\mathbf{b}) \in U\} \; \textnormal{e} \; \mathcal{V}_K = \textnormal{span}\{\mathbf{b} \in B \; | \; f(\mathbf{b}) \in K\} 
+        \]
+        Dunque è possibile esprimere ogni generico vettore $\mathbf{v} \in V$ come $\mathbf{v} = \mathbf{v}_U + \mathbf{v}_K$ dove $\mathbf{v}_U \in \mathcal{V}_U$ e $\mathbf{v}_K \in \mathcal{V}_K$.
+        Non è difficile dimostrare che $\mathcal{V}_U$ è isomorfo a $\textnormal{Im}(f)$, infatti:
+        \[
+            \forall \mathbf{v}_U \in \mathcal{V}_U, \; f(\mathbf{v}_U) = f(\sum_{f(\mathbf{b_i}) \in U} a_i \mathbf{b_i}) = \sum_{f(\mathbf{b_i}) \in U} a_i f(\mathbf{b_i})
+        \]
+        Dato che $U$ è una base di $\textnormal{Im}(f)$, per ogni generico $\mathbf{v}_U \in \mathcal{V}_U$ la scomposizione secondo $U$ di $f(\mathbf{v}_U)$ è unica (teorema dell'unicità della scomposizione), innestando una biezione fra $\mathcal{V}_U$ e $\textnormal{Im}(f)$. Allora $\dim(\textnormal{Im}(f)) = \dim(\mathcal{V}_U) = |U|$.
+
+        \vspace{10pt}
+        Si prenda in considerazione il kernel di $f$, ovvero l'insieme di tutti i vettori in $V$ che soddisfano:
+        \[
+            f(\mathbf{v}) = f(\mathbf{v}_U + \mathbf{v}_K) = \mathbf{0}_W \implies f(\mathbf{v}_U) = -f(\mathbf{v}_K) 
+        \]
+
+        Anche in questo caso non è difficile trovare una biezione lineare fra $\mathcal{V}_K$ e $\ker(f)$, in quanto:
+        \[
+            \forall \mathbf{v}_K \in \mathcal{V}_K \; \textnormal{esiste uno e un solo} \; \mathbf{v}_U \in \mathcal{V}_U \; | \; f(\mathbf{v}_U) = -f(\mathbf{v}_K) \implies \; \exists \mathbf{v} = \mathbf{v}_U + \mathbf{v}_K \in \ker(f)
+        \]
+        Allora si ha che $\dim(\ker(f)) = \dim(\mathcal{V}_K) = |K|$.
+
+        \vspace{10pt}
+        Infine, $|B| = |f(B)| = |U| + |f(B) \setminus U| \implies |B| = |U| + |K| \implies \dim(V) = \dim(\textnormal{Im}(f)) + \dim(\ker(f))$
+    \end{proof}
+
+
+
+
+\vspace{10pt}
+\subsection{Endomorfismi lineari semplici e autoaggiunti}
+    Un'applicazione lineare $f : V \rightarrow V$ è definita endomorfismo semplice se $V$ è esprimibile come la somma diretta di $k$ sottospazi vettoriali invarianti secondo f e irriducibili ulteriormente. In simboli:
+    \[
+        V = W_1 \oplus ... \oplus W_k 
+    \]
+    dove ogni $W_i$ è invariante secondo $f$ ($f(W_i) \subset W_i$) e non possiede sottospazi a loro volta invarianti se non $\{\mathbf{0}_V\}$ e $W_i$ stesso.
+
+    \vspace{10pt}
+    Un'applicazione lineare $f: V \rightarrow V$, dove $V$ è uno spazio vettoriale dotato di prodotto interno, è definita endomorfismo autoaggiunto ($self \textnormal{-} adjunct \; endomorphism$) se:
+    \[
+        \forall \mathbf{v}, \mathbf{w} \in V, \; f(\mathbf{v}) \cdot \mathbf{w} = f(\mathbf{w}) \cdot \mathbf{v}  
+    \]
+    Per determinare se un endomorfismo è autoaggiunto, è necessario dimostrare che per ogni due generici $\mathbf{b_1}, \mathbf{b_2}$ in una qualsiasi base di $V$ vale
+    $f(\mathbf{b_1}) \cdot \mathbf{b_2} = f(\mathbf{b_2}) \cdot \mathbf{b_1}$.
+
+    \begin{theorem}[Teorema degli endomorfismi autoaggiunti]
+        Sia $f: V \rightarrow V$ un endomofismo e sia $E$ una base ortonormale di $V$, allora $f$ è autoaggiunto se e solo se 
+        $M_{f}^{E, E}$ è simmetrica.
+    \end{theorem}
+
+    \begin{proof}[Dimostrazione]
+        E' possibile esprimere un generico vettore $\mathbf{v} \in V$ come $\mathbf{v} = (\mathbf{v} \cdot \mathbf{e_1})\mathbf{e_1} + ... + (\mathbf{v} \cdot \mathbf{e_n})\mathbf{e_n}$ con $\mathbf{e_1}, ..., \mathbf{e_n} \in E$. Allora
+        \[
+            \begin{aligned}
+                f(\mathbf{e_1}) &= (f(\mathbf{e_1}) \cdot \mathbf{e_1})\mathbf{e_1} + ... + (f(\mathbf{e_1}) \cdot \mathbf{e_n})\mathbf{e_n} \\
+                f(\mathbf{e_2}) &= (f(\mathbf{e_2}) \cdot \mathbf{e_1})\mathbf{e_1} + ... + (f(\mathbf{e_2}) \cdot \mathbf{e_n})\mathbf{e_n} \\
+                \vdots \\
+                f(\mathbf{e_n}) &= (f(\mathbf{e_n}) \cdot \mathbf{e_1})\mathbf{e_1} + ... + (f(\mathbf{e_n}) \cdot \mathbf{e_n})\mathbf{e_n} 
+            \end{aligned}
+            \quad \implies \quad 
+            M_{f}^{E, E} = 
+            \begin{bmatrix}
+                f(\mathbf{e_1}) \cdot \mathbf{e_1} & f(\mathbf{e_2}) \cdot \mathbf{e_1} & ... & f(\mathbf{e_n}) \cdot \mathbf{e_1}   \\
+                f(\mathbf{e_1}) \cdot \mathbf{e_2} & f(\mathbf{e_2}) \cdot \mathbf{e_2} & ... & f(\mathbf{e_n}) \cdot \mathbf{e_2}   \\
+                \vdots & \ddots & ... & \vdots \\
+                f(\mathbf{e_1}) \cdot \mathbf{e_n} & f(\mathbf{e_2}) \cdot \mathbf{e_n} & ... & f(\mathbf{e_n}) \cdot \mathbf{e_n}   \\
+            \end{bmatrix}
+        \]
+        Se $f$ è autoaggiunto, allora ogni coefficiente $f(\mathbf{e_i}) \cdot \mathbf{e_j} = f(\mathbf{e_j}) \cdot \mathbf{e_i}$, il che implica che $M_{f}^{E, E}$ è simmetrica.
+        Se $M_{f}^{E,E}$ è simmetrica, allora per ogni $\mathbf{e_i}, \mathbf{e_j} \in E$ si ha che $f(\mathbf{e_i}) \cdot \mathbf{e_j} = f(\mathbf{e_j}) \cdot \mathbf{e_i}$, il che implica che $f$ è autoaggiunto.
+    \end{proof}
+
+
+
+
+\vspace{10pt}
+\subsection{Autovalori, autovettori ed autospazi}
+    Sia $f : V \rightarrow V$ un endomorfismo lineare, si dicono autovettori di $f$ tutti quei vettori $\mathbf{v} \in V$ tali per cui $f(\mathbf{v}) = \lambda \mathbf{v}$, dove $\lambda \in F$ è uno scalare appartentente al campo su cui $V$ sussiste
+    ed è chiamato autovalore di $f$. 
+
+    \vspace{10pt}
+    Sia $A = M_{f}^{E, E}$ la matrice associata ad $f$ secondo una base $E$ di $V$, allora gli autovettori sono dati da:
+    \[
+        f(\mathbf{v}) = A \mathbf{v} = (\lambda I) \mathbf{v} \implies A \mathbf{v} - \lambda I \mathbf{v} = (A - \lambda I) \mathbf{v} = \mathbf{0} \tag{1}
+    \] 
+    Per far sì che vi siano soluzioni non triviali all'equazione (1) il rango di $A - \lambda I$ non deve essere massimo, perchè in quel caso solo il vettore $\mathbf{0}$ sarebbe soluzione.
+    In altre parole $f$ possiede autovettori se e solo se:
+    \[
+        \textnormal{det}(A - \lambda I) = 0 \tag{2}
+    \]
+    La parte sinistra dell'equazione (2) è un polinomio di grado $n$ (dove $n$ è il numero di colonne e righe di $A$) chiamato polinomio caratteristico, 
+    le cui radici sono i possibili autovalori di $f$. Per il teorema fondamentale dell'algebra il polinomio caratteristico ha $n$ soluzioni, ma spesso (per esempio, quando il campo su cui sussiste $V$ non è algebricamente chiuso) può capitare che 
+    il numero di autovalori reali sia minore di $n$.
+
+    \vspace{10pt}
+    Una volta trovati gli autovalori $\lambda_1, ..., \lambda_s$ gli autovettori associati sono determinabili come segue:
+    \[
+        A \mathbf{v} = \lambda_i \mathbf{v} \implies (A - \lambda_i I) \mathbf{v} = \mathbf{0}
+    \]
+    Dunque, l'insieme di tutti gli autovettori associati un autovalore $\lambda$ si dice autospazio ed è definito come $G_{\lambda} = \ker(A - \lambda I)$. $G_{\lambda}$ è sottospazio di $V$ in quanto:
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\forall \mathbf{v}, \mathbf{w} \in G_{\lambda}, \; f(\mathbf{v} + \mathbf{w}) = \lambda \mathbf{v} + \lambda \mathbf{w} = \lambda (\mathbf{v} + \mathbf{w}) \implies \mathbf{v} + \mathbf{w} \in G_{\lambda}$ 
+        \item $\forall \mathbf{v} \in G_{\lambda}, \forall \mu \in \mathbb{K}, \; f(\mu \mathbf{v}) = \lambda (\mu \mathbf{v}) \implies \mu \mathbf{v} \in G_{\lambda}$
+    \end{enumerate}
+
+    \vspace{10pt} 
+    \subsubsection{Molteplicità algebrica e geometrica}
+    Per molteplicità algebrica di uno specifico autovalore $\mu_f(\lambda_i)$ di $f$ si intende la molteplicità di $\lambda$ come soluzione 
+    del polinomio caratteristico. In altre parole, se $s$ è il numero di autovalori distinti, allora
+    \[
+        \textnormal{det}(A - \lambda I) = \displaystyle \prod_{i = 1}^{s} (\lambda - \lambda_i)^{\mu_f(\lambda_i)}
+    \]
+
+    E' opportuno sottolineare che: 
+    \begin{enumerate}[label=(\arabic*)]
+        \item $1 \leq \mu_f(\lambda_i) \leq n$ 
+        \item $n = \displaystyle \sum_{i}^{s} \mu_f(\lambda_i)$
+    \end{enumerate}
+
+    \vspace{10pt}
+    Per molteplicità geometrica $\gamma_f(\lambda_i)$ di uno specifico autovalore di $f$ si intende la dimensione dell'autospazio associato a $\lambda_i$. Dato che $G_{\lambda_i} = \{ \mathbf{v} \in V \; | \; (A - \lambda_i I) \mathbf{v} = \mathbf{0}\} = \ker(A - \lambda_i I)$, si ha che $\gamma_{f}(\lambda_i) = \dim(G_{\lambda_{i}})$.
+
+    \vspace{10pt}
+    \begin{osservazione}
+        Sia $f: V \rightarrow V$ un endomorfismo lineare e sia $\lambda$ un suo autovalore e $\mathbf{v} \in G_{\lambda}$ un autovettore, allora $\lambda \mathbf{v} \in G_{\lambda}$.
+    \end{osservazione}
+
+    \newpage
+    \vspace{10pt}
+    \begin{theorem}[Teorema della scomposizione semplice]
+        Sia $f : V \rightarrow V$ un endomorfismo lineare e siano $\lambda_1, ..., \lambda_s \in \mathbb{R}$ tutti i possibili autovalori di f. Se per ogni $\lambda \in \{\lambda_1, ..., \lambda_s\}$ si ha che $\mu_f(\lambda) = \gamma_f(\lambda)$ allora f è un endomorfismo semplice.
+    \end{theorem}
+
+    \begin{proof}[Dimostrazione]
+        Se $f$ è un endomorfismo lineare semplice, allora è possibile scomporre $V$ in $k$ sottospazi invarianti secondo $f$ e ulteriormente irriducibili. Siano allora gli autospazi $G_{\lambda_i}$ i sopracitati sottospazi. Rimane da dimostrare che (1) un generico $G_{\lambda}$ sia irriducibile ed invariante secondo $f$ e che:
+        \[
+            \textnormal{(2)} \quad \bigoplus_{i}^{s} G_{\lambda_i} = V
+        \]
+
+        \vspace{10pt}
+        (1) 
+        $G_{\lambda}$ è sicuramente invariante secondo $f$, ovvero $f(G_{\lambda}) \subset G_{\lambda}$, in quanto essendo sottospazio di $V$, per chiusura secondo il prodotto scalare-vettore, si ha che
+        \[
+            \mathbf{v} \in G_{\lambda} \implies \lambda \mathbf{v} = f(\mathbf{v}) \in G_{\lambda} 
+        \]
+        $G_{\lambda}$ è anche pseudo-irriducibile secondo $f$, nel senso che è possibile trovare $p$ sottospazi di $G_{\lambda}$ invarianti e irriducibili. Infatti se $\dim(G_{\lambda}) = 1$ allora gli unici sottospazi ammissibili sono $G_{\lambda}$ stesso e $\{ \mathbf{0}_V \}$ ed è quindi irriducibile. 
+        Nel caso di $\dim(G_{\lambda}) > 1$ invece si ha:
+        \[
+            G_{\lambda} = \bigoplus_{j}^{\dim(G_{\lambda})} W_j
+        \] 
+        dove $W_j$ sono i sottospazi monodimensionali di $G_{\lambda}$ tali per cui, data una base $K_{\lambda}$ di $G_{\lambda}$ 
+        \[
+            W_j = \textnormal{span}\{ \mathbf{k_j} \} \quad \mathbf{k_j} \in K_{\lambda}
+        \] 
+
+        \vspace{10pt}
+        (2)
+        Per dimostrare che la somma degli autospazi è in primo luogo diretta, è semplicemente necessario dimostrare che, dati due generici autospazi, $G_{\lambda_1} \cap G_{\lambda_2} = \{ \mathbf{0}_V \}$.
+        Procedendo per assurdo, sia $\mathbf{v} \in G_{\lambda_1} \cap G_{\lambda_2} \; | \; \mathbf{v} \neq \mathbf{0}_V$. Allora 
+        \[
+           \mathbf{v} \in G_{\lambda_1} \cap G_{\lambda_2} \implies f(\mathbf{v}) = \lambda_1 \mathbf{v} = \lambda_2 \mathbf{v} \implies (\lambda_1 - \lambda_2) \mathbf{v} = \mathbf{0}_V
+        \]
+        Dato che $\lambda_1 \neq \lambda_2$, in quanto gli autovalori sono esplicitamente distinti, si arriva a $\mathbf{v} = \mathbf{0}_V$, contraddicendo l'ipotesi iniziale.
+        
+        \vspace{5pt}
+        Infine sia
+        \[
+            W = \bigoplus_{i}^{s} G_{\lambda_i}
+        \]
+        Dato che $W$ è generato da una somma diretta di sottospazi, è evidente che 
+        \[
+            \mathcal{K} = \bigcup_{i}^{s} K_{\lambda_i}
+        \]
+        è una base di $W$, dove $K_{\lambda_i}$ è la base dell'autospazio $G_{\lambda_i}$. La cardinalità di $\mathcal{K}$ è data da 
+        \[
+            |\mathcal{K}| = \sum_{i}^{s} |K_{\lambda_i}| = \sum_{i}^{s} \gamma_{f}(\lambda_i) = \sum_{i}^{s} \mu_{f}(\lambda_i) = n = \dim(V)
+        \]
+        Quindi $\mathcal{K}$ è un insieme di $n$ vettori linearmente indipendenti (è una base) e $\mathcal{K} \subset V$. Allora $\mathcal{K}$ è una base di $V$, concludendo che
+        \[
+            W = \bigoplus_{i}^{s} G_{\lambda_i} = V
+        \]
+        
+    \end{proof}
+
+
+
+
+\vspace{10pt}    
+\subsection{Diagonalizzazione e spettro di una matrice}
+    Sia $A \in \mathbb{R}^{n, n}$ una generica matrice quadrata. Esiste allora un'applicazione lineare $f: V \rightarrow V$ tale per cui $\dim(V) = n$ e $A = M_{f}^{C, C}$ con $C$ base di $V$. $A$ allora si dice diagonalizzabile se:
+    \[
+        A = PDP^{-1}
+    \]
+    dove $P$ è una matrice di cambiamento di base (dalla "eigenbase" $L$ alla base $C$) che ha per colonne gli autovettori di $V$ che formano una base e $D$ è una matrice diagonale sulla quale vi stanno gli autovalori $\lambda_1, ..., \lambda_n$ di $f$
+    secondo l'ordine in cui sono messi i vettori in $P$.
+
+    \vspace{10pt}
+    E' possibile diagonalizzare una matrice se e solo se lo spazio vettoriale $V$ a cui è associata la matrice è scomponibile secondo $f$, ovvero $f$ è un endomorfismo lineare semplice su $V$.
+    Per computare la diagonalizzazione di una matrice è necessario:
+    \begin{enumerate}[label=(\arabic*)]
+        \item Individuare gli autovalori di $A$ risolvendo $\det(A - \lambda I) = 0$
+        \item Verificare per ogni autovalore $\lambda_i$ che $\mu_{A}(\lambda_i) = \gamma_{A}(\lambda_i)$
+        \item Trovare una base $K_{\lambda_i}$ per ogni autospazio $G_{\lambda_i}$. Dato che $\displaystyle \bigcup_{i} K_{\lambda_i} = L$ ($L$ è una "eigenbase" di $V$), si ha allora $P$.
+    \end{enumerate}
+
+    \begin{theorem}[Teorema spettrale]
+        Sia $A \in \mathbb{R}^{n, n}$ una matrice simmetrica. Allora $A$ ha tutti autovalori reali ed esiste una base ortonormale di $\mathbb{R}^{n, n}$ costituita da autovettori.
+    \end{theorem} 
+
+    \begin{proof}[Dimostrazione]
+        (1) Ogni generico autovalore $\lambda$ di $A$ è in $\mathbb{C}$, dunque è necessario dimostrare che $\bar{\lambda} = \lambda$. 
+        Si prenda in considerazione la seguente equazione:
+        \[
+            (A \mathbf{v})^{T} = (\lambda \mathbf{v})^{T} \implies (A \mathbf{v})^{T} \bar{\mathbf{v}} = (\lambda \mathbf{v})^{T} \bar{\mathbf{v}} \implies \mathbf{v}^{T} A^{T} \bar{\mathbf{v}} = \lambda \mathbf{v}^{T} \bar{\mathbf{v}} \tag{1.1}
+        \]
+        Dato che $A^{T} = A$ e che $A \bar{\mathbf{v}} = \bar{\lambda} \bar{\mathbf{v}}$, si ha:
+        \[
+            \mathbf{v}^{T} A^{T} \bar{\mathbf{v}} = \mathbf{v}^{T} A \bar{\mathbf{v}} = \mathbf{v}^{T} \bar{\lambda} \bar{\mathbf{v}} \implies \bar{\lambda} \mathbf{v}^{T} \bar{\mathbf{v}} = \lambda \mathbf{v}^{T} \bar{\mathbf{v}} \implies \bar{\lambda} = \lambda \in \mathbb{R} \tag{1.2}
+        \]
+
+        \vspace{10pt}
+    \end{proof}
+
+\end{document}

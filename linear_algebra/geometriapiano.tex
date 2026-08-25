@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage[a4paper, margin=1in]{geometry}
+
+
+\begin{document}
+\setlength{\parindent}{0pt}
+
+\section{Geometria in $\mathbb{R}^2$}
+\subsection{Rette nel piano}
+    Una retta nel piano è una collezione geometrica di punti generata da un punto $P_0$ e da un vettore $\mathbf{v}$ normale alla retta.
+    Per ottenere l'equazione della retta è necessario porre tutti i vettori liberi $(P - P_0)$ perpendicolari al vettore $\mathbf{v} = (a, b)$: 
+    \[
+        (P - P_0) \cdot \mathbf{v} = 0 \iff a(x - x_0) + b(y - y_0) = 0 \iff ax + by -ax_0 -by_0 = 0 \iff ax + by + c = 0 
+    \]
+    L'equazione cartesiana della retta è dunque $r: ax + by + c = 0$. 
+
+    \vspace{10pt}
+    Dato il vettore direzione $\mathbf{w}$ della retta, essa può essere scritta in forma parametrica: 
+    \[
+        (P - P_0) = t\mathbf{w} \iff P = P_0 + t\mathbf{w}
+    \]
+
+    \vspace{10pt}
+    Dati due punti distinti $P_0, P_1 \in \mathbb{R}^2$ è possibile tracciare una e una sola retta che passa per entrambi:
+    \[
+        (P - P_0) = t(P_1 - P_0) \iff P = P_0 + t(P_1 - P_0)
+    \]
+
+    \vspace{10pt}
+    Date due rette $r: P = P^r_0 + t\mathbf{v}$ e $s: P = P^s_0 + u\mathbf{w}$ l'intersezione fra $r$ ed $s$ è data da:
+    \[
+        P^r_0 + t\mathbf{v} = P^s_0 + u\mathbf{w} \iff
+        \begin{cases}
+            x^r_0 + tv_x = x^s_0 + uw_x \\
+            y^r_0 + tv_y = y^s_0 + uw_y
+        \end{cases}
+    \]
+
+\subsection{Fasci di rette}
+    Sia $r: ax + by + c = 0$ e $s: a'x + b'y + c' = 0$ e sia $P = r \cap s$ il punto di incidenza delle due rette. Il fascio di rette
+    passanti per $P$ è dato da $\lambda(ax + by + c) + \mu(a'x + b'y + c') = 0$
+
+\subsection{Distanza punto-retta}
+    Sia $r: ax + by + c = 0$ una retta e $P$ un punto non appartenente alla retta. La distanza fra il punto e la retta è definita come:
+    \[
+        d(r, P) = |\mathbf{u} \cdot (P - P_0)| = \frac{|a(x - x_0) + b(y - y_0)|}{\sqrt(a^2 + b^2)} = \frac{|ax + by +c|}{\sqrt(a^2 + b^2)}  
+    \]
+\end{document}

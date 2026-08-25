@@ -1,0 +1,916 @@
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{titling}
+\usepackage{graphicx}
+\usepackage{tikz-cd}
+\usepackage[hidelinks]{hyperref}
+\usepackage{nameref}
+\usepackage{fancyhdr}
+\usepackage{dsfont}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{refcount}
+\usepackage{physics}
+
+% \tikzcdset{scale cd/.style={every label/.append style={scale=#1},
+%     cells={nodes={scale=#1}}}}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{osservazione}{Osservazione}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposizione}
+\newtheorem{definition}{Definizione}
+\newtheorem{axiom}{Assioma}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+    \section{Teoria della probabilità}
+        \subsection{Introduzione}
+            Grazie al matematico sovietico Andrej Kolmogorov fu possibile, nel XX secolo, assiomatizzare i concetti fondamentali della teoria della probabilità.
+
+            \vspace{10pt}
+            Fra questi assiomi possiamo trovare le essenziali definizioni di:
+
+            \begin{definition}
+                Si dice spazio campione l'insieme $\Omega$ ( o semplicemente $S$) di tutti i possibili risultati, anche chiamati \textbf{eventi elementari}, di un esperimento aleatorio.
+            \end{definition}
+
+            \begin{definition}
+                Si dice spazio degli eventi $\mathcal{F} \subset \mathcal{P}(\Omega)$ la $\sigma$-algebra definita su $\Omega$, i cui membri sono possibili \textbf{eventi} dell'esperimento aleatorio, ovvero combinazioni di \textbf{eventi elementari}.
+            \end{definition}
+
+            \begin{definition}
+                Si dice misura di probabilità $P$ la misura definita su $\mathcal{F}$ che assegna ad ogni evento la sua \textbf{probabilità}.
+            \end{definition}
+
+            Lo spazio misurabile ($\Omega$, $\mathcal{F}$, $P$), insieme con l'assunzione che $P(\Omega) = 1$, è detto uno \textit{spazio di probabilità}
+
+        \subsection{Assiomi della teoria della probabilità}
+            \begin{axiom}[Non-negatività della probabilità]
+                La probabilità di un evento deve sempre essere maggiore o uguale a zero 
+                \[
+                    \forall E \in \mathcal{F}, \; P(E) \geq 0
+                \]
+            \end{axiom}
+
+            \begin{axiom}[Probabilità unitaria]
+                La probabilità che il risulato di un esperimento aleatorio sia nell'insieme campione è sempre massima
+                \[
+                    P(\Omega) = 1
+                \]
+            \end{axiom}
+
+            \begin{axiom}[$\sigma$-additività]
+                La probabilità associata ad un'unione numerabile di eventi mutualmente esclusivi ($\forall E_{1}, E_{2} \in \{E_{k}\}_{k \in A}, \; E_{1} \cap E_{2} = \emptyset$) equivale alla somma delle probabilità degli eventi presi singolarmente
+                \[
+                    P\qty(\bigcup_{k \in A} E_{k}) = \sum_{k \in A} P(E_{k})
+                \]
+            \end{axiom}
+
+            \vspace{10pt} 
+            Gli assiomi 1 e 3 sono in realtà condizioni implicate dal fatto che lo spazio di probabilità è a sua volta uno spazio misurabile.
+            Altre conseguenze degne di nota della proprietà di $\sigma$-additività sugli spazi di probabilità sono:
+            \begin{enumerate}
+                \item La misura di probabilità $P$ è monotona, ovvero:
+                \[
+                    A \subseteq B \implies P(B) = P(A \cup (B \setminus A)) = P(A) + P(B \setminus A) \geq P(A) 
+                \]
+                \item La probabilità dell'evento nullo $\emptyset$ è nulla (l'evento è impossibile), $P(\emptyset) = 0$
+                \item Dato un evento $E$, la probabilità dell'evento complementare è data da $1 - P(E)$
+                \[
+                    1 = P(\Omega) = P(E \cup E^{c}) = P(E) + P(E^{c}) \implies 1 - P(E) = P(E^{c})
+                \]
+                \item Dati due eventi $A, B \in \mathcal{F}$, la probabilità della loro unione è data da $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+                \[
+                    P(A \cup B) = P(A \setminus (A \cap B)) + P(B \setminus (A \cap B)) + P(A \cap B) = P(A) + P(B) - P(A \cap B)
+                \]
+            \end{enumerate}
+
+
+
+    \newpage
+    \section{Spazi di probabilità}
+        \subsection{Spazi di probabilità finiti}
+            Uno spazio di probabilità finito è uno spazio in cui $|\Omega| = N < \infty$. 
+            La $\sigma$-algebra che consideriamo è solitamente l'insieme potenza di $\Omega$, mentre siamo in grado di definire la misura di probabilità sugli eventi elementari, ovvero
+            \[
+                \forall S_{i} \in \Omega, \; P(\{S_{i}\}) = p_{i}
+            \]
+
+            In tal modo, per qualsiasi evento $E \in \mathcal{P}(\Omega)$, si ha che
+            \[
+                P(E) = P\qty(\bigcup_{S_{k} \in E} \{S_{k}\}) = \sum_{S_{k} \in E} P(\{S_{k}\})
+            \]
+
+        \subsection{Spazi di probabilità uniformi}
+            Uno spazio di probabilità è detto uniforme qualora $\forall S_{1}, S_{2} \in \Omega, \; P(\{S_{1}\}) = P(\{S_{2}\})$, ovvero quando la probabilità di tutti gli eventi elementari è la stessa.
+            Questi possono essere finiti, quindi $\sum_{S_{k} \in \Omega} p_{k} = |\Omega| \cdot 1 \implies p_{k} = \frac{1}{|\Omega|}$, oppure infiniti, scegliento la distribuzione di probabilità appropriata.
+
+            \vspace{10pt}
+            Uno spazio di probabilità uniforme non può avere insieme campione infinitamente numerabile, in quanto $p_{k} > 0 \implies p_{k} \cdot N > 1$ per qualche $N$ sufficientemente grande, ma $|\Omega| = |\mathbb{N}| > N$.
+
+
+
+    \newpage
+    \section{Calcolo combinatorio}
+        \begin{definition}[Disposizione]
+            Dato un insieme $\Omega$, si dice disposizione $n$-esima il seguente insieme
+            \[
+                D_{n}(\Omega) = \qty{ (\omega_{1}, \omega_{2}, ..., \omega_{n}) \; : \; \omega_{1}, ..., \omega_{n} \in \Omega }
+            \]
+            La cardinalità di $D_{n}(\Omega)$ è data da $|\Omega|^{n}$
+        \end{definition}
+
+        \begin{definition}[Disposizione non ordinata]
+            Dato un insieme $\Omega$, si dice disposizione $n$-esima non ordinata il seguente insieme
+            \[
+                D^{*}_{n}(\Omega) = D_{n}(\Omega) / (a \sim b \iff \textnormal{Set}(a) = \textnormal{Set}(b))
+            \]
+            dove
+            \[
+                t = (a_{i})_{i \in I}, \quad f_{t}: i \mapsto a_{i}, \quad \textnormal{Set}(t) = \textnormal{Im}(f_{t}),
+            \]
+            La cardinalità di $D^{*}_{n}(\Omega)$ è data da $\displaystyle \sum_{i = 1}^{n} \frac{|\Omega|!}{(|\Omega| - i)! i!} = \sum_{i = 1}^{n} \binom{|\Omega|}{i}$
+        \end{definition}
+
+        \begin{definition}[Disposizione semplice]
+            Dato un insieme $\Omega$, si dice disposizione $n$-esima semplice il seguente insieme
+            \[
+                D^{s}_{n}(\Omega) = \qty{ (\omega_{1}, \omega_{2}, ..., \omega_{n}) \; : \; \omega_{1}, ..., \omega_{n} \in \Omega, \; \forall i, j \quad i \neq j \implies \omega_{i} \neq \omega_{j}}  
+            \]
+            La cardinalità di $D^{s}_{n}(\Omega)$ è data da $\displaystyle \frac{|\Omega|!}{(|\Omega| - n)!}$
+        \end{definition}
+
+        \begin{definition}[Disposizione semplice non ordinata]
+            Dato un insieme $\Omega$, si dice disposizione semplice non ordinata $n$-esima il seguente insieme
+            \[
+                D^{s, *}_{n}(\Omega) = D^{s}_{n}(\Omega) / (a \sim b \iff \textnormal{Set}(a) = \textnormal{Set}(b))
+            \]
+            La cardinalità di $D^{s, *}_{n}(\Omega)$ è data da $\displaystyle \frac{|\Omega|!}{(|\Omega| - n)!n!} = \binom{|\Omega|}{n}$
+        \end{definition}
+
+        \begin{definition}[Permutazione]
+            Data una tupla $t: I \rightarrow \Omega$, si dice permutazione di $t$ la composizione di $t$ con una biezione $\sigma: I \rightarrow I$ appartenente al gruppo simmetrico di $I$.
+            In simboli
+            \[
+                P(t) = \{ t \circ \sigma \; : \; \sigma \in \textnormal{Sym}(I)\}
+            \]
+            La cardinalità di $P(t)$ è data da $\displaystyle \frac{|I|!}{\prod_{e \in t(I)} |t^{-1}(e)|!}$
+        \end{definition}
+
+    
+
+    \newpage
+    \section{Probabilità condizionata}
+        Dato uno spazio di probabilità $(\Omega, \mathcal{F}, P)$, si dice probabilità di un evento $A$ condizionato ad un evento $B$ la probabilità che avvenga $A$ assunto $B$ nuovo insieme campione.
+        In altre parole, la probabilità condizionata $A | B$ è la probabilità che, considerando solo risultati in $B$, il risultato finale sia anche in $A$.
+
+        \vspace{10pt}
+        Operativamente, la probabilità condizionata $A | B$ è definita a partire dallo spazio di probabilità ereditato da $B$. 
+        Infatti, sia $B$ il nuovo spazio campione; possiamo allora dimostrare che $\mathcal{F}_{B} = \{ C \cap B \; : \; C \in \mathcal{F}\}$ sia a sua volta una valida $\sigma$-algebra:
+        \begin{enumerate}
+            \item Sia $\{S_{i}\}_{i \in I}$ una collezione numerabile di elementi di $\mathcal{F}_{B}$, allora 
+            \[
+                \bigcup_{i \in I} S_{i} = \bigcup_{i \in I} K_{i} \cap B = \qty(\bigcup_{i \in I} K_{i}) \cap B 
+            \]
+            Dato che $\{K_{i}\}_{i \in I}$ è una collezione appartenente a $\mathcal{F}$, si ha che $\displaystyle \bigcup_{i \in I} K_{i} \in \mathcal{F}$, quindi $\displaystyle \bigcup_{i \in I} S_{i} \in \mathcal{F}_{B}$
+
+            \item Sia $\{S_{i}\}_{i \in I}$ una collezione numerabile di elementi di $\mathcal{F}_{B}$, allora
+            \[
+                \bigcap_{i \in I} S_{i} = \bigcap_{i \in I} K_{i} \cap B = \qty(\bigcap_{i \in I} K_{i}) \cap B 
+            \]
+            Dato che $\{K_{i}\}_{i \in I}$ è una collezione appartenente a $\mathcal{F}$, si ha che $\displaystyle \bigcap_{i \in I} K_{i} \in \mathcal{F}$, quindi $\displaystyle \bigcap_{i \in I} S_{i} \in \mathcal{F}_{B}$
+
+            \item Sia $A \in \mathcal{F}_{B}$, allora esiste $K \in \mathcal{F}$ tale per cui $A = K \cap B$. 
+            Dato che $K^{c} \in \mathcal{F}$, allora $K^{c} \cap B \in \mathcal{F}_{B}$. 
+            Per chiusura sotto contabile unione, si ha che $(K \cap B) \cup (K^{c} \cap B) \in \mathcal{F}_{B}$, da cui si evince
+            \[
+                (K \cap B) \cup (K^{c} \cap B) = (K \cup K^{c}) \cap B = \Omega \cap B = B
+            \]
+            Abbiamo quindi dimostrato che $A \cup (K^{c} \cap B) = B$. Tenendo conto che $A$ e $K^{c} \cap B$ sono disgiunti, possiamo affermare di conseguenza che $K^{c} \cap B = A^{c}$ (in $B$), e quindi $\mathcal{F}_{B}$ è chiuso per complemento.
+        \end{enumerate}
+
+        La misura di probabilità ereditata è la misura originale ristretta a $\mathcal{F}_{B}$ "normalizzata" secondo $P(B)$, ovvero
+        \[
+            P_{B}(S) = \frac{P(S)}{P(B)}, \; \textnormal{dove} \; S = A \cap B \; \textnormal{per qualche $A$ in} \; \mathcal{F}
+        \]
+
+        Di conseguenza, la terna $(B, \mathcal{F}_{B}, P_{B})$ è un nuovo spazio di probabilità, e l'espressione $P(A|B)$ significa $P_{B}(A \cap B) = \displaystyle \frac{P(A \cap B)}{P(B)}$
+
+        \subsection{Formula delle probabilità composte}
+            Sia $(\Omega, \mathcal{F}, P)$ uno spazio di probabilità e sia $A_{1}, ..., A_{n}$ una collezione di eventi tal per cui $P(\bigcap_{i = 1}^{n} A_{i}) > 0$, allora
+            \[
+                P\qty(\bigcap_{i = 1}^{n} A_{i}) = P(A_{1}) \cdot P(A_{2} | A_{1}) \cdot P(A_{3} | A_{1} \cap A_{2}) \cdot ... \cdot P(A_{n} | A_{1} \cap A_{2} \cap ... \cap A_{n - 1})
+            \]
+
+        \subsection{Formula delle probabilità totali}
+            Sia $(\Omega, \mathcal{F}, P)$ uno spazio di probabilità e sia $\{A_{i}\}_{i \in I}$ una collezione di eventi tale per cui 
+            \[
+                i \neq j \implies A_{i} \cap A_{j} = \emptyset
+            \] 
+            \[
+                \forall i \in I, \; P(A_{i}) \neq 0
+            \]
+            \[
+                \bigcup_{i \in I} A_{i} = \Omega
+            \]
+            ovvero una partizione disgiunta dell'insieme campione $\Omega$, allora, dato un generico evento $B \in \mathcal{F}$
+            \[
+                P(B) = \sum_{i \in I} P(B \cap A_{i}) = \sum_{i \in I} P(A_{i})P(B | A_{i})
+            \]
+
+        \subsection{Formula di Bayes}
+            Sia $(\Omega, \mathcal{F}, P)$ uno spazio di probabilità e siano $A, B \in \mathcal{F}$ due eventi.
+            Allora
+            \[
+                P(A | B) = \frac{P(A \cap B)}{P(B)} = \frac{P(B | A)P(A)}{P(B)}
+            \]
+
+            Sia $\{A_{i}\}_{i \in I} \subset \mathcal{F}$ una partizione disgiunta di $\Omega$ e sia $B \in \mathcal{F}$ un generico evento, allora
+            \[
+                P(A_{i} | B) = \frac{P(B | A_{i})P(A_{i})}{P(B)} = \frac{P(B | A_{i})P(A_{i})}{\sum_{j \in I} P(B | A_{j})P(A_{j})}
+            \]
+
+
+
+    \newpage
+    \section{Indipendenza degli eventi}
+        Sia $(\Omega, \mathcal{F}, P)$ uno spazio di probabilità e siano $A, B \in \mathcal{F}$ due eventi. 
+        $A$ e $B$ si dicono (statisticamente, stocasticamente) indipendenti (oppure, in simboli $A \perp B$) qualora si verifichi una delle seguenti condizioni:
+        \begin{enumerate}
+            \item $P(A | B) = P(A)$, se $P(B) > 0$. 
+            \item $P(B | A) = P(B)$, se $P(A) > 0$
+            \item $P(A \cap B) = P(A | B)P(B) = P(B | A)P(A) = P(A)P(B)$
+        \end{enumerate}
+        Intuitivamente, $A$ e $B$ sono indipendenti qualora la probilità che accada $A$ è la stessa sia in $\Omega$ che in $B$ e viceversa.
+
+        \vspace{10pt}
+        Inoltre, è possibile fare una serie di osservazioni circa due eventi indipendenti, ovvero
+        \begin{enumerate}
+            \item $A \perp B \implies A \perp B^{c}$. Si osservi infatti come 
+            \[
+                P(A) = P(A \cap B) + P(A \cap B^{c}) = P(A)P(B) + P(A \cap B^{c}) \implies P(A)(1 - P(B)) = P(A \cap B^{c})
+            \]
+            \item $A \perp B \implies A^{c} \perp B$. Si osservi come
+            \[
+                P(B) = P(A \cap B) + P(A^{c} \cap B) = P(A)P(B) + P(A^{c} \cap B) \implies P(B)(1 - P(A)) = P(A^{c} \cap B)
+            \]
+            \item $A \perp B \implies A^{c} \perp B^{c}$. Si osservi come
+            \[
+                P(A^{c}) = P(A^{c} \cap B) + P(A^{c} \cap B^{c}) \implies P(A^{c})(1 - P(B)) = P(A^{c} \cap B^{c})
+            \]
+            \item E' possibile generalizzare il concetto di indipendenza a più eventi, ovvero, data una collezione di eventi $\{A_{i}\}_{i \in I}$, si ha che
+            \[
+                P\qty(\bigcap_{i \in I} A_{i}) = \prod_{i \in I} P(A_{i})
+            \]
+            \[
+                \forall i, j \in I, \; i \neq j \implies P(A_{i} \cap A_{j}) = P(A_{i})P(A_{j})
+            \]
+        \end{enumerate} 
+
+        \vspace{10pt}
+        \subsection{Indipendenza condizionata}
+            Sia $(\Omega, \mathcal{F}, P)$ uno spazio di probabilità, e siano $A, B, C \in \mathcal{F}$ tre eventi tali per cui $P(C) > 0$.
+            $A$ e $B$ si dicono indipendenti condizionatamente al verificarsi di $C$ se
+            \[
+                P(A \cap B | C) = P(A | C)P(B | C)
+            \]
+
+            
+
+    \newpage
+    \section{Variabili casuali}
+        \begin{definition}[Variabile casuale]
+            Sia $(\Omega, \mathcal{F}, P)$ uno spazio di probabilità.
+            Si definisce variabile casuale una qualsiasi funzione misurabile del tipo  
+            \[
+                X: (\Omega, \mathcal{F}) \rightarrow (E, \mathcal{G})
+            \]
+        \end{definition}
+
+        Una variabile casuale \textit{trasporta} la misura di probabilità dello spazio di probabilità d'origine allo spazio misurabile determinato da $(E, \mathcal{G})$.
+        In altre parole, grazie a $X$, si definisce la seguente misura su $(E, \mathcal{G})$
+        \[
+            P_{X}(A \in \mathcal{G}) = P(X^{-1}(A))
+        \]
+
+        Spesso, $E = \mathbb{R}$ e $\mathcal{G} = \mathcal{B}(\mathbb{R})$, ovvero le nostre variabili casuali avranno come codominio $\mathbb{R}$ e come $\sigma$-algebra quella di Borel.
+
+        \begin{theorem}[Teorema del generatore]
+            Sia $(\Omega, \mathcal{F}, P)$ uno spazio di probabilità, e sia $X: (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}, \mathcal{B}(\mathbb{R}))$ una funzione.
+            Se, per ogni $a \in \mathbb{R}$, si ha che
+            \[
+                X^{-1}((-\infty, a]) \in \mathcal{F}
+            \]
+            Allora $X$ è misurabile ed è una variabile casuale.
+        \end{theorem}
+
+        \begin{proof}[Dimostrazione]
+            Si selezioni un generico $B \in \mathcal{B}(\mathbb{R})$.
+            Questi è il prodotto di un'espressione \textit{algebrica} dei membri del seguente generatore
+            \[
+                G = \{(-\infty, a] \; : \; a \in \mathbb{R}\}
+            \]
+
+            Dato che è possibile dimostrare che l'operatore di pullback commuta con le operazioni algebriche che determinano le $\sigma$-algebre, $X^{-1}(B)$ è a sua volta un'espressione algebrica di pullback di elementi del generatore.
+            Dato che quest'ultimi si trovano in $\mathcal{F}$, allora anche il risultato dell'espressione si trova in $\mathcal{F}$.
+        \end{proof}
+
+        \begin{definition}[Funzione di distribuzione cumulativa]
+            Sia $(\Omega, \mathcal{F}, P)$ uno spazio di probabilità, e sia $X: (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}, \mathcal{B}(\mathbb{R}))$ una variabile casuale.
+            Si dice funzione di distribuzione cumulativa la seguente funzione
+            \[
+                F_{X}: \mathbb{R} \rightarrow [0, 1]
+            \]
+            \[
+                F_{X}(x) = P(X \leq x) = P_{X}((-\infty, x])
+            \]
+        \end{definition}
+
+        Alcune delle proprietà della funzione di distribuzione cumulativa sono:
+        \begin{itemize}
+            \item Limite verso $-\infty$
+            \[
+                \lim_{x \rightarrow -\infty} F_{X}(x) = 0
+            \]
+
+            \item Limite verso $+\infty$
+            \[
+                \lim_{x \rightarrow \infty} F_{X}(x) = 1
+            \]
+
+            \item Non-decrescenza
+            \[
+                x_{1} > x_{2} \implies (-\infty, x_{2}] \subseteq (-\infty, x_{1}] \implies F_{X}(x_{1}) \geq F_{X}(x_{2})
+            \]
+
+            \item Continuità da destra
+            \[
+                \lim_{h \rightarrow 0^{+}} F_{X}(x + h) = F_{X}(x)
+            \]
+        \end{itemize}
+
+        \begin{definition}[Variabili casuali indipendenti]
+            Siano $X_{1}, X_{2}: (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}, \mathcal{B}(\mathbb{R}))$ delle variabili casuali.
+            Queste si dicono indipendenti se $\forall I_{1}, I_{2} \subseteq \mathbb{R}$ intervalli vale la seguente relazione
+            \[
+                P(X_{1}^{-1}(I_{1}) \: | \: X_{2}^{-1}(I_{2})) = P(X_{1}^{-1}(I_{1}))
+            \]
+        \end{definition}
+
+        \vspace{10pt}
+        \begin{lemma}
+            Sia $X: (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}, \mathcal{B}(\mathbb{R}))$ una variabile casuale e sia $g(x): \mathbb{R} \rightarrow \mathbb{R}$ una funzione misurabile e iniettiva.
+            Allora, dato un $B \in \mathcal{B}(\mathbb{R})$
+            \[
+                P(X \in B) = P(g(X) \in g(B))
+            \]
+        \end{lemma}
+
+        \begin{proof}[Dimostrazione]
+            Ricordando la definizione dell'espressione $P(X \in B)$, si ha che
+            \[
+                P(X \in B) = P(\{ \omega \in \Omega \; : \; X(\omega) \in B \}) = P(X^{-1}(B))
+            \]
+            Per la proprietà iniettiva di $g$, si evince
+            \[
+                g^{-1}(g(B)) = B
+            \]
+
+            Si consideri allora l'espressione $(g \circ X)^{-1}$; è triviale infatti l'eguaglianza $(g \circ X)^{-1} = X^{-1} \circ g^{-1}$. 
+            Quindi (sia $g(B)$ scritto come $gB$ per evitare troppe parentesi)
+            \[
+                P(g(X) \in gB) = P((g \circ X)^{-1}(gB)) = P((X^{-1} \circ g^{-1}) (gB)) = P(X^{-1}(B)) = P(X \in B)
+            \]
+        \end{proof}
+
+
+        \subsection{Caratterizzazione delle variabili casuali}
+            E' possibile caratterizzare le variabili casuali a seconda di come le misure di probabilità indotte dalle stesse sono formulate.
+
+            \begin{enumerate}
+                \item Se, data una variabile casuale $X$, la sua immagine $X(\Omega)$ è contabile, allora
+                \[
+                    \forall x_1, x_2 \in \Omega, \; X^{-1}(x_1) \cap X^{-1}(x_2) = \emptyset
+                \]
+                di conseguenza, la seguente collezione di sottoinsiemi di $\Omega$
+                \[
+                    \qty{X^{-1}(x) \; : \; x \in X(\Omega)}
+                \]
+                è una partizione disgiunta dello spazio campione, quindi
+                \[
+                    1 = P(\Omega) = \sum_{x \in X(\Omega)} P(X^{-1}(x)) = \sum_{x \in X(\Omega)} P(X = x)
+                \]
+                $X$ è allora detta una variabile casuale \textit{discreta}.
+
+                \item Se, data una variabile casuale $X$, la sua \textit{funzione di distribuzione cumulativa} $F_{X}(x)$ è continua, allora $X$ è una variabile casuale (assolutamente) continua.
+            \end{enumerate}
+
+            \subsubsection{Variabili casuali discrete}
+                Sia $(\Omega, \mathcal{F}, P)$ uno spazio di probabilità, e sia $X: (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}, \mathcal{B}(\mathbb{R}))$ una variabile casuale discreta.
+                Dalla definizione fornita sopra, abbiamo che:
+                \[
+                    \forall B \in \mathcal{B}(\mathbb{R}), \; P_{X}(B) = P(X \in B) = \sum_{x \in X(\Omega) \cap B} P(X = x)
+                \]
+
+                \vspace{10pt}
+                \begin{theorem}
+                    Siano $X, Y: (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}, \mathcal{B}(\mathbb{R}))$ due variabili casuali discrete.
+                    Allora $X$ e $Y$ sono indipendenti se e solo se $P_{(X, Y)}(x) = P_{X}(x)P_{Y}(x)$
+                \end{theorem}
+
+            \subsubsection{Variabili casuali continue}
+                Sia $(\Omega, \mathcal{F}, P)$ uno spazio di probabilità, e sia $X: (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}, \mathcal{B}(\mathbb{R}))$ una variabile casuale continua, allora
+                \[
+                    \forall B \in \mathcal{B}(\mathbb{R}), \; P(X \in B) = \int_{B} f_{X}(x) \: dx = \int_{B} d{P}_{X} \; \textnormal{(nel senso di integrale di Lebesgue)}
+                \]
+
+                dove $f_{X}$ è detta (funzione di) densità di probabilità.
+                Le proprietà della densità di probabilità di $X$ sono:
+
+                \begin{enumerate}
+                    \item La densità deve essere distribuita lungo tutto l'asse reale, ovvero
+                    \[
+                        P(X \in \mathbb{R}) = \int_{-\infty}^{+\infty} f_{X}(x) \: dx = 1
+                    \]
+
+                    \item La densità deve essere non-negativa, ovvero
+                    \[
+                        \forall x \in \mathbb{R}, \; f_{X}(x) \geq 0
+                    \]
+                \end{enumerate}
+
+                Un'importante osservazione sulle variabili casuali continue è la seguente: data una variabile casuale continua, è possibile determinare la funzione di distribuzione cumulativa a partire dalla densità introdotta dalla variabile.
+                In altre parole
+                \[
+                    F_{X}(x) = P(X \leq x) = \int_{-\infty}^{x} f_{X}(u) \: du \implies P(X \in (a, b)) = F_{X}(b) - F_{X}(a)
+                \]
+
+                La garanzia di continuità della FDC ci è data dal fatto che questa è una funzione integrale, ovvero la primitiva di $f_{X}$.
+                Di conseguenza, vale la seguente considerazione
+                \[
+                    f_{X} = \frac{d}{dx} F_{X}
+                \]
+
+                \vspace{10pt}
+                \begin{theorem}
+                    Siano $X, Y: (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}, \mathcal{B}(\mathbb{R}))$ due variabili casuali continue.
+                    Allora $X$ e $Y$ sono indipendenti se e solo se $f_{(X, Y)}(x) = f_{X}(x)f_{Y}(x)$
+                \end{theorem}
+
+        \vspace{10pt}
+        \subsection{Media, varianza e valore atteso di variabili casuali}
+            \begin{definition}[Definizione di valore atteso]
+                Sia $X$ una variabile casuale.
+                Se $X$ è discreta, allora il valore atteso (anche chiamato valor medio) di $X$, denotato con $\mathbb{E}[X]$ oppure con $\mu_{X}$, è dato da
+                \[
+                    \mu_{X} = \mathbb{E}[X] = \sum_{x \in X(\Omega)} x \cdot P(X = x)
+                \]
+
+                Qualora invece $X$ fosse continua, si ha che
+                \[
+                    \mu_{X} = \mathbb{E}[X] = \int_{\mathbb{R}} x f_{X}(x) \: dx
+                \]
+            \end{definition}
+
+            \begin{theorem}[Teorema dello statistico inconsapevole]
+                Sia $X$ una variabile casuale, e sia $g: \mathbb{R} \rightarrow \mathbb{R}$ una funzione regolare. 
+                Allora, $g \circ X: \Omega \rightarrow \mathbb{R}$ è a sua volta una variabile casuale.
+                Il valore atteso su $g \circ X$ vale allora
+                \[
+                    \mathbb{E}[g(X)] = \int_{\mathbb{R}} g(x) f_{X}(x) \: dx
+                \]
+            \end{theorem}
+
+            Grazie al Teorema dello statista inconsapevole, alcune delle proprietà del valore atteso sono
+            \begin{enumerate}
+                \item Linearità secondo composizione:
+                \[
+                    \mathbb{E}[\alpha g(X) + \beta h(X)] = \alpha \mathbb{E}[g(X)] + \beta \mathbb{E}[h(X)]
+                \]
+
+                \item Monotonia secondo funzione:
+                \[
+                    \forall x \in \mathbb{R}, \; g(x) \leq h(x) \implies \mathbb{E}[g(X)] \leq \mathbb{E}[h(X)]
+                \]
+            \end{enumerate}
+
+
+            \begin{definition}[Definizione di varianza]
+                Sia $X$ una variabile casuale e sia $\mathbb{E}[X] = \mu_{X}$ il suo valore atteso (da non confondere con la misura indotta da $X$).
+                Allora, la varianza di $X$ è data da
+                \[
+                    \textnormal{var}(X) = \mathbb{E}[(x - \mu_{X})^{2}] = \mathbb{E}[(x^{2} + \mu_{X}^{2} - 2 x \mu_{X})] = \mathbb{E}[x^{2}] + \mu_{X}^{2} - 2 \mu_{X}^{2} = \mathbb{E}[x^{2}] - \mathbb{E}[X]^{2}
+                \]
+            \end{definition}
+
+            Alcune delle proprietà della varianza sono
+            \begin{itemize}
+                \item Non negatività: 
+                \[
+                    \textnormal{var}(X) = \mathbb{E}[x^{2}] - \mathbb{E}[X]^{2} 
+                \]
+                ma, ricordando che se $\textnormal{var}(X) = \mathbb{E}[(x - \mu_{X})^{2}]$, si arriva a
+                \[
+                    (x - \mu_{X})^{2} \geq 0 \implies \int_{\mathbb{R}} (x - \mu_{X}) f_{X}(X) \: dx \geq 0 \implies \textnormal{var}(X) \geq 0
+                \]
+                \item $\textnormal{var}(aX + b) = a^{2} \textnormal{var}(X)$
+            \end{itemize}
+
+            \begin{definition}[Definizione di deviazione standard]
+                Sia $X$ una variabile casuale e sia $\textnormal{var}(X)$ la sua varianza.
+                La deviazione standard di $X$ è data da
+                \[
+                    \sigma(X) = \sqrt{\textnormal{var}(X)}
+                \]
+            \end{definition}
+
+            \begin{definition}[Definizione di standardizzazione di variabile casuale]
+                Sia $X$ una variabile casuale.
+                Si dice variabile casuale standard di $X$ la seguente variabile casuale
+                \[
+                    Y = \frac{X - \mu_{X}}{\sigma(X)}
+                \]
+            \end{definition}
+
+            Infatti, la varianza e il valore atteso di una standardizzazione di una variabile casuale sono, rispettivamente
+            \[
+                \textnormal{var}(Y) = 1, \; \mathbb{E}[Y] = 0
+            \]
+
+            In quanto:
+            \[
+                \mathbb{E}[Y] = \mathbb{E}\qty[\frac{x - \mu_{X}}{\sigma(X)}] = \frac{1}{\sigma(X)} \mathbb{E}[x - \mu_{X}] = \frac{1}{\sigma(X)} (\mathbb{E}[X] - \mu_{X}) = 0
+            \]
+            
+            di conseguenza
+            \[
+                \textnormal{var}(Y) = \mathbb{E}\qty[\frac{(x - \mu_{X})^{2}}{\sigma(X)^{2}}] - \mathbb{E}[Y]^{2} = 
+                \frac{\mathbb{E}[(x - \mu_{X})^{2}]}{\textnormal{var}(X)} - 0 = 
+                \frac{\textnormal{var}(X)}{\textnormal{var}(X)} = 
+                1
+            \]
+
+        \vspace{10pt}
+        \subsection{Covarianza fra due variabili casuali}
+            \begin{definition}[Definizione di covarianza]
+                Siano $X, Y$ due variabili casuali.
+                Si indica con il termine covarianza $\textnormal{cov}(X, Y)$ la seguente quantità
+                \[
+                    \textnormal{cov}(X, Y) = \mathbb{E}[(X - \mu_{X})(Y - \mu_{Y})]
+                \]
+                Qualora $\textnormal{cov}(X, Y) > 0$, $X$ e $Y$ sono dette positivamente correlate e viceversa.
+                Se $\textnormal{cov}(X, Y) = 0$, allora $X$ e $Y$ sono dette scorrelate o non correlate.
+            \end{definition}
+
+            Un'altro modo per esprimere analiticamente la covarianza è
+            \[
+                \mathbb{E}[(X - \mu_{X})(Y - \mu_{Y})] = \mathbb{E}[XY - \mu_{Y}X - \mu_{X}Y + \mu_{X}\mu_{Y}] =
+                \mathbb{E}[XY] - \mu_{Y}\mu_{X} - \mu_{X}\mu_{Y} + \mu_{X}\mu_{Y} = 
+                \mathbb{E}[XY] - \mu_{Y}\mu_{X}
+            \]
+
+            Alcune delle proprietà principali della covarianza sono:
+            \begin{enumerate}
+                \item $X \perp Y \implies \textnormal{cov}(X, Y) = 0$
+                \item $\textnormal{cov}(X, X) = \textnormal{var}(X)$
+                \item $\textnormal{cov}(X, Y) = \textnormal{cov}(Y, X)$
+                \item $\textnormal{cov}(X, c) = 0$
+                \item $\textnormal{cov}(\alpha X + \beta Y, \lambda Z + \mu K) = \alpha \lambda \textnormal{cov}(X, Z) + \alpha \mu \textnormal{cov}(X, K) + \beta \lambda \textnormal{cov}(Y, Z) + \beta \mu \textnormal{cov}(Y, K)$
+            \end{enumerate}
+
+            Dalle proprietà (2) e (5) si deduce
+            \[
+                \textnormal{var}(aX + bY + c) = \textnormal{cov}(aX + bY + c, aX + bY + c) = a^{2} \textnormal{var}(X) + b^{2} \textnormal{var}(Y) + 2ab \: \textnormal{cov}(X, Y)
+            \]
+            
+            risulta allora che
+            \[
+                X \perp Y \implies \textnormal{var}(X + Y) = \textnormal{var}(X - Y) = \textnormal{var}(X) + \textnormal{var}(Y)
+            \]
+
+            \begin{definition}[Definizione di correlazione]
+                Siano $X, Y$ due variabili casuali.
+                Si indica con il termine coefficiente di correlazione lineare $\rho(X, Y)$ la seguente espressione
+                \[
+                    \rho(X, Y) = \frac{\textnormal{cov}(X, Y)}{\sqrt{\textnormal{var}(X)\textnormal{var}(Y)}}
+                \]
+            \end{definition}
+
+            Alcune delle proprietà della correlazione sono:
+            \begin{enumerate}
+                \item $\forall a, b \in \mathbb{R}, \; \rho(aX, bY) = \rho(X, Y)$
+
+                Infatti, riprendendo la definizione analitica di $\rho$, si ha che
+                \[
+                    \rho(aX, bY) = \frac{\textnormal{cov}(aX, bY)}{\sqrt{\textnormal{var}(aX)\textnormal{var}(bY)}} = \frac{ab \: \textnormal{cov}(X, Y)}{ab \sqrt{\textnormal{var}(X)\textnormal{var}(Y)}} = \rho(X, Y)
+                \]
+
+                \item $-1 \leq \rho(X, Y) \leq 1$
+
+                \item $\rho(X, Y) = \pm 1 \iff Y = a X + b$
+
+                $(\implies)$ Siano $U, V$, rispettivamente
+                \[
+                    U = \frac{X - \mu_{X}}{\sigma_{X}}, \quad V = \frac{Y - \mu_{Y}}{\sigma_{Y}}
+                \]
+                si ha che $\rho(U, V)$ vale
+                \[
+                    \rho(U, V) = \frac{\frac{1}{\sigma_{X}\sigma_{Y}} \textnormal{cov}(X, Y)}{\frac{1}{\sigma_{X}\sigma_{Y}} \sqrt{\textnormal{var}(X)\textnormal{var}(Y)}} = \rho(X, Y) = \pm 1
+                \]
+
+                di conseguenza
+                \[
+                    \rho(U, V) = \pm 1 \implies 
+                    \textnormal{cov}(U, V) = \pm 1 \implies
+                    \textnormal{var}(U \mp V) = \textnormal{var}(U) + \textnormal{var}(V) \mp 2 \textnormal{cov}(U, V) = 0
+                \]
+
+                ciò implica che
+                \[
+                    U \mp V = c \implies 
+                    \mathbb{E}[U \mp V] = \mathbb{E}[c] 
+                    \implies 0 = \mathbb{E}[c] \implies 
+                    c = 0 \implies 
+                    U = \pm V
+                \]
+
+                allora
+                \[
+                    U = \pm V \implies
+                    \frac{X - \mu_{X}}{\sigma_{X}} = k \frac{Y - \mu_{Y}}{\sigma_{Y}} \implies
+                    Y = \frac{\sigma_{Y}}{\sigma_{X} k} X - \frac{\sigma_{Y}}{\sigma_{X} k} \mu_{X} + \mu_{Y} \quad \textnormal{con} \; k = \rho(X, Y) = \pm 1
+                \]
+
+                $(\impliedby)$ Sia $Y = aX + b$, allora
+                \[
+                    \rho(X, aX + b) = \frac{a \: \textnormal{cov}(X, X)}{\abs{a} \sqrt{\textnormal{var}(X) \textnormal{var}(X)}} = \textnormal{sign}(a)
+                \]
+            \end{enumerate}
+            
+        \vspace{10pt}
+        \subsection{Modelli di variabili casuali}
+            \subsubsection{Variabili casuali normali}
+                Un comune modello di variabile casuale è, per esempio, la \textit{gaussiana} o \textit{normale} avente media $\mu$ e deviazione standard $\sigma$:
+                \[
+                    X \sim \mathcal{N}(\mu, \sigma), 
+                    \; f_{X}(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x - \mu)^{2}}{2 \sigma^{2}}}
+                \]
+
+                Dove i parametri $\mu$ e $\sigma$ controllano diversi elementi della ``campana'', tra cui
+                \begin{itemize}
+                    \item $\mu$ rappresenta la posizione sull'asse $x$ dell'asse di simmetria della gaussiana e del massimo della stessa.
+                    \item A $\sigma$ è legata la ``larghezza'' della campana, ovvero, se $\sigma_{1} < \sigma_{2}$, allora $X_{1} \sim \mathcal{N}(\mu, \sigma_{1})$ è più stretta di $X_{2} \sim \mathcal{N}(\mu, \sigma_{2})$.
+                \end{itemize}
+
+                Dimostriamo allora che valor medio e deviazione standard di una variabile casuale normale $X \sim \mathcal{N}(\mu, \sigma)$ siano, rispettivamente, $\mu$ e $\sigma$:
+                \[
+                    \mathbb{E}[X] = \int_{-\infty}^{\infty} x \frac{1}{\sigma \sqrt{2 \pi}} e^{- \frac{(x - \mu)^{2}}{2 \sigma^{2}}} \: dx = 
+                    \int_{-\infty}^{\infty} (x - \mu) \frac{1}{\sigma \sqrt{2 \pi}} e^{- \frac{(x - \mu)^{2}}{2 \sigma^{2}}} \: dx + \mu \int_{-\infty}^{\infty} \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x - \mu)^{2}}{2 \sigma^{2}}} \: dx
+                \]
+
+                Operando la seguente sostituzione
+                \[
+                    u = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x - \mu)^{2}}{2 \sigma^{2}}} \implies du = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x - \mu)^{2}}{2 \sigma^{2}}} \cdot - \frac{(x - \mu)}{\sigma^{2}} dx
+                \]
+
+                Arriviamo a
+                \[
+                    \mathbb{E}[X] = \qty[- \frac{\sigma}{\sqrt{2 \pi}} e^{-\frac{(x - \mu)^{2}}{2 \sigma^{2}}}]^{\infty}_{-\infty} + \mu \cdot 1 = 0 + \mu = \mu
+                \]
+
+                Per quanto riguarda la varianza, si ha che 
+                \[
+                    \textnormal{var}(X) = \mathbb{E}[(x - \mu)^{2}] = \int_{-\infty}^{\infty} (x - \mu) \cdot (x - \mu) \frac{1}{\sigma \sqrt{2 \pi}} e^{- \frac{(x - \mu)^{2}}{2 \sigma^{2}}} \: dx
+                \]
+
+                Procedendo per mezzo dell'integrazione per parti, si ha che
+                \[
+                    \mathbb{E}[(x - \mu)^{2}] = \qty[(x - \mu) \cdot - \frac{\sigma}{\sqrt{2 \pi}} e^{-\frac{(x - \mu)^{2}}{2 \sigma^{2}}}]^{\infty}_{-\infty} + \int_{-\infty}^{\infty} \frac{\sigma}{\sqrt{2 \pi}} e^{-\frac{(x - \mu)^{2}}{2 \sigma^{2}}} = 
+                    0 + \sigma^{2} \int_{-\infty}^{\infty} \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x - \mu)^{2}}{2 \sigma^{2}}} =
+                    \sigma^{2}
+                \]
+
+                Il Lemma 1 sulle variabili casuali tradisce una utilissima proprietà delle variabili casuali normali: data una variabile casuale $X \sim \mathcal{N}(\mu, \sigma)$ e un insieme $B \in \mathcal{B}(\mathbb{R})$ di cui è necessario misurare la \textit{probabilità}, la seguente relazione è valida
+                \[
+                    P(X \in B) = P(n_{X}(X) \in n_{X}(B))
+                \]
+                dove $n_{X}(x): \mathbb{R} \rightarrow \mathbb{R}$ è la funzione di normalizzazione, ovvero $n_{X}(x) = \frac{x - \mu}{\sigma}$.
+
+            \vspace{10pt}
+            \subsubsection{Variabili casuali uniformi}
+                Una variable casuale (assolutamente continua) $X$ è detta \textit{uniforme} su un'intervallo $I \subseteq \mathbb{R}$ qualora la sua funzione di densità di probabilità fosse strutturata nel seguente modo:
+                \[
+                    f_{X}(x) = \frac{1}{\mu(I)} \mathds{1}_{I}(x)
+                \]
+                dove $\mu$ è la misura standard sulla linea reale.
+
+                Valore atteso (o media) e varianza di una variabile casuale uniforme $X \sim U((a, b))$ sono, rispettivamente
+                \[
+                    \mathbb{E}[X] = \int_{-\infty}^{\infty} x \frac{1}{b - a}\mathds{1}_{(a, b)}(x) \: dx = 
+                    \frac{1}{b - a} \int_{a}^{b} x \: dx = 
+                    \frac{1}{b - a} \qty[\frac{1}{2}x^{2}]_{a}^{b} =
+                    \frac{1}{2 (b - a)} [b^{2} - a^{2}] =
+                    \frac{b + a}{2}
+                \]
+                \[
+                    \textnormal{var}(X) = \mathbb{E}[(x - \mu_{X})^{2}] = 
+                    \mathbb{E}[x^{2}] - \mu_{X}^{2} =
+                    \int_{-\infty}^{\infty} x^{2} \frac{1}{b - a} \mathds{1}_{(a ,b)}(x) \: dx - \mu_{X}^{2} =
+                    \int_{a}^{b} x^{2} \frac{1}{b - a} \: dx - \mu_{X}^{2} =
+                \]
+                \[
+                    \frac{1}{b - a} \qty[\frac{1}{3} x^{3}]^{b}_{a} - \mu_{X}^{2} =
+                    \frac{b^{3} - a^{3}}{3 (b - a)} - \qty(\frac{b + a}{2})^{2} =
+                    \frac{4 (a^{2} + b^{2} + ab) - 3(a^{2} + b^{2} + 2ab)}{12} = \frac{(b - a)^{2}}{12}
+                \]
+
+
+
+            \vspace{10pt}
+            \subsubsection{Variabili casuali esponenziali}
+                Una variabile casuale (assolutamente continua) $X$ è detta \textit{esponenziale} qualora la sua funzione di densità di probabilità fosse strutturata nel seguente modo
+                \[
+                    f_{X}(x) = \lambda e^{-\lambda x} \cdot \mathds{1}_{(0, +\infty)}(x)
+                \]
+
+                Valore atteso e varianza di una variabile casuale esponenziale $X \sim \textnormal{Exp}(\lambda)$ sono, rispettivamente
+                \[
+                    \mathbb{E}[X] = \int_{-\infty}^{\infty} x \lambda e^{- \lambda x} \mathds{1}_{(0, +\infty)}(x) \: dx =
+                    \int_{0}^{\infty} x \lambda e^{- \lambda x} \: dx =
+                    \lambda \qty[\left. -\frac{x}{\lambda} e^{- \lambda x} \right|_{0}^{\infty} + \int_{0}^{\infty} \frac{1}{\lambda} e^{-\lambda x} \: dx] =
+                    \lambda \cdot \frac{1}{\lambda^{2}} = 
+                    \frac{1}{\lambda}
+                \]
+
+                \[
+                    \textnormal{var}(X) = \mathbb{E}[x^{2}] - \mu_{X}^{2} =
+                    \int_{0}^{\infty} x^{2} \lambda e^{- \lambda x} \: dx - \mu_{X}^{2} =
+                    \qty[\left. - x^{2} e^{- \lambda x} \right|_{0}^{\infty} + 2 \int_{0}^{\infty} x e^{- \lambda x} \: dx] - \mu_{X}^{2} =
+                    \frac{2 \mu_{X}}{\lambda} - \mu_{X}^{2} =
+                    \frac{1}{\lambda^{2}}
+                \]
+
+                Le funzioni di distribuzione cumulativa di probabilità e distribuzione cumulativa di sopravvivenza sono, rispettivamente
+                \[
+                    F_{X}(x) = \int_{-\infty}^{x} f_{X}(x) \: dx =
+                    \begin{cases}
+                        \int_{0}^{x} \lambda e^{-\lambda t} \: dt, &x \geq 0 \\
+                        0, &x < 0
+                    \end{cases} = 
+                    \begin{cases}
+                        1 - e^{- \lambda x}, &x \geq 0 \\
+                        0, &x < 0 \\
+                    \end{cases}
+                \]
+                \[
+                    S_{X}(x) = 1 - F_{X}(x) = 
+                    \begin{cases}
+                        e^{- \lambda x}, &x \geq 0 \\
+                        1, &x < 0 \\
+                    \end{cases}
+                \]
+        
+        \vspace{10pt}
+        \subsection{Algebra su variabili casuali}
+            Siano $X, Y: (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}, \mathcal{B}(\mathbb{R}))$ due variabili casuali discrete e sia $T = X + Y$ una nuova variabile casuale.
+            Allora
+            \[
+                \forall k \in T(\Omega), \; P_{T}(T = k) = P_{T}(X + Y = k)
+            \]
+            Si selezioni allora la partizione dell'evento certo
+            \[
+                A_{j} = \qty{ Y^{-1}(j) \; : \; j \in Y(\Omega)}, \quad \bigcup_{j \in Y(\Omega)} A_{j} = \Omega
+            \]
+            Allora, per la formula delle probabilità totali, si ha che
+            \[
+                P_{T}(X + Y = k) = \sum_{j \in Y(\Omega)} P((X + Y = k)_{T} \cap (Y = j)_{Y}) = 
+                \sum_{j \in Y(\Omega)} P((X = k - j)_{X} \cap (Y = j)_{Y})
+            \]
+
+            Qualora $X$ e $Y$ fossero indipendenti, la formula si semplifica a
+            \[
+                \sum_{j \in Y(\Omega)} P_{X}(X = k - j)P_{Y}(Y = j) \implies P_{T} = P_{X} * P_{Y} \; (P_{T} \textnormal{ è la convoluzione discreta di } P_{X}, P_{Y})
+            \]
+
+            Fossero $X, Y$ state continue, allora
+            \[
+                f_{T}(t) = \int_{-\infty}^{\infty} f_{X}(t - \tau)f_{Y}(\tau) \: d\tau \implies f_{T} = f_{X} * f_{Y} \; (P_{T} \textnormal{ è la convoluzione continua di } P_{X}, P_{Y})
+            \]
+
+            Alcuni casi notevoli sono:
+            \begin{enumerate}
+                \item $X \sim P(\lambda) \perp Y \sim P(\mu) \implies X + Y \sim P(\lambda + \mu)$
+                \item $X \sim B(n, p) \perp Y \sim B(m, p) \implies X + T \sim B(n + m, p)$
+                \item $X \sim \mathcal{N}(\mu_{x}, \sigma_{x}^{2}) \perp Y \sim \mathcal{N}(\mu_{y}, \sigma_{y}^{2}) \implies aX + bY + c \sim \mathcal{N}(a\mu_{x} + b\mu_{y} + c, a^{2} \sigma_{x}^{2} + b^{2} \sigma_{y}^{2})$
+            \end{enumerate}
+
+            
+            \vspace{10pt}
+            Un'altra operazione fra variabili casuali comune è, date due variabili casuali $X, Y: (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}, \mathcal{B}(\mathbb{R}))$, prenderne il \textit{massimo o minimo}, ovvero
+            \[
+                T = \max(X, Y), \; \textnormal{oppure} \; T = \min(X, Y)
+            \]
+            
+            Assumendo $T = \max(X, Y)$, si osservi come
+            \[
+                F_{T}(x) = P_{T}(T \leq x) = P_{T}(\max(X, Y) \leq x) = P((X \leq x)_{X} \cap (Y \leq x)_{Y})
+            \]
+            se $X \perp Y$
+            \[
+                P((X \leq x)_{X} \cap (Y \leq x)_{Y}) = P_{X}(X \leq x)P_{Y}(Y \leq x) = F_{X}(x)F_{Y}(x)
+            \]
+
+            Invece, assumendo $T = \min(X, Y)$, si può osservare come
+            \[
+                S_{T}(x) = P_{T}(T \geq x) = P_{T}(\min(X, Y) \geq x) = P((X \geq x)_{X} \cap (Y \geq x)_{Y})
+            \]
+
+            se $X \perp Y$
+            \[
+                P((X \geq x)_{X} \cap (Y \geq x)_{Y}) = P_{X}(X \geq x) P_{Y}(Y \geq x) = S_{X}(x)S_{Y}(x)
+            \]
+
+
+
+    \newpage
+    \section{Vettori di variabili casuali}
+        Siano $X_{1}, X_{2}, ..., X_{n}: (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}, \mathcal{B}(\mathbb{R}))$ variabili casuali su un'unico spazio di probabilità determinato dalla terna $(\Omega, \mathcal{F}, P)$.
+        Si intende allora per \textit{vettore aleatorio} oppure \textit{variabile casuale vettoriale} la seguente espressione
+        \[
+            \mathbf{X} = (X_{1}, X_{2}, ..., X_{n}): \Omega \rightarrow \mathbb{R}^{n}
+        \]
+
+        La misura di probabilità indotta in $\mathbb{R}^{n}$ da $\mathbf{X}$ è data da
+        \[
+            P_{\mathbf{X}}(\mathbf{X} \in \Lambda \subseteq \mathbb{R}^{n}) = P(\mathbf{X}^{-1}(\Lambda))
+        \]
+
+        \subsection{Vettori aleatori discreti}
+            Un vettore aleatorio $\mathbf{X}: \Omega \rightarrow \mathbb{R}^{n}$ è detto \textit{discreto} qualora lo siano anche tutti i suoi componenti.
+            Nel caso discreto, la misura di probabilità indotta in $\mathbb{R}^{n}$ da $\mathbf{X}$ è data da
+            \[
+                P_{\mathbf{X}}(\mathbf{X} \in \Lambda) = \sum_{\lambda \in \Lambda \cap \mathbf{X}(\Omega)} P(\lambda)
+            \]
+            \[
+                P_{\mathbf{X}}(\mathbf{X} = \mathbf{a} \in \mathbb{R}^{n}) = P(X_{1} = a_{1}, X_{2} = a_{2}, ..., X_{n} = a_{n}) = P \qty(\bigcap_{i = 1}^{n} X_{i}^{-1}(a_{i}))
+            \]
+
+        \subsection{Vettori aleatori continui}
+            Un vettore aleatorio $\mathbf{X}: \Omega \rightarrow \mathbb{R}^{n}$ è detto \textit{continuo} (o \textit{assolutamente continuo}) qualora lo siano anche tutti i suoi componenti. 
+            Nel caso continuo, la misura di probabilità indotta in $\mathbb{R}^{n}$ da $\mathbf{X}$ è data da
+            \[
+                f_{\mathbf{X}}: \mathbb{R}^{n} \rightarrow \mathbb{R}
+            \]
+            \[
+                P_{\mathbf{X}}(\mathbf{X} \in \Lambda \subseteq \mathbb{R}^{n}) = \int_{\Lambda} f_{\mathbf{X}} \: d\mathbf{x}
+            \]
+
+            dove $f_{\mathbf{X}}$ è detta funzione di densità di probabilità di $\mathbf{X}$.
+            Questa funzione deve rispettare le seguenti condizioni
+            \begin{itemize}
+                \item Non-negatività
+                \[
+                    f_{\mathbf{X}}(\mathbf{x}) \geq 0, \; \forall \mathbf{x} \in \mathbb{R}^{n}
+                \]
+                \item Misura di $\mathbb{R}^{n}$
+                \[
+                    \int_{\mathbb{R}^{n}} f_{\mathbf{X}} \: d\mathbf{x} = 1
+                \]
+            \end{itemize}
+
+            Inoltre, è possibile determinare le densità di probabilità \textit{marginali} $f_{X_{1}}, f_{X_{2}}, ..., f_{X_{n}}$ a partire dalla densità di probabilità congiunta ($f_{\mathbf{X}}$), infatti
+            \[
+                f_{X_{k}}(x) = \int_{\mathbb{R}^{n - 1}} f_{\mathbf{X}}(..., x_{k} = x, ...) \: d\mathbf{x}
+            \]
+
+        \subsection{Valore atteso di vettori aleatori}
+            Sia $\mathbf{X} = (X_{1}, ..., X_{n}): (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}^{n}, \mathcal{B}(\mathbb{R}^{n}))$ un vettore aleatorio.
+            Si dice valore atteso di $\mathbf{X}$ la seguente espressione
+            \[
+                \mathbb{E}[\mathbf{X}] = \sum_{\mathbf{x} \in \mathbf{X}(\Omega)} \mathbf{x} P_{\mathbf{X}}(\mathbf{X} = \mathbf{x})
+            \]
+            nel caso in cui $\mathbf{X}$ sia un vettore aleatorio discreto, oppure
+            \[
+                \mathbb{E}[\mathbf{X}] = \int_{\mathbb{R}^{n}} \mathbf{x} f_{\mathbf{X}} \: d\mathbf{x}
+            \]
+            nel caso in cui $\mathbf{X}$ sia un vettore aleatorio continuo
+
+
+            \vspace{10pt}
+            Sia $\mathbf{X} = (X_{1}, ..., X_{n}): (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}^{n}, \mathcal{B}(\mathbb{R}^{n}))$ un vettore aleatorio e sia $g: \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$ una funzione regolare (che mantiene la misurabilità)
+            Allora
+            \[
+                g \circ \mathbf{X} : (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}^{n}, \mathcal{B}(\mathbb{R}^{n}))
+            \]
+            è a sua volta un vallido vettore aleatorio il cui valore atteso diventa
+            \[
+                \mathbb{E}[g(\mathbf{X})] = \int_{\mathbb{R}^{n}} g(\mathbf{X}) f_{\mathbf{X}} \: d\mathbf{x}
+            \]
+
+\end{document}

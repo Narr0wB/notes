@@ -1,0 +1,244 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{titling}
+\usepackage{graphicx}
+\usepackage{tikz-cd}
+\usepackage[hidelinks]{hyperref}
+\usepackage{nameref}
+\usepackage{fancyhdr}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{refcount}
+
+% \tikzcdset{scale cd/.style={every label/.append style={scale=#1},
+%     cells={nodes={scale=#1}}}}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{osservazione}{Osservazione}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposizione}
+\newtheorem{definition}{Definizione}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+    \section{Trasformata di Laplace} 
+        \subsection{Definizione} 
+            Data una funzione $f: \mathbb{R} \rightarrow \mathbb{R}$ si dice trasformata di Laplace di $f$
+            \[
+                \mathcal{L}[f](s) = \int_{0}^{+\infty} f(t)e^{-st} dt = F(s) \newline 
+            \]
+            \[
+                \text{dom}(\mathcal{L}[f]) = \{ s \in \mathbb{R}, \; \int_{0}^{+\infty} f(t)e^{-st} dt \; \text{converge} \; \}
+            \]
+            Data questa definizione della trasformata di Laplace segue una serie di osservazioni:
+
+            \begin{osservazione}
+                Di una una generica funzione $f$ conta solo il suo comportamento in $(0, +\infty)$
+            \end{osservazione}
+
+            \begin{osservazione}
+                $\mathcal{L}$ è un'operatore lineare
+            \end{osservazione}
+
+            \begin{osservazione}
+                Se $s_0 \in \text{dom}(\mathcal{L}[f])$ allora $[s_0, +\infty) \subseteq \text{dom}(\mathcal{L}[f])$
+            \end{osservazione}
+
+            E' possibile dimostrare quanto constatato nell'osservazione 3. Si consideri un $s_0 \in \text{dom}(\mathcal{L}[f])$. 
+            Data la definizione di dominio della trasformata di Laplace si ha che il seguente integrale
+            \[
+                \mathcal{L}[f](s_0) = \int_{0}^{+\infty} f(t) e^{-s_0 t} dt
+            \]
+            converge. Si consideri allora un $s_1 > s_0$. Quindi
+            \[
+                s_0 - s_1 < 0 \implies \lim_{t \rightarrow +\infty} \frac{f(t)e^{-s_1 t}}{f(t)e^{-s_0 t}} = \lim_{t \rightarrow +\infty} e^{(s_0 - s_1) t} = 0
+            \]
+            risulta che $f(t)e^{-s_1 t}$ è una funzione infinitesima verso $+\infty$ di ordine superiore rispetto ad $f(t)e^{-s_0 t}$. Per il Teorema di convergenza di funzioni infinitesimali si ha che anche
+            \[
+                \mathcal{L}[f](s_1) = \int_{0}^{+\infty} f(t) e^{-s_1 t} dt
+            \]
+            converge.
+
+            \vspace{10pt}
+            Sulla base dell'osservazione 3 si introduce il concetto di ascissa di convergenza di $f$ ($\alpha_f$), definita come
+            \[
+                \alpha_f = \inf(\text{dom}(\mathcal{L}[f])) \implies (\alpha_f, +\infty) \subseteq \text{dom}(\mathcal{L}[f])
+            \]
+            Inoltre, se $\alpha_f = \min(\text{dom}(\mathcal{L}[f]))$ allora $\text{dom}(\mathcal{L}[f]) = [\alpha_f, +\infty)$.
+
+            \begin{definition}
+                Sia $f: \mathbb{R} \rightarrow \mathbb{R}$, $f$ si dice a funzione a crescita esponenziale se e solo se $\exists M > 0, \exists \gamma \in \mathbb{R}$ tali per cui
+                $\forall t \geq 0, \; |f(t)| \leq Me^{\gamma t}$. L'ordine esponenziale di $f$ ($\gamma_f$) è definito come 
+                \[
+                    \inf \{ \gamma \in \mathbb{R} \; : \; |f(t)| \leq Me^{\gamma t} \;\: \forall t \geq 0\}
+                \]
+            \end{definition}
+
+            Il dominio dell'operatore $\mathcal{L}$ è 
+            \[
+                L(0, +\infty) = \{ f: \mathbb{R} \rightarrow \mathbb{R} \; : \; f \; \text{è una funzione Riemann integrabile a crescita esponenziale}\}
+            \] 
+
+        \subsection{Proprietà}
+            \subsubsection{Linearità dell'operatore}
+                $\forall f, g \in L(0, +\infty), \forall s > \max\{\alpha_f, \alpha_g\}$
+                \[
+                    \mathcal{L}[af + bg] = a \mathcal{L}[f] + b \mathcal{L}[g]
+                \]
+
+            \subsubsection{Comportamento rispetto ad una traslazione}
+                $\forall f \in L(0, +\infty), \forall a > 0, \forall s > \alpha_f$
+                \[
+                    \mathcal{L}[f(t - a)u(t - a)] = e^{-as}\mathcal{L}[f]
+                \]
+                \vspace{5pt}
+                Dimostrazione: sia $v = t - a$, allora
+                \[
+                    \int_{0}^{+\infty} f(t - a)u(t - a) e^{-st} dt = \int_{-a}^{+\infty} f(v)u(v) e^{-s(v + a)} dv = \int_{-a}^{0} f(v)u(v) e^{-s(v + a)} dv + \int_{0}^{+\infty} f(v)u(v) e^{-s(v + a)} dv
+                \]
+                \[
+                    = 0 + \int_{0}^{+\infty} f(v) e^{-s(v + a)} dv = e^{-sa} \int_{0}^{+\infty} f(v) e^{-sv} dv = e^{-sa} \mathcal{L}[f]
+                \]
+
+            \subsubsection{Comportamento rispetto ad una modulazione}
+                $\forall f \in L(0, +\infty), \forall a > 0, \forall s > \alpha_f$ 
+                \[
+                    \mathcal{L}[e^{at}f] = \mathcal{L}[f](s - a)
+                \]
+                \vspace{5pt}
+                Dimostrazione: 
+                \[
+                    \int_{0}^{+\infty} e^{at}f(t) e^{-st} dt = \int_{0}^{+\infty} f(t) e^{(-s + a)t} dt = \int_{0}^{+\infty} f(t) e^{-(s - a)t} dt = \mathcal{L}[f](s - a)
+                \]
+            
+            \subsubsection{Comportamento rispetto ad una dilatazione}
+                $\forall f \in L(0, +\infty), \forall a > 0, \forall s > \alpha_f a$
+                \[
+                    \mathcal{L}[f(at)] = \frac{1}{a}\mathcal{L}[f](\frac{s}{a})
+                \]
+                \vspace{5pt}
+                Dimostrazione: sia $u = at$, allora
+                \[
+                    \int_{0}^{+\infty} f(at)e^{-st} dt = \int_{0}^{+\infty} f(u)e^{-s\frac{u}{a}} \frac{du}{a} = \frac{1}{a} \int_{0}^{+\infty} f(u) e^{-(\frac{s}{a})u} du = \frac{1}{a} \mathcal{L}[f](\frac{s}{a})
+                \]
+
+            \subsubsection{Formula del valore iniziale}
+                $\forall f \in L(0, +\infty)$
+                \[
+                    \lim_{t \rightarrow 0^{+}} f(t) = \lim_{s \rightarrow +\infty} s \mathcal{L}[f](s)
+                \]
+                \vspace{5pt}
+                Dimostrazione: TODO
+
+            \subsubsection{Formula del valore finale}
+                $\forall f \in L(0, +\infty), \; \displaystyle \lim_{t \rightarrow +\infty} f(t) < \infty$
+                \[
+                    \lim_{t \rightarrow +\infty} f(t) = \lim_{s \rightarrow 0^{+}} s \mathcal{L}[f](s)
+                \]
+                \vspace{5pt}
+                Dimostrazione: TODO 
+            
+            \subsubsection{Derivata prima della trasformata}
+                $\forall f \in L(0, +\infty), \forall s > \alpha_f$
+                \[
+                    \frac{d}{ds} \mathcal{L}[f](s) = - \mathcal{L}[tf] 
+                \]
+                \vspace{5pt}
+                Dimostrazione:
+                \[
+                    \frac{\partial}{\partial s} \int_{0}^{+\infty} f(t) e^{-st} dt = \int_{0}^{+\infty} f(t) \frac{\partial}{\partial s} e^{-st} dt = \int_{0}^{+\infty} f(t)(-t) e^{-st} dt = \mathcal{L}[-tf]
+                \]
+
+            \subsubsection{Integrale della trasformata}
+                $\forall f \in L(0, +\infty), \; \frac{f}{t} \in L(0, +\infty)$
+                \[
+                    \mathcal{L}\left[ \frac{f}{t} \right](s) = \int_{s}^{+\infty} \mathcal{L}[f](u) du
+                \]
+                \vspace{5pt}
+                Dimostrazone: TODO
+                \[
+                \]
+            
+            \subsubsection{Comportamento secondo derivata di input}
+                $\forall f \in L(0, +\infty), \; f' \in L(0, +\infty)$
+                \[
+                    \mathcal{L}[f'] = s\mathcal{L}[f] - \lim_{t \rightarrow 0^{+}} f(t)
+                \]
+                \vspace{5pt}
+                Dimostrazione:
+                \[
+                    \int_{0}^{+\infty} f(t) e^{-st} dt = \left. f(t) \frac{e^{-st}}{-s} \right|_{t = 0}^{t = +\infty} - \int_{0}^{+\infty} f'(t) \frac{e^{-st}}{-s} dt \implies \frac{1}{s} \int_{0}^{+\infty} f'(t) e^{-st} dt = \mathcal{L}[f] - \left[ 0 - \lim_{t \rightarrow 0^{+}} f(t) \frac{1}{-s} \right]
+                \]
+                \[
+                    \implies \mathcal{L}[f'] = s\mathcal{L}[f] - \lim_{t \rightarrow 0^{+}} f(t)
+                \]
+            
+            \subsubsection{Comportamento secondo integrale di input}
+                $\forall f \in L(0, +\infty), f(t) = 0 \; \forall t \in (-\infty, 0), \; \displaystyle g(t) = \int_{0}^{t} f(u) du, \; \forall s > \max\{\alpha_f, 0\}$
+                \[
+                    \mathcal{L}[g] = \frac{\mathcal{L}[f]}{s}
+                \]
+                \vspace{5pt}
+                Dimostrazione:
+                \[
+                    \mathcal{L}[g'] = s\mathcal{L}[g] - \lim_{t \rightarrow 0^{+}} g(t) \implies \mathcal{L}[f] = s\mathcal{L}[g] - \int_{0}^{0} f(t) dt \implies \mathcal{L}[g] = \frac{\mathcal{L}[f]}{s}
+                \]
+            
+            \subsubsection{Comportamento secondo convuluzione}
+                $\forall f, g \in L(0, +\infty), \; f(t)g(t) = 0 \; \forall t \in (-\infty, 0), \; (f * g)(t) = \displaystyle \int_{-\infty}^{+\infty} f(t - \tau)g(\tau)d\tau, \: \forall s > \max\{\alpha_f, \alpha_g\}$
+                \[
+                    \mathcal{L}[f * g] = \mathcal{L}[f] \mathcal{L}[g]
+                \]
+                \vspace{5pt}
+                Dimostrazione: sia $v = t - \tau$
+                \[
+                    \int_{0}^{+\infty} \int_{-\infty}^{+\infty} f(t - \tau)g(\tau) d\tau \; e^{-st} dt = \int_{0}^{+\infty} \int_{0}^{+\infty} f(t - \tau)g(\tau) d\tau \; e^{-st} dt = \int_{0}^{+\infty} \int_{0}^{+\infty} f(t - \tau) e^{-st} dt \; g(\tau) d\tau =
+                \]
+                \[
+                    \int_{0}^{+\infty} \int_{0}^{+\infty} f(v) e^{-sv} dt \; g(\tau) e^{-s\tau} d\tau = \int_{0}^{+\infty} f(v) e^{-sv} dt \int_{0}^{+\infty} g(\tau) e^{-s\tau} d\tau = \mathcal{L}[f]\mathcal{L}[g]
+                \]
+            
+            \subsubsection{Comportamento secondo funzione periodica di input}
+                $\forall f \in L(0, +\infty), \; f(t + T) = f(t) \; \text{con} \; T \in \mathbb{R^{+}} \; \forall t \in (0, +\infty)$
+                \[
+                    \mathcal{L}[f] = \frac{1}{1 - e^{sT}} \int_{0}^{T} f(t) e^{-st} dt
+                \]
+                \vspace{5pt}
+                Dimostrazione: 
+                \[
+                \]
+
+            \subsubsection{Trasformata di Laplace della delta di Dirac}
+                Sia $i_{\epsilon}(t) = \begin{cases} \frac{1}{\epsilon}, & 0 \leq t < \epsilon \\ 0, & \text{altrimenti} \end{cases}$ con $\epsilon > 0$, allora la trasformata di Laplace di $i_{\epsilon}$ è
+                \[
+                    \mathcal{L}[i_{\epsilon}] = \int_{0}^{+\infty} i_{\epsilon}(t) e^{-st} dt = \int_{0}^{\epsilon} \frac{1}{\epsilon} e^{-st} dt = \frac{1}{\epsilon} \left[ -\frac{e^{-s\epsilon}}{s} + \frac{1}{s} \right] = \frac{1 - e^{-s\epsilon}}{s\epsilon}
+                \]
+                Dato che la delta di Dirac è definita come $\displaystyle \delta(t) = \lim_{\epsilon \rightarrow 0} i_{\epsilon}(t)$, si ha che
+                \[
+                    \mathcal{L}[\delta] = \lim_{\epsilon \rightarrow 0} \mathcal{L}[i_{\epsilon}] = \lim_{\epsilon \rightarrow 0} \frac{1 - e^{-s\epsilon}}{s\epsilon} = 1
+                \]
+        \subsection{Antitrasformata di Laplace}
+            L'antitrasformata di Laplace è un operatore che mappa una funzione trasformata di Laplace ($F(s)$) alla funzione $f^{\sharp}$ destra-continua
+            tale per cui $\mathcal{L}[f^{\sharp}] = F$
+
+            \begin{theorem}[Teorema di Lerch]
+                Siano $f, g \in L(0, +\infty)$ due funzioni tali per cui $\mathcal{L}[f] = \mathcal{L}[g]$ per ogni $s > \max\{\alpha_f, \alpha_g\}$, allora $f, g$ sono uguali quasi ovunque su $[0, +\infty)$.
+            \end{theorem}
+
+            L'antitrasformata gode di alcune proprietà, di cui:
+            \begin{enumerate}[label=(\arabic*)]
+                \item $\mathcal{L}^{-1}[aF + bG] = a\mathcal{L}^{-1}[F] + b\mathcal{L}^{-1}[G]$
+                \item $\mathcal{L}^{-1}[e^{-as}F] = \mathcal{L}^{-1}[F](t - a)u(t - a)$
+                \item $\mathcal{L}^{-1}[F(s - a)] = e^{at}\mathcal{L}^{-1}[F]$
+                \item $\mathcal{L}^{-1}[F(as)] = \displaystyle \frac{1}{a} \mathcal{L}^{-1}[F]\left(\frac{t}{a}\right)$
+                \item $\mathcal{L}^{-1}[F^{(n)}] = (-1)^{n}t^{n}\mathcal{L}^{-1}[F]$
+                \item $\mathcal{L}^{-1}[sF] = \mathcal{L}^{-1}[F]' + \mathcal{L}^{-1}[F](0)$
+                \item $\mathcal{L}^{-1}\left[\displaystyle \int_{0}^{s} F(u) du \right] = \displaystyle \frac{\mathcal{L}^{-1}[F]}{t}$
+                \item $\mathcal{L}^{-1}\left[ \displaystyle \frac{F}{s} \right] = \displaystyle \int_{0}^{t}\mathcal{L}^{-1}[F](\tau) d\tau$
+                \item $\mathcal{L}^{-1}[FG] = \mathcal{L}^{-1}[F] * \mathcal{L}^{-1}[g]$
+            \end{enumerate}
+\end{document}

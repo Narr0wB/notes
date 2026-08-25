@@ -1,0 +1,169 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usepackage[a4paper, margin=1in]{geometry}
+
+\tikzcdset{scale cd/.style={every label/.append style={scale=#1},
+    cells={nodes={scale=#1}}}}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{osservazione}{Osservazione}
+
+\begin{document}
+\setlength{\parindent}{0pt}
+
+\section{Forme quadratiche}
+\subsection{Definizione}
+    Un'applicazione $q: \mathbb{R}^{n} \rightarrow \mathbb{R}$ si dice forma quadratica se è determinata da un polinomio di grado 2:
+    \[
+        q(x_1, x_2, ..., x_n) = \sum_{i = 1}^{n} \sum_{j = 1}^{n} a_{ij} x_i x_j 
+        \implies 
+        A = \begin{bmatrix}
+            a_{11} & a_{12} & ... & a_{1n} \\
+            a_{21} & a_{22} & ... & a_{2n} \\
+            \vdots & \ddots & \ddots & \vdots \\
+            a_{n1} & a_{n2} & ... & a_{nn} \\
+        \end{bmatrix}, \;
+        \mathbf{x} = \begin{bmatrix}
+            x_1 \\
+            x_2 \\
+            \vdots \\
+            x_n
+        \end{bmatrix} 
+        \implies 
+        q(x_1, x_2, ..., x_n) = \mathbf{x}^{T} A \mathbf{x}
+    \]
+    Prendendo per esempio il caso $n = 3$, si ha che:
+    \[
+        A = \begin{bmatrix}
+            a & b & c \\
+            d & e & f \\
+            g & h & i
+        \end{bmatrix}
+        \implies 
+        q(x, y ,z) = \mathbf{x}^{T} A \mathbf{x} = \begin{bmatrix} ax + dy + gz & bx + ey + hz & cx + fy + iz \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} 
+    \]
+    Arrivando quindi a
+    \[
+        ax^2 + ey^2 + iz^2 + (b + d)xy + (c + g)xz + (f + h)yz
+    \]
+    E' così possibile definire la matrice unica (e simmetrica) associata alla forma quadratica:
+    \[
+        B = \begin{bmatrix}
+            a & \frac{(b+d)}{2} & \frac{(c+g)}{2} \\
+            \frac{(b+d)}{2} & e & \frac{(f+h)}{2} \\
+            \frac{(c+g)}{2} & \frac{(f+h)}{2} & i
+        \end{bmatrix} 
+        \implies 
+        B = \frac{1}{2} (A + A^T)
+    \]
+
+
+
+    \vspace{10pt}
+    \subsection{Cambiamento di variabile}
+    Sia $q: \mathbb{R}^{n} \rightarrow \mathbb{R}$ una forma quadratica con forma ridotta $q(\mathbf{x}) = \mathbf{x}^{T} B \mathbf{x}$. E' possibile allora passare dalla variable $\mathbf{y} \in \mathbb{R}^{n}$ alla variabile $\mathbf{x} \in \mathbb{R}^{n}$ 
+    attraverso una matrice di cambio di base $P^{F, E}$ (dove $E$ ed $F$ sono, rispettivamente, le basi di $\mathbf{x}$ e $\mathbf{y}$). Dunque:
+    \[
+        q(\mathbf{x}) = q(P \mathbf{y}) = (P \mathbf{y})^{T} B (P \mathbf{y}) = \mathbf{y}^T (P^T B P) \mathbf{y} = r(\mathbf{y})
+    \]
+    Ora, in virtù del fatto che $B$ è simmetrica, per il teorema spettrale, si ha che esiste un matrice ortogonale di autovettori $P$ tale per cui $D = P^{T} B P$, dove $D$ è la matrice diagonale di autovalori. Quindi:
+    \[
+        q(\mathbf{x}) = r(\mathbf{y}) = \mathbf{y}^{T} (P^T B P) \mathbf{y} = \mathbf{y}^{T} D \mathbf{y} = \sum_{i = 1}^{n} \lambda_i y_i^2  \quad \textnormal{con} \: \mathbf{y} = P^{T} \mathbf{x}
+    \]
+
+
+
+    \vspace{10pt}
+    \subsection{Segno di una forma quadratica}
+    E' possibile classificare le forme quadratiche in base al segno della loro immagine. 
+    \begin{enumerate}[label=(\arabic*)]
+        \item Definita positiva: $q(\mathbf{x}) > 0$ per ogni $\mathbf{x} \in \mathbb{R}^{n}$   
+        \item Semidefinita positiva: $q(\mathbf{x}) \geq 0$ per ogni $\mathbf{x} \in \mathbb{R}^{n}$   
+        \item Definita negativa: $q(\mathbf{x}) < 0$ per ogni $\mathbf{x} \in \mathbb{R}^{n}$   
+        \item Semidefinita negativa: $q(\mathbf{x}) \leq 0$ per ogni $\mathbf{x} \in \mathbb{R}^{n}$   
+        \item Non definita: $\exists \mathbf{x_1}, \mathbf{x_2} \in \mathbb{R}^{n} \; | \; q(\mathbf{x_1}) > 0 \; \land \; q(\mathbf{x_2}) < 0$
+    \end{enumerate}
+
+    Grazie alla trasformazione di Jacobi (Sezione 1.2), è possibile tramutare una generica forma quadratica $q(\mathbf{x})$ in forma "diagonale" $r(\mathbf{y}) = \lambda_1 y_{1}^{2} + ... + \lambda_n y_{n}^{2}$ dove $\mathbf{y} = P^{T} \mathbf{x}$ e $P$ è una matrice ortogonale di autovettori di $B$.
+    Di conseguenza, è possibile affermare che:
+    \begin{enumerate}[label=(\arabic*)]
+        \item $q(\mathbf{x})$ è definita positiva $\iff$ $\lambda_1, ..., \lambda_n > 0$ 
+        \item $q(\mathbf{x})$ è semidefinita positiva $\iff$ $\lambda_1, ..., \lambda_n \geq 0$ 
+        \item $q(\mathbf{x})$ è definita negativa $\iff$ $\lambda_1, ..., \lambda_n < 0$ 
+        \item $q(\mathbf{x})$ è semidefinita negativa $\iff$ $\lambda_1, ..., \lambda_n \leq 0$ 
+        \item $q(\mathbf{x})$ è non definita $\iff$ $\exists \lambda_1, \lambda_2 \in L(B) \; | \; \lambda_1 < 0 \; \land \; \lambda_2 > 0$ 
+    \end{enumerate}
+
+
+
+    \vspace{10pt}
+    \subsection{Coniche}
+    Le coniche sono varietà affini monodimensionali definite in $\mathbb{R}^2$ da un polinomio di secondo grado della forma:
+    \[
+        q(x, y) = A x^2 + B xy + C y^2 + D x + E y + F = 0 
+        \Rightarrow
+        q(x, y) = \begin{bmatrix} x & y\end{bmatrix} \begin{bmatrix} A & B/2 \\ B/2 & C \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} + \begin{bmatrix} x & y \end{bmatrix} \begin{bmatrix} D \\ E \end{bmatrix}+ F = 0
+    \]
+    Scritta in forma quadratica omogenea si ha:
+    \[
+        q(x, y) = \begin{bmatrix} x & y & 1 \end{bmatrix} \begin{bmatrix} A & B/2 & D/2 \\ B/2 & C & E/2 \\ D/2 & E/2 & F \end{bmatrix} \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}, \quad A_q = \begin{bmatrix} A & B/2 \\ B/2 & C \end{bmatrix}, \; B_q = \begin{bmatrix} A & B/2 & D/2 \\ B/2 & C & E/2 \\ D/2 & E/2 & F \end{bmatrix}
+    \]
+    La matrice $A_q$ è chiamata matrice della forma quadratica, mentre la matrice $B_q$ è chiamata matrice dell'equazione quadratica. 
+    
+    \vspace{10pt}
+    \subsubsection{Forma canonica di una conica} 
+    La conica si dice invece in forma "canonica" quando $B_q$ è diagonale (dato che $A_q$ è uguale a $B_q$ senza la terza riga e terza colonna, se $B_q$ è diagonale, lo è anche $A_q$) oppure, in altre parole, quando l'equazione della conica diventa:
+    \[
+        A' x^2 + B' y^2 + C' = 0
+    \] 
+
+    \vspace{10pt}
+    Data una generica conica in forma
+    \[
+        \begin{bmatrix} x & y\end{bmatrix} \begin{bmatrix} A & B/2 \\ B/2 & C \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} + \begin{bmatrix} x & y \end{bmatrix} \begin{bmatrix} D \\ E \end{bmatrix} + F = 0
+    \]
+    E' sempre possibile trasformarla in forma canonica secondo un sistema di coordinate ruotato e traslato. Dato che la matrice $A_q$ è simmetrica è possibile, per il teorema spettrale, diagonalizzarla attraverso una matrice ortogonale $P$ di autovettori di $A_q$. Si considerino dunque $x,\: y$ come il risultato di un cambio di variabile $\begin{bmatrix} x \\ y \end{bmatrix} = P \begin{bmatrix} x' \\ y' \end{bmatrix}$.
+    Allora l'equazione diventa:
+    \[
+        \begin{bmatrix} x' & y' \end{bmatrix} D \begin{bmatrix} x' \\ y' \end{bmatrix} + \begin{bmatrix} x' & y' \end{bmatrix} P^{T} \begin{bmatrix} D \\ E \end{bmatrix} + F = 0 \implies \lambda_1 x'^2 + \lambda_2 y'^2 + D' x' + E' y' + F = 0
+    \]
+    Ciò significa che nel sistema di rifermento ruotato $x', \: y'$ la conica è data dai punti che soddisfano l'equazione soprastante. Per trovare la forma canonica, bisogna trovare un nuovo sistema di riferimento $x'', \: y''$ dove la conica è data dai punti che soddisfano un'equazione canonica.
+    Si consideri:
+    \[
+        \begin{aligned} 
+            \lambda_1 \left( x'^2 + \frac{D'x'}{\lambda_1} \right) &= \lambda_1 \left[\left(x' + \frac{D'}{2 \lambda_1}\right)^2 - \left( \frac{D'}{2 \lambda_1}\right)^2 \right]  \\
+            \lambda_2 \left( y'^2 + \frac{E'y'}{\lambda_2} \right) &= \lambda_2 \left[\left(y' + \frac{E'}{2 \lambda_2}\right)^2 - \left( \frac{E'}{2 \lambda_2}\right)^2 \right]
+        \end{aligned}
+    \]
+    Da cui si ottiene
+    \[
+        \lambda_1 \left(x' + \frac{D'}{2 \lambda_1}\right)^2 - \frac{D'^2}{4 \lambda_1} + \lambda_2 \left(y' + \frac{E'}{2 \lambda_2}\right)^2 - \frac{E'^2}{4 \lambda_2} + F = 0
+    \]
+    Sia allora $x' + D '/ 2 \lambda_1 = x''$ e $x' + E' / 2 \lambda_2 = y''$, con $g = F - \frac{D'^2}{4 \lambda_1} - \frac{E'^2}{4 \lambda_2}$. Si arriva infine a
+    \[
+        \lambda_1 x'' + \lambda_2 y'' + g = 0
+    \]
+    Quindi, ripercorrendo dall'inizio, si osserva che il nuovo sistema di riferimento $x', \: y'$ è dato da una traslazione del sistema $x'', \: y''$ $\left( \begin{bmatrix} x' \\ y' \end{bmatrix} = \begin{bmatrix} x'' \\ y'' \end{bmatrix} + \begin{bmatrix} - D' / 2 \lambda_1 \\ - E' / 2 \lambda_2 \end{bmatrix} \right)$. Le coordinate di questa traslazione sono chiamate coordinate del centro della conica. 
+    Tenendo conto che $\begin{bmatrix} - D' / 2 \lambda_1 \\ - E' / 2 \lambda_2 \end{bmatrix}$ sono le coordinate del centro della conica nel sistema di riferimento ruotato (quindi $\begin{bmatrix} - D' / 2 \lambda_1 \\ - E' / 2 \lambda_2 \end{bmatrix} = P^{T} \begin{bmatrix} x_0 \\ y_0 \end{bmatrix}$), si ha che:
+    \[
+        \begin{bmatrix} x \\ y \end{bmatrix} = P \begin{bmatrix} x' \\ y' \end{bmatrix} = P \left( \begin{bmatrix} x'' \\ y'' \end{bmatrix} + \begin{bmatrix} - D' / 2 \lambda_1 \\ - E' / 2 \lambda_2 \end{bmatrix} \right) = P \left( \begin{bmatrix} x'' \\ y'' \end{bmatrix} + P^{T} \begin{bmatrix} x_0 \\ y_0 \end{bmatrix} \right) = P \begin{bmatrix} x'' \\ y'' \end{bmatrix} + \begin{bmatrix} x_0 \\ y_0 \end{bmatrix}
+    \]
+    In altre parole, la conica originale in $x, \: y$ non è che il risultato di due trasformazioni, più precisamente una rotazione ed una traslazione, applicate ad una conica canonica. 
+    
+    \vspace{10pt}
+    \subsubsection{Tipi di coniche}
+    Ora, a seconda dei valori di $\det(B_q)$ e $\det(A_q)$ è possibile determinare il tipo di conica:
+    \begin{enumerate}[label=(\arabic*)]
+        \item  $\det(B_q) = 0 \implies$ conica degenere (coppia di rette)
+        \item $\det(B_q) \neq 0$  $\det(A_q) > 0 \implies$  ellisse 
+        \item $\det(B_q) \neq 0$  $\det(A_q) = 0 \implies$  parabola
+        \item $\det(B_q) \neq 0$  $\det(A_q) < 0 \implies$  iperbole
+    \end{enumerate}
+    Nel caso dell'ellise, se $A = C$ e $B = 0$, allora la conica è un cerchio.
+
+\end{document}
