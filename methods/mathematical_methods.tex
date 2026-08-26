@@ -1,0 +1,100 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\babelprovide[main, import]{italian}
+\usepackage{microtype}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{dsfont}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage[margin=1in]{geometry}
+\usepackage{titlesec}
+\usepackage[
+    hidelinks,
+    pdfpagelabels,
+    plainpages=false,
+    pdfusetitle
+]{hyperref}
+\usepackage[italian]{cleveref}
+
+\graphicspath{{../assets/}{assets/}}
+
+\makeatletter
+\def\input@path{{modules/}{methods/modules/}}
+\makeatother
+
+\newtheoremstyle{catalogue}
+    {1em plus 0.25em minus 0.1em}
+    {1em plus 0.25em minus 0.1em}
+    {\itshape}
+    {0pt}
+    {\bfseries}
+    {.}
+    {0.5em}
+    {}
+\theoremstyle{catalogue}
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{osservazione}{Osservazione}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposizione}
+\newtheorem{definition}{Definizione}
+\newtheorem{axiom}{Assioma}
+
+\Crefname{theorem}{T.}{T.}
+\crefdefaultlabelformat{\textbf{#2#1#3}}
+
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\pv}[1]{\operatorname{p.v.}\!\left(#1\right)}
+\DeclareMathOperator{\PV}{PV}
+
+% Centralized page, heading, paragraph, list, and theorem rhythm.
+\raggedbottom
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em plus 0.15em minus 0.1em}
+\setlist{topsep=0.5em, itemsep=0.2em, parsep=0pt, partopsep=0pt}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
+\titlespacing*{\subsection}{0pt}{2.75ex plus 0.8ex minus 0.2ex}{1.1ex plus 0.2ex}
+\titlespacing*{\subsubsection}{0pt}{2.25ex plus 0.6ex minus 0.2ex}{0.8ex plus 0.2ex}
+\setlength{\emergencystretch}{1em}
+
+\title{Metodi matematici per l'ingegneria}
+\author{I. El Fourati}
+\date{}
+
+\setcounter{tocdepth}{3}
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+    \centering
+    {\Large \theauthor\par}
+    \vfill
+    {\Huge\bfseries \thetitle\par}
+    \medskip
+    {\Large Appunti di teoria\par}
+    \bigskip
+    \includegraphics[width=0.3\textwidth]{polito_nero.png}
+    \vfill
+\end{titlepage}
+
+\pagenumbering{Roman}
+\hypersetup{pageanchor=true}
+\tableofcontents
+
+\clearpage
+\pagenumbering{arabic}
+
+\input{complex_analysis.tex}
+\clearpage
+\input{signal.tex}
+\clearpage
+\input{probability.tex}
+
+\end{document}

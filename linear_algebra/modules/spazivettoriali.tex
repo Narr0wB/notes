@@ -1,51 +1,39 @@
-\documentclass{article}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{enumitem}
-\usepackage[a4paper, margin=1in]{geometry}
+% !TeX root = ../algebralineare.tex
 
-\newtheorem{theorem}{Teorema}
-\newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposizione}
-
-\begin{document}
-\setlength{\parindent}{0pt}
-
-\section{Spazi vettoriali}
-\subsection{Definizione}
-    Uno spazio vettoriale è una struttura algebrica che consiste in: 
+\section{Spazi vettoriali} \label{sec:vectorspaces}
+\subsection{Definizione di spazio vettoriale} \label{subsec:vsdefiniton}
+    Uno spazio vettoriale è una struttura algebrica che consiste in:
     \begin{itemize}
-        \item Un insieme $V$ di elementi chiamati vettori 
-        \item Un campo $F$ di elementi chiamati scalari 
+        \item Un insieme $V$ di elementi chiamati vettori
+        \item Un campo $F$ di elementi chiamati scalari
         \item Un'operazione binaria interna chiamata somma vettoriale ($+ : V \times V \rightarrow V$)
         \item Un'operazione binaria esterna chiamata prodotto scalare-vettore ($\cdot : F \times V \rightarrow V$)
-    \end{itemize} 
+    \end{itemize}
 
     \vspace{10pt}
-    Le due operazioni devono soddifare una serie di 8 assiomi:
+    Le due operazioni devono soddisfare una serie di 8 assiomi:
     \begin{itemize}
-        \item Associatività della somma vettoriale: $ \forall \mathbf{v},\mathbf{w},\mathbf{u} \in V, \; (\mathbf{v} + \mathbf{w}) + \mathbf{u} = (\mathbf{v} + \mathbf{u}) + \mathbf{w} $  
+        \item Associatività della somma vettoriale: $ \forall \mathbf{v},\mathbf{w},\mathbf{u} \in V, \; (\mathbf{v} + \mathbf{w}) + \mathbf{u} = (\mathbf{v} + \mathbf{u}) + \mathbf{w} $
         \item Commutatività della somma vettoriale: $ \forall \mathbf{v},\mathbf{w} \in V, \; \mathbf{v} + \mathbf{w} = \mathbf{w} + \mathbf{v} $
-        \item Elemento identità della somma vettoriale: $ \exists \mathbf{0} \in V \; | \; \forall \mathbf{v} \in V,  \; \mathbf{v} + \mathbf{0} = \mathbf{v} $ 
-        \item Inverso della somma vettoriale: $ \forall \mathbf{v} \in V, \; \exists (-\mathbf{v}) \in V \; | \; \mathbf{v} + (-\mathbf{v}) = \mathbf{0} $ 
+        \item Elemento identità della somma vettoriale: $ \exists \mathbf{0} \in V \; | \; \forall \mathbf{v} \in V,  \; \mathbf{v} + \mathbf{0} = \mathbf{v} $
+        \item Inverso della somma vettoriale: $ \forall \mathbf{v} \in V, \; \exists (-\mathbf{v}) \in V \; | \; \mathbf{v} + (-\mathbf{v}) = \mathbf{0} $
         \item Compatibilità del prodotto scalare-vettore con il prodotto del campo: $ \forall a, b \in F, \;  a(b\mathbf{v}) = (ab)\mathbf{v} $
         \item Elemento identità del prodotto scalare-vettore: $ \exists 1 \in F \; | \; \forall \mathbf{v} \in V, \; 1 \cdot \mathbf{v} = \mathbf{v} $
-        \item Distributività del prodotto s.-v. rispetto alla somma vettoriale: $ \forall \mathbf{v}, \mathbf{w} \in V, \; \forall \lambda \in F, \; \lambda(\mathbf{v} + \mathbf{w}) = \lambda\mathbf{v} + \lambda\mathbf{w}$
-        \item Distributività della somma scalare rispetto al prodotto s.-v.: $ \forall \mathbf{v} \in V, \; \forall \lambda,\mu \in F, \; (\lambda + \mu)\mathbf{v} = \lambda\mathbf{v} + \mu\mathbf{v} $
+        \item Distributività del prodotto scalare-vettore rispetto alla somma vettoriale: $ \forall \mathbf{v}, \mathbf{w} \in V, \; \forall \lambda \in F, \; \lambda(\mathbf{v} + \mathbf{w}) = \lambda\mathbf{v} + \lambda\mathbf{w}$
+        \item Distributività della somma scalare rispetto al prodotto scalare-vettore: $ \forall \mathbf{v} \in V, \; \forall \lambda,\mu \in F, \; (\lambda + \mu)\mathbf{v} = \lambda\mathbf{v} + \mu\mathbf{v} $
     \end{itemize}
 
 
 
 \vspace{10pt}
-\subsection{Generatori, basi e dimensione di uno spazio vettoriale}
-    Un sottoinsieme $G$ di uno spazio vettoriale $V$ che sussiste su un campo $F$ è definito generatore di $V$ se e solo se $\textnormal{span}(G) = V$, dove $\textnormal{span}(G) = \{\mathbf{v} \in V \; | \; \displaystyle\sum_{i = 1}^{|G|} a_i \mathbf{g_i} = \mathbf{v}, \; \textnormal{con} \; a_1, ..., a_{|G|} \in F\}$.
+\subsection{Generatori, basi e dimensione di uno spazio vettoriale} \label{subsec:vsgenerators}
+    Un sottoinsieme $G$ di uno spazio vettoriale $V$ che sussiste su un campo $F$ è definito generatore di $V$ se e solo se $\textnormal{span}(G) = V$, dove $\textnormal{span}(G) = \{\mathbf{v} \in V \; | \; \displaystyle\sum_{i = 1}^{n} a_i \mathbf{g}_{i} = \mathbf{v}, \; \textnormal{con} \; a_1, ..., a_{n} \in F\ \; \textnormal{e} \; n = |G|\}$.
 
     \vspace{10pt}
-    Un sottoinsieme $B = \{\mathbf{b_1},...,\mathbf{b_n}\}$ di uno spazio vettoriale $V$ è definito base se e solo se:
+    Un sottoinsieme $B = \{\mathbf{b}_{1},...,\mathbf{b}_{n}\}$ di uno spazio vettoriale $V$ è definito base se e solo se:
     \begin{enumerate}[label=(\arabic*)]
-        \item $ \forall \mathbf{v} \in V, \; \exists \, c_1, ..., c_n \in F \; | \; \displaystyle\sum_{i = 1}^{n} c_i \mathbf{b_i} = \mathbf{v}, \quad \mathbf{b_1}, ..., \mathbf{b_n} \in B$ (in altre parole $B$ è un generatore di $V$) 
-        \item Per ogni sottoinsieme $\{\mathbf{b_1}, ..., \mathbf{b_k}\} \subset B$ , $c_1 \mathbf{b_1} + , ..., + c_k \mathbf{b_k} = \mathbf{0} \iff c_1 = c_2 = ... = c_k = 0 $  
+        \item $ \forall \mathbf{v} \in V, \; \exists \, c_1, ..., c_n \in F \; | \; \displaystyle\sum_{i = 1}^{n} c_i \mathbf{b}_{i} = \mathbf{v}, \quad \mathbf{b}_{1}, ..., \mathbf{b}_{n} \in B$ (in altre parole $B$ è un generatore di $V$)
+        \item Per ogni sottoinsieme $\{\mathbf{b}_{1}, ..., \mathbf{b}_{k}\} \subset B$ , $c_1 \mathbf{b}_{1} + , ..., + c_k \mathbf{b}_{k} = \mathbf{0} \iff c_1 = c_2 = ... = c_k = 0 $
     \end{enumerate}
 
     \vspace{5pt}
@@ -67,13 +55,13 @@
         $G$ è estremo superiore di $\mathcal{C}$ in quanto $\forall C \in \mathcal{C}, \; C \subset G$. Allora, dimostrando che $G \in \mathcal{I}$, è possibile applicare il lemma di Zorn su $\mathcal{I}$.
 
         \vspace{5pt}
-        Si assuma per assurdo che $G \notin \mathcal{I}$. Ciò significa che esiste un $\mathbf{v} \in G$ ed un $H \subset G \setminus \{\mathbf{v}\}$ tali per cui $\sum_{i} a_{i} \mathbf{u_{i}} = \mathbf{v}$ con $\mathbf{u_{i}} \in H$. Per definizione di combinazione lineare si ha che:
+        Si assuma per assurdo che $G \notin \mathcal{I}$. Ciò significa che esiste un $\mathbf{v} \in G$ ed un $H \subset G \setminus \{\mathbf{v}\}$ tali per cui $\sum_{i} a_{i} \mathbf{u}_{i} = \mathbf{v}$ con $\mathbf{u}_{i} \in H$. Per definizione di combinazione lineare si ha che:
         \[
             |H| < \infty
         \]
         Inoltre, è possibile costruire una mappa $f: G \rightarrow \mathcal{C}$ in modo che
         \[
-            \forall \mathbf{g} \in G, \; \mathbf{g} \in f(\mathbf{g}) \; \textnormal{e} \; f(\mathbf{g}) \in \mathcal{C} 
+            \forall \mathbf{g} \in G, \; \mathbf{g} \in f(\mathbf{g}) \; \textnormal{e} \; f(\mathbf{g}) \in \mathcal{C}
         \]
         Si consideri $f(H)$. Dato che $f(H) \subset \mathcal{C}$, si ha una relazione di ordine totale su $f(H)$ e, in virtù del fatto che $H$ è un insieme finito, $f(H)$ è anch'esso un insieme finito.
         E' possibile dunque trovare un insieme $C_{\alpha} \in f(H)$ tale per cui $\forall C \in f(H), \; C \leq C_{\alpha}$, quindi:
@@ -81,13 +69,13 @@
             \forall \mathbf{u} \in H, \; \mathbf{u} \in f(\mathbf{u}) \subset C_{\alpha} \implies H \subset C_{\alpha}
         \]
         Denotando $f(\mathbf{v}) = C_{\beta}$, è possibile dire che $C_{\alpha} \subset C_{\beta}$ oppure $C_{\beta} \subset C_{\alpha}$. Di conseguenza esiste un $C_{\gamma} \in \mathcal{C}$ che contiene sia $\mathbf{v}$ che $H$. Dato che $C_{\gamma} \in \mathcal{C} \subset \mathcal{I}$, si ha che tutti i vettori in $C_{\gamma}$ sono
-        linearmente indipendenti, il che significa che anche $H \cup \{\mathbf{v}\}$ lo è, contraddicendo l'ipotesi iniziale. Allora $G \in \mathcal{I}$ 
+        linearmente indipendenti, il che significa che anche $H \cup \{\mathbf{v}\}$ lo è, contraddicendo l'ipotesi iniziale. Allora $G \in \mathcal{I}$
 
         \vspace{10pt}
-        Trovato un elemento massimo $B$ di $\mathcal{I}$, dimostrare che questi è una base è triviale. Sia $W = \textnormal{span}(B)$ e si supponga per assurdo che 
-        $W \neq V$. Vi è di conseguenza un elemento $\mathbf{v} \in V$ tale per cui 
+        Trovato un elemento massimo $B$ di $\mathcal{I}$, dimostrare che questi è una base è triviale. Sia $W = \textnormal{span}(B)$ e si supponga per assurdo che
+        $W \neq V$. Vi è di conseguenza un elemento $\mathbf{v} \in V$ tale per cui
         \[
-            \mathbf{v} \notin W \implies a_1 \mathbf{b_1} + ... + a_n \mathbf{b_n} + k \mathbf{v} = \mathbf{0} \iff a_1, ..., a_n, k = 0 \quad \textnormal{con} \; \mathbf{b_1}, ..., \mathbf{b_n} \in B
+            \mathbf{v} \notin W \implies a_1 \mathbf{b}_{1} + ... + a_n \mathbf{b}_{n} + k \mathbf{v} = \mathbf{0} \iff a_1, ..., a_n, k = 0 \quad \textnormal{con} \; \mathbf{b}_{1}, ..., \mathbf{b}_{n} \in B
         \]
         Si ha che $\mathbf{v}$ è linearmente indipendente rispetto a $B$. Allora $B \cup \{\mathbf{v}\} \in \mathcal{I}$ e $B \leq (B \cup \{\mathbf{v}\})$, contraddicendo l'ipotesi che $B$ sia elemento massimo in $\mathcal{I}$. Quindi $W = V$.
 
@@ -96,50 +84,61 @@
     \end{proof}
 
     \vspace{10pt}
-    \begin{theorem}[Teorema dell'unicità della scomposizione]
-        Sia $V$ uno spazio vettoriale su $F$ e sia $\{\mathbf{b_1},...,\mathbf{b_n}\}$ una base di $V$. 
-        Allora per ogni vettore $\mathbf{v} \in V$ esiste una e una sola combinazione $c_1,...,c_n \in F$ tale per cui $c_1\mathbf{b_1} + ... + c_n\mathbf{b_n} = \mathbf{v}$
+    \begin{theorem}[Teorema dell'unicità della scomposizione] \label{thm:uniqueness_of_combination}
+        Sia $V$ uno spazio vettoriale su un campo $F$ e sia $B = \{\mathbf{b}_{1},...,\mathbf{b}_{n}\}$ una base di $V$.
+        Allora per ogni vettore $\mathbf{v} \in V$ esiste una e una sola combinazione $c_1,...,c_n \in F$ tale per cui $c_1\mathbf{b}_{1} + ... + c_n\mathbf{b}_{n} = \mathbf{v}$
     \end{theorem}
 
     \begin{proof}[Dimostrazione]
-        Supponiamo per assurdo che vi siano due combinazioni $a_1,...,a_n \in F$ e $b_1,...,b_n \in F$ tali per cui: 
-        \begin{enumerate}[label=(\arabic*)]
-            \item $a_i \neq b_i \; \forall i \in \{1,...,n\}$
-            \item $a_1\mathbf{b_1} + ... + a_n\mathbf{b_n} = \mathbf{v}$ 
-            \item $b_1\mathbf{b_1} + ... + b_n\mathbf{b_n} = \mathbf{v}$ 
-        \end{enumerate} 
+        Supponiamo per assurdo che vi siano due combinazioni $a_1,...,a_n \in F$ e $b_1,...,b_n \in F$ tali per cui:
+        \begin{enumerate}[label=(\Roman*)]
+            \item $\exists i \in \{1,...,n\} \; | \; a_i \neq b_i$
+            \item $a_1\mathbf{b}_{1} + ... + a_n\mathbf{b}_{n} = \mathbf{v}$
+            \item $b_1\mathbf{b}_{1} + ... + b_n\mathbf{b}_{n} = \mathbf{v}$
+        \end{enumerate}
 
         Allora, segue che:
         \[
-            (a_1\mathbf{b_1} - b_1\mathbf{b_1}) + ... + (a_n\mathbf{b_n} - b_n\mathbf{b_n}) = \mathbf{v} - \mathbf{v} = \mathbf{0} \implies (a_1 - b_1) \mathbf{b_1} + ... + (a_n - b_n) \mathbf{b_n} = \mathbf{0} 
+            \mathbf{v} - \mathbf{v} = (a_1\mathbf{b}_{1} - b_1\mathbf{b}_{1}) + ... + (a_n\mathbf{b}_{n} - b_n\mathbf{b}_{n}) = \mathbf{0} \implies (a_1 - b_1) \mathbf{b}_{1} + ... + (a_n - b_n) \mathbf{b}_{n} = \mathbf{0}
         \]
 
         Per il punto (2) della definizione di base, abbiamo dunque:
         \[
             (a_i - b_i) = 0 \implies a_i = b_i \quad \forall i \in \{1,...,n\}
         \]
-        chiaramente contraddicendo l'ipotesi (1).
+        chiaramente contraddicendo l'ipotesi (I).
+    \end{proof}
+
+    \vspace{10pt}
+    \begin{theorem}[Teorema dell'estrazione di base] \label{thm:basis_extraction}
+        Sia $V$ uno spazio vettoriale e sia $G$ un generatore di $V$. Esiste allora un sottoinsieme $K \subset G$ tale per cui $K$ è una base di $V$.
+    \end{theorem}
+    \begin{proof}[Dimostrazione]
+        Sia $K$ il sottoinsieme linearmente indipendente di $G$ più grande, ovvero, dato un generico sottoinsieme $L$ di $G$ linearmente indipendente, si ha sempre che $L \subset K$. Siano $k = |K|$, $m = |G|$.
+        E' necessario allora dimostrare che $\textnormal{span}(K) = V$. Si prenda un generico elemento $\mathbf{g} \in G \setminus K$. Conseguenza del fatto che $\mathbf{g}$ non si trova in $K$
+        \[
+            \mathbf{g} = a_1 \mathbf{u}_{1} + ... + a_k \mathbf{u}_{k} \; \textnormal{con} \; \mathbf{u}_{1}, ..., \mathbf{u}_{k} \in K
+        \]
+        Quindi, dato che un generico elemento $\mathbf{v} \in V$ è esprimibile come combinazione lineare di elementi di $G$, si può osservare come
+        \[
+            \mathbf{v} = \sum_{i}^{k} b_i \mathbf{u}_{i} + \sum_{j}^{m - k} c_j \mathbf{g}_{j} = \sum_{i}^{k} b_i \mathbf{u}_{i} + \sum_{j}^{m - k} c_j (a_{1}^{j} \mathbf{u}_{1} + ... + a_{k}^{j} \mathbf{u}_{k}) = (b_1 + \sum_{j}^{m-k} c_j a_{1}^{j}) \mathbf{u}_{1} + ... + (b_k + \sum_{j}^{m-k} c_j a_{k}^{j}) \mathbf{u}_{k}
+        \]
     \end{proof}
 
     \vspace{10pt}
     \begin{lemma}[Lemma di Steinitz]
-        Sia $V$ uno spazio vettoriale e sia $S = \{\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_n}\} \subset V$ un insieme di vettori linearmente indipendenti. Sia $G \subset V$ un generatore di $V$. Allora $n \leq m = |G|$.
+        Sia $V$ uno spazio vettoriale, $G$ un generatore di $V$ e sia $H = \{\mathbf{v}_1, \mathbf{v}_2, ..., \mathbf{v}_k\} \subset V$ un insieme di $k$ vettori linearmente indipendenti.
+        Allora $|H| \leq |G|$.
     \end{lemma}
 
-    \begin{proof}[Dimostrazione] Si proceda assumendo per assurdo che $n > m$: \\
-        Dato che $S \subset V$, si ha che $\forall k \in \{1, ..., n\} \quad \mathbf{v_k} = a_{1}^{k}\mathbf{g_1} + ... + a_{m}^{k}\mathbf{g_m} \implies \mathbf{g_1} = \frac{1}{a_{1}^{k}}\mathbf{v_k} - ... - \frac{a_{m}^{k}}{a_{1}^{k}}\mathbf{g_m}$. In altre parole, si costruisca un nuovo insieme generatore
-        $G'$ dove gli elementi sono combinazioni lineari di vettori di $S$. Si prenda l'elemento $\mathbf{v_{m+1}}$. Conseguenza del fatto che $\mathbf{v_{m+1}} \in V$ è: 
+    \begin{proof}[Dimostrazione]
+        Per il teorema di estrazione di base [\Cref{thm:basis_extraction}], esiste un $B \subset G$ base di $V$. Dato che $H$ è un insieme di vettori linearmente indipendenti in $V$, $|H| \leq |B|$.
+        Infine, per le leggi di inclusione, se $B \subset G$, allora $|B| \leq |G|$, quindi
         \[
-            \begin{array}{c}
-                \mathbf{v_{m+1}} = a_1\mathbf{g'_{1}} + ... + a_m\mathbf{g'_{m}} \implies 
-                \mathbf{v_{m+1}} = a_1(b_{1}^{1}\mathbf{v_1} + ... + b_{m}^{1}\mathbf{v_m}) + ... + a_m(b_{1}^{m}\mathbf{v_1} + ... + b_{m}^{m}\mathbf{v_m}) \\ [1em]
-                \implies \mathbf{v_{m+1}} = (a_1 b_{1}^{1} + a_2 b_{1}^{2} + ... + a_m b_{1}^{m})\mathbf{v_1} + ... + (a_1 b_{m}^{1} + a_2 b_{m}^{2} + ... + a_m b_{m}^{m})\mathbf{v_m}
-            \end{array}
+            |H| \leq |B| \leq |G| \implies |H| \leq |G|
         \]
-
-        Altrimenti indicando che $\mathbf{v_{m+1}}$ possa essere scritto come combinazione lineare di $\{\mathbf{v_1}, ..., \mathbf{v_m}\}$, chiaramente contraddicendo l'ipotesi di indipendenza lineare di $S$.
     \end{proof}
-    
+
     \vspace{10pt}
     \begin{theorem}[Teorema sull'unicità della dimensione]
         Sia $V$ uno spazio vettoriale e sia $B \subset V$ una base di $V$. Se $B' \subset V$ è un'altra base di $V$ diversa da $B$, allora $|B'| = |B| = n$.
@@ -147,92 +146,100 @@
 
     \begin{proof}[Dimostrazione]
        Per il Lemma di Steinitz si ha che $|B'| \leq |B|$, in quanto $B$ è un generatore di $V$ e $B'$ è una collezione di vettori linearmente indipendenti in $V$.
-       Lo stesso ragionamento può essere fatto scambiando $B$ e $B'$, risultando in $|B| \leq |B'|$, che implica $|B| = |B'|$
+       Lo stesso ragionamento può essere fatto scambiando $B$ e $B'$, risultando in $|B| \leq |B'|$, che implica $|B| = |B'|$.
     \end{proof}
-
 
 
 
 \vspace{10pt}
-\subsection{Sottospazi vettoriali}
-    Dato uno spazio vettoriale $V$ su un campo $F$, un sottoinsieme $W$ di $V$ si dice sottospazio vettoriale se e solo se $W$ è a sua volta uno spazio vettoriale, chiuso per quanto riguarda 
+\subsection{Sottospazi vettoriali} \label{subsec:vssubspaces}
+    Dato uno spazio vettoriale $V$ su un campo $F$, un sottoinsieme $W$ di $V$ si dice sottospazio vettoriale se e solo se $W$ è a sua volta uno spazio vettoriale, chiuso per quanto riguarda
     la somma vettoriale e la moltiplicazione scalare-vettore:
 
     \begin{enumerate}[label=(\arabic*)]
-        \item $\forall \mathbf{v_1}, \mathbf{v_2} \in W, \; \mathbf{v_1} + \mathbf{v_2} \in W$ 
+        \item $\forall \mathbf{v}, \mathbf{w} \in W, \; \mathbf{v} + \mathbf{w} \in W$
         \item $\forall \mathbf{v} \in W, \forall \lambda \in F, \; \lambda \mathbf{v} \in W \implies \mathbf{0}_V \in W$
     \end{enumerate}
-    
+
     Dato uno spazio vettoriale $V$ l'insieme $\{\mathbf{0}_V\}$ è considerato il sottospazio vettoriale triviale e l'intersezione di tutti i sottospazi
-    vettoriali di $V$ coincide sempre con il sottospazio triviale. La dimensione di un sottospazio vettoriale $W$ di $V$ è sempre minore o uguale a quella dello "spazio genitore".
+    vettoriali di $V$ coincide sempre con il sottospazio triviale. La dimensione di un sottospazio vettoriale $W$ di $V$ è sempre minore o uguale a quella dello ``spazio genitore''.
 
     \vspace{10pt}
     \begin{lemma}
-       Sia $V$ uno spazio vettoriale e siano $W, Z$ due sottospazi vettoriali di $V$, allora $W \cap Z$ è sottospazio vettoriale di $V$ 
+       Sia $V$ uno spazio vettoriale e siano $W, Z$ due sottospazi vettoriali di $V$, allora $W \cap Z$ è sottospazio vettoriale di $V$
     \end{lemma}
     \begin{proof}[Dimostrazione]
         Si proceda come segue:
         \begin{enumerate}[label=(\Roman*)]
-            \item $\mathbf{v_1}, \mathbf{v_2} \in W \cap Z \implies \mathbf{v_1}, \mathbf{v_2} \in W \land \mathbf{v_1}, \mathbf{v_2} \in Z \implies \mathbf{v_1} + \mathbf{v_2} \in W \land \mathbf{v_1} + \mathbf{v_2} \in Z \implies \mathbf{v_1} + \mathbf{v_2} \in W \cap Z$
+            \item $\mathbf{v}, \mathbf{w} \in W \cap Z \implies \mathbf{v}, \mathbf{w} \in W \land \mathbf{v}, \mathbf{w} \in Z \implies \mathbf{v} + \mathbf{w} \in W \land \mathbf{v} + \mathbf{w} \in Z \implies \mathbf{v} + \mathbf{w} \in W \cap Z$
             \item $\mathbf{v} \in W \cap Z \implies \mathbf{v} \in W \land \mathbf{v} \in Z \implies \lambda \mathbf{v} \in W \land \lambda \mathbf{v} \in Z \implies \lambda \mathbf{v} \in W \cap Z$
         \end{enumerate}
     \end{proof}
 
-    \subsubsection{Somma di sottospazi vettoriali}
-    Dato uno spazio vettoriale $V$ e $W, Z \subset V$ sottospazi vettoriali, la somma $W + Z = \{\mathbf{v} \in V \; | \; \mathbf{v} = \mathbf{x} + \mathbf{y} \; \textnormal{con} \; \mathbf{x} \in W, \mathbf{y} \in Z\}$ è a sua volta un sottospazio vettoriale di V in quanto:
+    \subsubsection{Somma di sottospazi vettoriali} \label{subsubsec:vsdirect}
+    Dato uno spazio vettoriale $V$ e $W, Z \subset V$ sottospazi vettoriali, la somma $W + Z = \{\mathbf{v} \in V \; | \; \mathbf{v} = \mathbf{v} + \mathbf{w} \; \textnormal{con} \; \mathbf{v} \in W, \mathbf{w} \in Z\}$ è a sua volta un sottospazio vettoriale di V in quanto:
     \begin{enumerate}[label=(\arabic*)]
-        \item $\mathbf{v_1}, \mathbf{v_2} \in W + Z \implies \mathbf{v_1} = \mathbf{x_1} + \mathbf{y_1} \land \mathbf{v_2} = \mathbf{x_2} + \mathbf{y_2} \implies \mathbf{x_1}, \mathbf{x_2} \in W, \; \mathbf{y_1}, \mathbf{y_2} \in Z \implies \mathbf{v_1} + \mathbf{v_2} = (\mathbf{x_1} + \mathbf{x_2}) + (\mathbf{y_1} + \mathbf{y_2}) \in W + Z$
-        \item $\mathbf{v} \in W + Z \implies \mathbf{v} = \mathbf{x} + \mathbf{y} \implies \mathbf{x} \in W, \; \mathbf{y} \in Z \implies \lambda \mathbf{v} = (\lambda \mathbf{x}) + (\lambda \mathbf{y}) \in W + Z$
+        \item $\mathbf{v}_{1}, \mathbf{v}_{2} \in W + Z \implies \mathbf{v}_{1} = \mathbf{u}_{1} + \mathbf{w}_{1} \land \mathbf{v}_{2} = \mathbf{u}_{2} + \mathbf{w}_{2} \implies \mathbf{u}_{1}, \mathbf{u}_{2} \in W, \; \mathbf{w}_{1}, \mathbf{w}_{2} \in Z \implies \mathbf{v}_{1} + \mathbf{v}_{2} = (\mathbf{u}_{1} + \mathbf{u}_{2}) + (\mathbf{w}_{1} + \mathbf{w}_{2}) \in W + Z$
+        \item $\mathbf{v} \in W + Z \implies \mathbf{v} = \mathbf{u} + \mathbf{w} \implies \mathbf{u} \in W, \; \mathbf{w} \in Z \implies \lambda \mathbf{v} = (\lambda \mathbf{u}) + (\lambda \mathbf{w}) \in W + Z$
     \end{enumerate}
-    La somma fra due sottospazi vettoriali è il più piccolo sottospazio vettoriale che contiene entrambi contemporaneamente. Essa si dice diretta se e solo se per ogni $\mathbf{v} \in W \bigoplus Z$ esiste uno e un solo $\mathbf{x} \in W$ e uno e un solo $\mathbf{y} \in Z$ tale per cui 
-    $\mathbf{x} + \mathbf{y} = \mathbf{v}$. Si indica come $W \bigoplus Z, \; \textnormal{con} \; W, Z \subset V$.
+    La somma fra due sottospazi vettoriali è il più piccolo sottospazio vettoriale che contiene entrambi contemporaneamente. Essa si dice diretta se e solo se per ogni $\mathbf{v} \in W \oplus Z$ esiste uno e un solo $\mathbf{u} \in W$ e uno e un solo $\mathbf{w} \in Z$ tale per cui
+    $\mathbf{u} + \mathbf{w} = \mathbf{v}$. Si indica come $W \oplus Z$.
 
     \vspace{10pt}
     \begin{lemma}
-        Sia $V$ uno spazio vettoriale e siano $W, Z \subset V$ due sottospazi vettoriali. La somma $W + Z$ è diretta $\iff W \cap Z = {\mathbf{0}_V}$
+        Sia $V$ uno spazio vettoriale e siano $W, Z \subset V$ due sottospazi vettoriali. La somma $W + Z$ è diretta $\iff W \cap Z = \{\mathbf{0}_V\}$
     \end{lemma}
     \begin{proof}[Dimostrazione]
         ($\Rightarrow$)
-        Supponiamo per assurdo che $\exists \mathbf{v} \in W \cap Z \; | \; \mathbf{v} \neq \mathbf{0}_V \implies \mathbf{v} = \mathbf{v} + \mathbf{0}_V = \mathbf{0}_V + \mathbf{v} \implies \nexists W \bigoplus Z$. Allora $W \cap Z = \{\mathbf{0}_V\}$.
+        Supponiamo per assurdo che $\exists \mathbf{v} \in W \cap Z \; | \; \mathbf{v} \neq \mathbf{0}_V$. Allora
+        \[
+            \mathbf{v} = \mathbf{v} + \mathbf{0}_V \; \textnormal{con} \; \mathbf{v} \in W, \; \mathbf{0}_V \in Z, \;\; \mathbf{v} = \mathbf{0}_V + \mathbf{v} \; \textnormal{con} \; \mathbf{0}_V \in W, \; \mathbf{v} \in Z \implies \nexists W \oplus Z
+        \]
+        contraddicendo l'ipotesi che la somma sia diretta.
 
-        ($\Leftarrow$) 
-        Supponiamo per assurdo che $\mathbf{v} \in W + Z = \mathbf{x} + \mathbf{y} = \mathbf{x'} + \mathbf{y'} \implies \mathbf{x} - \mathbf{x'} = \mathbf{y'} - \mathbf{y'} \; \textnormal{con} \; \mathbf{x} - \mathbf{x'} \in W \land \mathbf{y'} - \mathbf{y} \in Z \implies \mathbf{x} - \mathbf{x'} \in W \cap Z \implies \mathbf{x} - \mathbf{x'} = \mathbf{0}_V$
+        \vspace{5pt}
+        ($\Leftarrow$)
+        Supponiamo per assurdo che la somma non sia diretta, quindi che $\mathbf{v} \in W + Z \; | \; \mathbf{v} = \mathbf{u} + \mathbf{w} = \mathbf{u'} + \mathbf{w'}$ con $\mathbf{u} \neq \mathbf{u'}$ e $\mathbf{w} \neq \mathbf{w'}$. Riscrivendo l'equazione $\mathbf{u} + \mathbf{w} = \mathbf{u'} + \mathbf{w'}$
+        \[
+            \mathbf{u} - \mathbf{u'} = \mathbf{w'} - \mathbf{w} \; \textnormal{con} \; \mathbf{u} - \mathbf{u'} \in W, \; \mathbf{w'} - \mathbf{w} \in Z \implies \mathbf{u} - \mathbf{u'} \in W \cap Z \implies \mathbf{u} - \mathbf{u'} = \mathbf{0}_V \implies \mathbf{u} = \mathbf{u'}
+        \]
+        contraddicendo l'ipotesi che la somma non sia diretta.
     \end{proof}
 
     \vspace{10pt}
     \begin{theorem}[Teorema delle somme dirette]
-        Sia $V$ uno spazio vettoriale e siano $V_1, V_2, ..., V_n$ sottospazi di $V$, allora TFAE: 
-        \begin{enumerate}[label=\textnormal{(\arabic*)}]
-            \item $\bigcap_{i}^{n} V_i = \{\mathbf{0_V}\}$ 
+        Sia $V$ uno spazio vettoriale e siano $V_1, V_2, ..., V_n$ sottospazi di $V$, allora TFAE:
+        \begin{enumerate}[label=(\Roman*)]
+            \item $\bigcap_{i}^{n} V_i = \{\mathbf{0}_V\}$
             \item $\dim(V_1 \oplus V_2 \oplus ... \oplus V_n) =  \sum_{i}^{n} \dim(V_i)$
             \item $\bigcup_{i}^{n} B_i \; \textnormal{è base di} \; V_1 \oplus ... \oplus V_n$
         \end{enumerate}
     \end{theorem}
 
     \vspace{10pt}
-    \subsubsection{Sottospazi ortogonali}
+    \subsubsection{Sottospazi ortogonali} \label{subsubsec:vsorthogonal}
     Sia $V$ uno spazio vettoriale dotato di prodotto interno. Due sottospazi $W, Z \subset V$ si dicono ortogonali ($W \perp Z$) se $\forall \mathbf{w} \in W, \; \forall \mathbf{z} \in Z, \; \mathbf{w} \cdot \mathbf{z} = 0$.
     Per verificare l'ortogonalità di due sottospazi è semplicemente necessario verificare l'ortogonalità fra una base di $W$ e una base di $Z$.
 
     \vspace{10pt}
-    \subsubsection{Dimensione di somme di sottospazi}
+    \subsubsection{Dimensione di somme di sottospazi} \label{subsubsec:vsdimention}
     \begin{proposition}
         Sia $V$ uno spazio vettoriale e siano $V_1, V_2, ..., V_n$ sottospazi di $V$. Allora $\dim(V_1 + V_2 + ... + V_n) \leq \displaystyle \sum_{i}^{n} \dim(V_i)$
     \end{proposition}
 
     \begin{proof}[Dimostrazione]
-        Si consideri un elemento $\mathbf{v} \in W = V_1 + V_2 + ... + V_n$, allora $\mathbf{v} = \displaystyle \sum_{i}^{n} \mathbf{v_i}$, con $\mathbf{v_i} \in V_i$. 
-        E' possibile allora mostrare che $\mathbf{v}$ è combinazione lineare delle basi di tutti i sottospazi $V_i$, il che implica che $\displaystyle \bigcup_{i}^{n} B_i$ è un generatore di $W$. Il lemma di Steinitz detta quindi che $|B_W| = \dim(W) \leq |\displaystyle \bigcup_{i}^{n} B_i|$
+        Si consideri un elemento $\mathbf{v} \in W = V_1 + V_2 + ... + V_n$, allora $\mathbf{v} = \displaystyle \sum_{i}^{n} \mathbf{v}_{i}$, con $\mathbf{v}_{i} \in V_i$.
+        E' possibile mostrare che $\mathbf{v}$ è combinazione lineare delle basi di tutti i sottospazi $V_i$, il che implica che $\displaystyle \bigcup_{i}^{n} B_i$ è un generatore di $W$. Il lemma di Steinitz detta quindi che $|B_W| = \dim(W) \leq |\displaystyle \bigcup_{i}^{n} B_i|$.
     \end{proof}
 
     \vspace{10pt}
-    \subsubsection{Formula di Grassman}
-    Sia $V$ uno spazio vettoriale e siano $W, Z \subset V$ sottospazi vettoriali di $V$, allora $\dim(W + Z) = \dim(W) + \dim(Z) - \dim(W \cap Z)$
+    \subsubsection{Formula di Grassman} \label{subsubsec:vsgrassman}
+    Sia $V$ uno spazio vettoriale e siano $W, Z \subset V$ sottospazi vettoriali di $V$, allora $\dim(W + Z) = \dim(W) + \dim(Z) - \dim(W \cap Z)$.
 
 
 
 \vspace{10pt}
-\subsection{Spazi vettoriali dotati di prodotto interno}
+\subsection{Spazi vettoriali dotati di prodotto interno} \label{subsec:vsdotted}
     Uno spazio vettoriale dotato di prodotto interno è uno spazio vettoriale $V$ dotato di una operazione binaria ($\cdot : V \times V \rightarrow F$) detta prodotto interno (o prodotto scalare), la quale soddifa una serie di condizioni:
     \begin{enumerate}[label=(\arabic*)]
         \item Commutatività: $\forall \mathbf{v}, \mathbf{w} \in V, \; \mathbf{v} \cdot \mathbf{w} = \mathbf{w} \cdot \mathbf{v}$
@@ -242,63 +249,77 @@
 
     In un generico spazio euclideo $\mathbb{R}^{n}$ il prodotto interno è definito, data una base ortonormale $B$ di $\mathbb{R}^{n}$, come
     \[
-        \mathbf{v} \cdot \mathbf{w} = \displaystyle \sum_{i = 0}^{n} v_i w_i
+        \mathbf{v} \cdot \mathbf{w} = \displaystyle \sum_{i = 1}^{n} v_i w_i
     \]
-    dove $v_0,...,v_n \in F$ e $w_0,...,w_n \in F$ sono le scomposizioni di, rispettivamente, $\mathbf{v}$ e $\mathbf{w}$ secondo $B$. 
+    dove $v_1,...,v_n \in F$ e $w_1,...,w_n \in F$ sono le scomposizioni di, rispettivamente, $\mathbf{v}$ e $\mathbf{w}$ secondo $B$.
 
     \vspace{10pt}
     \begin{theorem}[Disuguaglianza di Cauchy-Schwartz]
-        Sia V uno spazio vettoriale dotato di prodotto interno. Allora, $\forall \mathbf{v}, \mathbf{w} \in V, \; |\mathbf{v} \cdot \mathbf{w}| \leq \sqrt{\mathbf{v} \cdot \mathbf{v}}\sqrt{\mathbf{w} \cdot \mathbf{w}}$ 
+        Sia V uno spazio vettoriale dotato di prodotto interno. Allora, $\forall \mathbf{v}, \mathbf{w} \in V, \; |\mathbf{v} \cdot \mathbf{w}| \leq \sqrt{\mathbf{v} \cdot \mathbf{v}}\sqrt{\mathbf{w} \cdot \mathbf{w}}$
     \end{theorem}
 
-    \begin{proof}[Dimostrazione] 
-        Procediamo come segue: 
+    \begin{proof}[Dimostrazione]
+        Procediamo come segue:
         \[
         \begin{array}{c}
-            |\mathbf{v} \cdot \mathbf{w}| \leq \sqrt{\mathbf{v} \cdot \mathbf{v}}\sqrt{\mathbf{w} \cdot \mathbf{w}} \iff |\displaystyle\sum_{i = 0}^{n} v_i w_i| \leq \sqrt{(\displaystyle\sum_{i = 0}^{n} v_i^{2})(\displaystyle\sum_{i = 0}^{n} w_i^{2})} \iff (\displaystyle\sum_{i = 0}^{n} v_i w_i)^2 \leq (\displaystyle\sum_{i = 0}^{n} v_i^{2})(\displaystyle\sum_{i = 0}^{n} w_i^{2}) \\
-            \iff (\displaystyle\sum_{i = 0}^{n} v_i^{2})(\displaystyle\sum_{i = 0}^{n} w_i^{2}) - \frac{1}{2}\displaystyle\sum_{i = 0}^{n}\sum_{\substack{j = 0 \\ j \neq i}}^{n}(v_i w_j - v_j w_i)^2 \leq (\displaystyle\sum_{i = 0}^{n} v_i^{2})(\displaystyle\sum_{i = 0}^{n} w_i^{2}) \\ 
-            \iff - \frac{1}{2}\displaystyle\sum_{i = 0}^{n}\sum_{j = 0}^{n}(v_i w_j - v_j w_i)^2 \leq 0
+            |\mathbf{v} \cdot \mathbf{w}| \leq \sqrt{\mathbf{v} \cdot \mathbf{v}}\sqrt{\mathbf{w} \cdot \mathbf{w}} \iff |\displaystyle\sum_{i = 1}^{n} v_i w_i| \leq \sqrt{(\displaystyle\sum_{i = 1}^{n} v_i^{2})(\displaystyle\sum_{i = 1}^{n} w_i^{2})} \iff (\displaystyle\sum_{i = 1}^{n} v_i w_i)^2 \leq (\displaystyle\sum_{i = 1}^{n} v_i^{2})(\displaystyle\sum_{i = 1}^{n} w_i^{2}) \\
+            \iff (\displaystyle\sum_{i = 1}^{n} v_i^{2})(\displaystyle\sum_{i = 1}^{n} w_i^{2}) - \frac{1}{2}\displaystyle\sum_{i = 1}^{n}\sum_{\substack{j = 1 \\ j \neq i}}^{n}(v_i w_j - v_j w_i)^2 \leq (\displaystyle\sum_{i = 1}^{n} v_i^{2})(\displaystyle\sum_{i = 1}^{n} w_i^{2}) \\
+            \iff - \frac{1}{2}\displaystyle\sum_{i = 1}^{n}\sum_{j = 1}^{n}(v_i w_j - v_j w_i)^2 \leq 0
         \end{array}
         \]
     \end{proof}
 
     \vspace{10pt}
     \subsubsection{Vettori ortogonali e ortonormali}
-    In uno spazio vettoriale dotato di prodotto interno è possibile introdurre il concetto di ortogonalità. Due vettori $\mathbf{v}, \mathbf{w} \in V$ si dicono ortogonali se $\mathbf{v} \cdot \mathbf{w} = 0$. 
+    In uno spazio vettoriale dotato di prodotto interno è possibile introdurre il concetto di ortogonalità. Due vettori $\mathbf{v}, \mathbf{w} \in V$ si dicono ortogonali se $\mathbf{v} \cdot \mathbf{w} = 0$.
     Si dicono ortonormali invece se sono ortogonali e aggiuntivamente si ha che $\sqrt{\mathbf{v} \cdot \mathbf{v}} = 1, \; \sqrt{\mathbf{w} \cdot \mathbf{w}} = 1$.
-    
+
     \begin{theorem}[Teorema dell'indipendenza lineare di vettori ortogonali]
-        Sia $V$ uno spazio vettoriale dotato di prodotto interno e siano $\mathbf{v}, \mathbf{w} \in V$, se $\mathbf{v} \cdot \mathbf{w} = 0 $ allora $a \mathbf{v} + b \mathbf{w} = \mathbf{0} \iff a, b = 0$.
+        Sia $V$ uno spazio vettoriale dotato di prodotto interno e siano $\mathbf{v}, \mathbf{w} \in V$. Se $\mathbf{v} \cdot \mathbf{w} = 0$ con $\mathbf{v} \neq \mathbf{0}_V$ e $\mathbf{w} \neq \mathbf{0}_V$ allora $a \mathbf{v} + b \mathbf{w} = \mathbf{0} \iff a, b = 0$.
     \end{theorem}
 
     \begin{proof}[Dimostrazione]
-        TODO
+        Si consideri $a \mathbf{v} + b \mathbf{w} = \mathbf{0}$
+        \[
+            (a \mathbf{v}) \cdot \mathbf{v} + (b \mathbf{w}) \cdot \mathbf{v} = \mathbf{0} \cdot \mathbf{v} \implies a (\mathbf{v} \cdot \mathbf{v}) = 0
+        \]
+        dato che $\mathbf{v} \neq \mathbf{0}_V$, si può notare come $\mathbf{v} \cdot \mathbf{v} > 0$, quindi $a = 0$.
+
+        \vspace{5pt}
+        Ripetendo lo stesso procedimento con $\mathbf{w}$, si ha
+        \[
+            (a \mathbf{v}) \cdot \mathbf{w} + (b \mathbf{w}) \cdot \mathbf{w} = \mathbf{0} \cdot \mathbf{w} \implies b (\mathbf{w} \cdot \mathbf{w}) = 0
+        \]
+        come per $\mathbf{v}$, per ipotesi $\mathbf{w} \cdot \mathbf{w} > 0$, quindi $b = 0$.
+
     \end{proof}
 
     \vspace{10pt}
     \subsubsection{Normalizzazione di Gram-Schmidt}
-    Dato un qualsiasi spazio vettoriale dotato di prodotto interno $V$ e una base in $B$ in $V$ è possibile determinare una base ortonormale 
-    attraverso un processo chiamato normalizzazione di Gram-Schmidt. Sia 
+    Dato un qualsiasi spazio vettoriale dotato di prodotto interno $V$ e una base in $B$ in $V$ è possibile determinare una base ortonormale
+    attraverso un processo chiamato normalizzazione di Gram-Schmidt. Sia
     \[
         \textnormal{proj}_{\mathbf{u}}(\mathbf{v}) = \frac{\mathbf{v} \cdot \mathbf{u}}{\mathbf{u} \cdot \mathbf{u}} \mathbf{u}
     \]
     allora
     \[
         \begin{aligned}
-            \mathbf{u_1} &= \mathbf{v_1} &\quad& \mathbf{e_1} = \frac{\mathbf{u_1}}{||\mathbf{u_1}||} \\
-            \mathbf{u_2} &= \mathbf{v_2} - \textnormal{proj}_{\mathbf{u_1}}(\mathbf{v_2}) &\quad& \mathbf{e_2} = \frac{\mathbf{u_2}}{||\mathbf{u_2}||} \\
-            \mathbf{u}_3 &= \mathbf{v}_3 - \textnormal{proj}_{\mathbf{u_1}}(\mathbf{v}_3) - \textnormal{proj}_{\mathbf{u_2}}(\mathbf{v}_3) &\quad& \mathbf{e}_3 = \frac{\mathbf{u}_3}{||\mathbf{u}_3||} \\
-            \vdots
+            \mathbf{u}_{1} &= \mathbf{v}_{1} &\quad& \mathbf{e}_{1} = \frac{\mathbf{u}_{1}}{||\mathbf{u}_{1}||} \\
+            \mathbf{u}_{2} &= \mathbf{v}_{2} - \textnormal{proj}_{\mathbf{u}_{1}}(\mathbf{v}_{2}) &\quad& \mathbf{e}_{2} = \frac{\mathbf{u}_{2}}{||\mathbf{u}_{2}||} \\
+            \mathbf{u}_{3} &= \mathbf{v}_{3} - \textnormal{proj}_{\mathbf{u}_{1}}(\mathbf{v}_3) - \textnormal{proj}_{\mathbf{u}_{2}}(\mathbf{v}_3) &\quad& \mathbf{e}_{3} = \frac{\mathbf{u}_{3}}{||\mathbf{u}_{3}||} \\
+            \vdots \\
+            \mathbf{u}_{n} &= \mathbf{v}_{n} - \textnormal{proj}_{\mathbf{u}_{1}}(\mathbf{v}_{n}) - \textnormal{proj}_{\mathbf{u}_{2}}(\mathbf{v}_{n}) - ... - \textnormal{proj}_{\mathbf{u}_{n - 1}}(\mathbf{v}_{n}) &\quad& \mathbf{e}_{n} = \frac{\mathbf{u}_{n}}{||\mathbf{u}_{n}||} \\
         \end{aligned}
     \]
+    con $\mathbf{v}_{1}, ..., \mathbf{v}_{n} \in B$.
 
 
 
 
 \vspace{10pt}
-\subsection{Spazi vettoriali normati}
-    Uno spazio vettoriale normato è uno spazio vettoriale $V$ su cui una norma è definita, ovvero una funzione $||\cdot||: V \rightarrow \mathbb{R}$ in grado di assegnare 
-    ad ogni vettore una sorta di "lunghezza". La norma deve soddifare quattro assiomi:
+\subsection{Spazi vettoriali normati} \label{subsec:vsnormed}
+    Uno spazio vettoriale normato è uno spazio vettoriale $V$ su cui una norma è definita, ovvero una funzione $||\cdot||: V \rightarrow \mathbb{R}$ in grado di assegnare
+    ad ogni vettore una sorta di ``lunghezza''. La norma deve soddisfare quattro assiomi:
     \begin{itemize}
         \item Non-negatività: $\forall \mathbf{v} \in V, \; ||\mathbf{v}|| \geq 0$
         \item Positività: $\forall \mathbf{v} \in V, \; \mathbf{v} \neq \mathbf{0} \iff ||\mathbf{v}|| > 0$
@@ -309,23 +330,38 @@
     \vspace{5pt}
     Uno spazio vettoriale dotato di prodotto interno induce su di sé stesso una norma. Sia $||\mathbf{v}|| = \sqrt{\mathbf{v} \cdot \mathbf{v}}$, possiamo dimostrare che $||\cdot||$ soddisfi tutti gli assiomi della norma:
     \begin{itemize}
-        \item Non-negatività: $\sqrt{\mathbf{v} \cdot \mathbf{v}} = \sqrt{\displaystyle\sum_{i = 0}^{n} v_i^{2}} \geq 0$ 
-        \item Positività: $\sqrt{\mathbf{v} \cdot \mathbf{v}} \neq 0 \iff \mathbf{v} \neq \mathbf{0}$
-        \item Omogeneità assoluta: $\sqrt{\lambda\mathbf{v} \cdot \lambda\mathbf{v}} = \sqrt{\displaystyle\sum_{i = 0}^{n} \lambda^2v_i^{2}} = \sqrt{\lambda^2\displaystyle\sum_{i = 0}^{n} v_i^{2}} = |\lambda|\sqrt{\displaystyle\sum_{i = 0}^{n} v_i^{2}} = |\lambda|\sqrt{\mathbf{v} \cdot \mathbf{v}}$ 
-        \item Disuguaglianza triangoalre: 
+        \item Non-negatività: $\sqrt{\mathbf{v} \cdot \mathbf{v}} = \sqrt{\displaystyle\sum_{i = 1}^{n} v_i^{2}} \geq 0$
+        \item Positività: $\sqrt{\mathbf{v} \cdot \mathbf{v}} \neq 0 \iff \mathbf{v} \cdot \mathbf{v} \neq 0 \iff \mathbf{v} \neq \mathbf{0}$
+        \item Omogeneità assoluta: $\sqrt{\lambda\mathbf{v} \cdot \lambda\mathbf{v}} = \sqrt{\displaystyle\sum_{i = 1}^{n} \lambda^2v_i^{2}} = \sqrt{\lambda^2\displaystyle\sum_{i = 1}^{n} v_i^{2}} = |\lambda|\sqrt{\displaystyle\sum_{i = 1}^{n} v_i^{2}} = |\lambda|\sqrt{\mathbf{v} \cdot \mathbf{v}}$
+        \item Disuguaglianza triangoalre:
     \end{itemize}
-    \[ 
-        \begin{array}{c}
-            \sqrt{(\mathbf{v} + \mathbf{w}) \cdot (\mathbf{v} + \mathbf{w})} = \sqrt{\displaystyle\sum_{i = 0}^{n} (v_i + w_i)^{2}} \leq \sqrt{\displaystyle\sum_{i = 0}^{n} v_i^{2}} + \sqrt{\displaystyle\sum_{i = 0}^{n} w_i^{2}} \iff \\
-            \displaystyle\sum_{i = 0}^{n} v_i^{2} + \displaystyle\sum_{i = 0}^{n} w_i^{2} + 2\displaystyle\sum_{i = 0}^{n} v_i w_i \leq \displaystyle\sum_{i = 0}^{n} v_i^{2} + \displaystyle\sum_{i = 0}^{n} w_i^{2} + 2\sqrt{(\displaystyle\sum_{i = 0}^{n} v_i^{2})(\displaystyle\sum_{i = 0}^{n} w_i^{2})} \iff 
-            \displaystyle\sum_{i = 0}^{n} v_i w_i \leq \sqrt{(\displaystyle\sum_{i = 0}^{n} v_i^{2})(\displaystyle\sum_{i = 0}^{n} w_i^{2})} \iff \\\\
-            \mathbf{v} \cdot \mathbf{w} \leq ||\mathbf{v}||\,||\mathbf{w}|| \iff \mathbf{v} \cdot \mathbf{w} \leq \sqrt{\mathbf{v} \cdot \mathbf{v}}\sqrt{\mathbf{w} \cdot \mathbf{w}} \quad \text{(vero per Cauchy-Schwartz)} 
-        \end{array}
+    \[
+        \begin{aligned}
+            \sqrt{(\mathbf{v} + \mathbf{w}) \cdot (\mathbf{v} + \mathbf{w})}
+                &= \sqrt{\sum_{i = 1}^{n} (v_i + w_i)^{2}} \\
+                &\leq \sqrt{\sum_{i = 1}^{n} v_i^{2}}
+                    + \sqrt{\sum_{i = 1}^{n} w_i^{2}} \\
+                &\iff \sum_{i = 1}^{n} v_i^{2} + \sum_{i = 1}^{n} w_i^{2}
+                    + 2\sum_{i = 1}^{n} v_i w_i \\
+                &\phantom{\iff {}}\leq
+                    \sum_{i = 1}^{n} v_i^{2} + \sum_{i = 1}^{n} w_i^{2}
+                    + 2\sqrt{\left(\sum_{i = 1}^{n} v_i^{2}\right)
+                    \left(\sum_{i = 1}^{n} w_i^{2}\right)} \\
+                &\iff \sum_{i = 1}^{n} v_i w_i
+                    \leq \sqrt{\left(\sum_{i = 1}^{n} v_i^{2}\right)
+                    \left(\sum_{i = 1}^{n} w_i^{2}\right)} \\
+                &\iff \mathbf{v} \cdot \mathbf{w}
+                    \leq ||\mathbf{v}||\,||\mathbf{w}|| \\
+                &\iff \mathbf{v} \cdot \mathbf{w}
+                    \leq \sqrt{\mathbf{v} \cdot \mathbf{v}}
+                    \sqrt{\mathbf{w} \cdot \mathbf{w}}
+                    \quad \text{(vero per Cauchy-Schwartz)}
+        \end{aligned}
     \]
 
 \vspace{10pt}
-\subsection{Spazi metrici}
-    Uno spazio metrico è un insieme di elementi $M$ su cui una funzione di distanza (anche chiamata metrica) $d: M \times M \rightarrow \mathbb{R}$ è definita. 
+\subsection{Spazi metrici} \label{subsec:vsmetric}
+    Uno spazio metrico è un insieme di elementi $M$ su cui una funzione di distanza (anche chiamata metrica) $d: M \times M \rightarrow \mathbb{R}$ è definita.
     La metrica deve soddisfare quattro assiomi:
 
     \begin{itemize}
@@ -339,52 +375,50 @@
     Infatti sia $d(\mathbf{v}, \mathbf{w}) = ||\mathbf{v} - \mathbf{w}||$, possiamo dimostrare che $d$ soddisfi tutti gli assiomi della metrica:
 
     \begin{itemize}
-        \item Identità: $d(\mathbf{v}, \mathbf{v}) = ||\mathbf{v} - \mathbf{v}|| = ||\mathbf{0}|| = 0$ (per positività della norma)
-        \item Positività: $\mathbf{v} \neq \mathbf{w} \implies d(\mathbf{v}, \mathbf{w}) = ||\mathbf{v} - \mathbf{w}|| > 0$ (per positività della norma)
-        \item Simmetria: $d(\mathbf{w}, \mathbf{v}) = ||\mathbf{w} - \mathbf{v}|| = ||(-1)(\mathbf{v} - \mathbf{w})|| = |-1|\,||\mathbf{v} - \mathbf{w}|| = ||\mathbf{v} - \mathbf{w}|| = d(\mathbf{v}, \mathbf{w})$ (per omogeneità assoluta della norma)
-        \item Disuguaglianza triangolare: $||(\mathbf{v} - \mathbf{w}) + (\mathbf{w} - \mathbf{u})|| = ||\mathbf{v} - \mathbf{u}|| \leq ||\mathbf{v} - \mathbf{w}|| + ||\mathbf{w} - \mathbf{u}||$ (per disuguaglianza triangolare della norma)
+        \item Identità: $d(\mathbf{v}, \mathbf{v}) = ||\mathbf{v} - \mathbf{v}|| = ||\mathbf{0}|| = 0$
+        \item Positività: $\mathbf{v} \neq \mathbf{w} \implies d(\mathbf{v}, \mathbf{w}) = ||\mathbf{v} - \mathbf{w}|| > 0$
+        \item Simmetria: $d(\mathbf{w}, \mathbf{v}) = ||\mathbf{w} - \mathbf{v}|| = ||(-1)(\mathbf{v} - \mathbf{w})|| = |-1|\,||\mathbf{v} - \mathbf{w}|| = ||\mathbf{v} - \mathbf{w}|| = d(\mathbf{v}, \mathbf{w})$
+        \item Disuguaglianza triangolare: $d(\mathbf{v}, \mathbf{u}) = ||\mathbf{v} - \mathbf{u}|| = ||(\mathbf{v} - \mathbf{w}) + (\mathbf{w} - \mathbf{u})|| \leq ||\mathbf{v} - \mathbf{w}|| + ||\mathbf{w} - \mathbf{u}||$
     \end{itemize}
 
-
-
 \vspace{10pt}
-\subsection{Definizioni e operatori sui vettori}
-    \subsubsection{Definizione di vettori paralleli}
-        Due vettori $\mathbf{v}, \mathbf{w} \in V$ si dicono paralleli se e solo se $\exists \lambda \in F \; | \; \mathbf{v} = \lambda \mathbf{w}$  
+\subsection{Definizioni e operazioni sui vettori} \label{subsec:vsoperations}
+    \subsubsection{Definizione di vettori paralleli} \label{subsubsec:vsparallel}
+        Due vettori $\mathbf{v}, \mathbf{w} \in V$ si dicono paralleli se e solo se $\exists \lambda \in F \; | \; \mathbf{v} = \lambda \mathbf{w}$
 
-    \subsubsection{Prodotto vettoriale}
+    \subsubsection{Prodotto vettoriale} \label{subsubsec:vscross}
         Dati due vettori $\mathbf{v}, \mathbf{w} \in \mathbb{R}^3$ il prodotto vettoriale ($\times : \mathbb{R}^3 \times \mathbb{R}^3 \rightarrow \mathbb{R}^3$) è definito come:
         \[
-            \mathbf{v} \times \mathbf{w} = \det 
+            \mathbf{v} \times \mathbf{w} = \det \left(
             \begin{bmatrix}
                 \mathbf{i} & \mathbf{j} & \mathbf{k} \\
-                v_0 & v_1 & v_2 \\
-                w_0 & w_1 & w_2
+                v_1 & v_2 & v_3 \\
+                w_1 & w_2 & w_3
             \end{bmatrix}
+            \right)
         \]
-        Dove $\mathbf{i}, \mathbf{j}, \mathbf{k}$ è la base ortonormale di $\mathbb{R}^3$. 
+        Dove $\mathbf{i}, \mathbf{j}, \mathbf{k}$ è la base ortonormale di $\mathbb{R}^3$.
 
         \vspace{5pt}
-        Proprieta:
+        Proprietà:
         \begin{enumerate}[label=(\arabic*)]
-            \item Anticommutativa: $\forall \mathbf{v}, \mathbf{w} \in \mathbb{R}^3, \; \mathbf{v} \times \mathbf{w} = -(\mathbf{w} \times \mathbf{v})$ 
+            \item Anticommutativa: $\forall \mathbf{v}, \mathbf{w} \in \mathbb{R}^3, \; \mathbf{v} \times \mathbf{w} = -(\mathbf{w} \times \mathbf{v})$
             \item Associativa rispetto al prodotto scalare-vettore: $\forall \mathbf{v}, \mathbf{w} \in \mathbb{R}^3, \; \forall \lambda \in \mathbb{R}, \; (\lambda\mathbf{v}) \times \mathbf{w} = \lambda(\mathbf{v} \times \mathbf{w})$
             \item Distributiva rispetto alla somma vettoriale: $\forall \mathbf{v}, \mathbf{w}, \mathbf{u} \in \mathbb{R}^3, \; (\mathbf{v} + \mathbf{w}) \times \mathbf{u} = \mathbf{v} \times \mathbf{u} + \mathbf{w} \times \mathbf{u}$
         \end{enumerate}
-    
-    \subsubsection{Prodotto misto}
+
+    \subsubsection{Prodotto misto} \label{subsubsec:vsmisc}
         Dati tre vettori $\mathbf{v}, \mathbf{w}, \mathbf{u} \in \mathbb{R}^3$ il prodotto misto ($(\cdot \times \cdot) \, \cdot : \mathbb{R}^3 \times \mathbb{R}^3 \times \mathbb{R}^3 \rightarrow \mathbb{R}$) è definito come:
         \[
-            (\mathbf{v} \times \mathbf{w}) \cdot \mathbf{u} = \det  
+            (\mathbf{v} \times \mathbf{w}) \cdot \mathbf{u} = \det \left(
             \begin{bmatrix}
-                u_0 & u_1 & u_2 \\
-                v_0 & v_1 & v_2 \\
-                w_0 & w_1 & w_2
+                u_1 & u_2 & u_3 \\
+                v_1 & v_2 & v_3 \\
+                w_1 & w_2 & w_3
             \end{bmatrix}
+            \right)
         \]
-        Proprieta: 
+        Proprietà:
         \begin{enumerate}[label=(\arabic*)]
-            \item Commutatività per rotazione sinistra: $\forall \mathbf{v}, \mathbf{w}, \mathbf{u} \in \mathbb{R}^3, \; (\mathbf{v} \times \mathbf{w}) \cdot \mathbf{u} = (\mathbf{w} \times \mathbf{u}) \cdot \mathbf{v} = (\mathbf{u} \times \mathbf{v}) \cdot \mathbf{w}$  
+            \item Commutativa per rotazione sinistra: $\forall \mathbf{v}, \mathbf{w}, \mathbf{u} \in \mathbb{R}^3, \; (\mathbf{v} \times \mathbf{w}) \cdot \mathbf{u} = (\mathbf{w} \times \mathbf{u}) \cdot \mathbf{v} = (\mathbf{u} \times \mathbf{v}) \cdot \mathbf{w}$
         \end{enumerate}
-
-\end{document}

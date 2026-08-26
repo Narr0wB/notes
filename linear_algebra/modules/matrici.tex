@@ -1,260 +1,297 @@
-\documentclass{article}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{enumitem}
-\usepackage[a4paper, margin=1in]{geometry}
+% !TeX root = ../algebralineare.tex
 
-\newtheorem{theorem}{Teorema}
-\newtheorem{corollary}{Corollario}
-
-\begin{document}
-\setlength{\parindent}{0pt}
-
-\section{Matrici}
-\subsection{Definizione di matrice}
-    Una matrice $A$ di dimensioni $m \times n$ a coefficienti reali è un oggetto matematico della forma:
+\section{Matrici} \label{sec:matrices}
+\subsection{Definizione di matrice} \label{subsec:matdefinition}
+    Una matrice $A \in \mathbb{R}^{m, n}$ di dimensioni $m \times n$ a coefficienti reali è un oggetto matematico della forma:
     \[  A =
         \begin{bmatrix}
             a_{11} & a_{12} & ... & a_{1n} \\
             a_{21} & a_{22} & ... & a_{2n} \\
             \vdots & \ddots & \ddots & \vdots \\
-            a_{m1} & a_{m2} & ... & a_{mn} 
+            a_{m1} & a_{m2} & ... & a_{mn}
         \end{bmatrix}
     \]
     Dove $a_{ij} \in \mathbb{R}$ sono i coefficienti della matrice, $m$ è il numero delle righe ed $n$ il numero delle colonne.
-    Se $n = m$ la matrice si dice quadrata e gli elementi $\{ a_{ii} \; | \; i \in \{0, ..., n\}\}$ sono chiamati diagonale della matrice. 
+    Se $n = m$ la matrice si dice quadrata e gli elementi $\{ a_{ii} \; | \; i \in \{1, ..., n\}\}$ sono chiamati ``diagonale'' della matrice.
 
     \vspace{10pt}
-    Sia $\mathbb{R}^{m, n}$ l'insieme di tutte le matrici $m \times n$, possiamo affermare che sussiste una biezione fra $\mathbb{R}^{m, 1} \leftrightarrow \mathbb{R}^{m}$ e fra $\mathbb{R}^{1, n} \leftrightarrow \mathbb{R}^{n}$.
+    Sia $\mathbb{R}^{m, n}$ l'insieme di tutte le generiche matrici $m \times n$, possiamo affermare che sussiste una biezione fra $\mathbb{R}^{m, 1} \leftrightarrow \mathbb{R}^{m}$ e fra $\mathbb{R}^{1, n} \leftrightarrow \mathbb{R}^{n}$.
 
 
 
-\subsection{Somma fra matrici}
+\subsection{Prodotto scalare-matrice} \label{subsec:matscalarmul}
+    Sia $A \in \mathbb{R}^{m, n}$ una matrice e sia $\lambda \in \mathbb{R}$ uno scalare, il prodotto scalare-matrice di $\lambda$ con $A$ è definito come:
+    \[
+    \lambda A =
+    \begin{bmatrix}
+        \lambda a_{11} & \lambda a_{12} & ... & \lambda a_{1n} \\
+        \lambda a_{21} & \lambda a_{22} & ... & \lambda a_{2n} \\
+        \vdots & \ddots & \ddots & \vdots \\
+        \lambda a_{m1} & \lambda a_{m2} & ... & \lambda a_{mn}
+    \end{bmatrix}
+    \]
+
+    \vspace{10pt}
+    Proprietà:
+    \begin{enumerate}[label=(\arabic*)]
+        \item Associativa: $\forall \lambda, \mu \in \mathbb{R}, \; \forall A \in \mathbb{R}^{m, n}, \; (\lambda \mu) A = \lambda (\mu A)$
+        \item Distributiva rispetto alla somma fra scalari: $\forall \lambda, \mu \in \mathbb{R}, \; \forall A \in \mathbb{R}^{m, n}, \; (\lambda + \mu)A = \lambda A + \mu A$
+        \item Esistenza dell'elemento neutro: $\forall A \in \mathbb{R}^{m, n} \; \exists (1) \in \mathbb{R} \; | \; (1)A = A$
+    \end{enumerate}
+
+
+
+\subsection{Somma fra matrici} \label{subsec:matsum}
     Siano $A, B \in \mathbb{R}^{m, n}$ due matrici $m \times n$, la somma di $A$ con $B$ è definita come:
     \[
-        A + B = 
+        \begin{aligned}
+        A + B
+        &=
         \begin{bmatrix}
             a_{11} & a_{12} & ... & a_{1n} \\
             a_{21} & a_{22} & ... & a_{2n} \\
             \vdots & \ddots & \ddots & \vdots \\
-            a_{m1} & a_{m2} & ... & a_{mn} 
+            a_{m1} & a_{m2} & ... & a_{mn}
         \end{bmatrix}
         +
         \begin{bmatrix}
             b_{11} & b_{12} & ... & b_{1n} \\
             b_{21} & b_{22} & ... & b_{2n} \\
             \vdots & \ddots & \ddots & \vdots \\
-            b_{m1} & b_{m2} & ... & b_{mn} 
+            b_{m1} & b_{m2} & ... & b_{mn}
         \end{bmatrix}
-        =
+        \\
+        &=
         \begin{bmatrix}
             a_{11} + b_{11} & a_{12} + b_{12} & ... & a_{1n} + b_{1n} \\
             a_{21} + b_{21} & a_{22} + b_{22} & ... & a_{2n} + b_{2n} \\
             \vdots & \ddots & \ddots & \vdots \\
-            a_{m1} + b_{m1} & a_{m2} + b_{m2} & ... & a_{mn} + b_{mn} 
+            a_{m1} + b_{m1} & a_{m2} + b_{m2} & ... & a_{mn} + b_{mn}
         \end{bmatrix}
+        \end{aligned}
     \]
 
     \vspace{10pt}
     Proprietà:
     \begin{enumerate}[label=(\arabic*)]
-        \item Commutatività: $\forall A, B \in \mathbb{R}^{m, n}, \; A + B = B + A$
-        \item Associatività: $\forall A, B, C \in \mathbb{R}^{m, n}, \; (A + B) + C = A + (C + B)$
-        \item Elemento neutro: $\exists N \in \mathbb{R}^{m, n} \; | \; \forall A \in \mathbb{R}^{m, n}, \; A + N = A $ 
-        \item Elemento opposto: $\forall A \in \mathbb{R}^{m, n}, \; \exists -A \in \mathbb{R}^{m, n} \; | \; A + (-A) = N$
+        \item Commutativa: $\forall A, B \in \mathbb{R}^{m, n}, \; A + B = B + A$
+        \item Associativa: $\forall A, B, C \in \mathbb{R}^{m, n}, \; (A + B) + C = A + (C + B)$
+        \item Distributiva del prodotto scalare-matrice rispetto alla somma matriciale: $\forall \lambda \in \mathbb{R}, \; \forall A, B \in \mathbb{R}^{m, n}, \; \lambda(A + B) = \lambda A + \lambda B$
+        \item Esistenza dell'elemento neutro: $\exists 0_{m, n} \in \mathbb{R}^{m, n} \; | \; \forall A \in \mathbb{R}^{m, n}, \; A + 0_{m, n} = A $
+        \item Esistenza dell'elemento opposto: $\forall A \in \mathbb{R}^{m, n}, \; \exists (-A) \in \mathbb{R}^{m, n} \; | \; A + (-A) = 0_{m, n}$
     \end{enumerate}
 
 
 
-\subsection{Prodotto scalare-matrice}
-    Sia $A \in \mathbb{R}^{m, n}$ una matrice e sia $\lambda \in \mathbb{R}$ uno scalare, il prodotto scalare-matrice di $\lambda$ con $A$ è definito come:
-    \[
-    \lambda A = 
-    \begin{bmatrix}
-        \lambda a_{11} & \lambda a_{12} & ... & \lambda a_{1n} \\
-        \lambda a_{21} & \lambda a_{22} & ... & \lambda a_{2n} \\
-        \vdots & \ddots & \ddots & \vdots \\
-        \lambda a_{m1} & \lambda a_{m2} & ... & \lambda a_{mn} 
-    \end{bmatrix} 
-    \]
-
-    \vspace{10pt}
-    Proprietà:
-    \begin{enumerate}[label=(\arabic*)]
-        \item Associatività: $\forall \lambda, \mu \in \mathbb{R}, \; \forall A \in \mathbb{R}^{m, n}, \; (\lambda \mu) A = \lambda (\mu A)$ 
-        \item Elemento neutro: $\forall A \in \mathbb{R}^{m, n} \; \exists 1 \in \mathbb{R} \; | \; 1A = A$
-        \item Distributività rispetto alla somma fra matrici: $\forall \lambda \in \mathbb{R}, \; \forall A, B \in \mathbb{R}^{m, n}, \; \lambda(A + B) = \lambda A + \lambda B$
-        \item Distributività rispetto alla somma fra scalari: $\forall \lambda, \mu \in \mathbb{R}, \; \forall A \in \mathbb{R}^{m, n}, \; (\lambda + \mu)A = \lambda A + \mu A$
-    \end{enumerate}
-
-
-
-\subsection{Matrici trasposte}
+\subsection{Matrici trasposte} \label{subsec:mattranspose}
     Data una matrice $A \in \mathbb{R}^{m, n}$, la sua trasposta $A^{T} \in \mathbb{R}^{n, m}$ è la matrice nella forma:
     \[
-        A = 
+        A =
         \begin{bmatrix}
             a_{11} & a_{12} & ... & a_{1n} \\
             a_{21} & a_{22} & ... & a_{2n} \\
             \vdots & \ddots & \ddots & \vdots \\
-            a_{m1} & a_{m2} & ... & a_{mn} 
-        \end{bmatrix} 
+            a_{m1} & a_{m2} & ... & a_{mn}
+        \end{bmatrix}
         \implies
-        A^{T} = 
+        A^{T} =
         \begin{bmatrix}
             a_{11} & a_{21} & ... & a_{m1} \\
             a_{12} & a_{22} & ... & a_{m2} \\
             \vdots & \ddots & \ddots & \vdots \\
-            a_{n1} & a_{n2} & ... & a_{nm} 
-        \end{bmatrix} 
+            a_{n1} & a_{n2} & ... & a_{nm}
+        \end{bmatrix}
     \]
 
 
-    Una matrice $A \in \mathbb{R}^{n, n}$ si dice simmetrica se $A = A^{T}$ oppure asimmetrica se $A = -A^{T}$
+    Una matrice $A \in \mathbb{R}^{n, n}$ si dice simmetrica se $A = A^{T}$ oppure antisimmetrica se $A = -A^{T}$
 
     \vspace{10pt}
     \begin{theorem}
-        Sia $V$ lo spazio vettoriale determinato da $(\mathbb{R}^{n, n}, \mathbb{R}, +, \cdot)$, allora $S = \{A \in \mathbb{R}^{n, n} \; | \; A = A^{T}\}$ e $W = \{A \in \mathbb{R}^{n, n} \; | \; A = -A^{T}\}$ sono 
-        sottospazi di $V$ e $S \bigoplus W = \mathbb{R}^{n, n}$ 
+        Sia $V$ lo spazio vettoriale determinato da $(\mathbb{R}^{n, n}, \mathbb{R}, +, \cdot)$, allora
+        \begin{enumerate}[label=(\Roman*)]
+            \item $S = \{A \in \mathbb{R}^{n, n} \; | \; A = A^{T}\}$ e $W = \{A \in \mathbb{R}^{n, n} \; | \; A = -A^{T}\}$ sono sottospazi di $V$
+            \item $S \oplus W = \mathbb{R}^{n, n}$
+        \end{enumerate}
+
     \end{theorem}
     \begin{proof}[Dimostrazione]
-        \begin{enumerate}[label=(\arabic*)]
-            \item Dato che vale $\forall A_1, A_2 \in S, \; (A_1 + A_2)^{T} = A_1^T + A_2^T = A_1 + A_2$ e vale $\forall A \in S, \; (\lambda A)^T = \lambda A^T = \lambda A$ allora $S$ è sottospazio di $V$
-            \item Dato che vale $\forall A_1, A_2 \in W, \; (A_1 + A_2)^{T} = A_1^T + A_2^T = -A_1 + -A_2 = -(A_1 + A_2)$ e vale $\forall A \in S, \; (\lambda A)^T = \lambda A^T = - \lambda A$ allora $W$ è sottospazio di $V$
-            \item Se $A \in S \cap W$ allora $A = A^T = -A \implies A = 0_{\mathbb{R}^{n, n}}$, quindi la somma $S \bigoplus W$ è diretta.
-            \item Sia $M \in \mathbb{R}^{n, n}$. Allora se $A_1 = \frac{M + M^{T}}{2} \in S$ e $A_2 = \frac{M - M^{T}}{2} \in W$ abbiamo che $A_1 + A_2 = M \in S \bigoplus W$
-        \end{enumerate}
+        (I) Si consideri
+        \[
+            \forall A, B \in S, \; (A + B)^{T} = A^T + B^T = A + B \implies A + B \in S
+        \]
+        \[
+            \forall A \in S, \; \forall \lambda \in \mathbb{R}, \; (\lambda A)^T = \lambda A^T = \lambda A \implies \lambda A \in S
+        \]
+        allora $S$ è sottospazio di $V$. Per $W$ invece
+        \[
+            \forall A, B \in W, \; (A + B)^{T} = A^T + B^T = -A + -B = -(A + B) \implies A + B \in W
+        \]
+        \[
+            \forall A \in W, \; \forall \lambda \in \mathbb{R}, \; (\lambda A)^T = \lambda (A^T) = - \lambda A \implies \lambda A \in W
+        \]
+        allora $W$ è sottospazio di $V$.
+
+        \vspace{10pt}
+        (II) Se $A \in S \cap W$, si ha
+        \[
+            A = A^T = -A \implies A = 0_{n, n} \implies S \cap W = \{0_{n, n}\}
+        \]
+        quindi la somma $S \oplus W$ è diretta. Adesso, sia $M \in \mathbb{R}^{n, n}$. Se $A = \frac{M + M^{T}}{2} \in S$ e $B = \frac{M - M^{T}}{2} \in W$ abbiamo che $A + B = M \in S \oplus W$. Quindi $\mathbb{R}^{n, n} \subset S \oplus W$ e $S \oplus W \subset \mathbb{R}^{n, n} \implies S \oplus W = \mathbb{R}^{n, n}$.
     \end{proof}
 
-\subsection{Prodotto matrice-matrice}
-    Date due matrici $A \in \mathbb{R}^{m, n}$ e $B \in \mathbb{R}^{n, k}$ il prodotto matrice-matrice fra $A$ e $B$ è definito come:
+\subsection{Prodotto matrice-matrice} \label{subsec:matmul}
+    Date due matrici $A \in \mathbb{R}^{m, n}$ e $B \in \mathbb{R}^{n, k}$ il prodotto matrice-matrice (o prodotto matriciale) fra $A$ e $B$ è definito come:
     \[
-        A \cdot B = 
+        \begin{aligned}
+        AB
+        &=
         \begin{bmatrix}
             a_{11} & a_{12} & ... & a_{1n} \\
             a_{21} & a_{22} & ... & a_{2n} \\
             \vdots & \ddots & \ddots & \vdots \\
-            a_{m1} & a_{m2} & ... & a_{mn} 
+            a_{m1} & a_{m2} & ... & a_{mn}
         \end{bmatrix}
-        \cdot 
         \begin{bmatrix}
             b_{11} & b_{12} & ... & b_{1k} \\
             b_{21} & b_{22} & ... & b_{2k} \\
             \vdots & \ddots & \ddots & \vdots \\
-            b_{n1} & b_{n2} & ... & b_{nk} 
+            b_{n1} & b_{n2} & ... & b_{nk}
         \end{bmatrix}
-        = 
+        \\
+        &=
         \begin{bmatrix}
-            \displaystyle\sum_{i = 0}^{n}{a_{1i} b_{i1}} & \displaystyle\sum_{i = 0}^{n}{a_{1i} b_{i2}} & ... & \displaystyle\sum_{i = 0}^{n}{a_{1i} b_{ik}} \\
-            \displaystyle\sum_{i = 0}^{n}{a_{2i} b_{i1}} & \displaystyle\sum_{i = 0}^{n}{a_{2i} b_{i2}} & ... & \displaystyle\sum_{i = 0}^{n}{a_{2i} b_{ik}} \\
+            \displaystyle\sum_{i = 1}^{n}{a_{1i} b_{i1}} & \displaystyle\sum_{i = 1}^{n}{a_{1i} b_{i2}} & ... & \displaystyle\sum_{i = 1}^{n}{a_{1i} b_{ik}} \\
+            \displaystyle\sum_{i = 1}^{n}{a_{2i} b_{i1}} & \displaystyle\sum_{i = 1}^{n}{a_{2i} b_{i2}} & ... & \displaystyle\sum_{i = 1}^{n}{a_{2i} b_{ik}} \\
             \vdots & \ddots & \ddots & \vdots \\
-            \displaystyle\sum_{i = 0}^{n}{a_{mi} b_{i1}} & \displaystyle\sum_{i = 0}^{n}{a_{mi} b_{i2}} & ... & \displaystyle\sum_{i = 0}^{n}{a_{mi} b_{ik}} 
+            \displaystyle\sum_{i = 1}^{n}{a_{mi} b_{i1}} & \displaystyle\sum_{i = 1}^{n}{a_{mi} b_{i2}} & ... & \displaystyle\sum_{i = 1}^{n}{a_{mi} b_{ik}}
         \end{bmatrix}
         \in \mathbb{R}^{m, k}
+        \end{aligned}
     \]
 
     \vspace{10pt}
     Proprietà:
     \begin{enumerate}[label=(\arabic*)]
-        \item Associatività: $\forall A \in \mathbb{R}^{m, n}, \forall B \in \mathbb{R}^{n, k}, \forall C \in \mathbb{R}^{k, p}, \; (A \cdot B) \cdot C = A \cdot (B \cdot C)$ 
-        \item Associatività rispetto al prodotto scalare-matrice: $\forall \lambda \in \mathbb{R}, \forall A \in \mathbb{R}^{m, n}, \forall B \in \mathbb{R}^{n, k}, \; \lambda (A \cdot B) = \lambda A \cdot B = A \cdot \lambda B$
-        \item Distributività sinistra rispetto alla somma fra matrici: $\forall A, B \in \mathbb{R}^{m, n}, \forall C \in \mathbb{R}^{k, m}, \; C \cdot (A + B) = C \cdot A + C \cdot B$
-        \item Distributività destra rispetto alla somma fra matrici: $\forall A, B \in \mathbb{R}^{m, n}, \forall C \in \mathbb{R}^{n, k}, \; (A + B) \cdot C = C \cdot A + C \cdot B$
-        \item Distributività della trasposizione rispetto al prodotto matrice-matrice: $\forall A \in \mathbb{R}^{m, n}, \forall B \in \mathbb{R}^{n, k}, \; (A \cdot B)^{T} = A^{T} \cdot B^{T}$
+        \item Associativa: $\forall A \in \mathbb{R}^{m, n}, \forall B \in \mathbb{R}^{n, k}, \forall C \in \mathbb{R}^{k, p}, \; (AB) C = A (BC)$
+        \item Associativa rispetto al prodotto scalare-matrice: $\forall \lambda \in \mathbb{R}, \forall A \in \mathbb{R}^{m, n}, \forall B \in \mathbb{R}^{n, k}, \; \lambda (A  B) = (\lambda A)  B = A  (\lambda B)$
+        \item Distributiva sinistra rispetto alla somma fra matrici: $\forall A, B \in \mathbb{R}^{m, n}, \forall C \in \mathbb{R}^{k, m}, \; C (A + B) = C  A + C  B$
+        \item Distributiva destra rispetto alla somma fra matrici: $\forall A, B \in \mathbb{R}^{m, n}, \forall C \in \mathbb{R}^{n, k}, \; (A + B) C = AC + BC$
+        \item Distributiva della trasposizione rispetto al prodotto matriciale: $\forall A \in \mathbb{R}^{m, n}, \forall B \in \mathbb{R}^{n, k}, \; (A  B)^{T} = B^{T}  A^{T}$
     \end{enumerate}
 
-\subsection{Matrici ridotte, pivot e rango di matrice}
-    Data una matrice $A \in \mathbb{R}^{m, n}$ essa si dice ridotta per riga se e solo se il primo elemento non nullo
-    di ogni riga, chiamato pivot, si trova a destra del pivot della riga superiore. $A$ si dice invece fortemente ridotta,
-    oppure in forma echelon (reduced row echelon form), se è ridotta per righe, ogni pivot vale 1 e il pivot è l'unico elemento non nullo della colonna. 
+\subsection{Matrici ridotte, pivot e rango di matrice} \label{subsec:matrank}
+    Data una matrice $A \in \mathbb{R}^{m, n}$ essa si dice ridotta per righe (row echelon form) se e solo se il primo elemento non nullo
+    di ogni riga, chiamato pivot, si trova a destra del pivot della riga superiore. $A$ si dice invece fortemente ridotta per righe,
+    oppure in forma echelon (reduced row echelon form), se è ridotta per righe, ogni pivot vale 1 ed è l'unico elemento non nullo della colonna in cui si trova.
 
     \vspace{10pt}
     Un esempio di matrice ridotta per righe è:
     \[
-        A = 
+        A =
         \begin{bmatrix}
             3 & 2 & 4 & 9 \\
             0 & 1 & 8 & 8 \\
             0 & 0 & 0 & 6 \\
-            0 & 0 & 0 & 0 
-        \end{bmatrix} 
+            0 & 0 & 0 & 0
+        \end{bmatrix}
     \]
-    Mentre un esempio di matrice fortemente ridotta per righe: 
+    Mentre un esempio di matrice fortemente ridotta per righe:
     \[
-        A = 
+        A =
         \begin{bmatrix}
             1 & 0 & 0 & 9 \\
             0 & 1 & 0 & 8 \\
             0 & 0 & 1 & 6 \\
-            0 & 0 & 0 & 0 
-        \end{bmatrix} 
+            0 & 0 & 0 & 0
+        \end{bmatrix}
     \]
 
     \vspace{10pt}
-    Ogni matrice $A \in \mathbb{R}^{m, n}$ può essere portata in forma fortemente ridotta per righe attraverso un processo iterativo chiamato
-    eliminazione di Gauss, il quale consiste nell'applicare una delle seguenti traformazioni alle righe laddove è necessario:
+    Ogni matrice $A \in \mathbb{R}^{m, n}$ può essere portata in forma ridotta per righe attraverso un processo iterativo chiamato
+    eliminazione di Gauss-Jordan, il quale consiste nell'applicare una delle seguenti traformazioni alle righe laddove è necessario:
     \begin{enumerate}[label=(E\textsubscript{\arabic*}), leftmargin=1cm]
-        \item $R_i \rightarrow R_i + \lambda R_j$ con $\lambda \in \mathbb{R}$ 
-        \item $R_i \rightarrow \lambda R_i$ con $\lambda \in \mathbb{R} - \{0\}$ 
-        \item $R_i \rightarrow R_j$ 
+        \item Sostituire una qualsiasi riga con la somma della riga stessa e un multiplo di un'altra riga. In simboli $\mathbf{R}_{i} + \lambda \mathbf{R}_{j} \rightarrow \mathbf{R}_{i}$ con $\lambda \in \mathbb{R}$
+        \item Sostituire una qualsiasi riga con un multiplo non nullo della riga stessa. In simboli $\lambda \mathbf{R}_{i} \rightarrow \mathbf{R}_{i}$ con $\lambda \in \mathbb{R} - \{0\}$
+        \item Sostituire una qualsiasi riga con un'altra. In simboli $\mathbf{R}_{j} \rightarrow \mathbf{R}_{i}$
     \end{enumerate}
-    Dove $R_i, R_j \in \mathbb{R}^{1, n}$ sono le righe i e j-esime della matrice $A$.
+    Dove $\mathbf{R}_{i}, \mathbf{R}_{j} \in \mathbb{R}^{1, n}$ sono le righe i e j-esime della matrice $A$.
 
     \vspace{10pt}
     Un esempio di eliminazione di Gauss è:
     \[
-        A = 
+        A =
         \begin{bmatrix}
             3 & 1 & 4 & 9 \\
             3 & 2 & 8 & 8 \\
             0 & 3 & 0 & 6 \\
-            0 & 0 & 0 & 7 
-        \end{bmatrix} 
-        \xrightarrow{R_2 - R_1 \rightarrow R_2 \; (E_1)}
+            0 & 0 & 0 & 7
+        \end{bmatrix}
+        \xrightarrow{\mathbf{R}_{2} - \mathbf{R}_{1} \rightarrow \mathbf{R}_{2} \; (E_1)}
         \begin{bmatrix}
             3 & 1 & 4 & 9 \\
             0 & 1 & 4 & -1 \\
             0 & 3 & 0 & 6 \\
-            0 & 0 & 0 & 7 
-        \end{bmatrix} 
-        \xrightarrow{R_3 - 3 R_2 \rightarrow R_3 \; (E_1)}
+            0 & 0 & 0 & 7
+        \end{bmatrix}
+        \xrightarrow{\mathbf{R}_{3} - 3 \mathbf{R}_{2} \rightarrow \mathbf{R}_{3} \; (E_1)}
         \begin{bmatrix}
             3 & 1 & 4 & 9 \\
             0 & 1 & 4 & -1 \\
             0 & 0 & -12 & 9 \\
-            0 & 0 & 0 & 7 
-        \end{bmatrix} 
+            0 & 0 & 0 & 7
+        \end{bmatrix}
     \]
-    
+
     \vspace{10pt}
-    Il rango di una matrice è definito come il numero di righe (o colonne) linearmente indipendenti.
+    \subsubsection{Definizione di rango di una matrice} \label{subsubsec:matrankdef}
+    Il rango di una matrice è definito come il numero di righe (o colonne) linearmente indipendenti oppure, detto in altro modo, il rango di una matrice è la dimensione dello spazio generato dalle righe (o colonne) della matrice.
 
     \vspace{10pt}
     \begin{theorem}[Teorema del rango]
-        Sia $A \in \mathbb{R}^{m, n}$ matrice e sia $R_A = \textnormal{span}(\mathbf{R_1}, \mathbf{R_2}, ..., \mathbf{R_m})$ lo spazio generato dalle righe di $A$, mentre $C_A = \textnormal{span}(\mathbf{C_1}, \mathbf{C_2}, ..., \mathbf{C_n})$ lo spazio
-        generato dalle colonne di $A$, allora $\dim(R_A) = \dim(C_A)$     
+        Sia $A \in \mathbb{R}^{m, n}$ matrice e sia $R_A = \textnormal{span}(\mathbf{R}_{1}, \mathbf{R}_{2}, ..., \mathbf{R}_{m})$ lo spazio generato dalle righe di $A$, mentre $C_A = \textnormal{span}(\mathbf{C}_{1}, \mathbf{C}_{2}, ..., \mathbf{C}_{n})$ lo spazio
+        generato dalle colonne di $A$, allora $\dim(R_A) = \dim(C_A)$
     \end{theorem}
 
     \begin{proof}[Dimostrazione]
-        Sia $B_R = \{\mathbf{r_1}, ..., \mathbf{r_k}\}$ una base di $R_A$, allora ogni riga $\mathbf{R_i} = a_{1}^{i} \mathbf{r_1} + a_{2}^{i} \mathbf{r_2} + ... + a_{k}^{i} \mathbf{r_k}$. Dunque ogni colonna 
+        Sia $B_R = \{\mathbf{r}_{1}, ..., \mathbf{r}_{k}\}$ una base di $R_A$ con $\mathbf{r}_{i} \in B_R, \; \mathbf{r}_{i} = (r_{1}^{i}, ..., r_{n}^{i})$. E' allora possibile esprimere ogni riga come $\mathbf{R}_{i} = a_{1}^{i} \mathbf{r}_{1} + a_{2}^{i} \mathbf{r}_{2} + ... + a_{k}^{i} \mathbf{r}_{k}$.
+        Cercando di visualizzare $A$ scomponendo ogni riga secondo $B_R$
         \[
-            \mathbf{C_i} = 
+            A =
+            \begin{bmatrix}
+                \mathbf{R}_{1} \\
+                \mathbf{R}_{2} \\
+                \vdots \\
+                \mathbf{R}_{m}
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+                a_{1}^{1} r_{1}^{1} + a_{2}^{1} r_{1}^{2} + ... + a_{k}^{1} r_{1}^{k} & ... & a_{1}^{1} r_{n}^{1} + a_{2}^{1} r_{n}^{2} + ... + a_{k}^{1} r_{n}^{k} \\
+                a_{1}^{2} r_{1}^{1} + a_{2}^{2} r_{1}^{2} + ... + a_{k}^{2} r_{1}^{k} & ... & a_{1}^{2} r_{n}^{1} + a_{2}^{2} r_{n}^{2} + ... + a_{k}^{2} r_{n}^{k} \\
+                \vdots & \ddots & \vdots \\
+                a_{1}^{m} r_{1}^{1} + a_{2}^{m} r_{1}^{2} + ... + a_{k}^{m} r_{1}^{k} & ... & a_{1}^{m} r_{n}^{1} + a_{2}^{m} r_{n}^{2} + ... + a_{k}^{m} r_{n}^{k}
+            \end{bmatrix}
+        \]
+        In altre parole, qualisasi elemento $e_{ij}$ della matrice è nella forma $a_{1}^{i} r_{j}^{1} + a_{2}^{i} r_{j}^{2} + ... + a_{k}^{i} r_{j}^{k}$ dove il pedice di ogni termine $r$ rappresenta la colonna, e l'apice di ogni termine $a$ rappresenta la riga.
+
+        Dunque, data una generica colonna $\mathbf{C}_{i}$
+        \[
+            \mathbf{C}_{i} =
             \begin{bmatrix}
                 a_{1}^{1} \\
                 a_{1}^{2} \\
                 \vdots \\
                 a_{1}^{m}
             \end{bmatrix}
-            r_{1}^{i}
-            + 
+            r_{i}^{1}
+            +
             \begin{bmatrix}
                 a_{2}^{1} \\
                 a_{2}^{2} \\
                 \vdots \\
                 a_{2}^{m}
             \end{bmatrix}
-            r_{2}^{i}
+            r_{i}^{2}
             +
             \dots
             +
@@ -264,17 +301,17 @@
                 \vdots \\
                 a_{k}^{m}
             \end{bmatrix}
-            r_{k}^{i}
+            r_{i}^{k}
         \]
-        
-        il che implica che 
+
+        il che implica che
         $G_C = \{
             \begin{bmatrix}
                 a_{1}^{1} \\
                 a_{1}^{2} \\
                 \vdots \\
                 a_{1}^{m}
-            \end{bmatrix},  
+            \end{bmatrix},
             \begin{bmatrix}
                 a_{2}^{1} \\
                 a_{2}^{2} \\
@@ -287,9 +324,9 @@
                 a_{k}^{2} \\
                 \vdots \\
                 a_{k}^{m}
-            \end{bmatrix} 
+            \end{bmatrix}
             \}$
-        sia un generatore di $C_A$. Quindi, per il lemma di 
+        sia un generatore di $C_A$. Quindi, per il lemma di
 
         \vspace{5pt}
         Steinitz, si ha che $\dim(C_A) \leq |G_C| = |B_R| = \dim(R_A)$. Si prenda in considerazione $A^T$ e si ripeta il procedimento svolto.
@@ -297,7 +334,7 @@
     \end{proof}
 
 \vspace{10pt}
-\subsection{Sistemi lineari}
+\subsection{Sistemi lineari} \label{subsec:matlinear}
     Un sistema lineare è un sistema di $m$ equazioni lineari a $n$ incognite della forma:
     \[
         \begin{cases}
@@ -305,7 +342,7 @@
             a_{21}x_1 + a_{22}x_2 + ... + a_{2n}x_n = b_2 \\
             \vdots \\
             a_{m1}x_1 + a_{m2}x_2 + ... + a_{mn}x_n = b_m
-        \end{cases} 
+        \end{cases}
     \]
     Per ogni sistema lineare è possibile costruire una sua versione "in matrice", ovvero:
     \[
@@ -314,27 +351,27 @@
             a_{21}x_1 + a_{22}x_2 + ... + a_{2n}x_n = b_2 \\
             \vdots \\
             a_{m1}x_1 + a_{m2}x_2 + ... + a_{mn}x_n = b_m
-        \end{cases} 
-        \, 
-        \rightarrow 
+        \end{cases}
+        \,
+        \rightarrow
         \,
         \begin{bmatrix}
             a_{11} & a_{12} & ... & a_{1n} \\
             a_{21} & a_{22} & ... & a_{2n} \\
             \vdots & \ddots & \ddots & \vdots \\
-            a_{m1} & a_{m2} & ... & a_{mn} 
+            a_{m1} & a_{m2} & ... & a_{mn}
         \end{bmatrix}
         \,
         \begin{bmatrix}
-            x_{1} \\ 
+            x_{1} \\
             x_{2} \\
             \vdots \\
             x_{n} \\
         \end{bmatrix}
         \,
-        = 
+        =
         \begin{bmatrix}
-            b_{1} \\ 
+            b_{1} \\
             b_{2} \\
             \vdots \\
             b_{m} \\
@@ -343,14 +380,14 @@
         \rightarrow
         A\mathbf{x} = \mathbf{b}
     \]
-    La matrice aumentata del sistema $(A | B) \in \mathbb{R}^{m, n+1}$ è definita come:
+    La matrice aumentata del sistema $A | \mathbf{b} \in \mathbb{R}^{m, n+1}$ è definita come:
     \[
         \left[
         \begin{array}{cccc | c}
             a_{11} & a_{12} & ... & a_{1n} & b_1 \\
             a_{21} & a_{22} & ... & a_{2n} & b_2 \\
             \vdots & \ddots & \ddots & \vdots & \vdots \\
-            a_{m1} & a_{m2} & ... & a_{mn} & b_m 
+            a_{m1} & a_{m2} & ... & a_{mn} & b_m
         \end{array}
         \right]
     \]
@@ -358,25 +395,25 @@
     Un sistema lineare cui $\mathbf{b} = \mathbf{0}$ viene detto omogeneo ed è sempre risolubile in quanto ammette la soluzione triviale $\mathbf{x} = \mathbf{0}$.
 
     \vspace{10pt}
-    \begin{theorem}[Teorema di Rouché-Capelli] 
-        Sia $S$ un sistema lineare e sia $(A | B)$ la sua matrice aumentata coniugata. $S$ ha soluzione se e solo se 
-        $\textnormal{rank}(A | B)$ = $\textnormal{rank}(A)$ e la dimensione dello spazio delle soluzioni di $S$ vale $n - p$,
-        con $n$ il numero di incognite del sistema e $p = \textnormal{rank}(A) = \textnormal{rank}((A | B))$
+    \begin{theorem}[Teorema di Rouché-Capelli]
+        Sia $S$ un sistema lineare e sia $A | \mathbf{b}$ la sua matrice aumentata. $S$ ha soluzione se e solo se
+        $\textnormal{rank}(A | \mathbf{b})$ = $\textnormal{rank}(A)$ e la dimensione dello spazio delle soluzioni di $S$ vale $n - p$,
+        con $n$ il numero di incognite del sistema e $p = \textnormal{rank}(A) = \textnormal{rank}(A | \mathbf{b})$
     \end{theorem}
 
-    \begin{proof}[Dimostrazione] 
+    \begin{proof}[Dimostrazione]
         Il sistema $S$ può essere scritto in forma: $A\mathbf{x} = \mathbf{b}$. Si riscriva la relazione come: $L_A(\mathbf{x}) = \mathbf{b}$ dove $L_A: \mathbb{R}^n \rightarrow \mathbb{R}^m$ è un'applicazione lineare.
         $S$ ammette soluzione se e solo se $\mathbf{b} \in \textnormal{Im}(L_A)$, ovvero $\exists \mathbf{x} \in \mathbb{R}^n \; | \; L_A(\mathbf{x}) = \mathbf{b}$. E' possibile osservare come l'immagine di $L_A(\mathbf{x})$
         sia data da una combinazione lineare dei vettori colonna di $A$:
         \[
-            A\mathbf{x} = 
+            A\mathbf{x} =
             \begin{bmatrix}
                 a_{11}x_{1} + a_{12}x_{2} + \cdots + a_{1n}x_{n} \\
                 a_{21}x_{1} + a_{22}x_{2} + \cdots + a_{2n}x_{n} \\
                 \vdots \\
                 a_{m1}x_{1} + a_{m2}x_{2} + \cdots + a_{mn}x_{n} \\
             \end{bmatrix}
-            = 
+            =
             \begin{bmatrix}
                 a_{11} \\
                 a_{21} \\
@@ -384,7 +421,7 @@
                 a_{m1} \\
             \end{bmatrix}
             x_{1}
-            + 
+            +
             \begin{bmatrix}
                 a_{12} \\
                 a_{22} \\
@@ -402,34 +439,34 @@
                 a_{mn} \\
             \end{bmatrix}
             x_{n}
-        \]    
+        \]
 
         \vspace{10pt}
         Il che significa che $\mathbf{b}$ è contenuto nell'immagine di $L_A$ se e solo se $\mathbf{b}$ è nello span delle colonne di $A$.
-        Si confronti il rango della matrice aumentata del sistema con il rango della matrice dei coefficienti. Dato che $(A | B)$ è un'estensione di $A$, vi sono due casi: 
+        Si confronti il rango della matrice aumentata del sistema con il rango della matrice dei coefficienti. Dato che $A | \mathbf{b}$ è un'estensione di $A$, vi sono due casi:
         \begin{itemize}
-            \item $\textnormal{rank}{(A | B)} = \textnormal{rank}(A)$ 
-            \item $\textnormal{rank}{(A | B)} > \textnormal{rank}(A)$ 
+            \item $\textnormal{rank}{(A | \mathbf{b})} = \textnormal{rank}(A)$
+            \item $\textnormal{rank}{(A | \mathbf{b})} > \textnormal{rank}(A)$
         \end{itemize}
-        Se $\textnormal{rank}{(A | B)} > \textnormal{rank}(A)$, allora $\mathbf{b}$ è linearmente indipendente ripetto a tutti i vettori di colonna di $A$, il che significa
-        che $\mathbf{b} \notin \textnormal{Im}(L_A)$ e che $S$ non ha soluzione. Analogamente, se $\textnormal{rank}{(A | B)} = \textnormal{rank}(A)$, allora $\mathbf{b} \in \textnormal{Im}(L_A)$.
+        Se $\textnormal{rank}{(A | \mathbf{b})} > \textnormal{rank}(A)$, allora $\mathbf{b}$ è linearmente indipendente ripetto a tutti i vettori di colonna di $A$, il che significa
+        che $\mathbf{b} \notin \textnormal{Im}(L_A)$ e che $S$ non ha soluzione. Analogamente, se $\textnormal{rank}{(A | \mathbf{b})} = \textnormal{rank}(A)$, allora $\mathbf{b} \in \textnormal{Im}(L_A)$.
 
         \vspace{10pt}
-        Appurato che esista almeno una soluzione $\mathbf{x_0}$, tutte le restanti soluzioni sono determinabili in maniera seguente:
+        Appurato che esista almeno una soluzione $\mathbf{x}_{0}$, tutte le restanti soluzioni sono determinabili in maniera seguente:
         \[
-            L_A(\mathbf{v}) = \mathbf{0} \implies L_A(\mathbf{x_0} + \mathbf{v}) = L_A(\mathbf{x_0}) + L_A(\mathbf{v}) = \mathbf{b} + \mathbf{0} = \mathbf{b}
+            L_A(\mathbf{x}_{0}) = \mathbf{b} \implies \; \forall \mathbf{v} \in \ker(L_A), \; L_A(\mathbf{x}_{0} + \mathbf{v}) = L_A(\mathbf{x}_{0}) + L_A(\mathbf{v}) = \mathbf{b} + \mathbf{0} = \mathbf{b}
         \]
         Di conseguenza, la dimensione dello spazio di soluzione coincide con la dimensione del nucleo di $L_A$, la quale, per il teorema della dimensione, deve rispettare l'uguaglianza:
         \[
             \dim(\textnormal{Im}(L_A)) + \dim(\ker(L_A)) = \dim(\textnormal{Dom}(L_A)) \iff \textnormal{rank}(A) + \textnormal{null}(A) = n
-        \] 
-        ricavando così la dimensione dello spazio di soluzione come $n - \textnormal{rank}(A)$.  
+        \]
+        ricavando così la dimensione dello spazio di soluzione come $n - \textnormal{rank}(A)$.
     \end{proof}
 
 
 
 
-\subsection{Equazioni matriciali}
+\subsection{Equazioni matriciali} \label{subsec:matequation}
     Siano $A \in \mathbb{R}^{m, n}, \; X \in \mathbb{R}^{n, k}, \; B \in \mathbb{R}^{m, k}$, allora:
     \[
         AX = B
@@ -438,34 +475,40 @@
 
     \vspace{10pt}
     Per le equazioni matriciali vige il teorema di Rouché-Capelli generalizzato, ovvero: \\
-    Una qualsiasi eq. matriciale della forma $AX = B$ ha soluzione se e solo se rank$(A) = $ rank$(A | B)$ e qualora vi fossero delle soluzioni, la cardinalità dello 
-    spazio di soluzione è data da $|\mathbb{R}^{m - p, n}|$ dove $p = \textnormal{rank}(A) = \textnormal{rank}(A | B)$.
+    Una qualsiasi eq. matriciale della forma $AX = B$ ha soluzione se e solo se rank$(A) = $ rank$(A | B)$ e qualora vi fossero delle soluzioni, la dimensione dello
+    spazio di soluzione è data da $(n - p)k$ dove $p = \textnormal{rank}(A) = \textnormal{rank}(A | B)$.
 
     \vspace{10pt}
-    \begin{corollary}[Corollario di Rouché-Capelli]
+    \begin{corollary}[Corollario al teorema di Rouché-Capelli]
         Siano $A, X, B \in \mathbb{R}^{n, n}$ e sia $\textnormal{rank}(B) = n$, allora le seguenti condizioni sono equivalenti:
-        \begin{itemize}
+        \begin{enumerate}[label=(\Roman*)]
             \item $AX = B$ è risolubile
             \item $\textnormal{rank}(A) = n$
-            \item La soluzione $X$ è unica 
-        \end{itemize}
+            \item La soluzione $X$ è unica
+        \end{enumerate}
     \end{corollary}
 
 
 \vspace{10pt}
-\subsection{Matrici inverse, simili, ortogonali e ortonormali}
+\subsection{Matrici inverse, simili, ortogonali e special-ortogonali} \label{subsec:matspecial}
+    \subsubsection{Matrici inverse} \label{subsubsec:matinv}
     Una matrice $A \in \mathbb{R}^{n, n}$ si dice invertibile se e solo se $\exists A^{-1} \in \mathbb{R}^{n, n} \; | \; AA^{-1} = I_n$. Se esiste la matrice inversa, allora essa è sia inversa a sinistra che inversa a destra, secondo quanto segue:
     \[
-        C = A^{-1} \; (\textnormal{sx}), \; B = A^{-1} \; (\textnormal{dx}) \implies CA = AB = I \implies C = CI = CAB = IB = B 
+        C = A^{-1} \; (\textnormal{sx}), \; B = A^{-1} \; (\textnormal{dx}) \implies CA = AB = I \implies C = CI = CAB = IB = B
     \]
+    Dato che una matrice quadrata può essere vista come un endomorfismo da $\mathbb{R}^{n}$ a $\mathbb{R}^{n}$ si può dire che esiste la matrice inversa di $A$ se e solo se l'endomorfismo è biettivo, quindi $\textnormal{rank}(A) = n$.
 
+    \subsubsection{Matrici simili} \label{subsubsec:matalike}
+    \vspace{10pt}
     Due matrici $A, B \in \mathbb{R}^{n, n}$ si dicono simili se:
     \[
-        \exists P \in \mathbb{R}^{n, n} \; | \; A = P^{-1}BP  \; \land \; B = P^{-1} 
+        \exists P \in \mathbb{R}^{n, n} \; | \; A = P^{-1}BP, \;\: B = PAP^{-1}
     \]
 
-    Una matrice $A \in \mathbb{R}^{n, n}$ si dice ortogonale ($A \in O(n)$) se $AA^{T} = I$. $A$ è ortonormale ($A \in SO(n)$) se è ortogonale e $\det(A) = 1$.
-    
-
-\end{document}
-
+    \subsubsection{Matrici ortogonali} \label{subsubsec:matorthogonal}
+    Una matrice $A \in \mathbb{R}^{n, n}$ si dice ortogonale ($A \in O(n) \subset GL_{n}(\mathbb{R})$) se
+    \[
+        AA^{T} = A^{T}A = I
+    \]
+    $A$ è special-ortogonale ($A \in SO(n)$) se è ortogonale e $\det(A) = 1$.
+    Il gruppo special-ortogonale $SO(n)$ può essere visto come il gruppo di tutte le rotazioni nello spazio euclideo $\mathbb{R}^{n}$.

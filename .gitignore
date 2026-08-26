@@ -2,3 +2,4 @@
 .DS_Store
 electronic_devices/
 circuits/
+*.sync*

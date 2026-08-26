@@ -1,39 +1,13 @@
-\documentclass{article}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{enumitem}
-\usepackage{titling}
-\usepackage{graphicx}
-\usepackage{tikz-cd}
-\usepackage{nameref}
-\usepackage{fancyhdr}
-\usepackage[a4paper, margin=1in]{geometry}
-\usepackage{refcount}
-
-% \tikzcdset{scale cd/.style={every label/.append style={scale=#1},
-%     cells={nodes={scale=#1}}}}
-
-\newtheorem{theorem}{Teorema}
-\newtheorem{corollary}{Corollario}[theorem]
-\newtheorem{osservazione}{Osservazione}
-\newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposizione}
-\newtheorem{definition}{Definizione}
-
-\setlength{\parindent}{0pt}
-\newcommand{\mfrac}[2]{\displaystyle\frac{#1}{#2}}
-
-\begin{document}
+% !TeX root = ../analysisII.tex
 
 \section{Integrali multipli}
-    \subsection{Definizione di area e insieme misurabile su $\mathbb{R}^{n}$}
+    \subsection{Definizione di area e insieme misurabile su \texorpdfstring{$\mathbb{R}^{n}$}{R alla n}}
         Sia $I = [a, b]$ oppure $I = (a, b)$ un intervallo in $\mathbb{R}$ e sia $\mathcal{L}(I) = b - a$ la ``misura'' di tale intervallo.
-        Sia allora il volume di un generico cuboide rettangolare $C \subset \mathbb{R}^{n}, \; C = I_{1} \times ... \times I_{n}$, definito come 
+        Sia allora il volume di un generico cuboide rettangolare $C \subset \mathbb{R}^{n}, \; C = I_{1} \times ... \times I_{n}$, definito come
         \[
             \text{vol}(C) = \prod_{i = 1}^{n} \mathcal{L}(I_{i})
         \]
-        Allora, dato un qualsiasi sottoinsieme $D \subset \mathbb{R}^{n}$ si definisce l'ipervolume esterno di $D$ come 
+        Allora, dato un qualsiasi sottoinsieme $D \subset \mathbb{R}^{n}$ si definisce l'ipervolume esterno di $D$ come
         \[
             \lambda^{*}(D) = \inf{\left\{ \sum_{k = 1}^{\infty} \text{vol}(C_{k}) \; : \; \{C_{k}\}_{k \in \mathbb{N}} \; \textnormal{è una successione di cuboidi tali per cui} \; D \subset \bigcup_{k = 1}^{\infty} C_{k} \right\}}
         \]
@@ -42,9 +16,9 @@
             \lambda(D) = \sup \left\{ \sum_{k = 1}^{\infty} \text{vol}(C_k) \; : \; \{C_k\}_{k \in \mathbb{N}} \; \textnormal{è una successione di cuboidi tali per cui} \; \bigcup_{k = 1}^{\infty} C_k \subset D \right\}
         \]
 
-    
-    \subsection{Integrale di Riemann in $\mathbb{R}^{2}$}
-        Sia $D \subset \mathbb{R}^{2}$. Si dicono, rispettivamente, area interna ed area esterna di $D$ 
+
+    \subsection{Integrale di Riemann in \texorpdfstring{$\mathbb{R}^{2}$}{R2}}
+        Sia $D \subset \mathbb{R}^{2}$. Si dicono, rispettivamente, area interna ed area esterna di $D$
         \[
             A^{-}(D) = \lambda(D) \quad \: A^{+}(D) = \lambda^{*}(D)
         \]
@@ -54,15 +28,13 @@
         \]
         Inoltre, se $|\partial D| = 0$, allora $D$ è misurabile (criterio di Jordan-Lebesgue).
 
-        \vspace{10pt}
-        Dato un insieme $D \subset \mathbb{R}^{2}$ misurabile e una funzione $f: D \rightarrow \mathbb{R}$, posta una partizione $P(D, \delta) = (R_{i})_{i \in \mathbb{N}}$ tale che $R_{i} = I_{i, 1} \times I_{i, 2}$, $\displaystyle D \subset \bigcup_{i} R_{i}$ ed infine $\forall R_{i}, \; |R_{i}| \leq \delta \; \land \; R_{i} \cap D \neq \emptyset$, 
+        Dato un insieme $D \subset \mathbb{R}^{2}$ misurabile e una funzione $f: D \rightarrow \mathbb{R}$, posta una partizione $P(D, \delta) = (R_{i})_{i \in \mathbb{N}}$ tale che $R_{i} = I_{i, 1} \times I_{i, 2}$, $\displaystyle D \subset \bigcup_{i} R_{i}$ ed infine $\forall R_{i}, \; |R_{i}| \leq \delta \; \land \; R_{i} \cap D \neq \emptyset$,
         si dice somma di Riemann di $f$ lungo la partizione $P(D, \delta)$ la seguente espressione
         \[
             S(f, P(D, \delta)) = \sum_{i} f(x_i, y_i) \Delta x_i \Delta y_i
         \]
         dove $(x_i, y_i) \in R_{i}$ è un generico punto del rettangolo, mentre $\Delta x_i$ e $\Delta y_i$ non sono altro che le dimensioni del rettangolo: $\Delta x_i = \mathcal{L}(I_{i, 1})$, $\Delta y_i = \mathcal{L}(I_{i, 2})$.
 
-        \vspace{5pt}
         Se invece si prende il limite della somma di Riemann all'annullarsi della granularità della partizione $P(D, \delta)$ si ottiene l'integrale di Riemann
         \[
             \lim_{\delta \rightarrow 0} S(f, P(D, \delta)) = \lim_{\delta \rightarrow 0} \sum_{i}f(x_i, y_i) \Delta x_i \Delta y_i = \int_{D} f(x, y) dx dy
@@ -71,7 +43,7 @@
         \[
             \int_{D} f = \lambda(C) = \lambda^{*}(C)
         \]
-    
+
         \subsubsection{Proprietà dell'integrale}
             \begin{enumerate}[label=(\arabic*)]
                 \item Linearità dell'integrale: $\displaystyle \int_{D} (\alpha f + \beta g) = \alpha \int_{D} f + \beta \int_{D} g$
@@ -79,30 +51,30 @@
                 \item Monotonia dell'integrale: $\displaystyle f \leq g \; \textnormal{in} \; D \implies \int_{D} f \leq \int_{D} g$
                 \item Additività rispetto al dominio: $\displaystyle \mathring{D_1} \cap \mathring{D_2} = \emptyset \implies \int_{D_1 \cup D_2} f = \int_{D_1} f + \int_{D_2} f$
             \end{enumerate}
-        
+
         \subsubsection{Calcolo dell'integrale}
             Per poter procedere al calcolo dell'integrale alcune delle strade possibli sono:
             \begin{itemize}
                 \item Formule di riduzione
-                \item Cambi di variabile 
+                \item Cambi di variabile
             \end{itemize}
-        
+
             \subsubsection{Formule di riduzione sui rettangoli}
                 Sia $D \subset \mathbb{R}^{2}$ nella forma $D = I_{1} \times I_{2}$ con $\partial I_{1} = \{a, b\}$ e $\partial I_{2} = \{c, d\}$, $-\infty < a < b < +\infty$, $-\infty < c < d < +\infty$.
-                Allora 
+                Allora
                 \[
                     \int_{D} f = \int_{a}^{b} \left( \int_{c}^{d} f(x, y) dy \right) dx = \int_{c}^{d} \left( \int_{a}^{b} f(x, y) dx \right) dy
                 \]
-            
-            \subsubsection{Formule di riduzione su domini semplici rispetto all'asse $y$}
-                Sia $D \subset \mathbb{R}^{2}$ nella forma $D = \{(x, y) \in \mathbb{R}^{2} \; : \; a \leq x \leq b, \; g_{1}(x) \leq y \leq g_{2}(x)\}$ dove $-\infty < a < b < +\infty$ e $g_{1}, g_{2}$ sono funzioni reali a variabile reale continue. 
+
+            \subsubsection{Formule di riduzione su domini semplici rispetto all'asse \texorpdfstring{$y$}{y}}
+                Sia $D \subset \mathbb{R}^{2}$ nella forma $D = \{(x, y) \in \mathbb{R}^{2} \; : \; a \leq x \leq b, \; g_{1}(x) \leq y \leq g_{2}(x)\}$ dove $-\infty < a < b < +\infty$ e $g_{1}, g_{2}$ sono funzioni reali a variabile reale continue.
                 Allora
                 \[
                     \int_{D} f = \int_{a}^{b} \left( \int_{g_{1}(x)}^{g_{2}(x)} f(x, y) dy \right) dx
                 \]
 
-            \subsubsection{Formule di riduzione su domini semplici rispetto all'asse $x$}
-                Sia $D \subset \mathbb{R}^{2}$ nella forma $D = \{(x, y) \in \mathbb{R}^{2} \; : \; a \leq y \leq b, \; h_{1}(y) \leq x \leq h_{2}(y)\}$ dove $-\infty < a < b < +\infty$ e $h_{1}, h_{2}$ sono funzioni reali a variabile reale continue. 
+            \subsubsection{Formule di riduzione su domini semplici rispetto all'asse \texorpdfstring{$x$}{x}}
+                Sia $D \subset \mathbb{R}^{2}$ nella forma $D = \{(x, y) \in \mathbb{R}^{2} \; : \; a \leq y \leq b, \; h_{1}(y) \leq x \leq h_{2}(y)\}$ dove $-\infty < a < b < +\infty$ e $h_{1}, h_{2}$ sono funzioni reali a variabile reale continue.
                 Allora
                 \[
                     \int_{D} f = \int_{a}^{b} \left( \int_{h_{1}(y)}^{h_{2}(y)} f(x, y) dx \right) dy
@@ -114,8 +86,8 @@
                 \[
                     \int_{D} f = \int_{D'} f(\Phi) \; |\det(J_{\Phi})|
                 \]
-        
-    \subsection{Integrale di Riemann in $\mathbb{R}^{3}$}
+
+    \subsection{Integrale di Riemann in \texorpdfstring{$\mathbb{R}^{3}$}{R3}}
         Sia $D \subset \mathbb{R}^{3}$. Si dicono, rispettivamente, volume interno e volume esterno di $D$
         \[
             V^{-}(D) = \lambda(D) \quad V^{+}(D) = \lambda^{*}(D)
@@ -124,8 +96,7 @@
         \[
             V^{-}(D) = V^{+}(D) = V(D) = |D|
         \]
-    
-        \vspace{10pt}
+
         Dato un insieme $D \subset \mathbb{R}^{3}$ misurabile e una funzione continua $f: D \rightarrow \mathbb{R}$, posta una partizione $P(D, \delta) = (C_{i})_{i \in \mathbb{N}}$ tale per cui $C_{i} = I_{i, 1} \times I_{i, 2} \times I_{i, 3}$, $D \subset \displaystyle \bigcup_{i} C_{i}$ ed infine $\forall C_{i}, \; |C_{i}| < \delta \; \land \; C_{i} \cap D \neq \emptyset$,
         si dice somma di Riemann di $f$ lungo la partizione $P(D, \delta)$ la seguente espressione
         \[
@@ -133,7 +104,6 @@
         \]
         dove $(x_i, y_i, z_i) \in C_{i}$ è un generico punto del cuboide, mentre $\Delta x_i$, $\Delta y_i$ e $\Delta z_i$ non sono altro che le dimensioni del cuboide: $\Delta x_i = \mathcal{L}(I_{i, 1})$, $\Delta x_i = \mathcal{L}(I_{i, 1})$, $\Delta x_i = \mathcal{L}(I_{i, 1})$
 
-        \vspace{5pt}
         Se invece si prende il limite della somma di Riemann all'annullarsi della granularità della partizione $P(D, \delta)$ si ottiene l'integrale di Riemann
         \[
             \lim_{\delta \rightarrow 0} S(f, P(D, \delta)) = \lim_{\delta \rightarrow 0} \sum_{i}f(x_i, y_i, z_i) \Delta x_i \Delta y_i \Delta z_i = \int_{D} f(x, y, z) dx dy dz
@@ -150,50 +120,50 @@
                 \item Monotonia dell'integrale: $\displaystyle f \leq g \; \textnormal{in} \; D \implies \int_{D} f \leq \int_{D} g$
                 \item Additività rispetto al dominio: $\displaystyle \mathring{D_1} \cap \mathring{D_2} = \emptyset \implies \int_{D_1 \cup D_2} f = \int_{D_1} f + \int_{D_2} f$
             \end{enumerate}
-        
+
         \subsubsection{Calcolo dell'integrale}
             Per poter procedere al calcolo dell'integrale alcune delle strade possibli sono:
             \begin{itemize}
                 \item Formule di riduzione
-                \item Cambi di variabile 
+                \item Cambi di variabile
             \end{itemize}
-        
-            \subsubsection{Formule di riduzione su domimi normali rispetto all'asse $z$}
+
+            \subsubsection{Formule di riduzione su domimi normali rispetto all'asse \texorpdfstring{$z$}{z}}
                 Sia $D \subset \mathbb{R}^{3}$ nella forma $D = \{(x, y, z) \in \mathbb{R}^{3} \; : \; (x, y) \in E \subset \mathbb{R}^{2}, \; g_{1}(x, y) \leq z \leq g_{2}(x, y)\}$ dove $E$ è misurabile e $g_{1}, g_{2}$ sono funzioni continue in $E$.
                 Allora
                 \[
                     \int_{D} f = \int_{E} \left( \int_{g_{1}(x, y)}^{g_{2}(x, y)} f(x, y, z) dz \right)
                 \]
 
-            \subsubsection{Formule di riduzione su domimi normali rispetto all'asse $y$}
+            \subsubsection{Formule di riduzione su domimi normali rispetto all'asse \texorpdfstring{$y$}{y}}
                 Sia $D \subset \mathbb{R}^{3}$ nella forma $D = \{(x, y, z) \in \mathbb{R}^{3} \; : \; (x, z) \in E \subset \mathbb{R}^{2}, \; g_{1}(x, z) \leq y \leq g_{2}(x, z)\}$ dove $E$ è misurabile e $g_{1}, g_{2}$ sono funzioni continue in $E$.
                 Allora
                 \[
                     \int_{D} f = \int_{E} \left( \int_{g_{1}(x, z)}^{g_{2}(x, z)} f(x, y, z) dy \right)
                 \]
 
-            \subsubsection{Formule di riduzione su domimi normali rispetto all'asse $x$}
+            \subsubsection{Formule di riduzione su domimi normali rispetto all'asse \texorpdfstring{$x$}{x}}
                 Sia $D \subset \mathbb{R}^{3}$ nella forma $D = \{(x, y, z) \in \mathbb{R}^{3} \; : \; (y, z) \in E \subset \mathbb{R}^{2}, \; g_{1}(y, z) \leq x \leq g_{2}(y, z)\}$ dove $E$ è misurabile e $g_{1}, g_{2}$ sono funzioni continue in $E$.
                 Allora
                 \[
                     \int_{D} f = \int_{E} \left( \int_{g_{1}(y, z)}^{g_{2}(y, z)} f(x, y, z) dx \right)
                 \]
 
-            \subsubsection{Formule di riduzione su domini stratificati rispetto all'asse $z$}
+            \subsubsection{Formule di riduzione su domini stratificati rispetto all'asse \texorpdfstring{$z$}{z}}
                 Sia $D \subset \mathbb{R}^{3}$ nella forma $D = \{(x, y, z) \in \mathbb{R}^{3} \; : \; a \leq z \leq b, \; (x, y) \in E_{z} \subset \mathbb{R}^{2}\}$ dove $-\infty < a < b < +\infty$ e $E_{z} = \{ (x, y) \in \mathbb{R}^{2} \; : \; (x, y, z) \in D\}$.
                 Allora
                 \[
                     \int_{D} f = \int_{a}^{b} \left( \int_{E_{z}} f(x, y, z) \right) dz
                 \]
 
-            \subsubsection{Formule di riduzione su domini stratificati rispetto all'asse $y$}
+            \subsubsection{Formule di riduzione su domini stratificati rispetto all'asse \texorpdfstring{$y$}{y}}
                 Sia $D \subset \mathbb{R}^{3}$ nella forma $D = \{(x, y, z) \in \mathbb{R}^{3} \; : \; a \leq y \leq b, \; (x, z) \in E_{y} \subset \mathbb{R}^{2}\}$ dove $-\infty < a < b < +\infty$ e $E_{y} = \{ (x, z) \in \mathbb{R}^{2} \; : \; (x, y, z) \in D\}$.
                 Allora
                 \[
                     \int_{D} f = \int_{a}^{b} \left( \int_{E_{y}} f(x, y, z) \right) dy
                 \]
 
-            \subsubsection{Formule di riduzione su domini stratificati rispetto all'asse $x$}
+            \subsubsection{Formule di riduzione su domini stratificati rispetto all'asse \texorpdfstring{$x$}{x}}
                 Sia $D \subset \mathbb{R}^{3}$ nella forma $D = \{(x, y, z) \in \mathbb{R}^{3} \; : \; a \leq x \leq b, \; (y, z) \in E_{x} \subset \mathbb{R}^{2}\}$ dove $-\infty < a < b < +\infty$ e $E_{x} = \{ (y, z) \in \mathbb{R}^{2} \; : \; (x, y, z) \in D\}$.
                 Allora
                 \[
@@ -206,11 +176,11 @@
                 \[
                     \int_{D} f = \int_{D'} f(\Phi) |\det(J_{\Phi})|
                 \]
-            
-                Una varietà di cambi di variabile particolarmente utilizzati sono le cooridinate cilindriche e sferiche. 
+
+                Una varietà di cambi di variabile particolarmente utilizzati sono le cooridinate cilindriche e sferiche.
                 Le coordinate cilindriche (rispetto a uno dei tre assi) sono coordinate nella forma
                 \[
-                    \Phi: [0, +\infty) \times \mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R}^{3} 
+                    \Phi: [0, +\infty) \times \mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R}^{3}
                 \]
                 \[
                     (r, \theta, t) \mapsto (r \cos(\theta), r \sin (\theta), t), \; \text{rispetto all'asse z}
@@ -234,7 +204,7 @@
                 \[
                     \det(J_{\Phi}) = r^{2} \sin(\varphi)
                 \]
-            
+
             \subsubsection{Solidi di rotazione}
                 Data una superficie $S \subset \mathbb{R}^{2}$ giacente sul piano $yz$ è possibile calcolare il volume del solido ottenuto ruotando la superficie attorno all'asse $z$ nel seguente modo:
                 si esegua il cambio di variabile
@@ -249,7 +219,7 @@
                 \]
                 Di conseguenza, l'integrale diventa
                 \[
-                    \iiint_{D} \: dx \: dy \: dz = \iint_{(y_{S}, z_{S}) \in S} \int_{0}^{2\pi} y_{S} \: d\theta \: dA = 2\pi \iint_{(y_{S}, z_{S}) \in S} y_{S} \: dA 
+                    \iiint_{D} \: dx \: dy \: dz = \iint_{(y_{S}, z_{S}) \in S} \int_{0}^{2\pi} y_{S} \: d\theta \: dA = 2\pi \iint_{(y_{S}, z_{S}) \in S} y_{S} \: dA
                 \]
                 Analogamente:
                 \begin{itemize}
@@ -259,5 +229,3 @@
                     \item Se $S$ è una superficie giacente sul piano $xz$ e viene ruotata attorno all'asse $x$, allora il volume è dato da $\displaystyle 2\pi \iint_{S} z_{S} \: dA$
                     \item Se $S$ è una superficie giacente sul piano $xz$ e viene ruotata attorno all'asse $z$, allora il volume è dato da $\displaystyle 2\pi \iint_{S} x_{S} \: dA$
                 \end{itemize}
-
-\end{document}

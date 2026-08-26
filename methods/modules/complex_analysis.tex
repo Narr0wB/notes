@@ -1,36 +1,9 @@
-\documentclass{article}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{enumitem}
-\usepackage{titling}
-\usepackage{graphicx}
-\usepackage{tikz-cd}
-\usepackage[hidelinks]{hyperref}
-\usepackage{nameref}
-\usepackage{fancyhdr}
-\usepackage[a4paper, margin=1in]{geometry}
-\usepackage{refcount}
-\usepackage{physics}
+% !TeX root = ../mathematical_methods.tex
 
-% \tikzcdset{scale cd/.style={every label/.append style={scale=#1},
-%     cells={nodes={scale=#1}}}}
-
-\newtheorem{theorem}{Teorema}
-\newtheorem{corollary}{Corollario}[theorem]
-\newtheorem{osservazione}{Osservazione}
-\newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposizione}
-\newtheorem{definition}{Definizione}
-\newtheorem{axiom}{Assioma}
-
-\setlength{\parindent}{0pt}
-
-\begin{document}
 \section{Numeri complessi}
     I numeri complessi $\mathbb{C} = \mathbb{R}(i)$ sono un'estensione del campo $\mathbb{R}$ secondo l'aggiunta di un nuovo elemento, $i$, chiamato unità immaginaria.
     Il campo che ne risulta, $\mathbb{C}$, è un campo \textit{algebricamente chiuso}.
-    Possiamo definire l'unità immaginaria come 
+    Possiamo definire l'unità immaginaria come
     \[
         i^{2} = -1
     \]
@@ -42,7 +15,7 @@
     \end{enumerate}
     E' inoltre possibile passare da una all'altra forma nei seguenti modi
     \[
-        (1 \rightarrow 2) \quad z = a + ib \implies \rho = \sqrt{a^{2} + b^{2}}, \; \theta = \textnormal{atan2}\qty(\frac{b}{a})
+        (1 \rightarrow 2) \quad z = a + ib \implies \rho = \sqrt{a^{2} + b^{2}}, \; \theta = \textnormal{atan2}\left(\frac{b}{a}\right)
     \]
     \[
         (2 \rightarrow 1) \quad z = \rho e^{i \theta} \implies a = \rho \cos(\theta), \; b = \rho \sin(\theta)
@@ -50,18 +23,16 @@
 
 
 
-    \vspace{10pt}
     \subsection{Operazioni sui complessi}
-        In qualità di estensione di campo, $\mathbb{C}$ è a sua volta un campo, dove addizione e moltiplicazione sono definite come segue 
+        In qualità di estensione di campo, $\mathbb{C}$ è a sua volta un campo, dove addizione e moltiplicazione sono definite come segue
         \begin{itemize}
             \item Addizione: $\forall z_{1}, z_{2} \in \mathbb{C}, \; z_{3} = z_{1} + z_{2} = (a_{1} + a_{2}) + i(b_{1} + b_{2})$ (NOTA: L'addizione è più facile da eseguire in forma cartesiana)
             \item Moltiplicazione: $\forall z_{1}, z_{2} \in \mathbb{C}, \; z_{3} = z_{1}z_{2} = (a_{1}a_{2} - b_{1}b_{2}) + i(a_{1}b_{2} + b_{1}a_{2})$ (NOTA: la moltiplicazone è più facile da eseguire in forma polare: $z_{1}z_{2} = \rho_{1}\rho_{2}e^{i(\theta_{1} + \theta_{2})}$)
         \end{itemize}
-    
 
 
-    \vspace{10pt}
-    \subsection{Proprietà algebriche di $\mathbb{C}$}
+
+    \subsection{Proprietà algebriche di \texorpdfstring{$\mathbb{C}$}{C}}
         Sia $\mathbb{C}[z]$ l'anello dei polinomi a coefficienti complessi, è possibile allora enunciare i seguenti teoremi
 
         \begin{theorem}[Teorema fondamentale dell'algebra]
@@ -91,7 +62,7 @@
         \end{corollary}
 
         \begin{proof}[Dimostrazione]
-            Per il Teorema fondamentale dell'algebra, si ha che 
+            Per il Teorema fondamentale dell'algebra, si ha che
             \[
                 \exists z_{1} \in \mathbb{C} \; | \; P_{n}(z_{1}) = 0
             \]
@@ -110,7 +81,6 @@
 
 
 
-\newpage
 \section{Morfismi complessi in dominio complesso}
     Prima ancora di definire l'idea di un morfismo complesso a dominio complesso, è necessario chiarire il concetto preliminare di \textit{dominio}
     \begin{definition}[Definizione di dominio]
@@ -150,7 +120,7 @@
         \[
             |f(z) - f(z_{0})| < \epsilon \implies (u(z) - u(z_{0}))^{2} + (v(z) - v(z_{0}))^{2} < \epsilon^{2} \implies |v(z) - v(z_{0})| < \sqrt{\epsilon^{2} - (u(z) - u(z_{0}))^{2}}
         \]
-    
+
         Sulla base delle precedenti considerazioni definiamo anche il concetto di punto di accumulazione e di limite.
 
         \begin{definition}[Punto di accumulazione]
@@ -161,7 +131,7 @@
         \end{definition}
 
         \begin{definition}[Limite]
-            Data una funzione $f: \Omega \subseteq \mathbb{C} \rightarrow \mathbb{C}$, si dice che $L \in \mathbb{C}$, punto di accumulazione dell'immagine, è limite di $f$ che tende a $z_{0} \in \mathbb{C}$, punto di accumulazione del dominio, qualora 
+            Data una funzione $f: \Omega \subseteq \mathbb{C} \rightarrow \mathbb{C}$, si dice che $L \in \mathbb{C}$, punto di accumulazione dell'immagine, è limite di $f$ che tende a $z_{0} \in \mathbb{C}$, punto di accumulazione del dominio, qualora
             \[
                 \forall \epsilon > 0, \; \exists \delta > 0 \; \textnormal{tale che} \; f(B_{\delta}(z_{0}) \setminus \{z_{0}\} \cap \Omega) \subseteq B_{\epsilon}(L)
             \]
@@ -199,13 +169,12 @@
         In generale, possiamo trattare funzioni complesse a variabile complessa come speciali campi vettoriali da e verso $\mathbb{R}^{2}$, e di conseguenza si applicano le stesse definizioni di differenziabilità, ovvero che $u, v$ devono essere differenziabili.
         Ricordiamo che condizione sufficiente per la differenziabilità di un campo scalare è che le derivate parziali esistano e siano continue.
 
-        \vspace{10pt}
         \subsubsection{Equazioni di Cauchy-Riemann}
             Inoltre, una importante conseguenza del fatto che la definizione di limite deve valere lungo qualsiasi direzione si approccia $z_{0}$ è che le seguenti condizioni devono essere vere contemporaneamente
             \begin{enumerate}
-                \item Approcciando $z_{0}$ lungo l'asse reale, abbiamo che 
+                \item Approcciando $z_{0}$ lungo l'asse reale, abbiamo che
                 \[
-                    f'(z_{0}) = \lim_{z \rightarrow z_{0}} \frac{f(z) - f(z_{0})}{z - z_{0}} = \lim_{\Delta x \rightarrow 0} \frac{f(x_{0} + \Delta x, y_{0}) - f(x_{0}, y_{0})}{\Delta x} 
+                    f'(z_{0}) = \lim_{z \rightarrow z_{0}} \frac{f(z) - f(z_{0})}{z - z_{0}} = \lim_{\Delta x \rightarrow 0} \frac{f(x_{0} + \Delta x, y_{0}) - f(x_{0}, y_{0})}{\Delta x}
                 \]
                 Che espandendo diventa
                 \[
@@ -214,7 +183,7 @@
 
                 \item Approcciando $z_{0}$ lungo l'asse immaginario, abbiamo che
                 \[
-                    f'(z_{0}) = \lim_{z \rightarrow z_{0}} \frac{f(z) - f(z_{0})}{z - z_{0}} \lim_{\Delta y \rightarrow 0} \frac{f(x_{0}, y_{0} + \Delta y) - f(x_{0}, y_{0})}{i \Delta y} 
+                    f'(z_{0}) = \lim_{z \rightarrow z_{0}} \frac{f(z) - f(z_{0})}{z - z_{0}} \lim_{\Delta y \rightarrow 0} \frac{f(x_{0}, y_{0} + \Delta y) - f(x_{0}, y_{0})}{i \Delta y}
                 \]
                 Che espandendo diventa
                 \[
@@ -222,13 +191,13 @@
                 \]
             \end{enumerate}
 
-            Dato che queste due condizioni devono essere vere simultaneamente, abbiamo che 
+            Dato che queste due condizioni devono essere vere simultaneamente, abbiamo che
             \[
                 \begin{cases}
                     \displaystyle \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y} \\
                     \\
                     \displaystyle \frac{\partial v}{\partial x} = -\frac{\partial u}{\partial y} \\
-                \end{cases} 
+                \end{cases}
             \]
 
             \begin{theorem}[Teorema sulla differenziabilità di funzioni complesse]
@@ -248,17 +217,17 @@
             \begin{proof}[Dimostrazione]
                 Da Cauchy-Riemann, abbiamo che
                 \[
-                    \frac{\partial^{2} u}{\partial x^{2}} = \frac{\partial^{2} v}{\partial y \partial x} 
+                    \frac{\partial^{2} u}{\partial x^{2}} = \frac{\partial^{2} v}{\partial y \partial x}
                 \]
 
                 Ricordando il Teorema di Schwarz, il quale postula che, per campi scalari di classe $C^{2}$
                 \[
-                    \frac{\partial^{2} \{u, v\}}{\partial x \partial y} = \frac{\partial}{\partial y} \qty(\frac{\partial \{u, v\}}{\partial x}) = \frac{\partial}{\partial x} \qty(\frac{\partial \{u, v\}}{\partial y})
+                    \frac{\partial^{2} \{u, v\}}{\partial x \partial y} = \frac{\partial}{\partial y} \left(\frac{\partial \{u, v\}}{\partial x}\right) = \frac{\partial}{\partial x} \left(\frac{\partial \{u, v\}}{\partial y}\right)
                 \]
 
                 Di conseguenza si ha che
                 \[
-                    \frac{\partial^{2} u}{\partial x^{2}} = \frac{\partial^{2} v}{\partial y \partial x} = \frac{\partial}{\partial y} \qty(\frac{\partial v}{\partial x}) = -\frac{\partial^{2} u}{\partial y^{2}} \implies \frac{\partial^{2} u}{\partial y^{2}} + \frac{\partial^{2} u}{\partial x^{2}} = 0 \
+                    \frac{\partial^{2} u}{\partial x^{2}} = \frac{\partial^{2} v}{\partial y \partial x} = \frac{\partial}{\partial y} \left(\frac{\partial v}{\partial x}\right) = -\frac{\partial^{2} u}{\partial y^{2}} \implies \frac{\partial^{2} u}{\partial y^{2}} + \frac{\partial^{2} u}{\partial x^{2}} = 0 \
                 \]
             \end{proof}
 
@@ -266,7 +235,7 @@
                 Sia $u: \mathbb{R}^{2} \rightarrow \mathbb{R}$ una funzione armonica (che soddisfa l'eq. di Laplace).
                 Allora esiste una classe di funzioni $v: \mathbb{R}^{2} \rightarrow \mathbb{R}$ armoniche tali per cui $f = u + i v$ è intera, chiamate complementi armonici di $u$.
             \end{proposition}
-        
+
 
 
     \subsection{Curve ed integrali}
@@ -296,8 +265,8 @@
             \begin{enumerate}
                 \item Concatenazione. Siano $\gamma_{1}: [a, b] \rightarrow \mathbb{C}$, $\gamma_{2}: [b, c] \rightarrow \mathbb{C}$ due curve tali per cui $\gamma_{1}(b) = \gamma_{2}(b)$, possiamo allora definire una nuova curva, $(\gamma_{1} * \gamma_{2}): [a, c] \rightarrow \mathbb{C}$ tale che
                 \[
-                    (\gamma_{1} * \gamma_{2})(t) := 
-                    \begin{cases} 
+                    (\gamma_{1} * \gamma_{2})(t) :=
+                    \begin{cases}
                         \gamma_{1}(t), & t \in [a, b] \\
                         \gamma_{2}(t), & t \in (b, c]
                     \end{cases}
@@ -306,10 +275,10 @@
                 \item Riparametrizzazione. Sia $\gamma: [a, b] \rightarrow \mathbb{C}$ una curva e sia $\phi: [c, d] \rightarrow [a, b]$ un orologio di classe $C^{1}$ strettamente monotono.
                 Allora $\gamma \circ \phi: [c, d] \rightarrow \mathbb{C}$ è una curva il cui supporto è identico alla curva $\gamma$ ma il cui verso di percorrenza è dettato dalla monotonia dell'orologio: se questi è strettamente crescente, allora il verso è lo stesso di $\gamma$; se questi è strettamente decrescente, allora il verso è opposto a quello di $\gamma$.
             \end{enumerate}
-            
+
         \subsubsection{Curve di Jordan}
             \begin{definition}[Definizione di curva di Jordan]
-                Una curva $\gamma: [a, b] \rightarrow \mathbb{C}$ chiusa è detta di Jordan se questa è semplice, fatta eccezione per gli estremi del dominio. 
+                Una curva $\gamma: [a, b] \rightarrow \mathbb{C}$ chiusa è detta di Jordan se questa è semplice, fatta eccezione per gli estremi del dominio.
             \end{definition}
 
             Le curve di Jordan sono particolarmente importanti in quanto su di esse è basato un importante teorema sulla ripartizione topologica dei piani, fra cui figura quello \textit{complesso}.
@@ -330,7 +299,7 @@
             \end{definition}
 
             \begin{definition}[Definizione di dominio con bordo]
-                Sia $D \subseteq \mathbb{C}$ un dominio, e sia $\partial D$ la sua frontiera. 
+                Sia $D \subseteq \mathbb{C}$ un dominio, e sia $\partial D$ la sua frontiera.
                 $D$ si dice allora un dominio dotato di bordo se la sua frontiera è data da un'unione disgiunta di supporti di curve di Jordan, ovvero
                 \[
                     \partial D = \bigsqcup_{i} S(\gamma_{i})
@@ -347,14 +316,13 @@
 
             Data anche una funzione $f: D \subseteq \mathbb{C} \rightarrow \mathbb{C}$ definita su un dominio che contiene il supporto di $\gamma$, è possibile definire il seguente tipo di integrale
             \[
-                \int_{\gamma} f \: dz := \int_{a}^{b} f(\gamma) \: \gamma' \:  dt = \int_{a}^{b} \qty[u(x, y) + i v(x, y)](x' + i y') dt = 
+                \int_{\gamma} f \: dz := \int_{a}^{b} f(\gamma) \: \gamma' \:  dt = \int_{a}^{b} \left[u(x, y) + i v(x, y)\right](x' + i y') dt =
             \]
             \[
-                \int_{a}^{b} \qty[u(x, y)x' - v(x, y)y'] \: dt + i \int_{a}^{b} \qty[v(x, y)x' + u(x, y)y'] \: dt = \int_{\gamma} (u, -v) \cdot d\gamma + i \int_{\gamma} (v, u) \cdot d\gamma
+                \int_{a}^{b} \left[u(x, y)x' - v(x, y)y'\right] \: dt + i \int_{a}^{b} \left[v(x, y)x' + u(x, y)y'\right] \: dt = \int_{\gamma} (u, -v) \cdot d\gamma + i \int_{\gamma} (v, u) \cdot d\gamma
             \]
             dove $d\gamma = (x' dt, y' dt)$
 
-            \vspace{10pt}
             Questo tipo di integrale condivide molte proprietà degli integrali di linea su $\mathbb{R}^{n}$, ovvero
             \begin{enumerate}
                 \item Linearità:
@@ -379,7 +347,6 @@
 
             Sugli integrali di linea è impostato uno dei teoremi più importanti dell'analisi complessa: il Teorema di Cauchy-Goursat
 
-            \vspace{10pt}
             \begin{theorem}[Teorema di Cauchy-Goursat]
                 Sia $f: D \subseteq \mathbb{C} \rightarrow \mathbb{C}$ una funzione olomorfa definita su un dominio $D$ semplicemente connesso e sia $\gamma: [a, b] \rightarrow D$ una curva di Jordan.
                 Allora
@@ -393,17 +360,17 @@
                 \[
                     \oint_{\gamma} f \: dz = \oint_{\gamma} (u, -v) \cdot d\gamma + i \oint_{\gamma} (v, u) \cdot d\gamma
                 \]
-                    
+
                 Si osservi allora il comportamento della Jacobiana dei seguenti campi: $(u, -v)$ e $(v, u)$
                 \[
                     J((u, -v)) =
                     \begin{bmatrix}
                         \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} \\[1em]
                         \frac{\partial (-v)}{\partial x} & \frac{\partial (-v)}{\partial y} \\
-                    \end{bmatrix} 
+                    \end{bmatrix}
                 \]
                 \[
-                    J((v, u)) = 
+                    J((v, u)) =
                     \begin{bmatrix}
                         \frac{\partial v}{\partial x} & \frac{\partial v}{\partial y} \\[1em]
                         \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} \\
@@ -416,10 +383,10 @@
                     \begin{bmatrix}
                         \frac{\partial u}{\partial x} & -\frac{\partial v}{\partial x} \\[1em]
                         \frac{\partial (-v)}{\partial x} & \frac{\partial (-v)}{\partial y} \\
-                    \end{bmatrix} 
+                    \end{bmatrix}
                 \]
                 \[
-                    J((v, u)) = 
+                    J((v, u)) =
                     \begin{bmatrix}
                         \frac{\partial v}{\partial x} & \frac{\partial u}{\partial x} \\[1em]
                         \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} \\
@@ -443,7 +410,7 @@
             \end{corollary}
 
             \begin{proof}[Dimostrazione]
-                Si consideri la concatenazione $(-\gamma_{1} * \gamma_{2})$. 
+                Si consideri la concatenazione $(-\gamma_{1} * \gamma_{2})$.
                 Questa è una curva di Jordan.
                 Per il Teorema di Cauchy-Goursat
                 \[
@@ -469,9 +436,8 @@
                 \]
             \end{corollary}
 
-        
 
-    \vspace{10pt}
+
     \subsection{Analiticità e residui di funzioni}
 
         \begin{definition}[Formula di Cauchy]
@@ -508,7 +474,7 @@
                 \oint_{\gamma} \frac{f}{(z - z_{0})} \: dz = f(z_{0}) \oint_{\gamma} \frac{1}{z - z_{0}} \: dz + \oint_{\gamma} \frac{f(z) - f(z_{0})}{(z - z_{0})} \: dz = 2 \pi f(z_{0}) + 0
             \]
         \end{proof}
-                
+
         \begin{definition}[Formula di Cauchy generalizzata]
             Sia $f: D \subseteq \mathbb{C} \rightarrow \mathbb{C}$ una funzione olomorfa definita su un dominio semplicemente connesso, e sia $\gamma: [a, b] \rightarrow D$ una curva di Jordan orientata positivamente.
             Dato un $z_{0} \in D$, si ha che
@@ -517,7 +483,6 @@
             \]
         \end{definition}
 
-        \vspace{10pt}
         Armati di questa collezione di importanti teoremi e corollari, possiamo enunciare la seguente formula
 
         \begin{theorem}[Teorema di Liouville]
@@ -553,7 +518,7 @@
                 \[
                     f(z) = \sum_{-\infty}^{+\infty} a_{k} (z - z_{0})^{k}
                 \]
-                dove 
+                dove
                 \[
                     a_{k} = \frac{1}{2 \pi i} \oint_{\partial B_{\delta}(z_{0})} \frac{f}{(z - z_{0})^{k + 1}} \: dz \quad \textnormal{con} \; \delta < r
                 \]
@@ -561,7 +526,7 @@
 
             \begin{definition}[Definizione di residuo]
                 Sia $f: B_{r}(z_{0}) \setminus \{z_{0}\} \rightarrow \mathbb{C}$ una funzione olomorfa.
-                Si dice allora il coefficiente 
+                Si dice allora il coefficiente
                 \[
                     a_{-1} = \frac{1}{2 \pi i} \oint_{\partial B_{\delta}(z_{0})} f(z) \: dz \quad \textnormal{con} \; \delta < r
                 \]
@@ -572,7 +537,6 @@
             \end{definition}
 
 
-            \vspace{10pt}
             La serie di Laurent si dimostra un'essenziale strumento nell'analisi complessa.
             La parte della serie avente $k \geq 0$ si dice parte regolare, mentre la parte determinata da $k < 0$ si dice parte principale.
             La serie di Laurent ci permette di caratterizzare le singolarità di una funzione:
@@ -612,12 +576,11 @@
                     \oint_{\gamma} f \: dz = 2 \pi i \sum_{k = 1}^{p} \textnormal{Res}(f, z_{k})
                 \]
             \end{proof}
-            
 
-    \newpage
+
     \subsection{Valore principale di Cauchy}
         \begin{definition}[Definizione di valore principale]
-            Sia $f: \mathbb{C} \rightarrow \mathbb{C}$ una funzione complessa a valori complessi e sia $z_{0}$ un polo di $f$. 
+            Sia $f: \mathbb{C} \rightarrow \mathbb{C}$ una funzione complessa a valori complessi e sia $z_{0}$ un polo di $f$.
             Sia $\gamma: [a, b] \rightarrow \mathbb{C}$ una curva regolare tale per cui, per un valore $a < c < b$, si ha che $\gamma(c) = z_{0}$.
             Si definisce allora valore principale dell'integrale
             \[
@@ -625,9 +588,6 @@
             \]
             la seguente espressione
             \[
-                \pv{\int_{\gamma} f(z) \: dz} = \lim_{\epsilon \rightarrow 0^{+}} \qty( \int_{a}^{c - \epsilon} f(\gamma(t)) \gamma'(t) \: dt + \int_{c + \epsilon}^{b} f(\gamma(t)) \gamma'(t) \: dt)
+                \pv{\int_{\gamma} f(z) \: dz} = \lim_{\epsilon \rightarrow 0^{+}} \left( \int_{a}^{c - \epsilon} f(\gamma(t)) \gamma'(t) \: dt + \int_{c + \epsilon}^{b} f(\gamma(t)) \gamma'(t) \: dt\right)
             \]
         \end{definition}
-
-
-\end{document}

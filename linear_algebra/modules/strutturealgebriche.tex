@@ -1,41 +1,29 @@
-\documentclass{article}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{enumitem}
-\usepackage[a4paper, margin=1in]{geometry}
+% !TeX root = ../algebralineare.tex
 
-\newtheorem{theorem}{Teorema}
-\newtheorem{corollary}{Corollario}
+\section{Strutture algebriche} \label{sec:algstructures}
 
-\begin{document}
-\setlength{\parindent}{0pt}
-
-\section{Strutture algebriche}
-
-\subsection{Gruppi}
-    Un gruppo è una struttura algebrica determinata da un insieme $S$ e da un'operazione binaria interna e chiusa $+ : S \times S \rightarrow S$ la quale deve soddisfare una serie 
+\subsection{Gruppi} \label{subsec:groups}
+    Un gruppo è una struttura algebrica determinata da un insieme $S$ e da un'operazione binaria interna e chiusa $+ : S \times S \rightarrow S$, la quale deve soddisfare una serie
     di assiomi:
     \begin{enumerate}[label=(\arabic*)]
-        \item Associatività: $\forall x, y, z \in S, \; x + (y + z) = (x + y) + z$   
+        \item Associatività: $\forall x, y, z \in S, \; x + (y + z) = (x + y) + z$
         \item Esistenza dell'elemento neutro: $\exists 0_G \in S \; | \; \forall x \in S, \; x + 0_G = x$
         \item Esistenza dell'elemento inverso: $\forall x \in S, \exists (-x) \in S \; | \; x + (-x) = 0_G$
     \end{enumerate}
-    Qualora un gruppo soddisfi anche l'assioma di commutatività ($\forall x, y \in S, \; x + y = y + x$) esso viene detto "gruppo abeliano".
+    Qualora un gruppo soddisfi anche l'assioma di commutatività, ovvero $\forall x, y \in S, \; x + y = y + x$, esso viene detto ``gruppo abeliano''.
 
     \vspace{10pt}
     Alcuni esempi di gruppi sono:
     \begin{itemize}
         \item $(\mathbb{Z}, +)$
-        \item $(\mathbb{Q}, +)$
-        \item $(\mathbb{R}, +)$
-        \item $(\mathbb{C}, +)$
+        \item $(Q_8, +)$
+        \item $(S_n, +)$
     \end{itemize}
 
 
 
-\subsection{Anelli}
-    Un anello è una struttura algebrica determinata da un insieme $S$ e da due operazioni binarie interne e chiuse, $+: S \times S \rightarrow S$ (addizione) e $\cdot : S \times S \rightarrow S$ (moltiplicazione), le quali devono soddifare una serie di assiomi:
+\subsection{Anelli} \label{subsec:rings}
+    Un anello è una struttura algebrica determinata da un insieme $S$ e da due operazioni binarie interne e chiuse, $+: S \times S \rightarrow S$ (addizione) e $\cdot : S \times S \rightarrow S$ (moltiplicazione), le quali devono soddisfare una serie di assiomi:
     \begin{enumerate}[label=(\arabic*)]
         \item $(S, +)$ deve essere un gruppo abeliano
         \item Associatività della moltiplicazione: $\forall x, y, z \in S, \; x \cdot (y \cdot z) = (x \cdot y) \cdot z$
@@ -43,39 +31,41 @@
         \item Distributività destra della moltiplicazione rispetto alla somma: $\forall x, y, z \in S, \; x \cdot (y + z) = x \cdot y + x \cdot z$
         \item Distributività sinistra della moltiplicazione rispetto alla somma: $\forall x, y, z \in S, \; (y + z) \cdot x = y \cdot x + z \cdot x$
     \end{enumerate}
+    E' necessario sottolineare la differenza fra distributività destra e sinistra in quanto la $\textit{moltiplicazione}$ in un anello non è detto che sia commutativa.
 
     \vspace{10pt}
     Alcuni esempi di anelli sono:
     \begin{itemize}
-        \item $(\mathbb{R}^{n, n}, +, \cdot)$ dove $\cdot$ è la moltiplicazione fra matrici 
+        \item $(\mathbb{R}^{n, n}, +, \cdot)$ dove $\cdot$ è la moltiplicazione fra matrici
+        \item $(\mathbb{Z}/n\mathbb{Z}, +, \cdot)$
+        \item $(\mathbb{R}[x], +, \cdot)$
     \end{itemize}
 
 
 
-\subsection{Campi}
+\subsection{Campi} \label{subsec:fields}
     Un campo è una struttura algebrica determinata da un insieme $S$ e da due operazioni binarie interne e chiuse, $+ : S \times S \rightarrow S$ (addizione)  e $\cdot : S \times S \rightarrow S$ (moltiplicazione), le quali devono soddisfare una serie di assiomi:
     \begin{enumerate}[label=(\arabic*)]
-        \item $(S, +)$ deve essere un gruppo abeliano 
-        \item $(S, \cdot)$ deve essere un gruppo abeliano, fatta eccezione per l'Assioma di esistenza dell'inverso
-        \item Esistenza dell'elemento inverso della moltiplicazione: $\forall x \in S - \{0_F\}, \; \exists x^{-1} \in S \; | \; x \cdot x^{-1} = 1_F$ 
+        \item $(S, +)$ deve essere un gruppo abeliano
+        \item $(S^*, \cdot)$ deve essere un gruppo abeliano, dove $S^*$ non è altro che $S$ senza gli elementi per cui l'inverso moltiplicativo ($a \in S \implies \exists a^{-1} \in S \; | \; aa^{-1} = \textnormal{id}_{F}(a)$) non è definito ($S / \{0\}$)
         \item Distributività completa della moltiplicazione rispetto alla somma: $\forall x, y, z \in S, \; x \cdot (y + z) = x \cdot y + x \cdot z = (y + z) \cdot x$
     \end{enumerate}
 
     \vspace{10pt}
     Alcuni esempi di campi sono:
     \begin{itemize}
-        \item $(\mathbb{Q}, +, \cdot)$ 
-        \item $(\mathbb{R}, +, \cdot)$ 
-        \item $(\mathbb{C}, +, \cdot)$ 
+        \item $(\mathbb{Q}, +, \cdot)$
+        \item $(\mathbb{R}, +, \cdot)$
+        \item $(\mathbb{C}, +, \cdot)$, il quale è il più piccolo campo algebricamente chiuso.
     \end{itemize}
 
 
 
-\subsection{Omomorfismi}
+\subsection{Omomorfismi} \label{subsec:homomorphisms}
     Un omomorfismo è un'applicazione che, associando due strutture algebriche, ne mantiene le proprietà.
-    
-    \vspace{5pt}
     Per esempio, siano $(G, +)$ e $(H, *)$ due gruppi,
-    allora $f: G \rightarrow H$ è un omomorfismo se e solo se $\forall x, y \in G, \; f(x + y) = f(x) * f(y)$
-
-\end{document}
+    allora $f: G \rightarrow H$ è un omomorfismo se e solo se
+    \[
+        \forall x, y \in G, \; f(x + y) = f(x) * f(y)
+    \]
+    Un esempio particolare di omomorfismo sono le applicazioni lineari fra spazi vettoriali $f: V \rightarrow W$ in quanto $f(\mathbf{v} + \mathbf{u}) = f(\mathbf{v}) + f(\mathbf{u})$.

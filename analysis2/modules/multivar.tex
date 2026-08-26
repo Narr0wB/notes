@@ -1,42 +1,15 @@
-\documentclass{article}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{enumitem}
-\usepackage{titling}
-\usepackage{graphicx}
-\usepackage{tikz-cd}
-\usepackage{nameref}
-\usepackage{fancyhdr}
-\usepackage[a4paper, margin=1in]{geometry}
-\usepackage{refcount}
-
-% \tikzcdset{scale cd/.style={every label/.append style={scale=#1},
-%     cells={nodes={scale=#1}}}}
-
-\newtheorem{theorem}{Teorema}
-\newtheorem{corollary}{Corollario}[theorem]
-\newtheorem{osservazione}{Osservazione}
-\newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposizione}
-\newtheorem{definition}{Definizione}
-
-\setlength{\parindent}{0pt}
-\newcommand{\mfrac}[2]{\displaystyle\frac{#1}{#2}}
-
-\begin{document}
+% !TeX root = ../analysisII.tex
 
 \section{Funzioni a più variabili}
     \subsection{Definizione}
         Una funzione a più variabili è una funzione del tipo $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$ con $m, n \in \mathbb{N}, \; m, n \geq 1$. Si distinguono una serie di casi particolari:
         \begin{itemize}
             \item Caso $n = 1$, $m = 1$ è una funzione scalare a variabile reale
-            \item Caso $n = 1$, $m > 1$ è una curva 
+            \item Caso $n = 1$, $m > 1$ è una curva
             \item Caso $n > 1$, $m = 1$ è un campo scalare (funzione scalare a più variabili reali)
             \item Caso $n > 1$, $m > 1$ è una funzione vettoriale a più variabili reali (campo vettoriale se $n = m$)
         \end{itemize}
 
-        \vspace{10pt}
         Per proseguire nello studio di queste funzioni, è necessario definire alcuni concetti fondamentali
         \begin{definition}
             $S(\mathbf{x}_0, r) = \{ \mathbf{x} \in \mathbb{R}^{n} \; : \; d(\mathbf{x}, \mathbf{x}_0) = r \}$ è detta la sfera di raggio $r$ centrata in $\mathbf{x}_0$
@@ -48,15 +21,15 @@
             $\overline{B(\mathbf{x}_0, r)} = \{ \mathbf{x} \in \mathbb{R}^{n} \; : \; d(\mathbf{x}, \mathbf{x}_0) \leq r \}$ è detta la palla ``chiusa'' di raggio $r$ centrata in $\mathbf{x}_0$ (ovvero la chiusura di $B(\mathbf{x}_0, r)$)
         \end{definition}
 
-    \subsection{Cenni di topologia su $\mathbb{R}^{n}$}
+    \subsection{Cenni di topologia su \texorpdfstring{$\mathbb{R}^{n}$}{R alla n}}
         Sia $D \subset \mathbb{R}^{n}$ e sia $\mathbf{x}_0 \in \mathbb{R}^{n}$
         \begin{itemize}
             \item $\mathbf{x}_0$ si dice punto interno a $D$ se $\exists r > 0$ tale per cui $B(\mathbf{x}_0, r) \subset D$
             \item $\mathbf{x}_0$ si dice punto esterno a $D$ se $\exists r > 0$ tale per cui $B(\mathbf{x}_0, r) \subset D^{C} = \mathbb{R}^{n} \setminus D$
-            \item $\mathbf{x}_0$ si dice punto di frontiera di $D$ se non è nè esterno nè interno 
+            \item $\mathbf{x}_0$ si dice punto di frontiera di $D$ se non è nè esterno nè interno
         \end{itemize}
-        
-        A partire da queste definizioni possiamo delineare i seguenti concetti: 
+
+        A partire da queste definizioni possiamo delineare i seguenti concetti:
         \begin{definition} [Interno di un'insieme]
             Sia $E \subset \mathbb{R}^{n}$. Con $\textnormal{int}(E)$, oppure $\mathring{E}$, denotiamo l'interno di $E$, ovvero
             \[
@@ -93,7 +66,7 @@
         \end{itemize}
 
         \begin{definition}
-            Sia $E \subset \mathbb{R}^{n}$. $E$ si dice connesso se non è possibile esprimere $E$ mediante l'unione di due o più insiemi aperti, non vuoti, e disgiunti. 
+            Sia $E \subset \mathbb{R}^{n}$. $E$ si dice connesso se non è possibile esprimere $E$ mediante l'unione di due o più insiemi aperti, non vuoti, e disgiunti.
         \end{definition}
 
         \begin{definition}
@@ -136,17 +109,16 @@
             \[
                 \lim_{t \rightarrow t_0} \gamma(t) = \gamma(t_0) \iff \lim_{t \rightarrow t_0} x_i(t) = (\gamma(t_0))_i \; \forall i \in \{1, ..., n\}
             \]
-            
+
             Invece, si definisce derivata di $\gamma$ in $t_0$ il seguente limite:
             \[
                 \gamma'(t_0) = \lim_{h \in \mathbb{R} \rightarrow 0} \frac{\gamma(t_0 + h) - \gamma(t_0)}{h}
             \]
-        
-        \subsubsection{Curve regolari, equivalenti e anti-equivalenti} 
-            Sia $\gamma: I \subset \mathbb{R} \rightarrow \mathbb{R}^{n}$ una curva in $C^{1}$ (ovvero una curva cui ogni componente i-esima $x_i(t) \in C^1$). Questa si dice $\textit{regolare}$ se $\forall t \in I, \; \gamma'(t) \neq \mathbf{0}$. 
+
+        \subsubsection{Curve regolari, equivalenti e anti-equivalenti}
+            Sia $\gamma: I \subset \mathbb{R} \rightarrow \mathbb{R}^{n}$ una curva in $C^{1}$ (ovvero una curva cui ogni componente i-esima $x_i(t) \in C^1$). Questa si dice $\textit{regolare}$ se $\forall t \in I, \; \gamma'(t) \neq \mathbf{0}$.
             Si dice invece regolare a tratti se $I = \bigcup_{i}^{n \in \mathbb{N}} I_{i}$ e per ogni $I_{i}$ la restrizione $\gamma|_{I_{i}}$ è regolare.
-        
-            \vspace{10pt}
+
             \begin{theorem}[Teorema della lunghezza di curve regolari]
                 Sia $\gamma: I \subset \mathbb{R} \rightarrow \mathbb{R}^{n}$ una curva regolare a tratti su $n$ intervalli in $I$, allora la lunghezza di $\gamma$ è data da
                 \[
@@ -172,7 +144,7 @@
                 l(\gamma_{1}) = \int_{I_{1}} || \gamma_{1}'(t) || dt = \int_{I_{1}} || \gamma_{2}'(\varphi(t)) || \cdot |\varphi'(t)| dt
             \]
 
-            Sia $u = \varphi$, quindi $du = \varphi' dt$. Se $\varphi'(t) > 0$ 
+            Sia $u = \varphi$, quindi $du = \varphi' dt$. Se $\varphi'(t) > 0$
             \[
                 \int_{I_{1}} || \gamma_{2}'(\varphi(t)) || \cdot \varphi'(t) dt = \int_{I_{2}} || \gamma_{2}'(u) || du = l(\gamma_{2})
             \]
@@ -183,14 +155,12 @@
             \]
 
 
-            \vspace{10pt}
-            Si definisce curva opposta ad una curva $\gamma: I \rightarrow \mathbb{R}^{n}$ la curva $-\gamma: U \rightarrow \mathbb{R}^{n}$ dove $U = \varphi(I)$ con $\varphi(t) = -t$ definita come $-\gamma(t) = \gamma(-t)$. 
+            Si definisce curva opposta ad una curva $\gamma: I \rightarrow \mathbb{R}^{n}$ la curva $-\gamma: U \rightarrow \mathbb{R}^{n}$ dove $U = \varphi(I)$ con $\varphi(t) = -t$ definita come $-\gamma(t) = \gamma(-t)$.
             E' triviale dimostrare che $-\gamma$ e $\gamma$ sono anti-equivalenti, in quanto:
             \[
                 \forall t \in I: \; -\gamma(t) = \gamma(-t) = \gamma(\varphi(t)) \; \text{con} \; \varphi \in C^{1}, \; \varphi' < 0
             \]
 
-        \newpage
         \subsection{Campi scalari}
             Un campo scalare, anche detto funzione scalare a più variabili reali, è una funzione del tipo
             \[
@@ -204,31 +174,29 @@
                 G(f) = \{ (\mathbf{x}, f(\mathbf{x})) \; : \; \mathbf{x} \in D\} \subset \mathbb{R}^{n+1}
             \]
 
-            \vspace{10pt}
             \subsubsection{Limiti, continuità e derivabilità dei campi scalari}
             Dato un campo scalare $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ e un valore $c \in \mathbb{R}$ si dice insieme di livello $c$ la seguente espressione
             \[
                 \{ \mathbf{x} \in D \; : \; f(\mathbf{x}) = c\}
             \]
 
-            \vspace{10pt}
             Una volta introdotto il concetto di funzioni a più variabili, è necessario ridefinire l'idea di limite. Quindi
             \[
                 \lim_{\mathbf{x} \rightarrow \mathbf{x}_0} f(\mathbf{x}) = l \iff \forall \varepsilon > 0 \; \exists \delta > 0 \;\: | \;\: 0 < d(\mathbf{x}, \mathbf{x}_0) < \delta \implies d(f(\mathbf{x}), l) < \varepsilon
             \]
             \[
                 \lim_{\mathbf{x} \rightarrow \mathbf{x}_0} f(\mathbf{x}) = +\infty \iff \forall M > 0 \; \exists \delta > 0 \;\: | \;\: 0 < d(\mathbf{x}, \mathbf{x}_0) < \delta \implies f(\mathbf{x}) > M
-            \] 
+            \]
             \[
                 \lim_{\mathbf{x} \rightarrow \mathbf{x}_0} f(\mathbf{x}) = -\infty \iff \forall M < 0 \; \exists \delta > 0 \;\: | \;\: 0 < d(\mathbf{x}, \mathbf{x}_0) < \delta \implies f(\mathbf{x}) < M
-            \] 
+            \]
 
             \begin{theorem} [Teorema dell'esistenza del limite di campi scalari]
                 Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare e siano $\gamma_1: I_{1} \rightarrow \mathbb{R}^{n}$ e $\gamma_{2}: I_{2} \rightarrow \mathbb{R}^{n}$ due curve tali per cui
                 \[
                     \lim_{t \rightarrow t_0} \gamma_{1}(t) = \lim_{t \rightarrow t_0} \gamma_{2}(t) = \mathbf{x}_0 \in \mathbb{R}^{n}
                 \]
-                Se 
+                Se
                 \[
                     \lim_{t \rightarrow t_0} f(\gamma_{1}(t)) \neq \lim_{t \rightarrow t_0} f(\gamma_{2}(t))
                 \]
@@ -244,7 +212,6 @@
                 \item Confronto fra limiti: Se $\exists B(\mathbf{x}_0, \varepsilon)$ tale per cui $\forall \mathbf{x} \in B(\mathbf{x}_0, \varepsilon) \: f(\mathbf{x}) \leq g(\mathbf{x})$ allora $\displaystyle \lim_{\mathbf{x} \rightarrow \mathbf{x}_0} f(\mathbf{x}) \leq \lim_{\mathbf{x} \rightarrow \mathbf{x}_0} g(\mathbf{x})$, ammesso che esistano.
             \end{enumerate}
 
-            \vspace{10pt}
             Un campo scalare $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ si dice continuo in un punto $\mathbf{x}_0 \in D$ se
             \[
                 \lim_{\mathbf{x} \rightarrow \mathbf{x}_0} f(\mathbf{x}) = f(\mathbf{x}_0)
@@ -260,7 +227,6 @@
                 Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare continuo in $D$ e sia $D$ un insieme chiuso e limitato. Allora $\exists \mathbf{x}_m, \mathbf{x}_M \in D$ tale per cui $f(\mathbf{x}_m) \leq f(\mathbf{x}) \leq f(\mathbf{x}_M)$ per tutti i punti $\mathbf{x} \in D$.
             \end{theorem}
 
-            \vspace{10pt}
             Dato un campo scalare $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ e un punto $\mathbf{x}_0$ interno a $D$ si definisce derivata parziale di $f$ in $\mathbf{x}_0$ rispetto alla variabile $x_i$ il seguente limite
             \[
                 \partial_{x_i} f = \frac{\partial f}{\partial x_i} = \lim_{h \rightarrow 0} \frac{f(x_1, ..., x_i + h, ..., x_n) - f(x_1, ..., x_i, ..., x_n)}{h} \in \mathbb{R}
@@ -288,10 +254,9 @@
             \[
                 \lim_{t \rightarrow 0} f(t, t) \neq f(0, 0)
             \]
-            Un' osservazione molto importante circa il concetto di derivate parziali di un campo scalare è che 
+            Un' osservazione molto importante circa il concetto di derivate parziali di un campo scalare è che
             l'esistenza di tutte le derivate parziali del campo in un punto non implica la continuità del campo in quel punto.
 
-            \vspace{10pt}
             \begin{definition}
                 Un campo scalare $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ si dice differenziabile in un punto $\mathbf{x}_0$ interno a $D$ se
                 \begin{itemize}
@@ -305,11 +270,11 @@
             \end{theorem}
 
             \begin{proof} [Dimostrazione]
-                Da 
+                Da
                 \[
                     \lim_{\mathbf{h} \rightarrow \mathbf{0}} \frac{f(\mathbf{x}_0 + \mathbf{h}) - f(\mathbf{x}_0) - \nabla f(\mathbf{x}_0) \cdot \mathbf{h}}{|| \mathbf{h} ||} = 0
                 \]
-                si evice che 
+                si evice che
                 \[
                     \lim_{\mathbf{h} \rightarrow \mathbf{0}} f(\mathbf{x}_0 + \mathbf{h}) - f(\mathbf{x}_0) - \nabla f(\mathbf{x}_0) \cdot \mathbf{h} = 0
                 \]
@@ -331,7 +296,7 @@
                 TODO
             \end{proof}
 
-            Il concetto di differenziabilità di una funzione può anche essere interpretato geometricamente: se $f$ è differenziabile in un punto $\mathbf{x}_0$, allora 
+            Il concetto di differenziabilità di una funzione può anche essere interpretato geometricamente: se $f$ è differenziabile in un punto $\mathbf{x}_0$, allora
             esiste il piano tangente al grafico di $f$ in $\mathbf{x}_0$ e la sua equazione è data da
             \[
                 x_{n + 1} = f(\mathbf{x_0}) + \nabla f \cdot (\mathbf{x} - \mathbf{x_0})
@@ -342,7 +307,7 @@
             \[
                 g = \gamma \circ f: I \subset \mathbb{R} \xrightarrow{\gamma} D \subset \mathbb{R}^{n} \xrightarrow{f} \mathbb{R}
             \]
-            
+
             Se $f$ è differenziabile in $D$ e $\gamma$ è derivabile in $I$, allora
             \[
                 g'(t) = \nabla f(\gamma(t)) \cdot \gamma'(t) \in \mathbb{R}
@@ -357,7 +322,7 @@
             \[
                 \nabla g(\mathbf{x}) = h'(f(\mathbf{x})) \nabla f(\mathbf{x}) \in \mathbb{R}
             \]
-        
+
         \subsubsection{Derivate direzionali}
             Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare e sia $\mathbf{x}_0$ un punto interno a $D$. Sia allora $\mathbf{v} \in \mathbb{R}^{n}$ un vettore non nullo. Si dice derivata direzionale
             di $f$ lungo $\mathbf{v}$ in $\mathbf{x}_0$ il seguente limite
@@ -369,7 +334,6 @@
                 \frac{\partial f} {\partial x_i} = D_{\mathbf{u}_i} f
             \]
 
-            \vspace{10pt}
             \begin{proposition}
                 Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare e sia $f$ differenziabile in un punto $\mathbf{x}_0$, allora la derivata parziale di $f$ lungo una direzione $\mathbf{v} \in \mathbb{R}^{n}$ non nulla è data da
                 \[
@@ -382,7 +346,7 @@
                     (f \circ \gamma)'|_{t = 0} = \lim_{t \rightarrow 0} \frac{f(\mathbf{x}_0 + t \mathbf{v}) - f(\mathbf{x}_0)}{t} = \nabla f(\gamma(0)) \cdot \gamma'(0) = \nabla f (\mathbf{x}_0) \cdot \mathbf{v} = D_{\mathbf{v}} f(\mathbf{x}_0)
                 \]
             \end{proof}
-        
+
         \subsubsection{Derivate di ordini superiori}
             Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare differenziabile in un punto $\mathbf{x}_0$. Si dicono derivate parziali di ordine $k$ di $f$ in $\mathbf{x}_0$ tutte le derivate parziali di
             $f$ nella seguente forma
@@ -396,7 +360,7 @@
             \]
 
             \begin{theorem}[Teorema di Schwarz]
-                Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare e siano $\displaystyle \frac{\partial^{2} f}{\partial x_i \partial x_j}$, $\displaystyle \frac{\partial^{2} f}{\partial x_j \partial x_i}$ con 
+                Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare e siano $\displaystyle \frac{\partial^{2} f}{\partial x_i \partial x_j}$, $\displaystyle \frac{\partial^{2} f}{\partial x_j \partial x_i}$ con
                 $i \neq j$ due derivate parziali del secondo ordine. Se entrambe le derivate sono continue in $D$, allora
                 \[
                     \frac{\partial^{2} f}{\partial x_i \partial x_j} = \frac{\partial^{2} f}{\partial x_j \partial x_i}
@@ -409,25 +373,25 @@
 
             Dato un campo scalare $f$ di classe $C^{2}$ nel suo dominio si dice matrice hessiana il tensore di rango (0, 2)
             \[
-                H_{f} = 
+                H_{f} =
                 \begin{bmatrix}
                     \mfrac{\partial^{2} f}{\partial x_1^{2}} & \mfrac{\partial^{2} f}{\partial x_1 \partial x_2} & ... & \mfrac{\partial^{2} f}{\partial x_1 \partial x_n} \\
                     \mfrac{\partial^{2} f}{\partial x_2 \partial x_1} & \mfrac{\partial^{2} f}{\partial x_2^{2}} & ... & \mfrac{\partial^{2} f}{\partial x_2 \partial x_n} \\
                     \vdots & \ddots & \ddots & \vdots \\
                     \mfrac{\partial^{2} f}{\partial x_n \partial x_1} & \mfrac{\partial^{2} f}{\partial x_n \partial x_2} & ... & \mfrac{\partial^{2} f}{\partial x_n^{2}} \\
-                \end{bmatrix} 
+                \end{bmatrix}
             \]
-            
+
         \subsubsection{Polinomio di Taylor}
-            Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare, sia $\mathbf{x}_0 \in D$ un punto interno a $D$ e $\mathbf{h} \in \mathbb{R}^{n}$ una perturbazione 
+            Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare, sia $\mathbf{x}_0 \in D$ un punto interno a $D$ e $\mathbf{h} \in \mathbb{R}^{n}$ una perturbazione
             tale per cui $\mathbf{x} = \mathbf{x}_0 + \mathbf{h}$. Se $f \in C^{2}(D)$, allora il polinomio di Taylor di $f$ di grado secondo centrato in $\mathbf{x}_0$ è dato da:
             \[
                 P_{f, 2, \mathbf{x_0}} (\mathbf{x}) = f(\mathbf{x}_0) + \nabla f(\mathbf{x}_0) \cdot \mathbf{h} + \frac{1}{2} \mathbf{h}^{T} H_{f}(\mathbf{x}_0) \mathbf{h} + o(||\mathbf{h}||^{2}) \; \textnormal{per} \; \mathbf{h} \rightarrow \mathbf{0}
             \]
-    
+
         \subsubsection{Massimi e minimi di campi scalari}
             \begin{definition}[Definizione di massimo globale]
-                Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare. Un generico punto $\mathbf{x}_0 \in D$ si dice massimo globale di $f$ se 
+                Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare. Un generico punto $\mathbf{x}_0 \in D$ si dice massimo globale di $f$ se
                 \[
                     f(\mathbf{x}_0) \geq f(\mathbf{x}) \quad \forall \mathbf{x} \in D
                 \]
@@ -435,14 +399,14 @@
 
             \begin{definition}[Definizione di massimo locale]
                 Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare. Un generico punto $\mathbf{x}_0 \in D$ si dice massimo locale di $f$ se esiste un'intorno $B(\mathbf{x}_0, \varepsilon), \; \varepsilon > 0$ di
-                $\mathbf{x_0}$ tale per cui 
+                $\mathbf{x_0}$ tale per cui
                 \[
                     f(\mathbf{x}_0) \geq f(\mathbf{x}) \quad \forall \mathbf{x} \in D \cap B(\mathbf{x}_0, \varepsilon)
                 \]
             \end{definition}
 
             \begin{definition}[Definizione di minimo globale]
-                Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare. Un generico punto $\mathbf{x}_0 \in D$ si dice minimo globale di $f$ se 
+                Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare. Un generico punto $\mathbf{x}_0 \in D$ si dice minimo globale di $f$ se
                 \[
                     f(\mathbf{x}_0) \leq f(\mathbf{x}) \quad \forall \mathbf{x} \in D
                 \]
@@ -450,7 +414,7 @@
 
             \begin{definition}[Definizione di minimo locale]
                 Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare. Un generico punto $\mathbf{x}_0 \in D$ si dice minimo locale di $f$ se esiste un'intorno $B(\mathbf{x}_0, \varepsilon), \; \varepsilon > 0$ di
-                $\mathbf{x_0}$ tale per cui 
+                $\mathbf{x_0}$ tale per cui
                 \[
                     f(\mathbf{x}_0) \leq f(\mathbf{x}) \quad \forall \mathbf{x} \in D \cap B(\mathbf{x}_0, \varepsilon)
                 \]
@@ -462,28 +426,27 @@
                     \nabla f(\mathbf{x}_0) = \mathbf{0}
                 \]
             \end{definition}
-            
+
             \begin{theorem}[Teorema degli estremi locali di un campo scalare]
-                Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare e sia $\mathbf{x}_0$ un punto interno a $D$. 
+                Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare e sia $\mathbf{x}_0$ un punto interno a $D$.
                 Se $f$ è differenziabile in $\mathbf{x}_0$ e questi è un punto di estremo locale, allora $\mathbf{x}_0$ è punto critico di $f$.
             \end{theorem}
 
             \begin{proof}[Dimostrazione]
-                Si selezioni un vettore $\mathbf{v} \in \mathbb{R}^{n} \setminus \{\mathbf{0}\}$, e sia $\gamma: \mathbb{R} \rightarrow \mathbb{R}^{n}$ la curva definita come $\gamma(t) = \mathbf{x}_0 + t \mathbf{v}$. 
+                Si selezioni un vettore $\mathbf{v} \in \mathbb{R}^{n} \setminus \{\mathbf{0}\}$, e sia $\gamma: \mathbb{R} \rightarrow \mathbb{R}^{n}$ la curva definita come $\gamma(t) = \mathbf{x}_0 + t \mathbf{v}$.
                 Si consideri la composizione $g = f \circ \gamma: \mathbb{R} \rightarrow \mathbb{R}$.
                 Se $f$ presenta un minimo (o massimo) locale in $\mathbf{x}_0$, allora esiste un $B(\mathbf{x}_0, \varepsilon), \; \varepsilon > 0$ tale per cui $f(\mathbf{x}_0) \leq \; (\textnormal{o} \;\geq) \; f(\mathbf{x}) \; \forall \mathbf{x} \in B(\mathbf{x}_0, \varepsilon)$.
-                
-                \vspace{5pt}
-                Inoltre, $\gamma(t) \in B(\mathbf{x}_0, \varepsilon)$ se $\text{abs}(||\mathbf{v}||t) < \varepsilon$, quindi esiste un intorno $I = \displaystyle (-\frac{\varepsilon}{||\mathbf{v}||}, \frac{\varepsilon}{||\mathbf{v}||})$ di $0$ dove $\gamma$ ricade completamente in 
+
+                Inoltre, $\gamma(t) \in B(\mathbf{x}_0, \varepsilon)$ se $\text{abs}(||\mathbf{v}||t) < \varepsilon$, quindi esiste un intorno $I = \displaystyle (-\frac{\varepsilon}{||\mathbf{v}||}, \frac{\varepsilon}{||\mathbf{v}||})$ di $0$ dove $\gamma$ ricade completamente in
                 $B(\mathbf{x}_0, \varepsilon)$. Di conseguenza, $g(t)$ presenta un estremo locale in $0$ e, dato che $g$ è derivabile in $0$, si ha che
                 \[
                     g'(0) = \nabla f(\gamma(0)) \cdot \gamma'(0) = \nabla f(\mathbf{x}_0) \cdot \mathbf{v} = 0
                 \]
                 Allora $\nabla f(\mathbf{x}_0) = \mathbf{0}$.
             \end{proof}
-            
+
             \begin{definition}
-                Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare. $\mathbf{x}_0$ è detto punto di sella se è un punto stazionario per cui $\forall \varepsilon > 0$ $\exists \mathbf{x}_1, \mathbf{x}_2 \in B(\mathbf{x}_0, \varepsilon)$ tali che 
+                Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare. $\mathbf{x}_0$ è detto punto di sella se è un punto stazionario per cui $\forall \varepsilon > 0$ $\exists \mathbf{x}_1, \mathbf{x}_2 \in B(\mathbf{x}_0, \varepsilon)$ tali che
                 \[
                     f(\mathbf{x}_1) < f(\mathbf{x}_0) < f(\mathbf{x}_2)
                 \]
@@ -499,7 +462,6 @@
             \end{theorem}
 
 
-        \newpage
         \subsection{Funzioni vettoriali a più variabili}
             Una funzione $F: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$ con $n, m > 1$ è detta funzione vettoriale a più variabili. E' una funzione che mappa un vettore di $\mathbb{R}^{n}$ ad un altro vettore di $\mathbb{R}^{m}$
             \[
@@ -513,7 +475,7 @@
                     \lim_{\mathbf{x} \rightarrow \mathbf{x}_0} F(\mathbf{x}) = (\lim_{\mathbf{x} \rightarrow \mathbf{x}_0} F_{1}(\mathbf{x}), ..., \lim_{\mathbf{x} \rightarrow \mathbf{x}_0} F_{m}(\mathbf{x}))
                 \]
                 (ammesso che i limiti esistano)
-            
+
             \subsubsection{Continuità}
                 Sia $F: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$ una funzione vettoriale e sia $\mathbf{x}_0$ un punto in $D$, allora
                 \[
@@ -528,13 +490,13 @@
 
             Data una fuzione vettoriale $F: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$, si dice matrice jacobiana di $F$ la seguente espressione
             \[
-                J_{F} = 
+                J_{F} =
                 \begin{bmatrix}
                     {\nabla F_{1}}^{T} \\
                     \vdots \\
-                    {\nabla F_{m}}^{T} 
-                \end{bmatrix} 
-                = 
+                    {\nabla F_{m}}^{T}
+                \end{bmatrix}
+                =
                 \renewcommand{\arraystretch}{2}
                 \begin{bmatrix}
                     \mfrac{\partial F_{1}}{\partial x_1} & \mfrac{\partial F_{1}}{\partial x_2} & ... & \mfrac{\partial F_{1}}{\partial x_n} \\
@@ -545,9 +507,8 @@
             \]
             Se $F$ è un campo vettoriale ($n = m$), allora la matrice jacobiana è quadrata e il determinante è detto jacobiano di $F$.
 
-        \newpage
         \subsection{Campi vettoriali}
-            Sia $\mathbf{F}: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$ un campo vettoriale continuo. $\mathbf{F}$ si dice conservativo se esiste un campo scalare $U: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ tale per cui 
+            Sia $\mathbf{F}: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$ un campo vettoriale continuo. $\mathbf{F}$ si dice conservativo se esiste un campo scalare $U: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ tale per cui
             \[
                 \mathbf{F} = \nabla U
             \]
@@ -583,7 +544,7 @@
                     \int_{\gamma} \mathbf{F} = U(\gamma(a)) - U(\gamma(b)) = U(\gamma_{0}) - U(\gamma_{0}) = 0
                 \]
             \end{proof}
-            
+
             \begin{theorem}
                 Sia $\mathbf{F}: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$ con $D$ aperto un campo vettoriale continuo.
                 Allora le seguenti condizioni sono equivalenti:
@@ -595,15 +556,13 @@
             \end{theorem}
 
             \begin{proof}[Dimostrazione]
-                $\space$\newline 
-                \vspace{5pt}
+                $\space$\newline
                 (I) $\implies$ (II). Se $\mathbf{F}$ è conservativo, allora
                 \[
                     \int_{\gamma_1} \mathbf{F} = U(\gamma_{1}(b)) - U(\gamma_{2}(a)) = U(\gamma_{2}(d)) - U(\gamma_{2}(c)) = \displaystyle \int_{\gamma_2} \mathbf{F}
-                \] 
+                \]
                 (I) $\implies$ (III). Se $\mathbf{F}$ è conservativo, allora $\displaystyle \oint_{\gamma} \mathbf{F} = 0$ per il corollario al teorema sul lavoro di campi conservativi.
 
-                \vspace{10pt}
                 (II) $\implies$ (I). Selezionato un punto qualsiasi $\mathbf{x}_0 \in D$ nel dominio di $\mathbf{F}$, si definisca la seguente funzione scalare $U(\mathbf{x}) = \displaystyle \int_{\gamma} \mathbf{F}$, dove $\gamma: [a, b] \subset \mathbb{R} \rightarrow D$, con $\gamma(a) = \mathbf{x}_0$ e $\gamma(b) = \mathbf{x}$.
                 Per ipotesi di (II), $U$ dipende solo da $\mathbf{x}_0$ e $\mathbf{x}$, non da $\gamma$.
                 Si consideri una generica derivata parziale $\displaystyle \frac{\partial U}{\partial x_{i}}$ di $U$, con $i \in \{1, ..., n\}$
@@ -614,10 +573,10 @@
                 \[
                     \gamma_2(t) = \begin{cases} \gamma_{1}(t) & a \leq t < b \\ \gamma_3(t) = \mathbf{x} + (t - b) \mathbf{e}_{i} & b \leq t \leq b + h\end{cases}
                 \]
-                con $\displaystyle \lim_{t \rightarrow b} \gamma_{1}'(t) = \mathbf{e}_{i}$. 
+                con $\displaystyle \lim_{t \rightarrow b} \gamma_{1}'(t) = \mathbf{e}_{i}$.
                 Di conseguenza, il limite soprastante diventa
                 \[
-                    \lim_{h \rightarrow 0} \frac{\displaystyle \left( \int_{\gamma_1} \mathbf{F} + \int_{\gamma_3} \mathbf{F} \right) - \int_{\gamma_1} \mathbf{F}}{h} = \lim_{h \rightarrow 0} \frac{\displaystyle \int_{\gamma_3} \mathbf{F}}{h} = \lim_{h \rightarrow 0} \frac{\displaystyle \int_{b}^{b+h} \mathbf{F}(\gamma_3(t)) \cdot \mathbf{e}_{i} \: dt}{h} 
+                    \lim_{h \rightarrow 0} \frac{\displaystyle \left( \int_{\gamma_1} \mathbf{F} + \int_{\gamma_3} \mathbf{F} \right) - \int_{\gamma_1} \mathbf{F}}{h} = \lim_{h \rightarrow 0} \frac{\displaystyle \int_{\gamma_3} \mathbf{F}}{h} = \lim_{h \rightarrow 0} \frac{\displaystyle \int_{b}^{b+h} \mathbf{F}(\gamma_3(t)) \cdot \mathbf{e}_{i} \: dt}{h}
                 \]
                 Ricordando che $\mathbf{e}_{i}$ è il versore lungo la direzione $x_i$ ed espandendo il prodotto scalare, si ha che
                 \[
@@ -636,9 +595,8 @@
                 \[
                     \left. \frac{\partial U}{\partial x_{i}} \right|_{\mathbf{x}} = F_{i}(\mathbf{x}) \implies \nabla U = \mathbf{F}
                 \]
-                
-                \vspace{10pt}
-                (II) $\implies$ (III). Si selezioni una qualsiasi curva $\gamma: [a, b] \rightarrow \mathbb{R}^{n}$ di classe $C^{1}$ chiusa. E' possibile allora ``spezzarla'' in un punto $t_{0} \in (a, b)$ tale per cui 
+
+                (II) $\implies$ (III). Si selezioni una qualsiasi curva $\gamma: [a, b] \rightarrow \mathbb{R}^{n}$ di classe $C^{1}$ chiusa. E' possibile allora ``spezzarla'' in un punto $t_{0} \in (a, b)$ tale per cui
                 \[
                     \gamma_{1}: [a, t_{0}] \rightarrow \mathbb{R}^{n}, \quad \gamma_{1}(t) = \gamma(t)
                 \]
@@ -658,19 +616,16 @@
                 \[
                     \int_{\gamma} \mathbf{F} = \oint_{\gamma} \mathbf{F} = 0
                 \]
-                
-                \vspace{10pt}
+
                 (III) $\implies$ (I). La dimostrazione richiede competenze di topologia algebrica.
 
-                \vspace{10pt}
                 (III) $\implies$ (II). La dimostrazione è simile a quanto mostrato per il caso (II) $\implies$ (III).
             \end{proof}
 
-            \vspace{10pt}
-            \subsubsection{Rotore di un campo vettoriale} 
-                Dato un campo vettoriale $\mathbf{F}: D \subset \mathbb{R}^{3} \rightarrow \mathbb{R}^{3}$ di classe $C^{1}$ il rotore di $\mathbf{F}$ è un'altro campo vettoriale definito nel seguente modo 
+            \subsubsection{Rotore di un campo vettoriale}
+                Dato un campo vettoriale $\mathbf{F}: D \subset \mathbb{R}^{3} \rightarrow \mathbb{R}^{3}$ di classe $C^{1}$ il rotore di $\mathbf{F}$ è un'altro campo vettoriale definito nel seguente modo
                 \[
-                    \nabla \times \mathbf{F}: \text{int}(D) \subset \mathbb{R}^{3} \rightarrow \mathbb{R}^{3} 
+                    \nabla \times \mathbf{F}: \text{int}(D) \subset \mathbb{R}^{3} \rightarrow \mathbb{R}^{3}
                 \]
                 \[
                     \nabla \times \mathbf{F} = \det\left( \begin{bmatrix}
@@ -698,10 +653,8 @@
                     \left( \frac{\partial^{2} U}{\partial y \partial z} - \frac{\partial^{2} U}{\partial z \partial y} \right) \mathbf{i} + \left( \frac{\partial^{2} U}{\partial z \partial x} -  \frac{\partial^{2} U}{\partial x \partial z} \right) \mathbf{j} + \left( \frac{\partial^{2} U}{\partial x \partial y} -  \frac{\partial^{2} U}{\partial y \partial x} \right) \mathbf{k} = 0 \mathbf{i} + 0 \mathbf{j} + 0 \mathbf{k} = \mathbf{0}
                 \]
 
-                \vspace{10pt}
                 Un campo irrotazionale $\mathbf{F}$ è conservativo se e solo se il dominio di $\mathbf{F}$ è semplicemente connesso.
 
-            \vspace{10pt}
             \subsubsection{Divergenza di un campo vettoriale}
                 Dato un campo vettoriale $\mathbf{F}: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$ di classe $C^{1}$ la divergenza di $\mathbf{F}$ è un campo scalare definito nel seguente modo
                 \[
@@ -711,7 +664,7 @@
                     \nabla \cdot \mathbf{F} = \frac{\partial F_{1}}{\partial x_{1}} + \frac{\partial F_{2}}{\partial x_{2}} + ... + \frac{\partial F_{n}}{\partial x_{n}} = \sum_{i = 1}^{n} \frac{\partial F_{i}}{\partial x_{i}}
                 \]
 
-                Un campo vettoriale $\mathbf{F}$ è detto solenoidale se 
+                Un campo vettoriale $\mathbf{F}$ è detto solenoidale se
                 \[
                     \nabla \cdot \mathbf{F} = 0, \; \forall \mathbf{x} \in \text{int}(D)
                 \]
@@ -724,8 +677,7 @@
                     \frac{\partial^{2} A_{z}}{\partial y \partial x} + \frac{\partial^{2} A_{x}}{\partial z \partial y} + \frac{\partial^{2} A_{y}}{\partial x \partial z} - \frac{\partial^{2} A_{y}}{\partial z \partial x} - \frac{\partial^{2} A_{z}}{\partial x \partial y} - \frac{\partial^{2} A_{x}}{\partial y \partial z} = 0
                 \]
 
-            
-            \vspace{10pt}
+
             \subsubsection{Teorema di Green}
                 \begin{theorem}[Teorema di Green]
                     Sia $\gamma: [a, b] \rightarrow \mathbb{R}^{2}$ una curva semplice chiusa di classe $C^{1}$ orientata in senso antiorario e sia $D \subset \mathbb{R}^{2}$ la regione del piano cinta da $\gamma$.
@@ -736,24 +688,20 @@
                     \]
                 \end{theorem}
 
-            \vspace{10pt}
             \subsubsection{Teorema della divergenza}
                 \begin{theorem}[Teorema della divergenza]
                     Sia $\Omega \subset \mathbb{R}^{3}$ una misurabile unione finita di insiemi normali rispetto agli assi, e sia $\mathbf{F}: \Omega \rightarrow \mathbb{R}^{3}$ un campo vettoriale di classe $C^{1}$.
                     Sia $\partial \Omega$ una superficie orientata con vettore normale verso l'esterno, allora
                     \[
-                        \int_{\partial \Omega} \mathbf{F} \cdot d \mathbf{A} = \int_{\Omega} \nabla \cdot \mathbf{F} \: dV 
+                        \int_{\partial \Omega} \mathbf{F} \cdot d \mathbf{A} = \int_{\Omega} \nabla \cdot \mathbf{F} \: dV
                     \]
                 \end{theorem}
 
-            \vspace{10pt}
             \subsubsection{Teorema di Stokes}
                 \begin{theorem}[Teorema di Stokes]
                     Sia $\sigma: D \subset \mathbb{R}^2 \rightarrow \mathbb{R}^{2}$ una superficie orientabile di supporto $\Sigma$ e sia $\mathbf{F}: \Sigma \subset \Omega \rightarrow \mathbb{R}^{3}$ un campo vettoriale di classe $C^{1}$.
-                    Allora 
+                    Allora
                     \[
-                        \int_{\Sigma} \nabla \times \mathbf{F} \cdot d \mathbf{A} = \int_{\partial \Sigma} \mathbf{F} 
+                        \int_{\Sigma} \nabla \times \mathbf{F} \cdot d \mathbf{A} = \int_{\partial \Sigma} \mathbf{F}
                     \]
                 \end{theorem}
-            
-\end{document}

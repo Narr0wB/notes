@@ -1,33 +1,6 @@
-\documentclass{article}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{enumitem}
-\usepackage{titling}
-\usepackage{graphicx}
-\usepackage{tikz-cd}
-\usepackage[hidelinks]{hyperref}
-\usepackage{nameref}
-\usepackage{fancyhdr}
-\usepackage[a4paper, margin=1in]{geometry}
-\usepackage{refcount}
-\usepackage{physics}
+% !TeX root = ../mathematical_methods.tex
 
-% \tikzcdset{scale cd/.style={every label/.append style={scale=#1},
-%     cells={nodes={scale=#1}}}}
-
-\newtheorem{theorem}{Teorema}
-\newtheorem{corollary}{Corollario}[theorem]
-\newtheorem{osservazione}{Osservazione}
-\newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposizione}
-\newtheorem{definition}{Definizione}
-\newtheorem{axiom}{Assioma}
-
-\setlength{\parindent}{0pt}
-
-\begin{document}
-    \section{Introduzione}
+\section{Introduzione}
         E' opportuno introdurre questa nuova sezione con una propria definizione di \textit{segnale}:
 
         \begin{definition}[Definizione di segnale]
@@ -43,7 +16,6 @@
         Da un punto di vista fisico, un segnale è \textit{una variazione di una precisa quantità fisica in funzione di tempo, spazio, o qualsiasi altra variabile indipendente}.
         Noi lavoreremo per la maggior parte con segnali tempo-varianti.
 
-        \vspace{10pt}
         Determinato il significato, matematico e fisico, del segnale, possiamo procedere a definire una serie di elementi utili nell'analisi di quest'ultimi.
 
         \begin{definition}[Definizione di supporto]
@@ -60,7 +32,7 @@
             Sia $f: \Omega \subseteq \mathbb{R} \rightarrow \mathbb{R}$ un segnale.
             Questi si dice localmente sommabile se $\forall \: a < b < \infty \in \Omega$, si ha che
             \[
-                \int_{a}^{b} \abs{f(t)} \: dt < \infty 
+                \int_{a}^{b} \abs{f(t)} \: dt < \infty
             \]
         \end{definition}
 
@@ -68,18 +40,16 @@
             Sia $f: \Omega \subseteq \mathbb{R} \rightarrow \mathbb{R}$ un segnale.
             Questi si dice sommabile, o assolutamente integrabile, se
             \[
-                \int_{\Omega} \abs{f(t)} \: dt < \infty 
+                \int_{\Omega} \abs{f(t)} \: dt < \infty
             \]
         \end{definition}
 
 
-    \newpage
     \section{Teoria delle distribuzioni}
         Denotiamo con il termine distribuzioni tutti quelli oggetti matematici che si \textit{comportano} come funzioni, ovvero oggetti che mappano un input ad un determinato output.
         In altre parole, le distribuzioni rappresentano una \textit{generalizzazione} del concetto di funzione.
         Questi oggetti sono caratterizzati, ovvero sono determinati nella loro interezza, a seconda dell'effetto che hanno, intesi come funzionali lineari, su uno spazio di appositamente scelte funzioni lisce su $\mathbb{R}$, il cui supporto è compatto, chiamate \textit{funzioni di test}.
 
-        \vspace{10pt}
         \begin{definition}[Definizione di spazio di funzioni di test]
             Sia $\mathcal{D} = C^{\infty}_{c}(\mathbb{R})$, dove per ogni $\phi \in \mathcal{D}$, si ha che
             \begin{itemize}
@@ -90,14 +60,12 @@
             Allora $\mathcal{D}$ è uno spazio vettoriale su $\mathbb{R}$.
         \end{definition}
 
-        \vspace{10pt}
         \begin{definition}[Definizione di distribuzione]
             Una distribuzione $T: \mathcal{D} \rightarrow \mathbb{R}$ è, formalmente, un funzionale lineare continuo (nel senso topologico del termine) definito su uno spazio $\mathcal{D}$ di funzioni di test.
-            In altre parole, essa è un elemento dello spazio duale topologico $\mathcal{D}^{'}$.  
+            In altre parole, essa è un elemento dello spazio duale topologico $\mathcal{D}^{'}$.
         \end{definition}
 
 
-        \vspace{10pt}
         \begin{proposition}
             Sia $T \in \mathcal{D}^{'}$ una distribuzione.
             Si definisce $T = 0$ per un insieme $U \subseteq \mathbb{R}$ aperto se $\forall \phi \in \mathcal{D}$ tale per cui $S(\phi) \subseteq U$, si ha che $\langle T, \phi \rangle = 0$.
@@ -119,7 +87,7 @@
             \]
             Si può osservare quanto segue
             \[
-                \rho_{i}(x) = \frac{\psi_{i}(x)}{\kappa(x)} \in C^{\infty}_{c}(U_{i}) 
+                \rho_{i}(x) = \frac{\psi_{i}(x)}{\kappa(x)} \in C^{\infty}_{c}(U_{i})
             \]
             Se $x \in S(\phi)$, si ha che
             \[
@@ -136,9 +104,8 @@
             \]
         \end{proof}
 
-        \vspace{10pt}
         \begin{definition}[Definizione di supporto di una distribuzione]
-            Sia $T \in \mathcal{D}^{'}$ una distribuzione. 
+            Sia $T \in \mathcal{D}^{'}$ una distribuzione.
             Sia allora $V = \bigcup \{U \; : \; U \; \textnormal{aperto tale per cui} \; T = 0\}$.
             Il supporto di $T$ diventa
             \[
@@ -179,7 +146,7 @@
 
         \begin{definition}{Derivata di distribuzione}
             Sia $T \in \mathcal{D}^{*}$ una distribuzione.
-            Definiamo la derivata di distribuzione $T^{(n)}$ come 
+            Definiamo la derivata di distribuzione $T^{(n)}$ come
             \[
                 \langle T^{(n)}, \phi \rangle = (-1)^{n} \langle T, \phi^{(n)} \rangle
             \]
@@ -196,7 +163,6 @@
 
 
 
-    \newpage
     \section{Operazioni sulle distribuzioni}
         \begin{definition}[Definizione di convoluzione tra distribuzione e funzione test]
             Sia $T \in \mathcal{D}^{*}$ una distribuzione e sia $\phi \in \mathcal{D}$ una funzione di test.
@@ -218,8 +184,7 @@
 
         Qualora dovessimo trattare di distribuzioni determinate da segnali regolari, attingiamo alla seguente definizione integrale di convoluzione
 
-        \vspace{10pt}
-        Siano $f, g: \mathbb{R} \rightarrow \mathbb{R}$ due segnali regolari. 
+        Siano $f, g: \mathbb{R} \rightarrow \mathbb{R}$ due segnali regolari.
         Si definisce allora la convoluzione $f * g: \mathbb{R} \rightarrow \mathbb{R}$ fra $f, g$ come
         \[
             (f * g) (t) = \int_{-\infty}^{\infty} f(\tau)g(t - \tau) \: d\tau \iff \int_{-\infty}^{\infty} \abs{f(\tau)} \abs{g(t - \tau)} \: d\tau < \infty, \; \forall t \in \mathbb{R}
@@ -244,14 +209,12 @@
         \end{enumerate}
 
 
-        \vspace{10pt}
         Per quanto riguarda i sistemi lineari tempo-invarianti (LTI), la convoluzione rappresenta lo strumento attraverso il quale esprimiamo l'uscita rispetto ad un segnale in ingresso
         \[
             x(t) \mapsto y(t) = x * h = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) \: dt
         \]
         dove h rappresenta la \textit{risposta all'impulso} del sistema LTI, ovvero la risposta ad una perturbazione assimilabile ad una delta di Dirac.
 
-        \vspace{10pt}
         Dimostriamo questo fatto nella seguente maniera.
         Dinanzi tutto, partiamo dal pressupposto che, dato un segnare regolare ad energia finita $x(t)$, si ha che
         \[
@@ -261,11 +224,11 @@
         Possiamo allora rappresentare la risposta del sistema ad un generico segnale in ingresso come un operatore lineare $\mathcal{H}$.
         Di conseguenza
         \[
-            y(t) = \mathcal{H}(x(t)) = \mathcal{H}\qty(\int_{-\infty}^{\infty} x(\tau) \delta(t - \tau) \: d\tau)
+            y(t) = \mathcal{H}(x(t)) = \mathcal{H}\left(\int_{-\infty}^{\infty} x(\tau) \delta(t - \tau) \: d\tau\right)
         \]
         per la linearità dell'operatore $\mathcal{H}$
         \[
-            \mathcal{H}\qty(\int_{-\infty}^{\infty} x(\tau) \delta(t - \tau) \: d\tau) = \int_{-\infty}^{\infty} \mathcal{H}(x(\tau) \delta(t - \tau)) \: d\tau = \int_{-\infty}^{\infty} x(\tau) \mathcal{H}(\delta(t - \tau)) \: d\tau
+            \mathcal{H}\left(\int_{-\infty}^{\infty} x(\tau) \delta(t - \tau) \: d\tau\right) = \int_{-\infty}^{\infty} \mathcal{H}(x(\tau) \delta(t - \tau)) \: d\tau = \int_{-\infty}^{\infty} x(\tau) \mathcal{H}(\delta(t - \tau)) \: d\tau
         \]
         denotando la risposta all'impulso di Dirac del sistema come $h(t) = \mathcal{H}(\delta(t))$, si arriva alla conclusione che
         \[
@@ -280,9 +243,8 @@
             \]
         \end{definition}
 
-        
-        
-    \newpage
+
+
     \section{Trasformata di Fourier}
         Sia $x(t) \in L^{1}(\mathbb{R})$ un segnale.
         Si definisce la sua trasformata di Fourier nel seguente modo
@@ -302,7 +264,6 @@
             \lim_{T \rightarrow \infty} (T c_{k}) = \lim_{T \rightarrow \infty} \; \int_{-T/2}^{T/2} x(t) e^{-i k \omega_{0} t} \: dt = \int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt = \hat{x}(\omega)
         \]
 
-        \vspace{10pt}
         Alcune delle proprietà principali della trasformata di Fourier sono:
         \begin{enumerate}
             \item Linearità:
@@ -319,7 +280,7 @@
             \]
             \item Riscalamento del segnale in ingresso:
             \[
-                \forall \alpha \neq 0, \; \mathcal{F}\{x(\alpha t)\} = \int_{-\infty}^{\infty} x(\alpha t) e^{-i \omega t} \: dt = \frac{1}{\alpha} \int_{-\infty}^{\infty} x(u) e^{-i \omega \frac{u}{\alpha}} \: dt = \frac{1}{\alpha} \mathcal{F}\{x\}\qty(\frac{\omega}{\alpha})
+                \forall \alpha \neq 0, \; \mathcal{F}\{x(\alpha t)\} = \int_{-\infty}^{\infty} x(\alpha t) e^{-i \omega t} \: dt = \frac{1}{\alpha} \int_{-\infty}^{\infty} x(u) e^{-i \omega \frac{u}{\alpha}} \: dt = \frac{1}{\alpha} \mathcal{F}\{x\}\left(\frac{\omega}{\alpha}\right)
             \]
 
             \item Derivata del segnale in ingresso: Sia $x(t) \in L^{1}(\mathbb{R})$ tale per cui $x'(t) \in L^{1}(\mathbb{R})$
@@ -341,14 +302,13 @@
 
             \item Convoluzione di segnali in ingresso:
             \[
-                \mathcal{F}\{x(t) * y(t)\} = \int_{-\infty}^{\infty} \qty(\int_{-\infty}^{\infty} x(\tau) y(t - \tau) \: d\tau) e^{-i \omega t} \: dt = \int_{-\infty}^{\infty} x(\tau) \qty[\int_{-\infty}^{\infty} y(t - \tau) e^{-i \omega t} \: dt] \: d\tau = 
+                \mathcal{F}\{x(t) * y(t)\} = \int_{-\infty}^{\infty} \left(\int_{-\infty}^{\infty} x(\tau) y(t - \tau) \: d\tau\right) e^{-i \omega t} \: dt = \int_{-\infty}^{\infty} x(\tau) \left[\int_{-\infty}^{\infty} y(t - \tau) e^{-i \omega t} \: dt\right] \: d\tau =
             \]
             \[
-                \int_{-\infty}^{\infty} x(\tau) \qty[\int_{-\infty}^{\infty} y(u) e^{-i \omega (u + \tau)} \: du] \: d\tau = \int_{-\infty}^{\infty} x(\tau) e^{-i \omega \tau} \: d\tau \int_{-\infty}^{\infty} y(u) e^{-i \omega u} \: du = \mathcal{F}\{x(t)\} \mathcal{F}\{y(t)\}
+                \int_{-\infty}^{\infty} x(\tau) \left[\int_{-\infty}^{\infty} y(u) e^{-i \omega (u + \tau)} \: du\right] \: d\tau = \int_{-\infty}^{\infty} x(\tau) e^{-i \omega \tau} \: d\tau \int_{-\infty}^{\infty} y(u) e^{-i \omega u} \: du = \mathcal{F}\{x(t)\} \mathcal{F}\{y(t)\}
             \]
         \end{enumerate}
 
-        \vspace{10pt}
         Un'altra peculiare proprietà della trasformata di Fourier è la seguente, ovvero
         \[
             \mathcal{F}\{x(-t)\}(\omega) = \mathcal{F}\{x(t)\}(-\omega)
@@ -358,9 +318,8 @@
             \mathcal{F}\{x(-t)\} = \int_{-\infty}^{\infty} x(-t) e^{-i \omega t} \: dt = \int_{-\infty}^{\infty} x(u) e^{-i (-\omega) u} \: du = \mathcal{F}\{x(u)\}(-\omega)
         \]
 
-        \vspace{10pt}
         \begin{lemma}[Lemma di Riemann-Lebesgue]
-            Sia $x(t) \in L^{1}(\mathbb{R})$ un segnale assolutamente integrabile tale per cui $x'(t) \in L^{1}(\mathbb{R})$. 
+            Sia $x(t) \in L^{1}(\mathbb{R})$ un segnale assolutamente integrabile tale per cui $x'(t) \in L^{1}(\mathbb{R})$.
             Allora
             \[
                 \lim_{\omega \rightarrow \pm \infty} \hat{x}(\omega) = 0
@@ -368,17 +327,17 @@
         \end{lemma}
 
         \begin{proof}[Dimostrazione]
-            Si consideri l'espressione intera della trasformata 
+            Si consideri l'espressione intera della trasformata
             \[
                 \hat{x}(\omega) = \int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt \implies \abs{\int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt} \leq \int_{-\infty}^{\infty} |x(t)| |e^{-i \omega t}| \: dt \leq \int_{-\infty}^{\infty} |x(t)| \: dt < \infty, \; \forall \omega \in \mathbb{R}
             \]
 
             Applicando l'integrazione per parti e opportunamente scegliendo $dv = e^{-i \omega t} \: dt$, $u = x(t)$, si ottiene
             \[
-                \int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt = x(t) e^{-i \omega t} \left. \frac{1}{-i \omega} \right\rvert_{-\infty}^{\infty} + \frac{1}{i \omega} \int_{-\infty}^{\infty} x'(t) e^{-i \omega t} \: dt 
+                \int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt = x(t) e^{-i \omega t} \left. \frac{1}{-i \omega} \right\rvert_{-\infty}^{\infty} + \frac{1}{i \omega} \int_{-\infty}^{\infty} x'(t) e^{-i \omega t} \: dt
             \]
             \[
-                = \frac{1}{i \omega} \qty[-x(t) e^{-i \omega t} \rvert_{-\infty}^{\infty} + \int_{-\infty}^{\infty} x'(t) e^{-i \omega t} \: dt]
+                = \frac{1}{i \omega} \left[-x(t) e^{-i \omega t} \rvert_{-\infty}^{\infty} + \int_{-\infty}^{\infty} x'(t) e^{-i \omega t} \: dt\right]
             \]
 
             Osservando attentamente il comportamento di $x'(t)$, si ha
@@ -395,7 +354,7 @@
             \[
                 -x(t) e^{-i \omega t} \rvert_{-\infty}^{\infty} + \int_{-\infty}^{\infty} x'(t) e^{-i \omega t} \: dt = 0 + z, \; |z| < M, \; \forall \omega \in \mathbb{R}
             \]
-        
+
             per qualche $M \in \mathbb{R}$. Mettendo il tutto assieme, si ottiene
             \[
                 \lim_{\omega \rightarrow \pm \infty} \hat{x}(\omega) = \lim_{\omega \rightarrow \pm \infty} \frac{1}{i \omega} \cdot z = 0
@@ -440,7 +399,6 @@
 
             Questo ci permette di definire la trasformata di Fourier per le distribuzioni, nello specifico distribuzioni temperate, ovvero i funzionali lineari nello spazio di Schwartz ($\mathcal{S}^{*}$).
 
-            \vspace{10pt}
             Inoltre, è possibile dimostrare la formula di inversione anche per la trasformata di distribuzione
             \[
                 \frac{1}{2 \pi} \langle \hat{\hat{x}}(-t), \phi \rangle = \frac{1}{2 \pi} \langle \hat{x}, \hat{\phi}(-t) \rangle = \langle x, \frac{1}{2 \pi} \hat{\hat{\phi}}(-t) \rangle = \langle x, \phi \rangle
@@ -449,8 +407,6 @@
 
             Alcune trasformate di distribuzioni note sono:
             \begin{enumerate}
-                \item $\displaystyle \mathcal{F}\{u(t)\} = \PV \qty{\frac{1}{i \omega}} + \pi \delta(\omega)$
+                \item $\displaystyle \mathcal{F}\{u(t)\} = \PV \left\{\frac{1}{i \omega}\right\} + \pi \delta(\omega)$
                 \item $\displaystyle \mathcal{F}\{\delta(t)\} = 1$
             \end{enumerate}
-
-\end{document}

@@ -1,33 +1,6 @@
+% !TeX root = ../analysisII.tex
 
-\documentclass{article}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{enumitem}
-\usepackage{titling}
-\usepackage{physics}
-\usepackage{graphicx}
-\usepackage{tikz-cd}
-\usepackage{nameref}
-\usepackage{fancyhdr}
-\usepackage[a4paper, margin=1in]{geometry}
-\usepackage{refcount}
-
-% \tikzcdset{scale cd/.style={every label/.append style={scale=#1},
-%     cells={nodes={scale=#1}}}}
-
-\newtheorem{theorem}{Teorema}
-\newtheorem{corollary}{Corollario}[theorem]
-\newtheorem{osservazione}{Osservazione}
-\newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposizione}
-\newtheorem{definition}{Definizione}
-
-\setlength{\parindent}{0pt}
-\newcommand{\mfrac}[2]{\displaystyle\frac{#1}{#2}}
-
-\begin{document}
-    \section{Serie numeriche}
+\section{Serie numeriche}
         Le serie numeriche sono somme di successioni da $B \subset \mathbb{N}$ a $\mathbb{R}$.
         Un esempio potrebbe essere il seguente: si prenda in considerazione la successione $\{a_{k}\}_{k \in \mathbb{N}}$ data da $a_{i} = \displaystyle \frac{1}{2^{i}}$, la corrispondente serie numerica è allora
         \[
@@ -60,10 +33,9 @@
             \item Se $\displaystyle \nexists \lim_{n \rightarrow \infty} S_{n}$, allora la serie si dice indeterminata.
         \end{enumerate}
         Se il limite di una somma parziale istanziata in un generico $k_{0} \in \mathbb{N}$ è finito/infinito, allora tutti i limiti di tutte le somme parziali istanziate in un qualsiasi $k_{1} \in \mathbb{N}$ avranno limite finito/infinito.
-    
-        \vspace{10pt}
+
         \begin{theorem}[Criterio di Cauchy]
-            Sia $\sum_{k \in A} a_{k}$ con $A \subset \mathbb{N}$ illimitato una serie numerica. Se $\sum_{k \in A} a_{k} = a \in \mathbb{R}$, allora 
+            Sia $\sum_{k \in A} a_{k}$ con $A \subset \mathbb{N}$ illimitato una serie numerica. Se $\sum_{k \in A} a_{k} = a \in \mathbb{R}$, allora
             \[
                 \lim_{n \rightarrow \infty} a_{k} = 0
             \]
@@ -76,44 +48,38 @@
             \]
         \end{proof}
 
-        \vspace{10pt}
         \begin{definition}
             Una serie $\sum_{k \in A} a_{k}$ si dice a termini positivi se la successione sottostante $\{a_{k}\}_{k \in A}$ è a termini positivi.
         \end{definition}
 
-        \vspace{10pt}
         \begin{theorem}
             Una serie $\sum_{k \in A} a_{k}$ a termini positivi converge oppure diverge positivamente.
         \end{theorem}
         \begin{proof}[Dimostrazione]
             Si consideri la $n$-esima somma parziale $S_{n}$ come funzione di $n$. Questa è monotona crescente in quanto, se $n > m$, si ha che $S_{n} = S_{m} + S_{m + 1, n} > S_{m}$ perchè $S_{m + 1, n} > 0$ essendo somma di termini positivi.
-            Allora 
+            Allora
             \[
                 \lim_{n \rightarrow \infty} S_{n} > 0 \implies \lim_{n \rightarrow \infty} S_{n} \in \mathbb{R}^{+} \lor \lim_{n \rightarrow \infty} S_{n} = +\infty
             \]
 
         \end{proof}
 
-        \vspace{10pt}
         \begin{definition}
             Una serie $\sum_{k = k_{0}}^{\infty} a_{k}$ si dice assolutamente convergente se $\sum_{k = k_{0}}^{\infty} |a_{k}|$ converge.
         \end{definition}
 
-        \vspace{10pt}
         \begin{proposition}
             Sia $\sum_{k = k_{0}}^{\infty} a_{k}$ una serie, allora
             \[
                 \left| \sum_{k = k_{0}}^{\infty} a_{k} \right| \leq \sum_{k = k_{0}}^{\infty} |a_{k}|
             \]
         \end{proposition}
-        
-        \vspace{10pt}
+
         \begin{definition}
-            Una serie $\sum_{k = k_{0}}^{\infty} a_{k}$ si dice semplicemente convergente se converge ma non converge assolutamente. 
+            Una serie $\sum_{k = k_{0}}^{\infty} a_{k}$ si dice semplicemente convergente se converge ma non converge assolutamente.
         \end{definition}
 
 
-        \vspace{10pt}
         \subsection{Serie telescopiche}
             Una serie telescopica è una serie numerica tale per cui la successione sottostante è data nella forma $a_{k} = b_{k} - b_{k+1}$, con $\{b_{j}\}_{j \in \mathbb{N}}$ altra successione numerica.
             Così definite, le $n$-esime somme parziali delle serie telescopiche sono
@@ -123,7 +89,6 @@
             \[ \vdots \]
             \[ S_{n} = b_{0} - b_{n+1} \]
 
-            \vspace{10pt}
             Di conseguenza, il valore del limite di una serie telescopica è dato dal valore del limite della successione $\{b_{k}\}_{k \in \mathbb{N}}$:
             \begin{enumerate}[label=(\arabic*)]
                 \item Se $\displaystyle \lim_{n \rightarrow \infty} b_{n} = b \in \mathbb{R}$, allora $\displaystyle \sum_{k = 0}^{\infty} a_{k} = b_{0} - b \in \mathbb{R}$
@@ -131,10 +96,9 @@
                 \item Se $\displaystyle \lim_{n \rightarrow \infty} b_{n} = -\infty$, allora $\displaystyle \sum_{k = 0}^{\infty} a_{k} = -\infty$
                 \item Se $\displaystyle \nexists \lim_{n \rightarrow \infty} b_{n}$, allora $\displaystyle \nexists \sum_{k = 0}^{\infty} a_{k}$
             \end{enumerate}
-    
 
 
-        \vspace{10pt}
+
         \subsection{Serie a termini alterni}
             Una serie a termini alterni è una serie numerica della forma
             \[
@@ -147,13 +111,12 @@
 
 
 
-        \vspace{10pt}
         \subsection{Operazioni tra serie numeriche}
             \subsubsection{Moltiplicazione serie-scalare}
                 Data una generica serie numerica $\sum_{k = k_{0}}^{\infty} a_{k} = s \in \mathbb{R} \cup \{+\infty, -\infty\}$ e uno scalare $\lambda \in \mathbb{R} \setminus \{0\}$, si ha che
                 \[
-                    \lambda \sum_{k = k_{0}}^{\infty} a_{k} = 
-                    \begin{cases} 
+                    \lambda \sum_{k = k_{0}}^{\infty} a_{k} =
+                    \begin{cases}
                         \lambda s \in \mathbb{R} &, \; \text{Se} \; s \in \mathbb{R} \\
                         +\infty                  &, \; \text{Se} \; s = +\infty \; \land \; \lambda > 0 \\
                         +\infty                  &, \; \text{Se} \; s = -\infty \; \land \; \lambda < 0 \\
@@ -161,18 +124,16 @@
                         -\infty                  &, \; \text{Se} \; s = +\infty \; \land \; \lambda < 0 \\
                     \end{cases}
                 \]
-            
-            \vspace{10pt}
+
             \subsubsection{Somma tra serie numeriche}
                 Date due generiche serie numeriche $\sum_{k = k_{0}}^{\infty} a_{k} = a \in \mathbb{R} \cup \{+\infty, -\infty\}$ e $\sum_{k = k_{0}}^{\infty} b_{k} = b \in \mathbb{R} \cup \{+\infty, -\infty\}$, si ha che
                 \[
                     \sum_{k = k_{0}}^{\infty} a_{k} + \sum_{k = k_{0}}^{\infty} b_{k} = \sum_{k = k_{0}}^{\infty} (a_{k} + b_{k}) = a + b \iff a + b \; \text{non è forma indeterminata}
                 \]
-        
 
 
 
-        \vspace{10pt}
+
         \subsection{Criteri di convergenza}
             \subsubsection{Criterio del confronto maggiorante}
                 Date due successioni $\{a_{k}\}_{k = k_{0}}^{\infty}$ e $\{b_{k}\}_{k = k_{0}}^{\infty}$ tali per cui
@@ -185,8 +146,7 @@
                     \item Se $\sum_{k = k_{0}}^{\infty} b_{k}$ converge, allora $\sum_{k = k_{0}}^{\infty} a_{k}$ converge.
                     \item Se $\sum_{k = k_{0}}^{\infty} a_{k}$ diverge positivamente, allora $\sum_{k = k_{0}}^{\infty} b_{k}$ diverge positivamente.
                 \end{itemize}
-            
-            \vspace{10pt}
+
             \subsubsection{Criterio del confronto asintotico}
                 Date due successioni $\{a_{k}\}_{k = k_{0}}^{\infty}$ e $\{b_{k}\}_{k = k_{0}}^{\infty}$ tali per cui
                 \begin{enumerate}[label=(\arabic*)]
@@ -194,20 +154,18 @@
                     \item $a_{k} \sim b_{k}, \quad k \rightarrow \infty$
                 \end{enumerate}
                 si ha che le serie $\sum_{k = k_{0}}^{\infty} a_{k}$ e $\sum_{k = k_{0}}^{\infty} b_{k}$ hanno stesso comportamento, ovvero che se una converge, anche l'altra converge; se una diverge, anche l'altra diverge.
-        
-            \vspace{10pt}
+
             \subsubsection{Criterio della radice}
                 Data una successione $\{a_{k}\}_{k = k_{0}}^{\infty}$ tale per cui
                 \[
                     \lim_{k \rightarrow \infty} \sqrt[k]{a_{k}} = l \in \mathbb{R}^{+} \cup \{+\infty\}
                 \]
-                si ha che  
+                si ha che
                 \begin{itemize}
                     \item Se $l < 1$, allora $\sum_{k = k_{0}}^{\infty} a_{k}$ converge.
                     \item Se $l > 1$, allora $\sum_{k = k_{0}}^{\infty} a_{k}$ diverge positivamente.
                 \end{itemize}
-            
-            \vspace{10pt}
+
             \subsubsection{Criterio del rapporto}
                 Data una successione $\{a_{k}\}_{k = k_{0}}^{\infty}$ a termini positivi tale per cui
                 \[
@@ -219,7 +177,6 @@
                     \item Se $l > 1$, allora $\sum_{k = k_{0}}^{\infty} a_{k}$ diverge positivamente.
                 \end{itemize}
 
-            \vspace{10pt}
             \subsubsection{Criterio del confronto integrale}
                 Sia $f: [k_{0}, +\infty) \rightarrow [0, +\infty)$ una funzione continua e decrescente e sia $\{a_{k}\}_{k = k_{0}}^{\infty}$ una successione tale per cui $a_{k} = f(k)$, si ha che
                 \begin{enumerate}[label=(\arabic*)]
@@ -227,8 +184,7 @@
                     \item $\displaystyle \sum_{k = k_{0} + 1}^{\infty} a_{k} \leq \int_{k_{0}}^{\infty} f(x) dx \leq \sum_{k = k_{0}}^{\infty} a_{k}$
                     \item Se la serie converge ad un valore $s \in \mathbb{R}^{+}$, allora $\displaystyle S_{n} + \int_{k_{0} + 1}^{\infty} f(x) dx \leq s \leq S_{n} + \int_{k_{0}}^{\infty} f(x) dx$
                 \end{enumerate}
-            
-            \vspace{10pt}
+
             \subsubsection{Criterio di Leibnitz}
                 Sia $\{b_{k}\}_{k = 0}^{\infty}$ una successione a termini positivi tale per cui
                 \begin{itemize}
@@ -241,11 +197,10 @@
                     \item $|s - S_{n}| \leq b_{n + 1}$
                     \item $S_{2n + 1} \leq s \leq S_{2n}, \; \forall n \in \mathbb{N}$
                 \end{enumerate}
-                 
 
 
 
-    \newpage
+
     \section{Serie di potenze}
         Dato un $x_{0} \in \mathbb{R}$ e una successione reale $\{a_{k}\}_{0}^{\infty}$ si dice serie di potenze centrata in $x_{0}$ di coefficienti $\{a_{k}\}$ la seguente espressione
         \[
@@ -256,13 +211,11 @@
             A = \{ x \in \mathbb{R} : \sum_{k = 0}^{\infty} a_{k}(x - x_{0})^{k} \; \text{converge} \; \}
         \]
 
-        \vspace{5pt}
         Si può osservare come, con un opportuno cambio di variabile, è possibile rendere tutte le serie centrate in un generico $x_{0} \in \mathbb{R}$ in serie centrate in $0$
         \[
             \sum_{k = 0}^{\infty} a_{k}(x - x_{0})^{k} = \sum_{k = 0}^{\infty} a_{k}t^{k} \quad \text{con} \; t = (x - x_{0})
         \]
-    
-        \vspace{10pt}
+
         \begin{theorem}
             Sia $\sum_{k = 0}^{\infty} a_{k}x^{k}$ una serie di potenze centrata in $0$.
             \begin{enumerate}
@@ -275,24 +228,22 @@
             TODO
         \end{proof}
 
-        \vspace{10pt}
         \begin{definition}
             Data una serie di potenze $\sum_{k = 0}^{\infty} a_{k}(x - x_{0})^{k}$ si dice raggio di convergenza della serie il seguente
             \[
                 R = \sup\{ x \in \mathbb{R} : \sum_{k = 0}^{\infty} a_{k}(x - x_{0})^{k} \; \textnormal{converge} \; \}
             \]
         \end{definition}
-        
+
         A seconda del raggio di convergenza di una serie di potenze, si possono trarre le seguenti conclusioni
         \begin{enumerate}[label=(\arabic*)]
             \item $R = 0$, allora $A = \{x_{0}\}$.
             \item $R \in [0, +\infty)$, allora $A = (-R + x_{0}, R + x_{0})$. Gli estremi $\{-R + x_{0}\}$ ed $\{R + x_{0}\}$ possono essere inclusi solo dopo un'analisi approfondita circa la serie.
             \item $R = +\infty$, allora $A = \mathbb{R}$
         \end{enumerate}
-   
-        
 
-        \vspace{10pt}
+
+
         \subsection{Criteri di calcolo del raggio di convergenza}
             \subsubsection{Criterio della radice}
                 Sia $\sum_{k = 0}^{\infty} a_{k}(x - x_{0})^{k}$ una serie di potenze.
@@ -310,7 +261,6 @@
                 \]
                 dove $R$ è il raggio di convergenza della serie.
 
-            \vspace{10pt}
             \subsubsection{Criterio della radice}
                 Sia $\sum_{k = 0}^{\infty} a_{k}(x - x_{0})^{k}$ una serie di potenze tale per cui $a_{k} \neq 0, \; \forall k$.
                 Se
@@ -329,7 +279,6 @@
 
 
 
-        \vspace{10pt}
         \subsection{Derivate e integrali di serie di potenze}
             \begin{definition}
                 Sia $\sum_{k = 0}^{\infty} a_{k}(x - x_{0})^{k}$ una serie di potenze con raggio $R > 0$.
@@ -339,7 +288,6 @@
                 \]
             \end{definition}
 
-            \vspace{10pt}
             \begin{definition}
                 Sia $\sum_{k = 0}^{\infty} a_{k}(x - x_{0})^{k}$ una serie di potenze con raggio $R > 0$.
                 Si dice serie integrale la serie
@@ -347,14 +295,13 @@
                     \int_{x_{0}}^{x} \left( \sum_{k = 0}^{\infty} a_{k}(t - x_{0})^{k} \right) dt = \sum_{k = 0}^{\infty} a_{k}\frac{(x - x_{0})^{k + 1}}{k + 1}
                 \]
             \end{definition}
-        
-            \vspace{10pt}
+
             \begin{theorem}
                 Sia $\sum_{k = 0}^{\infty} a_{k}(x - x_{0})^{k} = S(x)$ una serie di potenze con raggio $R > 0$.
                 Allora
                 \begin{enumerate}[label=(\arabic*)]
                     \item La serie $S(x)$ è di classe $C^{\infty}(x_{0} - R, x_{0} + R)$.
-                    \item L'espressione della serie derivata di ordine $n \in \mathbb{N}$ è 
+                    \item L'espressione della serie derivata di ordine $n \in \mathbb{N}$ è
                     \[
                         S^{(n)}(x) = \sum_{k = 0}^{\infty} \frac{d^{n}}{dx^{n}} \left[ a_{k}(x - x_{0})^{k} \right] = \sum_{k = n}^{\infty} a_{k} \frac{k!}{(k-n)!}(x - x_{0})^{k - n} , \; \forall x \in (x_{0} - R, x_{0} + R)
                     \]
@@ -369,25 +316,22 @@
 
 
 
-        \vspace{10pt}
         \subsection{Funzioni analitiche}
         Una funzione $f \in C^{\infty}(x_{0} - \epsilon, x_{0} + \epsilon)$ con $\epsilon > 0$ si dice analitica in $x_{0}$ se
         \begin{enumerate}[label=(\arabic*)]
             \item $\displaystyle \sum_{k = 0}^{\infty} \frac{f^{(k)}(x_{0})}{k!}(x - x_{0})^{k}$ ha raggio di convergenza $R$ non nullo
-            \item $\displaystyle \sum_{k = 0}^{\infty} \frac{f^{(k)}(x_{0})}{k!}(x - x_{0})^{k} = f(x)$ per ogni $x \in (x_{0} - \delta, x_{0} + \delta), \; R > \delta > 0$ 
+            \item $\displaystyle \sum_{k = 0}^{\infty} \frac{f^{(k)}(x_{0})}{k!}(x - x_{0})^{k} = f(x)$ per ogni $x \in (x_{0} - \delta, x_{0} + \delta), \; R > \delta > 0$
         \end{enumerate}
 
         L'espressione $\displaystyle \sum_{k = 0}^{\infty} \frac{f^{(k)}(x_{0})}{k!}(x - x_{0})^{k}$ è chiamata serie di Taylor (qualora $x_{0} = 0$ essa è anche detta serie di MacLaurin) di $f$ centrata in $x_{0}$
 
-        \vspace{10pt}
         \begin{theorem}[Condizioni sufficienti per l'analiticità]
             Sia $f \in C^{\infty}(x_{0} - \epsilon, x_{0} + \epsilon)$ con $\epsilon > 0, \; x_{0} \in \mathbb{R}$.
             Se $\exists M > 0$ tale per cui $f^{(k)}(x) \leq M$ per ogni $x \in (x_{0} - \epsilon, x_{0} + \epsilon), \; k \in \mathbb{N}$, allora $f$ è analitica in $x_{0}$ e il raggio di convergenza della serie di Taylor di $f$ centrata in $x_{0}$ è $\geq \epsilon$.
         \end{theorem}
 
-            
 
-    \newpage
+
     \section{Serie di Fourier}
     Sia $\mathcal{P} \subset L^{2}([0, T])$ lo spazio vettoriale di tutte le funzioni periodiche di periodo $T$ e continue a tratti su $[0, T]$.
     E' possibile dimostrare che
@@ -410,7 +354,7 @@
         b_{n} = \frac{\langle f, \sin(n \omega_{0} t) \rangle}{||\sin(n \omega_{0} t)||^{2}} = \frac{2}{T} \langle f, \sin(n \omega_{0} t) \rangle = \frac{2}{T} \int_{0}^{T} f(t)\sin(n \omega_{0} t) dt
     \]
     con $\langle f, g \rangle = \int_{0}^{T}fg$ prodotto scalare in $\mathcal{P}$.
-    L'espressione 
+    L'espressione
     \[
         f(t) = a_{0} + \sum_{n = 1}^{\infty} \left[ a_{n}\cos(n \omega_{0} t) + b_{n}\sin(n \omega_{0} t) \right]
     \]
@@ -425,9 +369,9 @@
     \end{proposition}
 
     \begin{proof}[Dimostrazione]
-        Si consideri il caso in cui $f$ sia pari. 
+        Si consideri il caso in cui $f$ sia pari.
         Si ha che $f \sin(n\omega_{0}t)$ è una funzione dispari.
-        In aggiunta, vale la seguente relazione per periodicità di $f$ e $\sin(n\omega_{0}t)$ 
+        In aggiunta, vale la seguente relazione per periodicità di $f$ e $\sin(n\omega_{0}t)$
         \[
             \frac{2}{T} \int_{0}^{T} f(t)\sin(n \omega_{0} t) dt = \frac{2}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t)\sin(n \omega_{0} t) dt
         \]
@@ -437,7 +381,7 @@
             b_{n} = \frac{2}{T} \int_{0}^{T} f(t)\sin(n \omega_{0} t) dt = \frac{2}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t)\sin(n \omega_{0} t) dt = 0
         \]
 
-        Nel caso in cui $f$ fosse dispari, allora $f \cos(n \omega_{0} t)$ sarebbe dispari, quindi 
+        Nel caso in cui $f$ fosse dispari, allora $f \cos(n \omega_{0} t)$ sarebbe dispari, quindi
         \[
             a_{n} = \frac{2}{T} \int_{0}^{T} f(t)\cos(n \omega_{0} t) dt = \frac{2}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t)\cos(n \omega_{0} t) dt = 0
         \]
@@ -454,26 +398,25 @@
     \begin{theorem}[Teorema della convergenza dell'energia]
         Sia $f \in \mathcal{P}$. Allora
         \[
-            ||f||^{2}_{2} = \int_{0}^{T} f(t)^{2} dt = a_{0}^{2} \: T + \frac{T}{2} \: \sum_{n = 1}^{\infty} \qty[a_{n}^{2} + b_{n}^{n}]
+            ||f||^{2}_{2} = \int_{0}^{T} f(t)^{2} dt = a_{0}^{2} \: T + \frac{T}{2} \: \sum_{n = 1}^{\infty} \left[a_{n}^{2} + b_{n}^{n}\right]
         \]
     \end{theorem}
 
     \subsection{Serie di fourier di funzioni complesse}
     Sia $\mathcal{C} \subset L^{2}([0, T], \mathbb{C})$ lo spazio vettoriale di tutte le funzioni complesse a variabile reale con periodo $T$.
-    E' possibile dimostrare che 
+    E' possibile dimostrare che
     \[
-        \mathcal{B} = \qty{ e^{ik\omega_{0}t} \; | \; k \in \mathbb{Z} }
+        \mathcal{B} = \left\{ e^{ik\omega_{0}t} \; | \; k \in \mathbb{Z} \right\}
     \]
     è una base di $\mathcal{C}$.
     Di conseguenza, data una funzione $f \in \mathcal{C}$, si ha
     \[
         f(t) = \sum_{k \in \mathbb{Z}} c_{k} e^{ik\omega_{0}t}
     \]
-    dove 
+    dove
     \[
         c_{k} = \frac{\langle f, e^{ik\omega_{0}t} \rangle}{||e^{ik\omega_{0}t}||^{2}} = \frac{1}{T} \langle f, e^{ik\omega_{0}t} \rangle  = \frac{1}{T} \int_{0}^{T} f(t) \overline{e^{ik\omega_{0}t}} dt
     \]
     \[
         ||f||^{2}_{2} = \int_{0}^{T} f(t) \overline{f(t)} dt = T \sum_{k \in \mathbb{Z}} |c_{k}|^{2}
     \]
-\end{document}
