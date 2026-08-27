@@ -103,18 +103,69 @@
                 \]
 
             \subsubsection{Formula del valore iniziale}
-                $\forall f \in L(0, +\infty)$
+                Sia $f \in L(0,+\infty)$ e sia
                 \[
-                    \lim_{t \rightarrow 0^{+}} f(t) = \lim_{s \rightarrow +\infty} s \mathcal{L}[f](s)
+                    \ell_0=\lim_{t\rightarrow0^+}f(t)\in\mathbb{R}.
                 \]
-                Dimostrazione: TODO
+                Allora
+                \[
+                    \lim_{s\rightarrow+\infty}s\mathcal{L}[f](s)=\ell_0.
+                \]
+                \begin{proof}[Dimostrazione]
+                    Per la crescita esponenziale di $f$ esistono $M>0$ e
+                    $\gamma\in\mathbb{R}$ tali che
+                    $\lvert f(t)\rvert\leq Me^{\gamma t}$ per ogni $t\geq0$.
+                    Per $s>0$ si ha
+                    \[
+                        s\mathcal{L}[f](s)-\ell_0
+                        =s\int_0^{+\infty}(f(t)-\ell_0)e^{-st}\,dt.
+                    \]
+                    Fissato $\varepsilon>0$, esiste $\delta>0$ tale che
+                    $\lvert f(t)-\ell_0\rvert<\varepsilon$ per
+                    $0<t<\delta$. Se $s>\max\{\gamma,0\}$, spezzando
+                    l'integrale in $\delta$ si ottiene
+                    \begin{align*}
+                        \lvert s\mathcal{L}[f](s)-\ell_0\rvert
+                        &\leq \varepsilon s\int_0^\delta e^{-st}\,dt
+                        +Ms\int_\delta^{+\infty}e^{-(s-\gamma)t}\,dt \\
+                        &\quad+\lvert\ell_0\rvert s
+                        \int_\delta^{+\infty}e^{-st}\,dt \\
+                        &\leq \varepsilon
+                        +M\frac{s}{s-\gamma}e^{-(s-\gamma)\delta}
+                        +\lvert\ell_0\rvert e^{-s\delta}.
+                    \end{align*}
+                    Gli ultimi due termini tendono a zero per
+                    $s\rightarrow+\infty$. Poiché $\varepsilon$ è
+                    arbitrario, segue la tesi.
+                \end{proof}
 
             \subsubsection{Formula del valore finale}
-                $\forall f \in L(0, +\infty), \; \displaystyle \lim_{t \rightarrow +\infty} f(t) < \infty$
+                Sia $f \in L(0,+\infty)$ e sia
                 \[
-                    \lim_{t \rightarrow +\infty} f(t) = \lim_{s \rightarrow 0^{+}} s \mathcal{L}[f](s)
+                    \ell_\infty=\lim_{t\rightarrow+\infty}f(t)\in\mathbb{R}.
                 \]
-                Dimostrazione: TODO
+                Allora
+                \[
+                    \lim_{s\rightarrow0^+}s\mathcal{L}[f](s)=\ell_\infty.
+                \]
+                \begin{proof}[Dimostrazione]
+                    Fissato $\varepsilon>0$, esiste $T>0$ tale che
+                    $\lvert f(t)-\ell_\infty\rvert<\varepsilon$ per ogni
+                    $t\geq T$. Per $s>0$ si ha
+                    \begin{align*}
+                        \lvert s\mathcal{L}[f](s)-\ell_\infty\rvert
+                        &\leq s\int_0^T
+                        \lvert f(t)-\ell_\infty\rvert e^{-st}\,dt \\
+                        &\quad+s\int_T^{+\infty}
+                        \lvert f(t)-\ell_\infty\rvert e^{-st}\,dt \\
+                        &\leq s\int_0^T
+                        \lvert f(t)-\ell_\infty\rvert\,dt
+                        +\varepsilon e^{-sT}.
+                    \end{align*}
+                    Il primo termine tende a zero per $s\rightarrow0^+$,
+                    mentre il secondo è minore o uguale a $\varepsilon$.
+                    Poiché $\varepsilon$ è arbitrario, segue la tesi.
+                \end{proof}
 
             \subsubsection{Derivata prima della trasformata}
                 $\forall f \in L(0, +\infty), \forall s > \alpha_f$
@@ -127,13 +178,27 @@
                 \]
 
             \subsubsection{Integrale della trasformata}
-                $\forall f \in L(0, +\infty), \; \frac{f}{t} \in L(0, +\infty)$
+                Siano $f\in L(0,+\infty)$ e
+                $f(t)/t\in L(0,+\infty)$. Per ogni
+                $s>\max\{\gamma_f,\gamma_{f/t}\}$ vale
                 \[
-                    \mathcal{L}\left[ \frac{f}{t} \right](s) = \int_{s}^{+\infty} \mathcal{L}[f](u) du
+                    \mathcal{L}\left[\frac{f(t)}{t}\right](s)
+                    =\int_s^{+\infty}\mathcal{L}[f](u)\,du.
                 \]
-                Dimostrazone: TODO
-                \[
-                \]
+                \begin{proof}[Dimostrazione]
+                    Per le ipotesi gli integrali coinvolti sono
+                    assolutamente convergenti. Il teorema di Fubini
+                    consente quindi di scambiare l'ordine di integrazione:
+                    \begin{align*}
+                        \int_s^{+\infty}\mathcal{L}[f](u)\,du
+                        &=\int_s^{+\infty}\int_0^{+\infty}
+                        f(t)e^{-ut}\,dt\,du \\
+                        &=\int_0^{+\infty}f(t)
+                        \left(\int_s^{+\infty}e^{-ut}\,du\right)dt \\
+                        &=\int_0^{+\infty}\frac{f(t)}{t}e^{-st}\,dt
+                        =\mathcal{L}\left[\frac{f(t)}{t}\right](s).
+                    \end{align*}
+                \end{proof}
 
             \subsubsection{Comportamento secondo derivata di input}
                 $\forall f \in L(0, +\infty), \; f' \in L(0, +\infty)$

@@ -289,11 +289,68 @@
             \end{proof}
 
             \begin{theorem} [Teorema sulle condizioni sufficienti per la differenziabilità]
-                Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un campo scalare e sia $\mathbf{x}_0 \in D$ un punto interno a $D$. Se tutte le derivate parziali $\partial_{x_i} f$ esistono e sono continue in $\mathbf{x}_0$ allora $f$ è differenziabile in $\mathbf{x}_0$.
+                Sia $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ un
+                campo scalare e sia $\mathbf{x}_0 \in D$ un punto interno a
+                $D$. Se tutte le derivate parziali $\partial_{x_i}f$ esistono
+                in un intorno di $\mathbf{x}_0$ e sono continue in
+                $\mathbf{x}_0$, allora $f$ è differenziabile in
+                $\mathbf{x}_0$.
             \end{theorem}
 
             \begin{proof} [Dimostrazione]
-                TODO
+                Sia $\mathbf{h}=(h_1,\ldots,h_n)$ sufficientemente piccolo e
+                poniamo
+                \[
+                    \mathbf{x}^{(0)}=\mathbf{x}_0, \qquad
+                    \mathbf{x}^{(i)}
+                    =\mathbf{x}_0+(h_1,\ldots,h_i,0,\ldots,0),
+                    \quad i=1,\ldots,n.
+                \]
+                Scrivendo l'incremento come somma telescopica si ottiene
+                \[
+                    f(\mathbf{x}_0+\mathbf{h})-f(\mathbf{x}_0)
+                    =\sum_{i=1}^n
+                    \bigl(f(\mathbf{x}^{(i)})
+                    -f(\mathbf{x}^{(i-1)})\bigr).
+                \]
+                Applicando il teorema del valor medio alla funzione della
+                sola coordinata $i$-esima, per ogni $i$ esiste
+                $\theta_i\in(0,1)$ tale che
+                \[
+                    f(\mathbf{x}^{(i)})-f(\mathbf{x}^{(i-1)})
+                    =\partial_{x_i}f(\mathbf{z}_i(\mathbf{h}))h_i,
+                    \qquad
+                    \mathbf{z}_i(\mathbf{h})
+                    =\mathbf{x}^{(i-1)}+\theta_i h_i\mathbf{e}_i.
+                \]
+                Pertanto il resto rispetto all'applicazione lineare
+                $\mathbf{h}\mapsto\nabla f(\mathbf{x}_0)\cdot\mathbf{h}$ è
+                \[
+                    R(\mathbf{h})
+                    =\sum_{i=1}^n
+                    \bigl(\partial_{x_i}f(\mathbf{z}_i(\mathbf{h}))
+                    -\partial_{x_i}f(\mathbf{x}_0)\bigr)h_i.
+                \]
+                Poiché $\mathbf{z}_i(\mathbf{h})\rightarrow\mathbf{x}_0$ e
+                le derivate parziali sono continue in $\mathbf{x}_0$,
+                \[
+                    \omega(\mathbf{h})
+                    =\max_{1\leq i\leq n}
+                    \lvert\partial_{x_i}f(\mathbf{z}_i(\mathbf{h}))
+                    -\partial_{x_i}f(\mathbf{x}_0)\rvert
+                    \longrightarrow0.
+                \]
+                Dalla disuguaglianza di Cauchy--Schwarz segue infine
+                \[
+                    \frac{\lvert R(\mathbf{h})\rvert}
+                    {\lVert\mathbf{h}\rVert}
+                    \leq\omega(\mathbf{h})
+                    \frac{\sum_{i=1}^n\lvert h_i\rvert}
+                    {\lVert\mathbf{h}\rVert}
+                    \leq\sqrt{n}\,\omega(\mathbf{h})\longrightarrow0,
+                \]
+                che è precisamente la differenziabilità di $f$ in
+                $\mathbf{x}_0$.
             \end{proof}
 
             Il concetto di differenziabilità di una funzione può anche essere interpretato geometricamente: se $f$ è differenziabile in un punto $\mathbf{x}_0$, allora

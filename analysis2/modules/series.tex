@@ -225,7 +225,25 @@
         \end{theorem}
 
         \begin{proof}[Dimostrazione]
-            TODO
+            Se la serie converge in $x_1\neq0$, la successione dei suoi
+            termini $a_kx_1^k$ tende a zero ed è quindi limitata: esiste
+            $M>0$ tale che $\lvert a_kx_1^k\rvert\leq M$ per ogni $k$.
+            Per $\lvert x\rvert<\lvert x_1\rvert$, posto
+            $q=\lvert x\rvert/\lvert x_1\rvert<1$, si ha
+            \[
+                \lvert a_kx^k\rvert
+                =\lvert a_kx_1^k\rvert q^k
+                \leq Mq^k.
+            \]
+            La convergenza assoluta segue per confronto con la serie
+            geometrica $\sum_{k=0}^{+\infty}Mq^k$.
+
+            Per la seconda affermazione, supponiamo per assurdo che la
+            serie converga in un punto $x$ con
+            $\lvert x\rvert>\lvert x_2\rvert$. Per quanto appena dimostrato
+            essa convergerebbe allora assolutamente in $x_2$, in
+            contraddizione con l'ipotesi. Deve quindi divergere per ogni
+            $x$ tale che $\lvert x\rvert>\lvert x_2\rvert$.
         \end{proof}
 
         \begin{definition}
