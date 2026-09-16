@@ -1,169 +1,170 @@
 % !TeX root = ../mathematical_methods.tex
 
-\section{Introduzione}
-        E' opportuno introdurre questa nuova sezione con una propria definizione di \textit{segnale}:
-
-        \begin{definition}[Definizione di segnale]
-            Un segnale è una qualsiasi funzione di variabili indipendenti, ovvero
-            \[
-                f: \Omega \subseteq \mathbb{R}^{n} \rightarrow \mathbb{R}
-            \]
-            \[
-                \mathbf{t} \in \Omega \mapsto f(\mathbf{t})
-            \]
-        \end{definition}
-
-        Da un punto di vista fisico, un segnale è \textit{una variazione di una precisa quantità fisica in funzione di tempo, spazio, o qualsiasi altra variabile indipendente}.
-        Noi lavoreremo per la maggior parte con segnali tempo-varianti.
-
-        Determinato il significato, matematico e fisico, del segnale, possiamo procedere a definire una serie di elementi utili nell'analisi di quest'ultimi.
-
-        \begin{definition}[Definizione di supporto]
-            Sia $f: \Omega \subseteq \mathbb{R} \rightarrow \mathbb{R}$ un segnale.
-            Si dice supporto di $f$ il seguente insieme
-            \[
-                S(f) = \overline{\{t \in \Omega \; : \; f(t) \neq 0\}}
-            \]
-        \end{definition}
-
-        In altre parole, il supporto del segnale è la chiusura (nel senso topologico) dell'insieme degli elementi in cui il segnale non è nullo.
-
-        \begin{definition}[Definizione di segnale localmente sommabile]
-            Sia $f: \Omega \subseteq \mathbb{R} \rightarrow \mathbb{R}$ un segnale.
-            Questi si dice localmente sommabile se $\forall \: a < b < \infty \in \Omega$, si ha che
-            \[
-                \int_{a}^{b} \abs{f(t)} \: dt < \infty
-            \]
-        \end{definition}
-
-        \begin{definition}[Definizione di segnale sommabile]
-            Sia $f: \Omega \subseteq \mathbb{R} \rightarrow \mathbb{R}$ un segnale.
-            Questi si dice sommabile, o assolutamente integrabile, se
-            \[
-                \int_{\Omega} \abs{f(t)} \: dt < \infty
-            \]
-        \end{definition}
 
 
     \section{Teoria delle distribuzioni}
-        Denotiamo con il termine distribuzioni tutti quelli oggetti matematici che si \textit{comportano} come funzioni, ovvero oggetti che mappano un input ad un determinato output.
-        In altre parole, le distribuzioni rappresentano una \textit{generalizzazione} del concetto di funzione.
-        Questi oggetti sono caratterizzati, ovvero sono determinati nella loro interezza, a seconda dell'effetto che hanno, intesi come funzionali lineari, su uno spazio di appositamente scelte funzioni lisce su $\mathbb{R}$, il cui supporto è compatto, chiamate \textit{funzioni di test}.
+        \subsection{Introduzione}
+            E' opportuno introdurre questa nuova sezione con una propria definizione di \textit{segnale}:
 
-        \begin{definition}[Definizione di spazio di funzioni di test]
-            Sia $\mathcal{D} = C^{\infty}_{c}(\mathbb{R})$, dove per ogni $\phi \in \mathcal{D}$, si ha che
+            \begin{definition}[Definizione di segnale]
+                Un segnale è una qualsiasi funzione di variabili indipendenti, ovvero
+                \[
+                    f: \Omega \subseteq \mathbb{R}^{n} \rightarrow \mathbb{R}
+                \]
+                \[
+                    \mathbf{t} \in \Omega \mapsto f(\mathbf{t})
+                \]
+            \end{definition}
+
+            Da un punto di vista fisico, un segnale è \textit{una variazione di una precisa quantità fisica in funzione di tempo, spazio, o qualsiasi altra variabile indipendente}.
+            Noi lavoreremo per la maggior parte con segnali tempo-varianti.
+
+            Determinato il significato, matematico e fisico, del segnale, possiamo procedere a definire una serie di elementi utili nell'analisi di quest'ultimi.
+
+            \begin{definition}[Definizione di supporto]
+                Sia $f: \Omega \subseteq \mathbb{R} \rightarrow \mathbb{R}$ un segnale.
+                Si dice supporto di $f$ il seguente insieme
+                \[
+                    S(f) = \overline{\{t \in \Omega \; : \; f(t) \neq 0\}}
+                \]
+            \end{definition}
+
+            In altre parole, il supporto del segnale è la chiusura (nel senso topologico) dell'insieme degli elementi in cui il segnale non è nullo.
+
+            \begin{definition}[Definizione di segnale localmente sommabile]
+                Sia $f: \Omega \subseteq \mathbb{R} \rightarrow \mathbb{R}$ un segnale.
+                Questi si dice localmente sommabile se $\forall \: a < b < \infty \in \Omega$, si ha che
+                \[
+                    \int_{a}^{b} \abs{f(t)} \: dt < \infty
+                \]
+            \end{definition}
+
+            \begin{definition}[Definizione di segnale sommabile]
+                Sia $f: \Omega \subseteq \mathbb{R} \rightarrow \mathbb{R}$ un segnale.
+                Questi si dice sommabile, o assolutamente integrabile, se
+                \[
+                    \int_{\Omega} \abs{f(t)} \: dt < \infty
+                \]
+            \end{definition}
+
+            Denotiamo con il termine distribuzioni tutti quelli oggetti matematici che si \textit{comportano} come funzioni, ovvero oggetti che mappano un input ad un determinato output.
+            In altre parole, le distribuzioni rappresentano una \textit{generalizzazione} del concetto di funzione.
+            Questi oggetti sono caratterizzati, ovvero sono determinati nella loro interezza, a seconda dell'effetto che hanno, intesi come funzionali lineari, su uno spazio di appositamente scelte funzioni lisce su $\mathbb{R}$, il cui supporto è compatto, chiamate \textit{funzioni di test}.
+
+            \begin{definition}[Definizione di spazio di funzioni di test]
+                Sia $\mathcal{D} = C^{\infty}_{c}(\mathbb{R})$, dove per ogni $\phi \in \mathcal{D}$, si ha che
+                \begin{itemize}
+                    \item $\phi$ è infinitamente differenziabile.
+                    \item $S(\phi)$ è compatto (per il teorema di Heine-Borel, in $\mathbb{R}^{n}$, questo equivale a dire che $S(\phi)$ è chiuso e limitato).
+                \end{itemize}
+
+                Allora $\mathcal{D}$ è uno spazio vettoriale su $\mathbb{R}$.
+            \end{definition}
+
+            \begin{definition}[Definizione di distribuzione]
+                Una distribuzione $T: \mathcal{D} \rightarrow \mathbb{R}$ è, formalmente, un funzionale lineare continuo (nel senso topologico del termine) definito su uno spazio $\mathcal{D}$ di funzioni di test.
+                In altre parole, essa è un elemento dello spazio duale topologico $\mathcal{D}^{'}$.
+            \end{definition}
+
+
+            \begin{proposition}
+                Sia $T \in \mathcal{D}^{'}$ una distribuzione.
+                Si definisce $T = 0$ per un insieme $U \subseteq \mathbb{R}$ aperto se $\forall \phi \in \mathcal{D}$ tale per cui $S(\phi) \subseteq U$, si ha che $\langle T, \phi \rangle = 0$.
+                Allora, data una arbitraria unione di insiemi $V = \bigcup \{U_{\alpha}\}_{\alpha \in A}$ tali per cui $T = 0$ per ogni $U_{\alpha}$, si ha che $T = 0$ per $V$.
+            \end{proposition}
+
+            \begin{proof}[Dimostrazione]
+                Si consideri una funzione di test $\phi \in \mathcal{D}$ tale per cui $S(\phi) \subseteq V$.
+                Dato che $S(\phi)$ è un insieme compatto, per Heine-Borel, si ha che, per ogni copertura aperta di $S(\phi)$, questa ammette sottocopertura finita.
+                Di conseguenza, è possibile determinare $k$ elementi di $\{U_{\alpha}\}_{\alpha \in A}$, tali per cui
+                \[
+                    S(\phi) \subseteq \bigcup_{i = 1}^{k} U_{i}
+                \]
+                Per ognuno di questi insiemi $U_{i}$ è possibile determinare una funzione di test $\psi_{i}$ tale per cui $S(\psi_{i}) \subseteq U_{i}$ e che $\forall x \in S(\phi), \; \exists \psi_{i} \; | \; \psi_{i}(x) > 0$.
+                Si consideri allora una funzione $\psi_{0} \in C^{\infty}(\mathbb{R})$ tale per cui $\psi_{0}(x) = 0$ per tutti gli $x \in S(\phi)$ e $\psi_{0}(x) > 0$ per tutti gli $x \notin S(\phi)$.
+                Allora
+                \[
+                    \kappa(x) = \sum_{i = 0}^{k} \psi_{i}(x) \neq 0, \; \forall x \in \mathbb{R} \implies \frac{1}{\kappa} \in C^{\infty}(\mathbb{R})
+                \]
+                Si può osservare quanto segue
+                \[
+                    \rho_{i}(x) = \frac{\psi_{i}(x)}{\kappa(x)} \in C^{\infty}_{c}(U_{i})
+                \]
+                Se $x \in S(\phi)$, si ha che
+                \[
+                    \sum_{i = 1}^{k} \rho_{i} (x) = \sum_{i = 1}^{k} \frac{\psi_{i}(x)}{\kappa(x)} = \sum_{i = 1}^{k} \frac{\psi_{i}(x)}{\sum_{i = 1}^{k} \psi_{i}(x) + 0} = \frac{\sum_{i = 1}^{k} \psi_{i}(x)}{\sum_{i = 1}^{k} \psi_{i}(x)} = 1
+                \]
+                $\sum_{i = 1}^{k} \rho_{i}(x)$ è una combinazione lineare di funzioni test aventi supporto, rispettivamente, negli insiemi $U_{i}$.
+                Allora
+                \[
+                    \phi = \phi \cdot 1 = \phi \cdot \sum_{i = 1}^{k} \rho_{i} = \sum_{i = 1}^{k} \phi \cdot \rho_{i} \implies \langle T, \phi \rangle = \langle T, \sum_{i = 1}^{k} \phi \cdot \rho_{i} \rangle = \sum_{i = 1}^{k} \langle T, \phi \cdot \rho_{i} \rangle
+                \]
+                Dato che $\phi \cdot \rho_{i} \in \mathcal{D}$ e $S(\phi \cdot \rho_{i}) \subseteq U_{i}$
+                \[
+                    \sum_{i = 1}^{k} \langle T, \phi \cdot \rho_{i} \rangle = \sum_{i = 1}^{k} 0 = 0
+                \]
+            \end{proof}
+
+            \begin{definition}[Definizione di supporto di una distribuzione]
+                Sia $T \in \mathcal{D}^{'}$ una distribuzione.
+                Sia allora $V = \bigcup \{U \; : \; U \; \textnormal{aperto tale per cui} \; T = 0\}$.
+                Il supporto di $T$ diventa
+                \[
+                    S(T) = \mathbb{R} \setminus V
+                \]
+            \end{definition}
+
+            Le distribuzioni così definite ci conferiscono una serie di proprietà particolarmente comode:
+
             \begin{itemize}
-                \item $\phi$ è infinitamente differenziabile.
-                \item $S(\phi)$ è compatto (per il teorema di Heine-Borel, in $\mathbb{R}^{n}$, questo equivale a dire che $S(\phi)$ è chiuso e limitato).
+                \item Linearità secondo distribuzione: $\langle \alpha T + \beta S, \phi\rangle = \alpha \langle T, \phi \rangle + \beta \langle S, \phi \rangle$
+                \item Linearità secondo funzione di test: $\langle T, \alpha \phi + \beta \psi \rangle = \alpha \langle T, \phi \rangle + \beta \langle T, \psi \rangle$
             \end{itemize}
 
-            Allora $\mathcal{D}$ è uno spazio vettoriale su $\mathbb{R}$.
-        \end{definition}
-
-        \begin{definition}[Definizione di distribuzione]
-            Una distribuzione $T: \mathcal{D} \rightarrow \mathbb{R}$ è, formalmente, un funzionale lineare continuo (nel senso topologico del termine) definito su uno spazio $\mathcal{D}$ di funzioni di test.
-            In altre parole, essa è un elemento dello spazio duale topologico $\mathcal{D}^{'}$.
-        \end{definition}
-
-
-        \begin{proposition}
-            Sia $T \in \mathcal{D}^{'}$ una distribuzione.
-            Si definisce $T = 0$ per un insieme $U \subseteq \mathbb{R}$ aperto se $\forall \phi \in \mathcal{D}$ tale per cui $S(\phi) \subseteq U$, si ha che $\langle T, \phi \rangle = 0$.
-            Allora, data una arbitraria unione di insiemi $V = \bigcup \{U_{\alpha}\}_{\alpha \in A}$ tali per cui $T = 0$ per ogni $U_{\alpha}$, si ha che $T = 0$ per $V$.
-        \end{proposition}
-
-        \begin{proof}[Dimostrazione]
-            Si consideri una funzione di test $\phi \in \mathcal{D}$ tale per cui $S(\phi) \subseteq V$.
-            Dato che $S(\phi)$ è un insieme compatto, per Heine-Borel, si ha che, per ogni copertura aperta di $S(\phi)$, questa ammette sottocopertura finita.
-            Di conseguenza, è possibile determinare $k$ elementi di $\{U_{\alpha}\}_{\alpha \in A}$, tali per cui
+            E' importante sottolineare che funzioni localmente integrabili su $\mathbb{R}$ sono a loro volta distribuzioni mediante l'operazione di integrazione.
+            In altre parole, data una funzione localmente $f$ integrabile su $\mathbb{R}$, è possibile definire la seguente distribuzione $F$
             \[
-                S(\phi) \subseteq \bigcup_{i = 1}^{k} U_{i}
+                F \in \mathcal{D}^{*}, \; F(\phi) := \int_{\mathbb{R}} f(t) \phi(t) \; dt
             \]
-            Per ognuno di questi insiemi $U_{i}$ è possibile determinare una funzione di test $\psi_{i}$ tale per cui $S(\psi_{i}) \subseteq U_{i}$ e che $\forall x \in S(\phi), \; \exists \psi_{i} \; | \; \psi_{i}(x) > 0$.
-            Si consideri allora una funzione $\psi_{0} \in C^{\infty}(\mathbb{R})$ tale per cui $\psi_{0}(x) = 0$ per tutti gli $x \in S(\phi)$ e $\psi_{0}(x) > 0$ per tutti gli $x \notin S(\phi)$.
-            Allora
+
+            In virtù di ciò, definiamo le seguenti operazioni:
+
+            \begin{definition}[Traslazione di distribuzione]
+                Sia $T \in \mathcal{D}^{*}$ una distribuzione.
+                Definiamo la traslazione di $T$ di un $\tau \in \mathbb{R}$ come una distribuzione $T_{\tau}$ tale per cui
+                \[
+                    \langle T_{\tau}, \phi \rangle = \langle T, \phi(t - \tau) \rangle
+                \]
+            \end{definition}
+
+            \begin{definition}[Scala di distribuzione]
+                Sia $T \in \mathcal{D}^{*}$ una distribuzione.
+                Definiamo la scala di $T$ secondo un $\alpha > 0$ come una distribuzione $T(\alpha t)$ tale per cui
+                \[
+                    \langle T(\alpha t), \phi \rangle = \frac{1}{\alpha} \langle T, \phi(\alpha^{-1} t)\rangle
+                \]
+            \end{definition}
+
+            \begin{definition}{Derivata di distribuzione}
+                Sia $T \in \mathcal{D}^{*}$ una distribuzione.
+                Definiamo la derivata di distribuzione $T^{(n)}$ come
+                \[
+                    \langle T^{(n)}, \phi \rangle = (-1)^{n} \langle T, \phi^{(n)} \rangle
+                \]
+            \end{definition}
+
+            Grazie alla definizione di derivata di distribuzione, possiamo verificare che questo operatore rispetti la regola di Leibnitz.
+            Sia $T \in \mathcal{D}^{*}$ una distribuzione e sia $f \in C^{\infty}(\mathbb{R})$, allora
             \[
-                \kappa(x) = \sum_{i = 0}^{k} \psi_{i}(x) \neq 0, \; \forall x \in \mathbb{R} \implies \frac{1}{\kappa} \in C^{\infty}(\mathbb{R})
+                \langle (T f)', \phi \rangle = -\langle T f, \phi' \rangle = \langle T, -\phi' f \rangle
             \]
-            Si può osservare quanto segue
             \[
-                \rho_{i}(x) = \frac{\psi_{i}(x)}{\kappa(x)} \in C^{\infty}_{c}(U_{i})
+                \langle T' f + T f', \phi \rangle = \langle T', \phi f \rangle + \langle T, \phi f' \rangle = \langle T, \phi f' - (\phi f)' \rangle = \langle T, \phi f' - \phi f' - \phi' f \rangle = \langle T, - \phi' f \rangle = \langle (T f)', \phi \rangle
             \]
-            Se $x \in S(\phi)$, si ha che
-            \[
-                \sum_{i = 1}^{k} \rho_{i} (x) = \sum_{i = 1}^{k} \frac{\psi_{i}(x)}{\kappa(x)} = \sum_{i = 1}^{k} \frac{\psi_{i}(x)}{\sum_{i = 1}^{k} \psi_{i}(x) + 0} = \frac{\sum_{i = 1}^{k} \psi_{i}(x)}{\sum_{i = 1}^{k} \psi_{i}(x)} = 1
-            \]
-            $\sum_{i = 1}^{k} \rho_{i}(x)$ è una combinazione lineare di funzioni test aventi supporto, rispettivamente, negli insiemi $U_{i}$.
-            Allora
-            \[
-                \phi = \phi \cdot 1 = \phi \cdot \sum_{i = 1}^{k} \rho_{i} = \sum_{i = 1}^{k} \phi \cdot \rho_{i} \implies \langle T, \phi \rangle = \langle T, \sum_{i = 1}^{k} \phi \cdot \rho_{i} \rangle = \sum_{i = 1}^{k} \langle T, \phi \cdot \rho_{i} \rangle
-            \]
-            Dato che $\phi \cdot \rho_{i} \in \mathcal{D}$ e $S(\phi \cdot \rho_{i}) \subseteq U_{i}$
-            \[
-                \sum_{i = 1}^{k} \langle T, \phi \cdot \rho_{i} \rangle = \sum_{i = 1}^{k} 0 = 0
-            \]
-        \end{proof}
-
-        \begin{definition}[Definizione di supporto di una distribuzione]
-            Sia $T \in \mathcal{D}^{'}$ una distribuzione.
-            Sia allora $V = \bigcup \{U \; : \; U \; \textnormal{aperto tale per cui} \; T = 0\}$.
-            Il supporto di $T$ diventa
-            \[
-                S(T) = \mathbb{R} \setminus V
-            \]
-        \end{definition}
-
-        Le distribuzioni così definite ci conferiscono una serie di proprietà particolarmente comode:
-
-        \begin{itemize}
-            \item Linearità secondo distribuzione: $\langle \alpha T + \beta S, \phi\rangle = \alpha \langle T, \phi \rangle + \beta \langle S, \phi \rangle$
-            \item Linearità secondo funzione di test: $\langle T, \alpha \phi + \beta \psi \rangle = \alpha \langle T, \phi \rangle + \beta \langle T, \psi \rangle$
-        \end{itemize}
-
-        E' importante sottolineare che funzioni localmente integrabili su $\mathbb{R}$ sono a loro volta distribuzioni mediante l'operazione di integrazione.
-        In altre parole, data una funzione localmente $f$ integrabile su $\mathbb{R}$, è possibile definire la seguente distribuzione $F$
-        \[
-            F \in \mathcal{D}^{*}, \; F(\phi) := \int_{\mathbb{R}} f(t) \phi(t) \; dt
-        \]
-
-        In virtù di ciò, definiamo le seguenti operazioni:
-
-        \begin{definition}[Traslazione di distribuzione]
-            Sia $T \in \mathcal{D}^{*}$ una distribuzione.
-            Definiamo la traslazione di $T$ di un $\tau \in \mathbb{R}$ come una distribuzione $T_{\tau}$ tale per cui
-            \[
-                \langle T_{\tau}, \phi \rangle = \langle T, \phi(t - \tau) \rangle
-            \]
-        \end{definition}
-
-        \begin{definition}[Scala di distribuzione]
-            Sia $T \in \mathcal{D}^{*}$ una distribuzione.
-            Definiamo la scala di $T$ secondo un $\alpha > 0$ come una distribuzione $T(\alpha t)$ tale per cui
-            \[
-                \langle T(\alpha t), \phi \rangle = \frac{1}{\alpha} \langle T, \phi(\alpha^{-1} t)\rangle
-            \]
-        \end{definition}
-
-        \begin{definition}{Derivata di distribuzione}
-            Sia $T \in \mathcal{D}^{*}$ una distribuzione.
-            Definiamo la derivata di distribuzione $T^{(n)}$ come
-            \[
-                \langle T^{(n)}, \phi \rangle = (-1)^{n} \langle T, \phi^{(n)} \rangle
-            \]
-        \end{definition}
-
-        Grazie alla definizione di derivata di distribuzione, possiamo verificare che questo operatore rispetti la regola di Leibnitz.
-        Sia $T \in \mathcal{D}^{*}$ una distribuzione e sia $f \in C^{\infty}(\mathbb{R})$, allora
-        \[
-            \langle (T f)', \phi \rangle = -\langle T f, \phi' \rangle = \langle T, -\phi' f \rangle
-        \]
-        \[
-            \langle T' f + T f', \phi \rangle = \langle T', \phi f \rangle + \langle T, \phi f' \rangle = \langle T, \phi f' - (\phi f)' \rangle = \langle T, \phi f' - \phi f' - \phi' f \rangle = \langle T, - \phi' f \rangle = \langle (T f)', \phi \rangle
-        \]
 
 
 
-    \section{Operazioni sulle distribuzioni}
+    \subsection{Operazioni sulle distribuzioni}
         \begin{definition}[Definizione di convoluzione tra distribuzione e funzione test]
             Sia $T \in \mathcal{D}^{*}$ una distribuzione e sia $\phi \in \mathcal{D}$ una funzione di test.
             Si definisce allora la convoluzione $T * \phi$ come segue

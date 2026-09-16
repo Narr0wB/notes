@@ -1,4 +1,4 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper]{report}
 
 \usepackage[T1]{fontenc}
 \usepackage{babel}
@@ -68,6 +68,7 @@
 \date{}
 
 \setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
 
 \begin{document}
 
@@ -86,15 +87,20 @@
 
 \pagenumbering{Roman}
 \hypersetup{pageanchor=true}
+\begingroup
+\setlength{\parskip}{0pt}
 \tableofcontents
-
 \clearpage
+\endgroup
 \pagenumbering{arabic}
 
+\chapter{Analisi complessa}
 \input{complex_analysis.tex}
-\clearpage
-\input{signal.tex}
-\clearpage
+
+\chapter{Probabilità}
 \input{probability.tex}
+
+\chapter{Teoria dei segnali}
+\input{signal.tex}
 
 \end{document}
