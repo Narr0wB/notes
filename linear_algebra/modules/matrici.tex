@@ -12,14 +12,15 @@
         \end{bmatrix}
     \]
     Dove $a_{ij} \in \mathbb{R}$ sono i coefficienti della matrice, $m$ è il numero delle righe ed $n$ il numero delle colonne.
-    Se $n = m$ la matrice si dice quadrata e gli elementi $\{ a_{ii} \; | \; i \in \{1, ..., n\}\}$ sono chiamati ``diagonale'' della matrice.
+    Se $n = m$ la matrice si dice quadrata e gli elementi $\{ a_{ii} \st i \in \{1, ..., n\}\}$ sono chiamati ``diagonale'' della matrice.
 
     \vspace{10pt}
     Sia $\mathbb{R}^{m, n}$ l'insieme di tutte le generiche matrici $m \times n$, possiamo affermare che sussiste una biezione fra $\mathbb{R}^{m, 1} \leftrightarrow \mathbb{R}^{m}$ e fra $\mathbb{R}^{1, n} \leftrightarrow \mathbb{R}^{n}$.
 
 
 
-\subsection{Prodotto scalare-matrice} \label{subsec:matscalarmul}
+\subsection{Operazioni sulle matrici}
+\subsubsection{Prodotto scalare-matrice} \label{subsec:matscalarmul}
     Sia $A \in \mathbb{R}^{m, n}$ una matrice e sia $\lambda \in \mathbb{R}$ uno scalare, il prodotto scalare-matrice di $\lambda$ con $A$ è definito come:
     \[
     \lambda A =
@@ -36,12 +37,12 @@
     \begin{enumerate}[label=(\arabic*)]
         \item Associativa: $\forall \lambda, \mu \in \mathbb{R}, \; \forall A \in \mathbb{R}^{m, n}, \; (\lambda \mu) A = \lambda (\mu A)$
         \item Distributiva rispetto alla somma fra scalari: $\forall \lambda, \mu \in \mathbb{R}, \; \forall A \in \mathbb{R}^{m, n}, \; (\lambda + \mu)A = \lambda A + \mu A$
-        \item Esistenza dell'elemento neutro: $\forall A \in \mathbb{R}^{m, n} \; \exists (1) \in \mathbb{R} \; | \; (1)A = A$
+        \item Esistenza dell'elemento neutro: $\forall A \in \mathbb{R}^{m, n} \; \exists (1) \in \mathbb{R} \st (1)A = A$
     \end{enumerate}
 
 
 
-\subsection{Somma fra matrici} \label{subsec:matsum}
+\subsubsection{Somma fra matrici} \label{subsec:matsum}
     Siano $A, B \in \mathbb{R}^{m, n}$ due matrici $m \times n$, la somma di $A$ con $B$ è definita come:
     \[
         \begin{aligned}
@@ -77,13 +78,13 @@
         \item Commutativa: $\forall A, B \in \mathbb{R}^{m, n}, \; A + B = B + A$
         \item Associativa: $\forall A, B, C \in \mathbb{R}^{m, n}, \; (A + B) + C = A + (C + B)$
         \item Distributiva del prodotto scalare-matrice rispetto alla somma matriciale: $\forall \lambda \in \mathbb{R}, \; \forall A, B \in \mathbb{R}^{m, n}, \; \lambda(A + B) = \lambda A + \lambda B$
-        \item Esistenza dell'elemento neutro: $\exists 0_{m, n} \in \mathbb{R}^{m, n} \; | \; \forall A \in \mathbb{R}^{m, n}, \; A + 0_{m, n} = A $
-        \item Esistenza dell'elemento opposto: $\forall A \in \mathbb{R}^{m, n}, \; \exists (-A) \in \mathbb{R}^{m, n} \; | \; A + (-A) = 0_{m, n}$
+        \item Esistenza dell'elemento neutro: $\exists 0_{m, n} \in \mathbb{R}^{m, n} \st \forall A \in \mathbb{R}^{m, n}, \; A + 0_{m, n} = A $
+        \item Esistenza dell'elemento opposto: $\forall A \in \mathbb{R}^{m, n}, \; \exists (-A) \in \mathbb{R}^{m, n} \st A + (-A) = 0_{m, n}$
     \end{enumerate}
 
 
 
-\subsection{Matrici trasposte} \label{subsec:mattranspose}
+\subsubsection{Trasposizione} \label{subsec:mattranspose}
     Data una matrice $A \in \mathbb{R}^{m, n}$, la sua trasposta $A^{T} \in \mathbb{R}^{n, m}$ è la matrice nella forma:
     \[
         A =
@@ -110,7 +111,7 @@
     \begin{theorem}
         Sia $V$ lo spazio vettoriale determinato da $(\mathbb{R}^{n, n}, \mathbb{R}, +, \cdot)$, allora
         \begin{enumerate}[label=(\Roman*)]
-            \item $S = \{A \in \mathbb{R}^{n, n} \; | \; A = A^{T}\}$ e $W = \{A \in \mathbb{R}^{n, n} \; | \; A = -A^{T}\}$ sono sottospazi di $V$
+            \item $S = \{A \in \mathbb{R}^{n, n} \st A = A^{T}\}$ e $W = \{A \in \mathbb{R}^{n, n} \st A = -A^{T}\}$ sono sottospazi di $V$
             \item $S \oplus W = \mathbb{R}^{n, n}$
         \end{enumerate}
 
@@ -137,10 +138,10 @@
         \[
             A = A^T = -A \implies A = 0_{n, n} \implies S \cap W = \{0_{n, n}\}
         \]
-        quindi la somma $S \oplus W$ è diretta. Adesso, sia $M \in \mathbb{R}^{n, n}$. Se $A = \frac{M + M^{T}}{2} \in S$ e $B = \frac{M - M^{T}}{2} \in W$ abbiamo che $A + B = M \in S \oplus W$. Quindi $\mathbb{R}^{n, n} \subset S \oplus W$ e $S \oplus W \subset \mathbb{R}^{n, n} \implies S \oplus W = \mathbb{R}^{n, n}$.
+        quindi la somma $S \oplus W$ è diretta. Adesso, sia $M \in \mathbb{R}^{n, n}$. Se $A = \frac{M + M^{T}}{2} \in S$ e $B = \frac{M - M^{T}}{2} \in W$ abbiamo che $A + B = M \in S \oplus W$. Quindi $\mathbb{R}^{n, n} \subseteq S \oplus W$ e $S \oplus W \subseteq \mathbb{R}^{n, n} \implies S \oplus W = \mathbb{R}^{n, n}$.
     \end{proof}
 
-\subsection{Prodotto matrice-matrice} \label{subsec:matmul}
+\subsubsection{Prodotto matrice-matrice} \label{subsec:matmul}
     Date due matrici $A \in \mathbb{R}^{m, n}$ e $B \in \mathbb{R}^{n, k}$ il prodotto matrice-matrice (o prodotto matriciale) fra $A$ e $B$ è definito come:
     \[
         \begin{aligned}
@@ -403,7 +404,7 @@
 
     \begin{proof}[Dimostrazione]
         Il sistema $S$ può essere scritto in forma: $A\mathbf{x} = \mathbf{b}$. Si riscriva la relazione come: $L_A(\mathbf{x}) = \mathbf{b}$ dove $L_A: \mathbb{R}^n \rightarrow \mathbb{R}^m$ è un'applicazione lineare.
-        $S$ ammette soluzione se e solo se $\mathbf{b} \in \textnormal{Im}(L_A)$, ovvero $\exists \mathbf{x} \in \mathbb{R}^n \; | \; L_A(\mathbf{x}) = \mathbf{b}$. E' possibile osservare come l'immagine di $L_A(\mathbf{x})$
+        $S$ ammette soluzione se e solo se $\mathbf{b} \in \textnormal{Im}(L_A)$, ovvero $\exists \mathbf{x} \in \mathbb{R}^n \st L_A(\mathbf{x}) = \mathbf{b}$. E' possibile osservare come l'immagine di $L_A(\mathbf{x})$
         sia data da una combinazione lineare dei vettori colonna di $A$:
         \[
             A\mathbf{x} =
@@ -492,7 +493,7 @@
 \vspace{10pt}
 \subsection{Matrici inverse, simili, ortogonali e special-ortogonali} \label{subsec:matspecial}
     \subsubsection{Matrici inverse} \label{subsubsec:matinv}
-    Una matrice $A \in \mathbb{R}^{n, n}$ si dice invertibile se e solo se $\exists A^{-1} \in \mathbb{R}^{n, n} \; | \; AA^{-1} = I_n$. Se esiste la matrice inversa, allora essa è sia inversa a sinistra che inversa a destra, secondo quanto segue:
+    Una matrice $A \in \mathbb{R}^{n, n}$ si dice invertibile se e solo se $\exists A^{-1} \in \mathbb{R}^{n, n} \st AA^{-1} = I_n$. Se esiste la matrice inversa, allora essa è sia inversa a sinistra che inversa a destra, secondo quanto segue:
     \[
         C = A^{-1} \; (\textnormal{sx}), \; B = A^{-1} \; (\textnormal{dx}) \implies CA = AB = I \implies C = CI = CAB = IB = B
     \]
@@ -502,11 +503,11 @@
     \vspace{10pt}
     Due matrici $A, B \in \mathbb{R}^{n, n}$ si dicono simili se:
     \[
-        \exists P \in \mathbb{R}^{n, n} \; | \; A = P^{-1}BP, \;\: B = PAP^{-1}
+        \exists P \in \mathbb{R}^{n, n} \st A = P^{-1}BP, \;\: B = PAP^{-1}
     \]
 
     \subsubsection{Matrici ortogonali} \label{subsubsec:matorthogonal}
-    Una matrice $A \in \mathbb{R}^{n, n}$ si dice ortogonale ($A \in O(n) \subset GL_{n}(\mathbb{R})$) se
+    Una matrice $A \in \mathbb{R}^{n, n}$ si dice ortogonale ($A \in O(n) \subseteq GL_{n}(\mathbb{R})$) se
     \[
         AA^{T} = A^{T}A = I
     \]

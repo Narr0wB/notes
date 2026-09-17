@@ -3,7 +3,7 @@
 
 
     \section{Teoria delle distribuzioni}
-        \subsection{Introduzione}
+        \subsection{Segnali e sommabilità}
             E' opportuno introdurre questa nuova sezione con una propria definizione di \textit{segnale}:
 
             \begin{definition}[Definizione di segnale]
@@ -25,7 +25,7 @@
                 Sia $f: \Omega \subseteq \mathbb{R} \rightarrow \mathbb{R}$ un segnale.
                 Si dice supporto di $f$ il seguente insieme
                 \[
-                    S(f) = \overline{\{t \in \Omega \; : \; f(t) \neq 0\}}
+                    S(f) = \overline{\{t \in \Omega \st f(t) \neq 0\}}
                 \]
             \end{definition}
 
@@ -47,6 +47,7 @@
                 \]
             \end{definition}
 
+        \subsection{Funzioni test e distribuzioni}
             Denotiamo con il termine distribuzioni tutti quelli oggetti matematici che si \textit{comportano} come funzioni, ovvero oggetti che mappano un input ad un determinato output.
             In altre parole, le distribuzioni rappresentano una \textit{generalizzazione} del concetto di funzione.
             Questi oggetti sono caratterizzati, ovvero sono determinati nella loro interezza, a seconda dell'effetto che hanno, intesi come funzionali lineari, su uno spazio di appositamente scelte funzioni lisce su $\mathbb{R}$, il cui supporto è compatto, chiamate \textit{funzioni di test}.
@@ -80,7 +81,7 @@
                 \[
                     S(\phi) \subseteq \bigcup_{i = 1}^{k} U_{i}
                 \]
-                Per ognuno di questi insiemi $U_{i}$ è possibile determinare una funzione di test $\psi_{i}$ tale per cui $S(\psi_{i}) \subseteq U_{i}$ e che $\forall x \in S(\phi), \; \exists \psi_{i} \; | \; \psi_{i}(x) > 0$.
+                Per ognuno di questi insiemi $U_{i}$ è possibile determinare una funzione di test $\psi_{i}$ tale per cui $S(\psi_{i}) \subseteq U_{i}$ e che $\forall x \in S(\phi), \; \exists \psi_{i} \st \psi_{i}(x) > 0$.
                 Si consideri allora una funzione $\psi_{0} \in C^{\infty}(\mathbb{R})$ tale per cui $\psi_{0}(x) = 0$ per tutti gli $x \in S(\phi)$ e $\psi_{0}(x) > 0$ per tutti gli $x \notin S(\phi)$.
                 Allora
                 \[
@@ -107,7 +108,7 @@
 
             \begin{definition}[Definizione di supporto di una distribuzione]
                 Sia $T \in \mathcal{D}^{'}$ una distribuzione.
-                Sia allora $V = \bigcup \{U \; : \; U \; \textnormal{aperto tale per cui} \; T = 0\}$.
+                Sia allora $V = \bigcup \{U \st U \; \textnormal{aperto tale per cui} \; T = 0\}$.
                 Il supporto di $T$ diventa
                 \[
                     S(T) = \mathbb{R} \setminus V
@@ -127,6 +128,7 @@
                 F \in \mathcal{D}^{*}, \; F(\phi) := \int_{\mathbb{R}} f(t) \phi(t) \; dt
             \]
 
+        \subsection{Operazioni sulle distribuzioni}
             In virtù di ciò, definiamo le seguenti operazioni:
 
             \begin{definition}[Traslazione di distribuzione]
@@ -164,7 +166,7 @@
 
 
 
-    \subsection{Operazioni sulle distribuzioni}
+    \subsection{Convoluzione e sistemi LTI}
         \begin{definition}[Definizione di convoluzione tra distribuzione e funzione test]
             Sia $T \in \mathcal{D}^{*}$ una distribuzione e sia $\phi \in \mathcal{D}$ una funzione di test.
             Si definisce allora la convoluzione $T * \phi$ come segue
@@ -247,6 +249,7 @@
 
 
     \section{Trasformata di Fourier}
+        \subsection{Definizione}
         Sia $x(t) \in L^{1}(\mathbb{R})$ un segnale.
         Si definisce la sua trasformata di Fourier nel seguente modo
         \[
@@ -265,6 +268,7 @@
             \lim_{T \rightarrow \infty} (T c_{k}) = \lim_{T \rightarrow \infty} \; \int_{-T/2}^{T/2} x(t) e^{-i k \omega_{0} t} \: dt = \int_{-\infty}^{\infty} x(t) e^{-i \omega t} \: dt = \hat{x}(\omega)
         \]
 
+        \subsection{Proprietà}
         Alcune delle proprietà principali della trasformata di Fourier sono:
         \begin{enumerate}
             \item Linearità:

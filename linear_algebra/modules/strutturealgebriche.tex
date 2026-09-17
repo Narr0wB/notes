@@ -7,8 +7,8 @@
     di assiomi:
     \begin{enumerate}[label=(\arabic*)]
         \item Associatività: $\forall x, y, z \in S, \; x + (y + z) = (x + y) + z$
-        \item Esistenza dell'elemento neutro: $\exists 0_G \in S \; | \; \forall x \in S, \; x + 0_G = x$
-        \item Esistenza dell'elemento inverso: $\forall x \in S, \exists (-x) \in S \; | \; x + (-x) = 0_G$
+        \item Esistenza dell'elemento neutro: $\exists 0_G \in S \st \forall x \in S, \; x + 0_G = x$
+        \item Esistenza dell'elemento inverso: $\forall x \in S, \exists (-x) \in S \st x + (-x) = 0_G$
     \end{enumerate}
     Qualora un gruppo soddisfi anche l'assioma di commutatività, ovvero $\forall x, y \in S, \; x + y = y + x$, esso viene detto ``gruppo abeliano''.
 
@@ -27,7 +27,7 @@
     \begin{enumerate}[label=(\arabic*)]
         \item $(S, +)$ deve essere un gruppo abeliano
         \item Associatività della moltiplicazione: $\forall x, y, z \in S, \; x \cdot (y \cdot z) = (x \cdot y) \cdot z$
-        \item Esistenza dell'elemento neutro della moltiplicazione: $\exists 1_R \in S \; | \; \forall x \in S, \; x \cdot 1_R = x$
+        \item Esistenza dell'elemento neutro della moltiplicazione: $\exists 1_R \in S \st \forall x \in S, \; x \cdot 1_R = x$
         \item Distributività destra della moltiplicazione rispetto alla somma: $\forall x, y, z \in S, \; x \cdot (y + z) = x \cdot y + x \cdot z$
         \item Distributività sinistra della moltiplicazione rispetto alla somma: $\forall x, y, z \in S, \; (y + z) \cdot x = y \cdot x + z \cdot x$
     \end{enumerate}
@@ -47,7 +47,7 @@
     Un campo è una struttura algebrica determinata da un insieme $S$ e da due operazioni binarie interne e chiuse, $+ : S \times S \rightarrow S$ (addizione)  e $\cdot : S \times S \rightarrow S$ (moltiplicazione), le quali devono soddisfare una serie di assiomi:
     \begin{enumerate}[label=(\arabic*)]
         \item $(S, +)$ deve essere un gruppo abeliano
-        \item $(S^*, \cdot)$ deve essere un gruppo abeliano, dove $S^*$ non è altro che $S$ senza gli elementi per cui l'inverso moltiplicativo ($a \in S \implies \exists a^{-1} \in S \; | \; aa^{-1} = \textnormal{id}_{F}(a)$) non è definito ($S / \{0\}$)
+        \item $(S^*, \cdot)$ deve essere un gruppo abeliano, dove $S^*$ non è altro che $S$ senza gli elementi per cui l'inverso moltiplicativo ($a \in S \implies \exists a^{-1} \in S \st aa^{-1} = \textnormal{id}_{F}(a)$) non è definito ($S / \{0\}$)
         \item Distributività completa della moltiplicazione rispetto alla somma: $\forall x, y, z \in S, \; x \cdot (y + z) = x \cdot y + x \cdot z = (y + z) \cdot x$
     \end{enumerate}
 

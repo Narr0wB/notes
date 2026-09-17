@@ -1,0 +1,30 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{utils}[personal utils library]
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{mathtools}
+
+\newcommand{\st}{\mathrel{:}}
+
+\newcommand{\qty}{%
+  \@ifnextchar({%
+    \qty@paren
+  }{%
+    \@ifnextchar[{%
+      \qty@bracket
+    }{%
+      \@ifnextchar|{%
+        \qty@abs
+      }{%
+        \qty@brace
+      }%
+    }%
+  }%
+}
+\def\qty@paren(#1){\left(#1\right)}
+\def\qty@bracket[#1]{\left[#1\right]}
+\def\qty@abs|#1|{\left|#1\right|}
+\def\qty@brace#1{\left\{#1\right\}}
+
+\endinput

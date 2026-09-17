@@ -44,11 +44,11 @@
     \begin{proof}[Dimostrazione]
         Si prenda un $\mathbf{w} \in \textnormal{Im}(f)$, allora $\exists \mathbf{v} \in V$ tale cui $f(\mathbf{v}) = \mathbf{w}$. Dato che $B$ è una base di $V$, si ha:
         \[
-            \mathbf{w} = f(\mathbf{v}) = f(\sum_{i} a_i \mathbf{b}_{i}) = \sum_{i} f(a_i \mathbf{b}_{i}) = \sum_{i} a_i f(\mathbf{b}_{i}) \implies \textnormal{Im}(f) \subset \textnormal{span}(f(B))
+            \mathbf{w} = f(\mathbf{v}) = f(\sum_{i} a_i \mathbf{b}_{i}) = \sum_{i} f(a_i \mathbf{b}_{i}) = \sum_{i} a_i f(\mathbf{b}_{i}) \implies \textnormal{Im}(f) \subseteq \textnormal{span}(f(B))
         \]
         Sia $\mathbf{k} \in \textnormal{span}(\{f(\mathbf{b}_{1}), ..., f(\mathbf{b}_{n})\})$, allora:
         \[
-            \mathbf{k} = \sum_{i} c_i f(\mathbf{b}_{i}) = f(\sum_{i} c_i \mathbf{b}_{i}) \implies \exists \mathbf{u} = \sum_{i} c_i \mathbf{b}_{i} \in V \; | \; f(\mathbf{u}) = \mathbf{k} \implies \textnormal{span}(f(B)) \subset \textnormal{Im}(f)
+            \mathbf{k} = \sum_{i} c_i f(\mathbf{b}_{i}) = f(\sum_{i} c_i \mathbf{b}_{i}) \implies \exists \mathbf{u} = \sum_{i} c_i \mathbf{b}_{i} \in V \st f(\mathbf{u}) = \mathbf{k} \implies \textnormal{span}(f(B)) \subseteq \textnormal{Im}(f)
         \]
         Quindi $\textnormal{Im}(f) = \textnormal{span}(f(B))$.
     \end{proof}
@@ -111,7 +111,7 @@
 
 \vspace{10pt}
 \subsection{Nucleo di un'applicazione lineare} \label{subsec:linappkernel}
-    Sia $f: V \rightarrow W$ un'applicazione lineare, il nucleo (anche chiamato kernel) $\ker(f) := K \subset V$ di $f$ è definito come l'insieme di quei vettori tali per cui $\mathbf{v} \in K \iff f(\mathbf{v}) = \mathbf{0}$.
+    Sia $f: V \rightarrow W$ un'applicazione lineare, il nucleo (anche chiamato kernel) $\ker(f) := K \subseteq V$ di $f$ è definito come l'insieme di quei vettori tali per cui $\mathbf{v} \in K \iff f(\mathbf{v}) = \mathbf{0}$.
     E' possibile dimostrare che il kernel di un'applicazione lineare è un sottospazio vettoriale, in quanto:
 
     \begin{enumerate}[label=(\arabic*)]
@@ -129,7 +129,7 @@
 
     \begin{proof}[Dimostrazione]
         Sia $B = \{ \mathbf{b}_{1}, ..., \mathbf{b}_{n} \}$ una base di $V$. Allora, per il teorema dell'immagine di base [\Cref{thm:image_of_basis}], si ha che $f(B) = \{f(\mathbf{b}_{1}), ..., f(\mathbf{b}_{n})\}$ è un generatore di $\textnormal{Im}(f)$.
-        Il teorema di estrazione di base [\Cref{thm:basis_extraction}] garantisce l'esistenza di una base in $f(B)$ e sia $U$ questa base. Sia $B_U = \{\mathbf{b} \in B \; | \; f(\mathbf{b}) \in U\}$ determinato in modo che $|B_U| = |U|$ e sia $B_K = B \setminus B_U$. E' possibile osservare che:
+        Il teorema di estrazione di base [\Cref{thm:basis_extraction}] garantisce l'esistenza di una base in $f(B)$ e sia $U$ questa base. Sia $B_U = \{\mathbf{b} \in B \st f(\mathbf{b}) \in U\}$ determinato in modo che $|B_U| = |U|$ e sia $B_K = B \setminus B_U$. E' possibile osservare che:
         \[
             V = \mathcal{V}_U \oplus \mathcal{V}_K \; \textnormal{dove} \;\: \mathcal{V}_U = \textnormal{span}(B_U) \; \textnormal{e} \; \mathcal{V}_K = \textnormal{span}(B_K)
         \]
@@ -152,7 +152,7 @@
             \begin{aligned}
                 \forall \mathbf{v}_K \in \mathcal{V}_K \;&\;
                 \textnormal{esiste uno e un solo} \;
-                \mathbf{v}_U \in \mathcal{V}_U \; | \;
+                \mathbf{v}_U \in \mathcal{V}_U \st
                 f(\mathbf{v}_U) = -f(\mathbf{v}_K) \\
                 &\implies \textnormal{esiste uno e un solo} \;
                 \mathbf{v} = \mathbf{v}_U + \mathbf{v}_K \in \ker(f)
@@ -169,12 +169,12 @@
 
 \vspace{10pt}
 \subsection{Endomorfismi lineari semplici e autoaggiunti} \label{subsec:linappend}
-    \subsubsection{Endomorfismi lineare semplici} \label{subsubsec:linappsimpleend}
-    Un'applicazione lineare $f : V \rightarrow V$ è definita endomorfismo semplice se $V$ è esprimibile come la somma diretta di $k$ sottospazi vettoriali invarianti secondo f e irriducibili ulteriormente. In simboli:
+    \subsubsection{Endomorfismi lineari semplici} \label{subsubsec:linappsimpleend}
+    Un'applicazione lineare $f : V \rightarrow V$ è definita endomorfismo semplice se $V$ è esprimibile come la somma diretta di $k$ sottospazi invarianti secondo $f$, di dimensione $1$, irriducibili ulteriormente. In simboli:
     \[
         V = W_1 \oplus ... \oplus W_k
     \]
-    dove ogni $W_i$ è invariante secondo $f$ ($f(W_i) \subset W_i$) e non possiede sottospazi a loro volta invarianti se non $\{\mathbf{0}_V\}$ e $W_i$ stesso.
+    dove ogni $W_i$ è invariante secondo $f$ ($f(W_i) \subseteq W_i$) e non possiede sottospazi a loro volta invarianti se non $\{\mathbf{0}_V\}$ e $W_i$ stesso.
 
     \vspace{10pt}
     \subsubsection{Endomorfismi lineari autoaggiunti} \label{subsubsec:linappsadjend}
@@ -283,7 +283,7 @@
 
         \vspace{10pt}
         (I)
-        $G_{\lambda}$ è sicuramente invariante secondo $f$, ovvero $f(G_{\lambda}) \subset G_{\lambda}$, in quanto essendo sottospazio di $V$, per chiusura secondo il prodotto scalare-vettore, si ha che
+        $G_{\lambda}$ è sicuramente invariante secondo $f$, ovvero $f(G_{\lambda}) \subseteq G_{\lambda}$, in quanto essendo sottospazio di $V$, per chiusura secondo il prodotto scalare-vettore, si ha che
         \[
             \mathbf{v} \in G_{\lambda} \implies \lambda \mathbf{v} = f(\mathbf{v}) \in G_{\lambda}
         \]
@@ -299,14 +299,18 @@
 
         \vspace{10pt}
         (II)
-        Per dimostrare che la somma degli autospazi è in primo luogo diretta, è semplicemente necessario dimostrare che, dati due generici autospazi, $G_{\lambda_1} \cap G_{\lambda_2} = \{ \mathbf{0}_V \}$.
-        Procedendo per assurdo, sia $\mathbf{v} \in G_{\lambda_1} \cap G_{\lambda_2} \; | \; \mathbf{v} \neq \mathbf{0}_V$. Allora
+        Per dimostrare che la somma degli autospazi è in primo luogo diretta, è sufficiente dimostrare che, dato un generico $\lambda_i$, $G_{\lambda_i} \cap \qty(\sum_{k \neq i} G_{\lambda_k}) = \{ \mathbf{0}_V \}$.
+        Procedendo per assurdo, sia $\mathbf{v} \in G_{\lambda_i} \cap \qty(\sum_{k \neq i} G_{\lambda_k})$, $\mathbf{v} \neq \mathbf{0}_V$. 
+        Fissata una base $\mathcal{B}_k$ per ogni sottospazio $G_{\lambda_k}$, è lecito affermare che $\bigcup_{k \neq i} \mathcal{B}_k$ sia un sistema di generatori di $\qty(\sum_{k \neq i} G_{\lambda_k})$.
+        Per il teorema di estrazione di base [\Cref{thm:basis_extraction}], è allora possibile determinare una base $\bigcup_{k \neq i} B_k$ del sottospazio somma dove ogni $B_k \subseteq \mathcal{B}_k \subseteq G_{\lambda_k}$.
         \[
-           \mathbf{v} \in G_{\lambda_1} \cap G_{\lambda_2} \implies f(\mathbf{v}) = \lambda_1 \mathbf{v} = \lambda_2 \mathbf{v} \implies (\lambda_1 - \lambda_2) \mathbf{v} = \mathbf{0}_V
+           \mathbf{v} = \sum_{k \neq i} \sum_{j} \alpha_j^k \mathbf{b}_j^k \implies f(\mathbf{v}) = \sum_{k \neq i} \sum_{j} \lambda_i \alpha_j^k \mathbf{b}_j^k = \sum_{k \neq i} \sum_{j} \lambda_k \alpha_j^k \mathbf{b}_j^k \implies \sum_{k \neq i} \sum_{j} (\lambda_i - \lambda_k) \alpha_j^k \mathbf{b}_j^k = \mathbf{0}
         \]
-        Dato che $\lambda_1 \neq \lambda_2$, in quanto gli autovalori sono esplicitamente distinti, si arriva a $\mathbf{v} = \mathbf{0}_V$, contraddicendo l'ipotesi iniziale.
-
-        \vspace{5pt}
+        Si ha dunque che una combinazione lineare di vettori linearmente indipendenti, $\{\mathbf{b}_j^k\}_{j, k} = \bigcup_{k \neq i} B_{k}$, è il vettore nullo. Di conseguenza, per qualsiasi $j, k$:
+        \[
+            (\lambda_i - \lambda_k) \alpha_j^k = 0
+        \]
+        ma $(\lambda_i - \lambda_k) \neq 0$ per ogni $k \neq i$, quindi $\alpha_j^k = 0$ per ogni $j, k$, che implica $\mathbf{v} = \mathbf{0}_V$, contraddicendo l'ipotesi $\mathbf{v} \neq \mathbf{0}_V$.
         Infine sia
         \[
             \mathcal{G} = \bigoplus_{i}^{s} G_{\lambda_i}
@@ -319,7 +323,7 @@
         \[
             |\mathcal{B}| = \sum_{i}^{s} |B_{\lambda_i}| = \sum_{i}^{s} \gamma_{f}(\lambda_i) = n = \dim(V)
         \]
-        Quindi $\mathcal{B}$ è un insieme di $n$ vettori linearmente indipendenti (è una base di $\mathcal{G}$) e $\mathcal{B} \subset V$. Allora $\mathcal{B}$ è anche una base di $V$, concludendo che
+        Quindi $\mathcal{B}$ è un insieme di $n$ vettori linearmente indipendenti (è una base di $\mathcal{G}$) e $\mathcal{B} \subseteq V$. Allora $\mathcal{B}$ è anche una base di $V$, concludendo che
         \[
             \mathcal{G} = \bigoplus_{i}^{s} G_{\lambda_i} = V
         \]
@@ -339,7 +343,7 @@
     secondo l'ordine in cui sono messi i vettori in $P$.
 
     \vspace{10pt}
-    Lo spettro di una matrice $A$, oppure, più precisamente, lo spettro di un operatore lineare $f$ su uno spazio vettoriale a dimensione finita $V$ con matrice associata $A = M_{f}^{E, E}$ secondo e verso la base $E$, non è altro che l'insieme di tutti gli autovalori distinti di $f$, spesso
+    Lo spettro di una matrice $A$, oppure, più precisamente, lo spettro di un operatore lineare $f$ su uno spazio vettoriale a dimensione finita $V$, non è altro che l'insieme di tutti gli autovalori distinti di $f$, spesso
     individuato in simboli come $\Lambda_{A}$ o $\Lambda_{f}$.
 
     \vspace{10pt}
@@ -354,7 +358,8 @@
     \vspace{10pt}
     \subsubsection{Teorema spettrale} \label{subsubsec:linappspectralthm}
     \begin{theorem}[Teorema spettrale]
-        Sia $A = M_{f}^{E, E} \in \mathbb{R}^{n, n}$ una matrice simmetrica associata a $f: V \rightarrow V$ con $E$ base di $V$. Allora $A$ possiede tutti autovalori reali e $V$ è scomponibile secondo $f$ in $s$ autospazi ortogonali.
+        Sia $A = M_{f}^{E, E} \in \mathbb{R}^{n, n}$ una matrice simmetrica associata a $f: V \rightarrow V$ con $E$ base ortonormale di uno spazio vettoriale euclideo $V$ dotato di prodotto scalare. 
+        Allora $A$ possiede tutti autovalori reali e $V$ è scomponibile secondo $f$ in $s$ autospazi ortogonali dove $s$ è il numero di autovalori distinti di $f$.
     \end{theorem}
 
     \begin{proof}[Dimostrazione]

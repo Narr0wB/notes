@@ -1,14 +1,14 @@
 % !TeX root = ../analysisII.tex
 
 \section{Integrali di linea}
-    Data una curva $\gamma: I \subset \mathbb{R} \rightarrow \mathbb{R}^{n}$ di classe $C^{1}$ si definiscono due tipi di integrali di linea lungo $\gamma$:
+    Data una curva $\gamma: I \subseteq \mathbb{R} \rightarrow \mathbb{R}^{n}$ di classe $C^{1}$ si definiscono due tipi di integrali di linea lungo $\gamma$:
     \begin{itemize}
-        \item Integrale di linea di una funzione scalare: Data $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$, allora $\displaystyle \int_{\gamma} f$
-        \item Integrale di linea di un campo vettoriale: Dato $\mathbf{F}: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$, allora $\displaystyle \int_{\gamma} \mathbf{F}$
+        \item Integrale di linea di una funzione scalare: Data $f: D \subseteq \mathbb{R}^{n} \rightarrow \mathbb{R}$, allora $\displaystyle \int_{\gamma} f$
+        \item Integrale di linea di un campo vettoriale: Dato $\mathbf{F}: D \subseteq \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$, allora $\displaystyle \int_{\gamma} \mathbf{F}$
     \end{itemize}
 
     \subsection{Integrale di linea di I specie}
-        Dato un campo scalare $f: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}$ continuo e una curva $\gamma: [a, b] \subset \mathbb{R} \rightarrow \mathbb{R}^{n}$ di classe $C^{1}$, si definisce integrale di linea di I specie la seguente espressione
+        Dato un campo scalare $f: D \subseteq \mathbb{R}^{n} \rightarrow \mathbb{R}$ continuo e una curva $\gamma: [a, b] \subseteq \mathbb{R} \rightarrow \mathbb{R}^{n}$ di classe $C^{1}$, si definisce integrale di linea di I specie la seguente espressione
         \[
             \int_{\gamma} f = \int_{a}^{b} f(\gamma(t)) || \gamma'(t) || dt
         \]
@@ -28,7 +28,7 @@
         \]
 
     \subsection{Integrale di linea di II specie}
-        Dato un campo vettoriale $\mathbf{F}: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$ continuo e una curva $\gamma: [a, b] \subset \mathbb{R} \rightarrow \mathbb{R}^{n}$ di classe $C^{1}$, si definisce integrale di linea di II specie la seguente espressione
+        Dato un campo vettoriale $\mathbf{F}: D \subseteq \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$ continuo e una curva $\gamma: [a, b] \subseteq \mathbb{R} \rightarrow \mathbb{R}^{n}$ di classe $C^{1}$, si definisce integrale di linea di II specie la seguente espressione
         \[
             \int_{\gamma} \mathbf{F} = \int_{a}^{b} \mathbf{F}(\gamma(t)) \cdot \gamma'(t) \: dt = \int_{a}^{b} \sum_{i = 1}^{n} F_{i}(\gamma(t)) \: \gamma'_{i}(t) \: dt
         \]
@@ -47,7 +47,7 @@
         \]
 
         \subsubsection{Circuitazione di un campo vettoriale}
-            Sia $\mathbf{F}: D \subset \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$ un campo vettoriale continuo e sia $\gamma: [a, b] \subset \mathbb{R} \rightarrow \mathbb{R}^{n}$ una curva di classe $C^{1}$ chiusa.
+            Sia $\mathbf{F}: D \subseteq \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$ un campo vettoriale continuo e sia $\gamma: [a, b] \subseteq \mathbb{R} \rightarrow \mathbb{R}^{n}$ una curva di classe $C^{1}$ chiusa.
             Allora
             \[
                 \oint_{\gamma} \mathbf{F} = \int_{\gamma} \mathbf{F}
@@ -57,7 +57,7 @@
 
 \section{Integrali di superficie}
     \subsection{Definizione di superficie in \texorpdfstring{$\mathbb{R}^{3}$}{R3}}
-        Una superficie $\sigma$ è una mappa della forma $\sigma: D \subset \mathbb{R}^{2} \rightarrow \mathbb{R}^{3}$ che assegna ad ogni punto $(u, v)$ del dominio $D$ un punto in $\mathbb{R}^{3}$.
+        Una superficie $\sigma$ è una mappa della forma $\sigma: D \subseteq \mathbb{R}^{2} \rightarrow \mathbb{R}^{3}$ che assegna ad ogni punto $(u, v)$ del dominio $D$ un punto in $\mathbb{R}^{3}$.
         L'area di un elemento infinitesimo di superficie in $\mathbb{R}^{3}$ è data dal prodotto fra le derivate parziali della mappa moltiplicate per i rispettivi cambiamenti infinitesimi
         \[
             d\Sigma = \left|\left| \frac{\partial \sigma}{\partial u} \times \frac{\partial \sigma}{\partial v} \right|\right| \: du \: dv
@@ -105,13 +105,13 @@
             \end{itemize}
 
         \subsubsection{Superfici orientabili}
-            Una superficie $\sigma: D \subset \mathbb{R}^{2} \rightarrow \mathbb{R}^{3}$ con supporto $\Sigma = \sigma(D)$ si dice orientabile se per quasiasi curva $\gamma: [a, b] \rightarrow \Sigma$ chiusa si ha che
+            Una superficie $\sigma: D \subseteq \mathbb{R}^{2} \rightarrow \mathbb{R}^{3}$ con supporto $\Sigma = \sigma(D)$ si dice orientabile se per quasiasi curva $\gamma: [a, b] \rightarrow \Sigma$ chiusa si ha che
             \[
                 \lim_{t \rightarrow b^{-}} \mathbf{\hat{n}}(\gamma(t)) = \mathbf{\hat{n}}(\gamma(a))
             \]
 
     \subsection{Integrale di superficie della prima specie}
-        Dato un campo scalare $f: K \subset \mathbb{R}^{3} \rightarrow \mathbb{R}$ e una superficie $\sigma: D \subset \mathbb{R}^{2} \rightarrow \mathbb{R}^{3}$ di supporto $\Sigma$, si definisce integrale di superficie della prima specie la seguente espressione
+        Dato un campo scalare $f: K \subseteq \mathbb{R}^{3} \rightarrow \mathbb{R}$ e una superficie $\sigma: D \subseteq \mathbb{R}^{2} \rightarrow \mathbb{R}^{3}$ di supporto $\Sigma$, si definisce integrale di superficie della prima specie la seguente espressione
         \[
             \int_{\Sigma} f(x, y, z) = \iint_{D} f(\sigma(u, v)) \: \left|\left| \frac{\partial \sigma}{\partial u} \times \frac{\partial \sigma}{\partial v} \right|\right| du dv
         \]
@@ -124,7 +124,7 @@
         \]
 
     \subsection{Integrale di superficie della seconda specie o flusso di un campo vettoriale}
-        Dato un campo vettoriale $\mathbf{F}: K \subset \mathbb{R}^{3} \rightarrow \mathbb{R}^{3}$ e una superficie $\sigma: D \subset \mathbb{R}^{2} \rightarrow \mathbb{R}^{3}$ di supporto $\Sigma$, si definisce integrale di superficie della seconda specie, o flusso di $\mathbf{F}$ circa $\sigma$, la seguente espressione
+        Dato un campo vettoriale $\mathbf{F}: K \subseteq \mathbb{R}^{3} \rightarrow \mathbb{R}^{3}$ e una superficie $\sigma: D \subseteq \mathbb{R}^{2} \rightarrow \mathbb{R}^{3}$ di supporto $\Sigma$, si definisce integrale di superficie della seconda specie, o flusso di $\mathbf{F}$ circa $\sigma$, la seguente espressione
         \[
             \int_{\Sigma} \mathbf{F} \cdot d\mathbf{A} = \iint_{D} \mathbf{F}(\sigma(u, v)) \cdot \mathbf{\hat{N}}(u, v) \: du dv = \iint_{D} \mathbf{F}(\sigma(u, v)) \cdot \left( \frac{\partial \sigma}{\partial u} \times \frac{\partial \sigma}{\partial v} \right) \: du dv
         \]

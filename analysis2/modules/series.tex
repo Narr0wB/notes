@@ -1,14 +1,14 @@
 % !TeX root = ../analysisII.tex
 
 \section{Serie numeriche}
-        Le serie numeriche sono somme di successioni da $B \subset \mathbb{N}$ a $\mathbb{R}$.
+        Le serie numeriche sono somme di successioni da $B \subseteq \mathbb{N}$ a $\mathbb{R}$.
         Un esempio potrebbe essere il seguente: si prenda in considerazione la successione $\{a_{k}\}_{k \in \mathbb{N}}$ data da $a_{i} = \displaystyle \frac{1}{2^{i}}$, la corrispondente serie numerica è allora
         \[
             \sum_{i = 0}^{\infty} a_{i} = \sum_{i = 0}^{\infty} \frac{1}{2^{i}}
         \]
 
         \begin{definition}
-            Sia $\{a_{k}\}_{k \in A}$, con $A \subset \mathbb{N}$ illimitato, una successione infinita in $\mathbb{R}$, si definisce $n$-esima somma parziale istanziata in $k_{0} \in A$, o ridotta $n$-esima, la seguente espressione
+            Sia $\{a_{k}\}_{k \in A}$, con $A \subseteq \mathbb{N}$ illimitato, una successione infinita in $\mathbb{R}$, si definisce $n$-esima somma parziale istanziata in $k_{0} \in A$, o ridotta $n$-esima, la seguente espressione
             \[
                 S_{k_{0}, n} = \sum_{k = k_{0} \in \mathbb{N}}^{n} a_{k}
             \]
@@ -35,7 +35,7 @@
         Se il limite di una somma parziale istanziata in un generico $k_{0} \in \mathbb{N}$ è finito/infinito, allora tutti i limiti di tutte le somme parziali istanziate in un qualsiasi $k_{1} \in \mathbb{N}$ avranno limite finito/infinito.
 
         \begin{theorem}[Criterio di Cauchy]
-            Sia $\sum_{k \in A} a_{k}$ con $A \subset \mathbb{N}$ illimitato una serie numerica. Se $\sum_{k \in A} a_{k} = a \in \mathbb{R}$, allora
+            Sia $\sum_{k \in A} a_{k}$ con $A \subseteq \mathbb{N}$ illimitato una serie numerica. Se $\sum_{k \in A} a_{k} = a \in \mathbb{R}$, allora
             \[
                 \lim_{n \rightarrow \infty} a_{k} = 0
             \]
@@ -249,7 +249,7 @@
         \begin{definition}
             Data una serie di potenze $\sum_{k = 0}^{\infty} a_{k}(x - x_{0})^{k}$ si dice raggio di convergenza della serie il seguente
             \[
-                R = \sup\{ x \in \mathbb{R} : \sum_{k = 0}^{\infty} a_{k}(x - x_{0})^{k} \; \textnormal{converge} \; \}
+                R = \sup\left\{ |x - x_{0}| : x \in \mathbb{R},\; \sum_{k = 0}^{\infty} a_{k}(x - x_{0})^{k} \; \textnormal{converge} \right\}
             \]
         \end{definition}
 
@@ -267,7 +267,7 @@
                 Sia $\sum_{k = 0}^{\infty} a_{k}(x - x_{0})^{k}$ una serie di potenze.
                 Se
                 \[
-                    \lim_{k \rightarrow \infty} \sqrt[k]{a_{k}} = l \in [0, +\infty]
+                    \lim_{k \rightarrow \infty} \sqrt[k]{|a_{k}|} = l \in [0, +\infty]
                 \]
                 Allora
                 \[
@@ -279,7 +279,7 @@
                 \]
                 dove $R$ è il raggio di convergenza della serie.
 
-            \subsubsection{Criterio della radice}
+            \subsubsection{Criterio del rapporto}
                 Sia $\sum_{k = 0}^{\infty} a_{k}(x - x_{0})^{k}$ una serie di potenze tale per cui $a_{k} \neq 0, \; \forall k$.
                 Se
                 \[
@@ -351,7 +351,7 @@
 
 
     \section{Serie di Fourier}
-    Sia $\mathcal{P} \subset L^{2}([0, T])$ lo spazio vettoriale di tutte le funzioni periodiche di periodo $T$ e continue a tratti su $[0, T]$.
+    Sia $\mathcal{P} \subseteq L^{2}([0, T])$ lo spazio vettoriale di tutte le funzioni periodiche di periodo $T$ e continue a tratti su $[0, T]$.
     E' possibile dimostrare che
     \[
         \mathcal{B} = \left\{ \left. 1, \cos(n\omega_{0}t), \sin(n \omega_{0} t) \;  \right| \; n \geq 1, \; \omega_{0} = \frac{2\pi}{T} \right\}
@@ -420,11 +420,11 @@
         \]
     \end{theorem}
 
-    \subsection{Serie di fourier di funzioni complesse}
-    Sia $\mathcal{C} \subset L^{2}([0, T], \mathbb{C})$ lo spazio vettoriale di tutte le funzioni complesse a variabile reale con periodo $T$.
+    \subsection{Serie di Fourier di funzioni complesse}
+    Sia $\mathcal{C} \subseteq L^{2}([0, T], \mathbb{C})$ lo spazio vettoriale di tutte le funzioni complesse a variabile reale con periodo $T$.
     E' possibile dimostrare che
     \[
-        \mathcal{B} = \left\{ e^{ik\omega_{0}t} \; | \; k \in \mathbb{Z} \right\}
+        \mathcal{B} = \left\{ e^{ik\omega_{0}t} \st k \in \mathbb{Z} \right\}
     \]
     è una base di $\mathcal{C}$.
     Di conseguenza, data una funzione $f \in \mathcal{C}$, si ha

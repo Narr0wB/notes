@@ -73,7 +73,7 @@
         \item Semidefinita positiva: $q(\mathbf{x}) \geq 0$ per ogni $\mathbf{x} \in \mathbb{R}^{n}$
         \item Definita negativa: $q(\mathbf{x}) < 0$ per ogni $\mathbf{x} \in \mathbb{R}^{n}$
         \item Semidefinita negativa: $q(\mathbf{x}) \leq 0$ per ogni $\mathbf{x} \in \mathbb{R}^{n}$
-        \item Non definita: $\exists \mathbf{x}_{1}, \mathbf{x}_{2} \in \mathbb{R}^{n} \; | \; q(\mathbf{x}_{1}) > 0 \; \land \; q(\mathbf{x}_{2}) < 0$
+        \item Non definita: $\exists \mathbf{x}_{1}, \mathbf{x}_{2} \in \mathbb{R}^{n} \st q(\mathbf{x}_{1}) > 0 \; \land \; q(\mathbf{x}_{2}) < 0$
     \end{enumerate}
 
     Grazie alla trasformazione di Jacobi [\Cref{subsec:quadformchange}], è possibile tramutare una generica forma quadratica $q(\mathbf{x})$ in forma ``diagonale'' $r(\mathbf{y}) = \lambda_1 y_{1}^{2} + ... + \lambda_n y_{n}^{2}$ dove $\mathbf{y} = P^{T} \mathbf{x}$ e $P$ è una matrice ortogonale di autovettori di $B$.
@@ -83,7 +83,7 @@
         \item $q(\mathbf{x})$ è semidefinita positiva $\iff$ $\lambda_1, ..., \lambda_n \geq 0$
         \item $q(\mathbf{x})$ è definita negativa $\iff$ $\lambda_1, ..., \lambda_n < 0$
         \item $q(\mathbf{x})$ è semidefinita negativa $\iff$ $\lambda_1, ..., \lambda_n \leq 0$
-        \item $q(\mathbf{x})$ è non definita $\iff$ $\exists \lambda_1, \lambda_2 \in \Lambda_B \; | \; \lambda_1 < 0 \; \land \; \lambda_2 > 0$
+        \item $q(\mathbf{x})$ è non definita $\iff$ $\exists \lambda_1, \lambda_2 \in \Lambda_B \st \lambda_1 < 0 \; \land \; \lambda_2 > 0$
     \end{enumerate}
 
 

@@ -1,7 +1,7 @@
 % !TeX root = ../mathematical_methods.tex
 
 \section{Teoria della probabilità}
-        \subsection{Introduzione}
+        \subsection{Spazio campione, eventi e probabilità}
             Grazie al matematico sovietico Andrej Kolmogorov fu possibile, nel XX secolo, assiomatizzare i concetti fondamentali della teoria della probabilità.
 
             Fra questi assiomi possiamo trovare le essenziali definizioni di:
@@ -11,7 +11,7 @@
             \end{definition}
 
             \begin{definition}
-                Si dice spazio degli eventi $\mathcal{F} \subset \mathcal{P}(\Omega)$ la $\sigma$-algebra definita su $\Omega$, i cui membri sono possibili \textbf{eventi} dell'esperimento aleatorio, ovvero combinazioni di \textbf{eventi elementari}.
+                Si dice spazio degli eventi $\mathcal{F} \subseteq \mathcal{P}(\Omega)$ la $\sigma$-algebra definita su $\Omega$, i cui membri sono possibili \textbf{eventi} dell'esperimento aleatorio, ovvero combinazioni di \textbf{eventi elementari}.
             \end{definition}
 
             \begin{definition}
@@ -87,7 +87,7 @@
         \begin{definition}[Disposizione]
             Dato un insieme $\Omega$, si dice disposizione $n$-esima il seguente insieme
             \[
-                D_{n}(\Omega) = \left\{ (\omega_{1}, \omega_{2}, ..., \omega_{n}) \; : \; \omega_{1}, ..., \omega_{n} \in \Omega \right\}
+                D_{n}(\Omega) = \left\{ (\omega_{1}, \omega_{2}, ..., \omega_{n}) \st \omega_{1}, ..., \omega_{n} \in \Omega \right\}
             \]
             La cardinalità di $D_{n}(\Omega)$ è data da $|\Omega|^{n}$
         \end{definition}
@@ -107,7 +107,7 @@
         \begin{definition}[Disposizione semplice]
             Dato un insieme $\Omega$, si dice disposizione $n$-esima semplice il seguente insieme
             \[
-                D^{s}_{n}(\Omega) = \left\{ (\omega_{1}, \omega_{2}, ..., \omega_{n}) \; : \; \omega_{1}, ..., \omega_{n} \in \Omega, \; \forall i, j \quad i \neq j \implies \omega_{i} \neq \omega_{j} \right\}
+                D^{s}_{n}(\Omega) = \left\{ (\omega_{1}, \omega_{2}, ..., \omega_{n}) \st \omega_{1}, ..., \omega_{n} \in \Omega, \; \forall i, j \quad i \neq j \implies \omega_{i} \neq \omega_{j} \right\}
             \]
             La cardinalità di $D^{s}_{n}(\Omega)$ è data da $\displaystyle \frac{|\Omega|!}{(|\Omega| - n)!}$
         \end{definition}
@@ -124,7 +124,7 @@
             Data una tupla $t: I \rightarrow \Omega$, si dice permutazione di $t$ la composizione di $t$ con una biezione $\sigma: I \rightarrow I$ appartenente al gruppo simmetrico di $I$.
             In simboli
             \[
-                P(t) = \{ t \circ \sigma \; : \; \sigma \in \textnormal{Sym}(I)\}
+                P(t) = \{ t \circ \sigma \st \sigma \in \textnormal{Sym}(I)\}
             \]
             La cardinalità di $P(t)$ è data da $\displaystyle \frac{|I|!}{\prod_{e \in t(I)} |t^{-1}(e)|!}$
         \end{definition}
@@ -136,7 +136,7 @@
         In altre parole, la probabilità condizionata $A | B$ è la probabilità che, considerando solo risultati in $B$, il risultato finale sia anche in $A$.
 
         Operativamente, la probabilità condizionata $A | B$ è definita a partire dallo spazio di probabilità ereditato da $B$.
-        Infatti, sia $B$ il nuovo spazio campione; possiamo allora dimostrare che $\mathcal{F}_{B} = \{ C \cap B \; : \; C \in \mathcal{F}\}$ sia a sua volta una valida $\sigma$-algebra:
+        Infatti, sia $B$ il nuovo spazio campione; possiamo allora dimostrare che $\mathcal{F}_{B} = \{ C \cap B \st C \in \mathcal{F}\}$ sia a sua volta una valida $\sigma$-algebra:
         \begin{enumerate}
             \item Sia $\{S_{i}\}_{i \in I}$ una collezione numerabile di elementi di $\mathcal{F}_{B}$, allora
             \[
@@ -195,7 +195,7 @@
                 P(A | B) = \frac{P(A \cap B)}{P(B)} = \frac{P(B | A)P(A)}{P(B)}
             \]
 
-            Sia $\{A_{i}\}_{i \in I} \subset \mathcal{F}$ una partizione disgiunta di $\Omega$ e sia $B \in \mathcal{F}$ un generico evento, allora
+            Sia $\{A_{i}\}_{i \in I} \subseteq \mathcal{F}$ una partizione disgiunta di $\Omega$ e sia $B \in \mathcal{F}$ un generico evento, allora
             \[
                 P(A_{i} | B) = \frac{P(B | A_{i})P(A_{i})}{P(B)} = \frac{P(B | A_{i})P(A_{i})}{\sum_{j \in I} P(B | A_{j})P(A_{j})}
             \]
@@ -274,13 +274,14 @@
             Si selezioni un generico $B \in \mathcal{B}(\mathbb{R})$.
             Questi è il prodotto di un'espressione \textit{algebrica} dei membri del seguente generatore
             \[
-                G = \{(-\infty, a] \; : \; a \in \mathbb{R}\}
+                G = \{(-\infty, a] \st a \in \mathbb{R}\}
             \]
 
             Dato che è possibile dimostrare che l'operatore di pullback commuta con le operazioni algebriche che determinano le $\sigma$-algebre, $X^{-1}(B)$ è a sua volta un'espressione algebrica di pullback di elementi del generatore.
             Dato che quest'ultimi si trovano in $\mathcal{F}$, allora anche il risultato dell'espressione si trova in $\mathcal{F}$.
         \end{proof}
 
+        \subsection{Funzione di distribuzione}
         \begin{definition}[Funzione di distribuzione cumulativa]
             Sia $(\Omega, \mathcal{F}, P)$ uno spazio di probabilità, e sia $X: (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}, \mathcal{B}(\mathbb{R}))$ una variabile casuale.
             Si dice funzione di distribuzione cumulativa la seguente funzione
@@ -315,6 +316,7 @@
             \]
         \end{itemize}
 
+        \subsection{Indipendenza di variabili casuali}
         \begin{definition}[Variabili casuali indipendenti]
             Siano $X_{1}, X_{2}: (\Omega, \mathcal{F}) \rightarrow (\mathbb{R}, \mathcal{B}(\mathbb{R}))$ delle variabili casuali.
             Queste si dicono indipendenti se $\forall I_{1}, I_{2} \subseteq \mathbb{R}$ intervalli vale la seguente relazione
@@ -334,7 +336,7 @@
         \begin{proof}[Dimostrazione]
             Ricordando la definizione dell'espressione $P(X \in B)$, si ha che
             \[
-                P(X \in B) = P(\{ \omega \in \Omega \; : \; X(\omega) \in B \}) = P(X^{-1}(B))
+                P(X \in B) = P(\{ \omega \in \Omega \st X(\omega) \in B \}) = P(X^{-1}(B))
             \]
             Per la proprietà iniettiva di $g$, si evince
             \[
@@ -359,7 +361,7 @@
                 \]
                 di conseguenza, la seguente collezione di sottoinsiemi di $\Omega$
                 \[
-                    \left\{X^{-1}(x) \; : \; x \in X(\Omega)\right\}
+                    \left\{X^{-1}(x) \st x \in X(\Omega)\right\}
                 \]
                 è una partizione disgiunta dello spazio campione, quindi
                 \[
@@ -420,7 +422,7 @@
                     Allora $X$ e $Y$ sono indipendenti se e solo se $f_{(X, Y)}(x) = f_{X}(x)f_{Y}(x)$
                 \end{theorem}
 
-        \subsection{Media, varianza e valore atteso di variabili casuali}
+        \subsection{Valore atteso e varianza}
             \begin{definition}[Definizione di valore atteso]
                 Sia $X$ una variabile casuale.
                 Se $X$ è discreta, allora il valore atteso (anche chiamato valor medio) di $X$, denotato con $\mathbb{E}[X]$ oppure con $\mu_{X}$, è dato da
@@ -736,7 +738,7 @@
             \]
             Si selezioni allora la partizione dell'evento certo
             \[
-                A_{j} = \left\{ Y^{-1}(j) \; : \; j \in Y(\Omega) \right\}, \quad \bigcup_{j \in Y(\Omega)} A_{j} = \Omega
+                A_{j} = \left\{ Y^{-1}(j) \st j \in Y(\Omega) \right\}, \quad \bigcup_{j \in Y(\Omega)} A_{j} = \Omega
             \]
             Allora, per la formula delle probabilità totali, si ha che
             \[

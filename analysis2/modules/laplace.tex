@@ -48,23 +48,23 @@
                 Sia $f: \mathbb{R} \rightarrow \mathbb{R}$, $f$ si dice a funzione a crescita esponenziale se e solo se $\exists M > 0, \exists \gamma \in \mathbb{R}$ tali per cui
                 $\forall t \geq 0, \; |f(t)| \leq Me^{\gamma t}$. L'ordine esponenziale di $f$ ($\gamma_f$) è definito come
                 \[
-                    \inf \{ \gamma \in \mathbb{R} \; : \; |f(t)| \leq Me^{\gamma t} \;\: \forall t \geq 0\}
+                    \inf \{ \gamma \in \mathbb{R} \st |f(t)| \leq Me^{\gamma t} \;\: \forall t \geq 0\}
                 \]
             \end{definition}
 
             Il dominio dell'operatore $\mathcal{L}$ è
             \[
-                L(0, +\infty) = \{ f: \mathbb{R} \rightarrow \mathbb{R} \; : \; f \; \text{è una funzione Riemann integrabile a crescita esponenziale}\}
+                L(0, +\infty) = \{ f: \mathbb{R} \rightarrow \mathbb{R} \st f \; \text{è una funzione Riemann integrabile a crescita esponenziale}\}
             \]
 
-        \subsection{Proprietà}
-            \subsubsection{Linearità dell'operatore}
+        \subsection{Linearità e trasformazioni dell'argomento}
+            \subsubsection{Linearità}
                 $\forall f, g \in L(0, +\infty), \forall s > \max\{\alpha_f, \alpha_g\}$
                 \[
                     \mathcal{L}[af + bg] = a \mathcal{L}[f] + b \mathcal{L}[g]
                 \]
 
-            \subsubsection{Comportamento rispetto ad una traslazione}
+            \subsubsection{Traslazione}
                 $\forall f \in L(0, +\infty), \forall a > 0, \forall s > \alpha_f$
                 \[
                     \mathcal{L}[f(t - a)u(t - a)] = e^{-as}\mathcal{L}[f]
@@ -82,7 +82,7 @@
                     = 0 + \int_{0}^{+\infty} f(v) e^{-s(v + a)} dv = e^{-sa} \int_{0}^{+\infty} f(v) e^{-sv} dv = e^{-sa} \mathcal{L}[f]
                 \]
 
-            \subsubsection{Comportamento rispetto ad una modulazione}
+            \subsubsection{Modulazione}
                 $\forall f \in L(0, +\infty), \forall a > 0, \forall s > \alpha_f$
                 \[
                     \mathcal{L}[e^{at}f] = \mathcal{L}[f](s - a)
@@ -92,7 +92,7 @@
                     \int_{0}^{+\infty} e^{at}f(t) e^{-st} dt = \int_{0}^{+\infty} f(t) e^{(-s + a)t} dt = \int_{0}^{+\infty} f(t) e^{-(s - a)t} dt = \mathcal{L}[f](s - a)
                 \]
 
-            \subsubsection{Comportamento rispetto ad una dilatazione}
+            \subsubsection{Dilatazione}
                 $\forall f \in L(0, +\infty), \forall a > 0, \forall s > \alpha_f a$
                 \[
                     \mathcal{L}[f(at)] = \frac{1}{a}\mathcal{L}[f](\frac{s}{a})
@@ -102,7 +102,8 @@
                     \int_{0}^{+\infty} f(at)e^{-st} dt = \int_{0}^{+\infty} f(u)e^{-s\frac{u}{a}} \frac{du}{a} = \frac{1}{a} \int_{0}^{+\infty} f(u) e^{-(\frac{s}{a})u} du = \frac{1}{a} \mathcal{L}[f](\frac{s}{a})
                 \]
 
-            \subsubsection{Formula del valore iniziale}
+        \subsection{Teoremi del valore iniziale e finale}
+            \subsubsection{Valore iniziale}
                 Sia $f \in L(0,+\infty)$ e sia
                 \[
                     \ell_0=\lim_{t\rightarrow0^+}f(t)\in\mathbb{R}.
@@ -139,7 +140,7 @@
                     arbitrario, segue la tesi.
                 \end{proof}
 
-            \subsubsection{Formula del valore finale}
+            \subsubsection{Valore finale}
                 Sia $f \in L(0,+\infty)$ e sia
                 \[
                     \ell_\infty=\lim_{t\rightarrow+\infty}f(t)\in\mathbb{R}.
@@ -167,7 +168,8 @@
                     Poiché $\varepsilon$ è arbitrario, segue la tesi.
                 \end{proof}
 
-            \subsubsection{Derivata prima della trasformata}
+        \subsection{Derivazione e integrazione}
+            \subsubsection{Derivata della trasformata}
                 $\forall f \in L(0, +\infty), \forall s > \alpha_f$
                 \[
                     \frac{d}{ds} \mathcal{L}[f](s) = - \mathcal{L}[tf]
@@ -200,7 +202,7 @@
                     \end{align*}
                 \end{proof}
 
-            \subsubsection{Comportamento secondo derivata di input}
+            \subsubsection{Trasformata della derivata}
                 $\forall f \in L(0, +\infty), \; f' \in L(0, +\infty)$
                 \[
                     \mathcal{L}[f'] = s\mathcal{L}[f] - \lim_{t \rightarrow 0^{+}} f(t)
@@ -219,7 +221,7 @@
                     \implies \mathcal{L}[f'] = s\mathcal{L}[f] - \lim_{t \rightarrow 0^{+}} f(t)
                 \]
 
-            \subsubsection{Comportamento secondo integrale di input}
+            \subsubsection{Trasformata dell'integrale}
                 $\forall f \in L(0, +\infty), f(t) = 0 \; \forall t \in (-\infty, 0), \; \displaystyle g(t) = \int_{0}^{t} f(u) du, \; \forall s > \max\{\alpha_f, 0\}$
                 \[
                     \mathcal{L}[g] = \frac{\mathcal{L}[f]}{s}
@@ -229,7 +231,7 @@
                     \mathcal{L}[g'] = s\mathcal{L}[g] - \lim_{t \rightarrow 0^{+}} g(t) \implies \mathcal{L}[f] = s\mathcal{L}[g] - \int_{0}^{0} f(t) dt \implies \mathcal{L}[g] = \frac{\mathcal{L}[f]}{s}
                 \]
 
-            \subsubsection{Comportamento secondo convuluzione}
+        \subsection{Convoluzione}
                 $\forall f, g \in L(0, +\infty), \; f(t)g(t) = 0 \; \forall t \in (-\infty, 0), \; (f * g)(t) = \displaystyle \int_{-\infty}^{+\infty} f(t - \tau)g(\tau)d\tau, \: \forall s > \max\{\alpha_f, \alpha_g\}$
                 \[
                     \mathcal{L}[f * g] = \mathcal{L}[f] \mathcal{L}[g]
@@ -255,7 +257,8 @@
                     \end{aligned}
                 \]
 
-            \subsubsection{Comportamento secondo funzione periodica di input}
+        \subsection{Trasformate note}
+            \subsubsection{Funzioni periodiche}
                 $\forall f \in L(0, +\infty), \; f(t + T) = f(t) \; \text{con} \; T \in \mathbb{R^{+}} \; \forall t \in (0, +\infty)$
                 \[
                     \mathcal{L}[f] = \frac{1}{1 - e^{sT}} \int_{0}^{T} f(t) e^{-st} dt
@@ -264,7 +267,7 @@
                 \[
                 \]
 
-            \subsubsection{Trasformata di Laplace della delta di Dirac}
+            \subsubsection{Delta di Dirac}
                 Sia $i_{\epsilon}(t) = \begin{cases} \frac{1}{\epsilon}, & 0 \leq t < \epsilon \\ 0, & \text{altrimenti} \end{cases}$ con $\epsilon > 0$, allora la trasformata di Laplace di $i_{\epsilon}$ è
                 \[
                     \mathcal{L}[i_{\epsilon}] = \int_{0}^{+\infty} i_{\epsilon}(t) e^{-st} dt = \int_{0}^{\epsilon} \frac{1}{\epsilon} e^{-st} dt = \frac{1}{\epsilon} \left[ -\frac{e^{-s\epsilon}}{s} + \frac{1}{s} \right] = \frac{1 - e^{-s\epsilon}}{s\epsilon}
