@@ -1,4 +1,5 @@
-\documentclass[a4paper]{article}
+
+\documentclass[a4paper]{report}
 
 \usepackage[T1]{fontenc}
 \usepackage{babel}
@@ -11,8 +12,8 @@
 \usepackage{enumitem}
 \usepackage{graphicx}
 \usepackage{titling}
-\usepackage{tikz-cd}
 \usepackage[margin=1in]{geometry}
+\usepackage{titlesec}
 \usepackage[
     hidelinks,
     pdfpagelabels,
@@ -24,54 +25,39 @@
 \graphicspath{{../assets/}{assets/}}
 
 \makeatletter
-\def\input@path{{modules/}{linear_algebra/modules/}{../}}
+\def\input@path{{modules/}{signal/modules/}{../}}
 \makeatother
 \usepackage{utils}
 
-\tikzcdset{
-    scale cd/.style={
-        every label/.append style={scale=#1},
-        cells={nodes={scale=#1}}
-    }
-}
-
-\title{Algebra lineare e Geometria}
+\title{Teoria dei Segnali e delle Comunicazioni}
 \author{I. El Fourati}
 \date{}
 
-\setlength{\emergencystretch}{1em}
-
 \begin{document}
-\setlength{\parindent}{0pt}
-
+    
 \hypersetup{pageanchor=false}
 \begin{titlepage}
     \centering
     {\Large \theauthor\par}
     \vfill
     {\Huge\bfseries \thetitle\par}
-    \vspace{10pt}
+    \medskip
     {\Large Appunti di teoria\par}
-    \vspace{20pt}
+    \bigskip
     \includegraphics[width=0.3\textwidth]{polito_nero.png}
     \vfill
 \end{titlepage}
 
 \pagenumbering{Roman}
 \hypersetup{pageanchor=true}
+\begingroup
+\setlength{\parskip}{0pt}
 \tableofcontents
-
 \clearpage
+\endgroup
 \pagenumbering{arabic}
 
-\input{strutturealgebriche.tex}
-\clearpage
-\input{spazivettoriali.tex}
-\clearpage
-\input{matrici.tex}
-\clearpage
-\input{applicazioni_lineari.tex}
-\clearpage
-\input{forme_quadratiche.tex}
+\chapter{Teoria dei segnali}
+\input{modules/signal.tex}
 
 \end{document}

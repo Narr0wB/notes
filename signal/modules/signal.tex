@@ -1,0 +1,357 @@
+
+\section{Introduzione}
+    \begin{definition}[Definizione di segnale]
+        Un segnale è una qualsiasi funzione di variabili indipendenti, ovvero
+        \[
+            f: \Omega \subseteq \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}
+        \]
+        \[
+            \mathbf{t} \in \Omega \mapsto f(\mathbf{t})
+        \]
+    \end{definition}
+
+    Da un punto di vista fisico, un segnale è \textit{una variazione di una precisa quantità fisica in funzione di tempo, spazio, o qualsiasi altra variabile indipendente}.
+    Noi lavoreremo per la maggior parte con segnali tempo-varianti.
+
+    Determinato il significato, matematico e fisico, del segnale, possiamo procedere a definire una serie di elementi utili nell'analisi di quest'ultimi.
+
+    \begin{definition}[Definizione di supporto]
+        Sia $f: \Omega \subseteq \mathbb{R} \rightarrow \mathbb{R}$ un segnale.
+        Si dice supporto di $f$ il seguente insieme
+        \[
+            S(f) = \operatorname{cl}({\{t \in \Omega \st f(t) \neq 0\}})
+        \]
+    \end{definition}
+
+    In altre parole, il supporto del segnale è la chiusura (nel senso topologico) dell'insieme degli elementi in cui il segnale non è nullo.
+
+    \begin{definition}[Definizione di segnale localmente sommabile]
+        Sia $f: \Omega \subseteq \mathbb{R} \rightarrow \mathbb{R}$ un segnale.
+        Questi si dice localmente sommabile se $\forall \: a < b < \infty \in \Omega$, si ha che
+        \[
+            \int_{a}^{b} \abs{f(t)} \: dt < \infty
+        \]
+    \end{definition}
+
+    \begin{definition}[Definizione di segnale sommabile]
+        Sia $f: \Omega \subseteq \mathbb{R} \rightarrow \mathbb{R}$ un segnale.
+        Questi si dice sommabile, o assolutamente integrabile, se
+        \[
+            \int_{\Omega} \abs{f(t)} \: dt < \infty
+        \]
+    \end{definition}
+
+\clearpage
+\section{Serie di Fourier}
+    \subsection{Prerequisiti}
+        \begin{definition}[base di Hamel]
+            Sia $V$ uno spazio vettoriale e sia $B \subseteq V$ un sottoinsieme di vettori linearmente indipendenti in $V$.
+            $B$ è detto una base di Hamel qualora, per qualsiasi $\mathbf{v} \in V$ esiste una combinazione linear finita di elementi di $B$ tale che
+            \[
+                \mathbf{v} = \sum_{i = 1}^{k} \alpha_i \mathbf{b}_i, \; \mathbf{b}_i \in B
+            \]
+        \end{definition}
+
+        \begin{definition}[base di Hilbert-Schauder]
+            Sia $V$ uno spazio metrico. Un sottoinsieme $B \subseteq V$ contabile è detto base di Hilber-Schauder qualora l'insieme di tutte le combinazioni lineari finite di elementi di $B$
+            sia denso in $V$.
+        \end{definition}
+
+        Uno degli spazi di interesse in cui si trovano le funzioni che ammettono serie di Fourier è $L^2([a, b]; \mathbb{C})$ dotato del seguente prodotto scalare
+        \[
+            f, g \in L^2([a, b]; \mathbb{C}) \implies \langle f, g \rangle = \int_{a}^{b} f(t) \overline{g(t)} dt
+        \]
+        Grazie a tale prodotto scalare è possibile definire una norma su $L^2([a, b]; \mathbb{C})$
+        \[
+            ||f||_{L^2([a, b])} = \sqrt{\langle f, f \rangle}
+        \]
+
+        \begin{definition}[Energia di un segnale]
+            Sia $f \in L^2([a, b]; \mathbb{C})$ un segnale.
+            L'energia di $f$ è la quantità definita come
+            \[
+                E(f) = ||f||^{2}_{L^2([a, b])} = \langle f, f \rangle = \int_{a}^{b} f(t) \overline{f(t)} \; dt
+            \]
+        \end{definition}
+
+        \begin{definition}[Potenza di un segnale]
+            Sia $f \in L^2([a, b]; \mathbb{C})$ un segnale.
+            La potenza di $f$ è la quantità definita come
+            \[
+                P(f) = \frac{E(f)}{T}
+            \]
+            con $T = b - a$. 
+        \end{definition}
+
+    \subsection{Definizione}
+        Data una funzione $f \in L^{2}([a, b]; \mathbb{C})$, per costruzione dello spazio $L^{2}([a, b]; \mathbb{C})$, è possibile scomporla secondo la seguente base ortogonale di Hilbert
+        \[
+            \{e^{in 2 \pi f_0 t}\}_{n \in \mathbb{Z}} \implies f(t) = \sum_{-\infty}^{\infty} a_{n} e^{in 2 \pi f_0 t}
+        \]
+        con $f_0 = \frac{1}{T}$, $T = b - a$ chiamata frequenza fondamentale. I coefficienti $a_n$ sono dati da
+        \[
+            a_{n} = \frac{1}{T} \langle f, e^{in 2 \pi f_0 t} \rangle = \frac{1}{T} \int_{a}^{b} f(t) \overline{e^{in 2 \pi f_0 t}} dt
+        \]
+
+        \begin{proposition}[Identità di Parseval]
+            Sia $f: [a, b] \rightarrow \mathbb{C}$ un segnale e siano $\{a_n\}_{n \in \mathbb{Z}}$ i coefficienti della sua serie di Fourier.
+            Allora l'energia di $f$ è
+            \[
+                E(f) = T \sum_{n \in \mathbb{Z}} |a_n|^2
+            \]
+        \end{proposition}
+
+        \begin{proof}[Dimostrazione]
+            Partendo dalla definizione di energia, si ha che
+            \[
+                E(f) = \int_{a}^{b} f(t) \overline{f(t)} dt = \int_{a}^{b} \qty(\sum_{n \in \mathbb{Z}} a_n e^{in 2\pi f_0 t}) \qty(\sum_{n \in \mathbb{Z}} \overline{a_n e^{in 2\pi f_0 t}}) dt = \sum_{i, j \in \mathbb{Z}} \int_{a}^{b} a_i \overline{a_j} e^{i (i - j) 2 \pi f_0 t} dt
+            \]
+            per ortonormalità della base $\{e^{in 2 \pi f_0 t}\}_{n \in \mathbb{Z}}$ si ha che per ogni $i, j \in \mathbb{Z} \st i \neq j$
+            \[
+                \int_{a}^{b} a_i \overline{a_j} e^{i (i - j) 2 \pi f_0 t} dt = 0
+            \]
+            quindi
+            \[
+                \sum_{i, j \in \mathbb{Z}} \int_{a}^{b} a_i \overline{a_j} e^{i (i - j) 2 \pi f_0 t} dt = \sum_{k \in \mathbb{Z}} a_k \overline{a_k} \int_{a}^{b} 1 \: dt = T \sum_{k \in \mathbb{Z}} |a_k|^2
+            \]
+        \end{proof}
+
+\clearpage
+\section{Trasformata di Fourier}
+    \subsection{Definizione}
+        \begin{lemma}
+            $L^1 \cap L^2$ è denso in $L^2$.
+        \end{lemma}
+
+        \begin{proof}[Dimostrazione]
+            Sia $f \in L^2$ e sia $f_{n} = f \mathbf{1}_{[-n, n]}$
+            \[
+                \int_{\mathbb{R}} \left| f_{n} \right| \: dt \leq \infty, \forall n \in \mathbb{N} \implies f_{n} \in L^1 \cap L^2
+            \]
+
+            Si consideri allora
+            \[
+                \lim_{n \rightarrow \infty} ||f - f_{n}||_{L^2} = \lim_{n \rightarrow \infty} \int_{\mathbb{R}} |f - f_{n}|^2 dt = \lim_{n \rightarrow \infty} \int_{-\infty}^{-n} |f|^2 dt + \int_{n}^{\infty} |f|^2 dt = 0
+            \]
+        \end{proof}
+
+        \begin{definition}[Pre-trasformata di Fourier]
+            Sia $\mathcal{F}_0: L^1 \cap L^2 \rightarrow L^{\infty}$ l'operatore definito come
+            \[
+                (\mathcal{F}_0 x) (f) = \int_{\mathbb{R}} x(t) e^{-i 2 \pi f t} dt
+            \]
+        \end{definition}
+
+        \begin{definition}[Operatore limitato]
+            Sia $T: X \rightarrow Y$ un'operatore su due spazi normati $X$ e $Y$.
+            $T$ è detto limitato qualora, per ogni $x \in X$, esiste un $C \in \mathbb{R}$ tale per cui $||Tx||_{Y} \leq C||x||_{X}$.
+        \end{definition}
+
+        \begin{definition}[Operatore isometrico]
+            Sia $T: X \rightarrow Y$ un'operatore su due spazi normati $X$ e $Y$.
+            $T$ è detto un'isometria qualora $||Tx||_{Y} = ||x||_{X}$.
+        \end{definition}
+
+        \begin{theorem}[Teorema di Plancherel]
+            Per qualsiasi $f \in L^1 \cap L^2$, si ha che $\mathcal{F}_0 f \in L^2$ e che $||\mathcal{F}_0 f||_{L^2} = ||f||_{L^2}$.
+        \end{theorem}
+
+        \begin{theorem}[Teorema della trasformazione lineare limitata (BLT)]
+            Sia $X$ uno spazio normato e sia $D \subset X$ denso in $X$. 
+            Sia $Y$ uno spazio di Banach, e sia $T: D \rightarrow Y$ un'operatore lineare limitato.
+            Allora esiste un'unica estensione lineare limitata $\tilde{T}: X \rightarrow Y$ con $\tilde{T}|_{D} = T$. 
+            Inoltre, qualora $T$ dovesse essere un'isometria, allora lo è anche $\tilde{T}$.
+        \end{theorem}
+
+        \begin{definition}[Trasformata di Fourier]
+            Sia $\mathcal{F}: L^2 \rightarrow L^2$ l'estensione BLT di $\mathcal{F}_0$ tale per cui
+            \[
+                \mathcal{F} x = \hat{x} = X(f) = \lim_{R \rightarrow \infty} \int_{-R}^{R} x(t) e^{-i 2 \pi f t} dt
+            \]
+        \end{definition}
+
+        \begin{lemma}[Antitrasformata di Fourier]
+            Sia $\hat{x}$ la trasformata di Fourier di $x$, allora
+            \[
+                (\mathcal{F}\hat{x})(t) = x(-t) \implies \mathcal{F}^{-1} \hat{x} = (\mathcal{F} \hat{x})(-t)
+            \]
+        \end{lemma}
+
+    \subsection{Proprietà}
+        \begin{property}[Linearità]
+            $\mathcal{F}\{\alpha x + \beta y\} = \alpha \mathcal{F} x + \beta \mathcal{F} y$
+        \end{property}
+
+        \begin{property}[Traslazione]\label{prop:shift}
+            $\mathcal{F}\{x(t - T)\} = (\mathcal{F}x)e^{-i 2 \pi f T}$
+        \end{property}
+        \begin{proof}
+            \[
+                \mathcal{F}\{x(t - T)\} = \int_{\mathbb{R}} x(t - T) e^{-i 2 \pi f t} dt = \int_{\mathbb{R}} x(u) e^{-i 2 \pi f (u + T)} du = (\mathcal{F}x)e^{-i 2 \pi f T} 
+            \]   
+        \end{proof}
+
+        \begin{property}[Modulazione]
+            $\mathcal{F}\{x(t) e^{i 2 \pi f_0 t}\} = (\mathcal{F}x)(f - f_0)$
+        \end{property}
+        \begin{proof}
+            \[
+                \mathcal{F}\{x(t) e^{i 2 \pi f_0 t}\} = \int_{\mathbb{R}} x(t) e^{i 2 \pi f_0 t} e^{-i 2 \pi f t} dt = \int_{\mathbb{R}} x(t) e^{-i 2 \pi (f - f_0) t} dt = (\mathcal{F}x)(f - f_0)
+            \] 
+        \end{proof}
+
+        \begin{property}[Scalamento]
+            $\mathcal{F}\{x(kt)\} = \frac{1}{|k|} (\mathcal{F}x)\qty(\frac{f}{k})$
+        \end{property}
+        \begin{proof}
+            \[
+                \mathcal{F}\{x(kt)\} = \int_{-\infty}^{\infty} x(kt) e^{-i 2 \pi f t} dt = 
+                \begin{cases}
+                    \int_{-\infty}^{\infty} x(u) e^{-i 2 \pi \frac{f}{k} u} \frac{du}{k}, &k > 0\\
+                    \int_{\infty}^{-\infty} x(u) e^{-i 2 \pi \frac{f}{k} u} \frac{du}{k}, &k < 0
+                \end{cases}
+            \]
+            \[
+                = \int_{-\infty}^{\infty} x(u) e^{-i 2 \pi \frac{f}{k} u} \frac{du}{|k|}
+                = \frac{1}{|k|} (\mathcal{F}x)\qty(\frac{f}{k})
+            \]
+        \end{proof}
+
+        \begin{property}[Simmetria hermitiana]
+            Sia $\hat{x} = \mathcal{F} x$.
+            Se $x \in L^2$ e $x$ è reale allora $\hat{x}(-f) = \overline{\hat{x}(f)}$.
+        \end{property}
+        \begin{proof}
+            \[
+                \overline{\hat{x}(f)} = \overline{\int_{\mathbb{R}} x(t) e^{-i 2 \pi f t} dt} = \int_{\mathbb{R}} x(t) e^{i 2 \pi f t} dt = \hat{x}(-f)
+            \] 
+        \end{proof}
+
+        \begin{property}[Convoluzione]\label{prop:conv}
+            Siano $x_1, x_2 \in L^1$, allora $\mathcal{F}\{x_1 * x_2\} = (\mathcal{F} x_1)(\mathcal{F} x_2)$
+        \end{property}
+        \begin{proof}
+            \begin{align*}
+                \mathcal{F}\{x_1 * x_2\}(f)
+                &= \int_{\mathbb{R}} \qty( \int_{\mathbb{R}} x_1(\tau)\, x_2(t-\tau)\, d\tau ) e^{-i2\pi f t}\, dt \\
+                &\overset{\text{Fubini}}{=} \int_{\mathbb{R}} x_1(\tau) \qty( \int_{\mathbb{R}} x_2(t-\tau)\, e^{-i2\pi f t}\, dt ) d\tau \\
+                &\overset{\text{(P\ref{prop:shift})}}{=} (\mathcal{F}x_2)(f) \int_{\mathbb{R}} x_1(\tau)\, e^{-i2\pi f\tau}\, d\tau
+                = (\mathcal{F}x_1)(f)\,(\mathcal{F}x_2)(f)
+            \end{align*}
+        \end{proof}
+
+        \begin{property}[Trasformata di prodotto]
+            $\mathcal{F}\{x_1 x_2\} = (\mathcal{F}x_1) * (\mathcal{F}x_2)$
+        \end{property}
+        \begin{proof}
+            Siano $x_1^* = x_1(-t)$ e $x_2^* = x_2(-t)$, con $X_1^*, X_2^*$ rispettive trasformate di Fourier.
+            Allora, per (P\ref{prop:conv}), si ha che
+            \[
+                \mathcal{F}\{X_1^* * X_2^*\} = (\mathcal{F}X_1^*)(\mathcal{F}X_2^*)
+            \]
+            \[
+                \mathcal{F}\{\mathcal{F}\{X_1^* * X_2^*\}\} = \mathcal{F}\{(\mathcal{F}X_1^*)(\mathcal{F}X_2^*)\}
+            \]
+
+            Sia $S: x(t) \mapsto x(-t)$ l'operatore ``specchio'', per la definizione di antitrasformata come $\mathcal{F}^{-1} = (S \circ \mathcal{F}) = (\mathcal{F} \circ S)$, si evince che
+            \[
+                \mathcal{F} X_1^* = (\mathcal{F} \circ S) X_1 = \mathcal{F}^{-1} X_1 = x_1
+            \]
+            \[
+                \mathcal{F} X_2^* = (\mathcal{F} \circ S) X_2 = \mathcal{F}^{-1} X_2 = x_2
+            \]
+
+            Tenuto conto del fatto che $\mathcal{F}^2 = S$, si ha che
+            \begin{align*}
+                \mathcal{F}\{\mathcal{F}\{X_1^* * X_2^*\}\} &= \mathcal{F}^2 \{X_1^* * X_2^*\} \\
+                &= S \{X_1^* * X_2^*\} \\
+                &= X_1^* * X_2^* \\
+                &= (S X_1) * (S X_2) \\
+                &= X_1 * X_2
+            \end{align*}
+
+            Quindi mettendo il tutto insieme, si giunge alla conclusione 
+            \[
+                \mathcal{F}\{x_1x_2\} = X_1 * X_2 = (\mathcal{F} x_1) * (\mathcal{F} x_2)
+            \]
+        \end{proof}
+
+        \begin{property}[Trasformata di derivata]
+            $\mathcal{F}x' = i 2 \pi f (\mathcal{F} x)(f)$
+        \end{property}
+        \begin{proof}
+            \[
+                \mathcal{F}x' = 
+                \int_{\mathbb{R}} x'(t) e^{-i 2 \pi f t} dt = 
+                x(t) e^{-i 2 \pi f t} |_{-\infty}^{\infty} + i 2 \pi f \int_{\mathbb{R}} x(t) e^{-i 2 \pi f t} dt
+            \]
+
+            Dato che $x \in L^2$, si ha che $\lim_{t \rightarrow \pm \infty} x(t) = 0$, quindi
+            \[
+                \mathcal{F}x' = 
+                i 2 \pi f \int_{\mathbb{R}} x(t) e^{-i 2 \pi f t} dt = 
+                i 2 \pi f (\mathcal{F}x)(f)
+            \]
+        \end{proof}
+
+        \begin{property}[Derivata di trasformata]
+            $\mathcal{F}\{tx\} = \frac{1}{i 2 \pi} (\mathcal{F}x)'$
+        \end{property}
+        \begin{proof}
+            \[
+                \mathcal{F}\{tx\} =
+                \int_{\mathbb{R}} t x(t) e^{-i 2 \pi f t} dt =
+                \frac{1}{i 2 \pi} \frac{\partial}{\partial f} \qty( \int_{\mathbb{R}} x(t) e^{-i 2 \pi f t} dt ) = 
+                \frac{1}{i 2 \pi} (\mathcal{F} x)'(f)
+            \]
+        \end{proof}
+
+        \begin{property}[Variabilità nel tempo]
+            Sia $x \in L^2$ un segnale a banda limitata di raggio $B$, allora
+            \[
+                \qty| \frac{x(t_1) - x(t_2)}{t_1 - t_2} | \leq 2 \pi B \int_{-B}^{B} |(\mathcal{F} x)(f)| df
+            \]
+        \end{property}
+
+        \begin{property}[Princpio di indeterminazione]
+            Sia $x \in L^2$ un segnale reale, e definita la sua durata $T$ come
+            \[
+                T^2 = \frac{1}{||x||_{L^2}} \int_{\mathbb{R}} t^2 |x(t)|^2 dt
+            \]
+            e la sua banda $B$ come
+            \[
+                B^2 = \frac{4 \pi^2}{||x||_{L^2}} \int_{\mathbb{R}} f^2 |(\mathcal{F}x)(f)|^2 df
+            \]
+            si ha che
+            \[
+                BT \leq \frac{1}{2}
+            \]
+        \end{property}
+
+    \subsection{Estensione alle distribuzioni}
+        Si consideri lo spazio di Schwartz $\mathcal{S}(\mathbb{R}, \mathbb{C}) \subset C^{\infty}(\mathbb{R}, \mathbb{C})$ di tutte le funzioni di test $\phi$ tali per cui
+        \[
+            \sup_{x \in \mathbb{R}} |x^{\alpha} \phi^{(\beta)}(x)| < \infty, \forall \alpha, \beta \in \mathbb{N}
+        \]
+
+        Il duale topologico $\mathcal{S}'$ è lo spazio dei funzionali lineari continui $T: \mathcal{S} \rightarrow \mathbb{C}$ detti \textit{distribuzioni temperate}, la cui applicazione è anche denotata come $T(\phi) := \langle T, \phi \rangle$.
+        Data una funzione localmente integrabile a crescita polinomiale $g(t)$, allora è possibile definire una \textit{distribuzione regolare} $T_g$ basata su $g$, ovvero
+        \[
+            \langle T_g, \phi \rangle := \int_{\mathbb{R}} g(t) \phi(t) dt
+        \]
+
+        \begin{lemma}
+            Se $\phi \in \mathcal{S}$ allora $\mathcal{F} \phi \in \mathcal{S}$
+        \end{lemma}
+
+        \begin{proof}
+            TODO 
+        \end{proof}
+    
+        \begin{definition}[Trasformata di una distribuzione temperata]
+            Sia $T \in \mathcal{S}'$ una distribuzione temperata.
+            Si definisce la trasformata di Fourier $\hat{T}$ come
+            \[
+                \langle \hat{T}, \phi \rangle = (T \circ \mathcal{F})(\phi) = \langle T, \hat{\phi} \rangle
+            \]
+        \end{definition}

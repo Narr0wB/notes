@@ -1,0 +1,207 @@
+
+% \section{Modello ideale}
+%     \begin{figure}[ht]
+%         \centering
+%         \begin{circuitikz}
+%             \draw (0,2.5) to[short, o-, i={$i(z,t)$}] (1.5,2.5)
+%                 to[L, l=$L\,\mathrm{d}z$] (3.5,2.5)
+%                 to[short, -*] (4.5,2.5)
+%                 to[short, -o, i={$i(z+\mathrm{d}z,t)$}] (6.5,2.5);
+%             \draw (4.5,2.5) to[C, l=$C\,\mathrm{d}z$, -*] (4.5,0);
+%             \draw (0,0) to[short, o-o] (6.5,0);
+%             \draw (0,0) to[open, v^={$v(z,t)$}] (0,2.5);
+%             \draw (6.5,0) to[open, v_={$v(z+\mathrm{d}z,t)$}] (6.5,2.5);
+%             \draw[decorate, decoration={brace, mirror, amplitude=6pt}]
+%                 (0,-0.4) -- (6.5,-0.4) node[midway, below=8pt] {$\mathrm{d}z$};
+%         \end{circuitikz}
+%         \caption{Modello a costanti distribuite di un tratto $\mathrm{d}z$ di linea senza perdite.}
+%         \label{fig:linea-senza-perdite}
+%     \end{figure}
+
+%     Applicando le leggi di Kirchoff si ha che
+%     \[
+%         i(z, t) - i(z + dz, t) - C dz \frac{\partial v(z + dz, t)}{\partial t} = 0 \tag{KCL}
+%     \]
+%     \[
+%         v(z , t) - L dz \frac{\partial i(z, t)}{\partial t} - v(z + dz, t) = 0 \tag{KVL}
+%     \]
+
+%     Moltiplicando per $-1$, dividendo per $dz$ e facendo tendere $dz \rightarrow 0$, si ottiene
+%     \[
+%         \frac{\partial i(z, t)}{\partial z} + C \frac{\partial v(z, t)}{\partial t} = 0
+%     \]
+%     \[
+%         \frac{\partial v(z, t)}{\partial z} + L \frac{\partial i(z, t)}{\partial t} = 0
+%     \]
+
+    % Queste sono le equazioni costitutive della linea di trasmissione senza perdite (caso ideale), da cui possiamo ricavare
+    % \[
+    %     \frac{\partial^2 v(z, t)}{\partial z^2} - LC \frac{\partial^2 v(z, t)}{\partial t^2} = 0
+    % \]
+    % \[
+    %     \frac{\partial^2 i(z, t)}{\partial z^2} - LC \frac{\partial^2 i(z, t)}{\partial t^2} = 0
+    % \]
+    % le cui soluzioni sono nella forma
+    % \[
+    %     v(z, t) = v^+(z - v_f t) + v^-(z + v_f t)
+    % \]
+    % \[
+    %     i(z, t) = i^+(z - v_f t) + i^-(z + v_f t)
+    % \]
+    % dove $\{v, i\}^+$ sono dette onde \textit{progressive} poichè si propagano verso $+z$, mentre $\{v, i\}^-$ sono dette onde \textit{regressive}, con $v_f = \frac{1}{\sqrt{LC}}$
+
+
+\section{Modello con perdite}
+    \begin{figure}[ht]
+        \centering
+        \begin{circuitikz}
+            \draw (0,2.5) to[short, o-, i={$i(z,t)$}] (1,2.5)
+                to[R, l=$R\,\mathrm{d}z$] (3,2.5)
+                to[L, l=$L\,\mathrm{d}z$] (5,2.5)
+                to[short, -*] (6,2.5)
+                to[short, -*] (7.5,2.5)
+                to[short, -o, i={$i(z+\mathrm{d}z,t)$}] (9.5,2.5);
+            \draw (6,2.5) to[R, l_=$G\,\mathrm{d}z$, -*] (6,0);
+            \draw (7.5,2.5) to[C, l=$C\,\mathrm{d}z$, -*] (7.5,0);
+            \draw (0,0) to[short, o-o] (9.5,0);
+            \draw (0,0) to[open, v^={$v(z,t)$}] (0,2.5);
+            \draw (9.5,0) to[open, v_={$v(z+\mathrm{d}z,t)$}] (9.5,2.5);
+            \draw[decorate, decoration={brace, mirror, amplitude=6pt}]
+                (0,-0.4) -- (9.5,-0.4) node[midway, below=8pt] {$\mathrm{d}z$};
+        \end{circuitikz}
+        \caption{Modello a costanti distribuite di un tratto $\mathrm{d}z$ di linea con perdite.}
+        \label{fig:linea-con-perdite}
+    \end{figure}
+
+    Il modello con perdite è il modello reale che tiene conto degli effeti dispersivi dei conduttori della linea e del dielettrico fra quest'ultimi.
+    Il modello ideale diventa quindi un caso speciale del modello con perdite con $R, G = 0$.
+
+    Partendo dalle leggi di Kirchoff
+    \[
+        i(z, t) - i(z + dz, t) - G dz \: v(z + dz, t) - C dz \frac{\partial v(z + dz, t)}{\partial t} = 0 \tag{KCL}
+    \]
+    \[
+        v(z, t) - R dz \: i(z, t) - L dz \frac{\partial i(z, t)}{\partial t} - v(z + dz, t) = 0\tag{KVL} 
+    \]
+
+    Moltiplicando per $-1$, dividendo per $dz$ e facendo tendere $dz \rightarrow 0$, si ottiene
+    \[
+        \frac{\partial i(z, t)}{\partial z} + C \frac{\partial v(z, t)}{\partial t} + G v(z, t) = 0
+    \]
+    \[
+        \frac{\partial v(z, t)}{\partial z} + L \frac{\partial i(z, t)}{\partial t} + R i(z, t) = 0
+    \]
+
+\section{Equazioni del Telegrafo}
+    Determinate le equazioni costitutive della linea di trasmissione, è possibile semplificare il processo di risoluzione attraverso la trasformata di Fourier
+    \[
+        \mathcal{F} \qty{\frac{\partial v(z, t)}{\partial z} + L \frac{\partial i(z, t)}{\partial t} + R i(z, t)} = \mathcal{F} \{0\}
+        \implies \frac{dV(z)}{dz} + (L j \omega + R) I(z) = 0
+    \]
+    \[
+        \mathcal{F} \qty{\frac{\partial i(z, t)}{\partial z} + C \frac{\partial v(z, t)}{\partial t} + G v(z, t)} = \mathcal{F} \{0\}
+        \implies \frac{dI(z)}{dz} + (C j \omega + G) V(z) = 0
+    \]
+
+    Quest'ultime sono dette equazioni del telegrafo, da cui si ricavano equazioni differenziali ordinarie di secondo ordine. 
+    \[
+        \frac{d^2 V(z)}{dz^2} - (L j \omega + R)(C j \omega + G) \: V(z) = 0
+    \]
+    \[
+        \frac{d^2 I(z)}{dz^2} - (L j \omega + R)(C j \omega + G) \: I(z) = 0
+    \]
+    aventi soluzioni nella forma
+    \[
+        V(z) = A(\omega) e^{-k z} + B(\omega) e^{k z}
+    \]
+    \[
+        I(z) = C(\omega) e^{-k z} + D(\omega) e^{k z}
+    \]
+    con $k = \sqrt{(L j \omega + R)(C j \omega + G)}$. In caso di assenza di perdite (linea ideale), ovvero $R, G = 0$, si ha che $k$ è puramente immaginario
+    \[
+        k = \sqrt{(C j \omega + G)(L j \omega + R)} =
+        \sqrt{LC (j \omega)^2} =
+        j \omega \sqrt{LC} =
+        j \beta
+    \]
+
+    In una linea reale, si ha che
+    \[
+        k = \sqrt{(C j \omega + G)(L j \omega + R)} =
+        \alpha + j \beta
+    \]
+    con $\alpha < 0$ detto coefficiente coefficiente di attenuazione.
+
+    \begin{definition}[Propagazione di un segnale]
+        Un segnale $\phi(z, t)$ si propaga verso $+z$ con velocità $u > 0$ qualora
+        \[
+           \phi(z + u \Delta t, t + \Delta t) = \phi(z, t)
+        \]
+    \end{definition}
+
+    E' possibile dimostrare che una qualsiasi funzione nella forma $\mathcal{F}^{-1} \{F(\omega) e^{-k z}\}(z, t)$ si propaga verso $+z$ mentre $\mathcal{F}^{-1} \{F(\omega) e^{k z}\}(z, t)$ si propaga verso $-z$.
+    Di conseguenza, si ha che
+    \[
+        V(z) = V^+_0(\omega) e^{-k z} + V^-_0(\omega) e^{k z}
+    \]
+    \[
+        I(z) = I^+_0(\omega) e^{-k z} + I^-_0(\omega) e^{k z}
+    \]
+    dove $V^+_0(\omega) e^{-k z}$ e $V^+_0(\omega) e^{-k z}$ sono termini \textit{progressivi} e $V^-_0(\omega) e^{k z}$ e $I^-_0(\omega) e^{k z}$ sono termini \textit{regressivi}.
+
+    \begin{definition}[Impedenza caratteristica]
+        La seguente quantità è definita come impedenza caratteristica
+        \[
+            Z_{\infty} := \frac{(L j \omega + R)}{k} =
+            \sqrt{\frac{L j \omega + R}{C j \omega + G}}
+        \]
+    \end{definition}
+
+    Attraverso l'impedenza caratteristica, si possono ottenere le correnti dalle tensioni e viceversa. Dalle equazioni del telegrafo
+    \[
+        \frac{dV(z)}{dz} = -(L j \omega + R) I(z)
+        \implies -k (V^+_0 e^{-k z} - V^-_0 e^{k z}) = -(L j \omega + R) I(z)
+    \]
+    \[
+        \implies I(z) = \frac{k}{(L j \omega + R)} (V^+_0 e^{-k z} - V^-_0 e^{k z}) =
+        \frac{V^+_0}{Z_\infty} e^{-k z} - \frac{V^-_0}{Z_\infty} e^{k z}
+    \]
+    da cui, confrontando con l'espressione di $I(z)$, si ha
+    \[
+        I^+_0 = \frac{V^+_0}{Z_\infty} = Y_\infty V^+_0 \qquad I^-_0 = -\frac{V^-_0}{Z_\infty} = -Y_\infty V^-_0
+    \]
+
+\section{Impedenza nella linea}
+    Si consideri d'ora in poi $k = \beta - j \alpha$, riscrivendo le soluzioni per la tensione e la corrente
+    \[
+        V(z) = V^+_0 e^{-jkz} + V^-_0 e^{jkz}
+        \implies V(0) = V^+_0 + V^-_0 =
+        V_0
+    \]
+    \[
+        I(z) = I^+_0 e^{-jkz} + I^-_0 e^{jkz}
+        \implies I(0) = I^+_0 + I^-_0 =
+        Y_{\infty} V^+_0 - Y_{\infty} V^-_0 =
+        I_0
+    \]
+    da cui si ricava
+    \[
+        V^+_0 = \frac{1}{2} (V_0 + Z_\infty I_0) \qquad V^-_0 = \frac{1}{2} (V_0 - Z_\infty I_0)
+    \]
+    Sostituendo nell'espressione di $V(z)$
+    \[
+        V(z) = \frac{(V_0 + Z_\infty I_0)}{2} e^{-jkz} + \frac{(V_0 - Z_\infty I_0)}{2} e^{jkz} =
+        V_0 \frac{e^{jkz} + e^{-jkz}}{2} - Z_\infty I_0 \frac{e^{jkz} - e^{-jkz}}{2}
+    \]
+    e analogamente per $I(z)$, ricordando che $I^\pm_0 = \pm Y_\infty V^\pm_0$
+    \[
+        I(z) = Y_\infty \frac{(V_0 + Z_\infty I_0)}{2} e^{-jkz} - Y_\infty \frac{(V_0 - Z_\infty I_0)}{2} e^{jkz} =
+        I_0 \frac{e^{jkz} + e^{-jkz}}{2} - Y_\infty V_0 \frac{e^{jkz} - e^{-jkz}}{2}
+    \]
+    Infine, per le formule di Eulero $\cos(kz) = \frac{e^{jkz} + e^{-jkz}}{2}$ e $j \sin(kz) = \frac{e^{jkz} - e^{-jkz}}{2}$, si ottiene l'andamento di tensione e corrente lungo la linea
+    \[
+        \begin{aligned}
+            V(z) &= V_0 \cos(kz) - j Z_\infty I_0 \sin(kz) \\
+            I(z) &= I_0 \cos(kz) - j Y_\infty V_0 \sin(kz)
+        \end{aligned}
+    \]
