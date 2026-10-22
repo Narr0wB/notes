@@ -205,3 +205,159 @@
             I(z) &= I_0 \cos(kz) - j Y_\infty V_0 \sin(kz)
         \end{aligned}
     \]
+    Definiamo, di conseguenza, l'impedenza ad una data coordinata $z$
+    \[
+        Z(z) := \frac{V(z)}{I(z)} = \frac{V_0 \cos(kz) - j Z_\infty I_0 \sin(kz)}{I_0 \cos(kz) - j Y_\infty V_0 \sin(kz)} = \frac{Z_0 - j Z_\infty \tan(kz)}{1 - j Y_\infty Z_0 \tan(kz)}
+    \]
+
+    \begin{definition}[Impedenza normalizzata]
+        Si definisce impedenza normalizzata la seguente quantità
+        \[
+            \zeta(z) := \frac{Z(z)}{Z_\infty} = \frac{Z_0 Y_\infty - j \tan(kz)}{1 - j Y_\infty Z_0 \tan(kz)} = \frac{\zeta_0 - j \tan(kz)}{1 - j \zeta_0 \tan(kz)} \; \textnormal{con} \; \zeta_0 = Z_0 Y_\infty
+        \]
+    \end{definition}
+
+    \subsection{Impedenza della linea in condizioni di corto circuito}
+    \begin{figure}[H]
+        \centering
+        \begin{circuitikz}
+            \draw (0, 2) to[short, o-o] (4.5, 2);
+            \draw (0, 0) to[short, o-o] (4.5, 0);
+            \draw (4.5, 0) to[short] (4.5, 2);
+            \draw (0, 0) to[open] (0, 2);
+            \draw[-latex, thick] (-1.2, 1) node[left] {$Z$} -- (0.6, 1);
+
+            \draw[-latex] (-0.5, -0.6) -- (5.5, -0.6) node[right] {$z$};
+            \draw (0, -0.5) -- (0, -0.7) node[below] {$-l$};
+            \draw (4.5, -0.5) -- (4.5, -0.7) node[below] {$0$};
+        \end{circuitikz}
+    \end{figure}
+    
+    Con $Z_0 = 0$, abbiamo che $\zeta_0 = 0$, di conseguenza
+    \[
+        \zeta(z) = \frac{\zeta_0 - j \tan(kz)}{1 - j \zeta_0 \tan(kz)} = 
+        -j \tan(kz) \implies
+        \zeta(-l) = j \tan(kl) \implies
+        Z(-l) = Z_\infty \zeta(-l) = 
+        j Z_\infty \tan(kl)
+    \]
+
+    \subsection{Impedenza della linea in condizioni di circuito aperto}
+    \begin{figure}[H]
+        \centering
+        \begin{circuitikz}
+            \draw (0, 2) to[short, o-o] (4.5, 2);
+            \draw (0, 0) to[short, o-o] (4.5, 0);
+            \draw (0, 0) to[open] (0, 2);
+            \draw[-latex, thick] (-1.2, 1) node[left] {$Z$} -- (0.6, 1);
+
+            \draw[-latex] (-0.5, -0.6) -- (5.5, -0.6) node[right] {$z$};
+            \draw (0, -0.5) -- (0, -0.7) node[below] {$-l$};
+            \draw (4.5, -0.5) -- (4.5, -0.7) node[below] {$0$};
+        \end{circuitikz}
+    \end{figure}
+
+    Con $Z_0 \rightarrow \infty$, si ha che
+    \[
+        \zeta(z) = \frac{\zeta_0 - j \tan(kz)}{1 - j \zeta_0 \tan(kz)} = 
+        j \frac{1}{\tan(kz)} \implies
+        \zeta(-l) = -j (\tan(kl))^{-1} \implies
+        Z(-l) = Z_\infty \zeta(-l) = 
+        -j \frac{Z_\infty}{\tan(kl)}
+    \]
+
+    \subsection{Impedenza della linea in condizioni di carico generico}
+    \begin{figure}[H]
+        \centering
+        \begin{circuitikz}
+            \draw (0, 2) to[short, o-o] (4.5, 2);
+            \draw (0, 0) to[short, o-o] (4.5, 0);
+            \draw (4.5, 0) to[R, R=$Z_L$] (4.5, 2);
+            \draw (0, 0) to[open] (0, 2);
+            \draw[-latex, thick] (-1.2, 1) node[left] {$Z$} -- (0.6, 1);
+
+            \draw[-latex] (-0.5, -0.6) -- (5.5, -0.6) node[right] {$z$};
+            \draw (0, -0.5) -- (0, -0.7) node[below] {$-l$};
+            \draw (4.5, -0.5) -- (4.5, -0.7) node[below] {$0$};
+        \end{circuitikz}
+    \end{figure}
+
+    Sia $Z_0 = Z_L$, allora
+    \[
+        \zeta(z) = \frac{\zeta_0 - j \tan(kz)}{1 - j \zeta_0 \tan(kz)}
+    \]
+
+    Si osservi però qualora $Z_\infty = Z_L$
+    \[
+        \zeta_0 = 1 \implies 
+        \zeta(z) = \frac{\zeta_0 - j \tan(kz)}{1 - j \zeta_0 \tan(kz)} =
+        \frac{1 - j \tan(kz)}{1 - j \tan(kz)} =
+        1 \implies Z(z) = Z_\infty
+    \]
+    Tale condizione è detta condizione di \textit{carico adattato}.
+
+
+\section{Riflessione}
+    La riflessione è il fenomeno per cui un'onda progressiva in una linea di trasmissione si riflette creando un'eco, ovvero un'onda regressiva.
+
+    \begin{definition}
+        Si definisce il coefficiente di riflessione per la corrente o per la tensione, rispettivamente, le seguenti espressioni
+        \[
+            \Gamma^V(z) := \frac{V^-(z)}{V^+(z)}
+        \]
+        \[
+            \Gamma^I(z) := \frac{I^-(z)}{I^+(z)}
+        \]
+    \end{definition}
+
+    Tenuto conto del fatto che $V^+(z) = Z_\infty I^+(z)$ e $V^-(z) = - Z_\infty I^-(z)$, si ha che $\Gamma^V(z) = -\Gamma^I(z)$. Si consideri la linea chiusa su un carico $Z_L$
+    \[
+        V_0^+ + V_0^- = Z_L(Y_\infty(V_0^+ - V_0^-)) \implies
+        V_0^- = \frac{Z_L Y_\infty - 1}{Z_L Y_\infty + 1} V_0^+ \implies
+        \Gamma^V(0) = \frac{V_0^-}{V_0^+} = \frac{Z_L - Z_\infty}{Z_L + Z_\infty} 
+    \]
+
+    Ma, tenuto conto del fatto che $\Gamma^V(z) = \Gamma^V(0) e^{2jkz}$, in condizioni di carico adattato $\Gamma^V(z) = \Gamma^I(z) = 0$.
+    Un altro modo di esprimere i coefficienti di riflessione di tensione e di corrente è
+    \[
+        \Gamma^V(z) = \frac{V^-}{V^+} = \frac{Z(z)I(z) - Z_\infty I(z)}{Z(z)I(z) + Z_\infty I(z)} = \frac{Z(z) - Z_\infty}{Z(z) + Z_\infty}
+    \]
+    \[
+        \Gamma^I(z) = \frac{I^-}{I^+} = \frac{Y(z)V(z) - Y_\infty V(z)}{Y(z)V(z) + Y_\infty V(z)} = \frac{Y(z) - Y_\infty}{Y(z) + Y_\infty}
+    \]
+
+
+\section{Potenza}
+    Si definisca la potenza istantanea in un punto $z$ della linea all'istante $t$ la seguente espressione
+    \[
+        p(z, t) = v(z, t) i(z, t)
+    \]
+
+    Si definisce la potenza attiva come
+    \[
+        P(z) = \frac{1}{T} \int_{0}^{T} v(z, t) i(z, t) dt = 
+        \frac{1}{2} \operatorname{Re}\{{V(z) I^*(z)}\} = 
+        \frac{1}{2} \operatorname{Re}\{{(V^+ + V^-) Y_\infty^* (V^+ - V^-)^*}\} =
+    \]
+    \[
+        \frac{1}{2} \operatorname{Re}\{{Y_\infty^* (|V^+|^2 - |V^-|^2 - V^+ \overline{V^{-}} + V^- \overline{V^+})}\}
+    \] 
+
+    Armati della seguente ugualianza
+    \[
+        a b^* - a^* b = 2j \operatorname{Im}\{a^* b\}
+    \]
+
+    Si ottiene
+    \[
+        \frac{1}{2} \operatorname{Re}\{{Y_\infty^* (|V^+|^2 - |V^-|^2 - V^+ \overline{V^{-}} + V^- \overline{V^+})}\} = 
+        \frac{1}{2} \operatorname{Re}\{{Y_\infty^* (|V^+|^2 - |V^-|^2)}\}
+    \] 
+
+    Inoltre, se la linea è ideale (senza perdite), $Y_\infty \in \mathbb{R}$, implicando che
+    \[
+        P(z) = \frac{1}{2} \operatorname{Re}\{{Y_\infty^* (|V^+|^2 - |V^-|^2)}\} = 
+        \frac{Y_\infty}{2} (|V^+|^2 - |V^-|^2) =
+        P^+(z) + P^-(z) = 
+        \frac{|V^+(z)|^2}{2 Z_\infty} (1 - |\Gamma(z)|^2)
+    \]

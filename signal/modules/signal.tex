@@ -328,6 +328,12 @@
             \]
         \end{property}
 
+        \begin{property}[Dualità della limitatezza del supporto]
+            Sia $x \in L^2$ un segnale.
+            Se il supporto di $x$ è limitato, allora il supporto di $\hat{x}$ è illimitato.
+            Se il supporto di $\hat{x}$ è limitato, allora il supporto di $x$ è illimitato.
+        \end{property}
+
     \subsection{Estensione alle distribuzioni}
         Si consideri lo spazio di Schwartz $\mathcal{S}(\mathbb{R}, \mathbb{C}) \subset C^{\infty}(\mathbb{R}, \mathbb{C})$ di tutte le funzioni di test $\phi$ tali per cui
         \[
@@ -350,8 +356,11 @@
     
         \begin{definition}[Trasformata di una distribuzione temperata]
             Sia $T \in \mathcal{S}'$ una distribuzione temperata.
-            Si definisce la trasformata di Fourier $\hat{T}$ come
+            Si definisce la trasformata di Fourier della distribuzione $\hat{T}$ come
             \[
                 \langle \hat{T}, \phi \rangle = (T \circ \mathcal{F})(\phi) = \langle T, \hat{\phi} \rangle
             \]
         \end{definition}
+
+    
+\section{Operatori sui segnali}
