@@ -376,12 +376,84 @@
         \item Tempo-invariante: $\mathcal{H}\{x(t - \tau)\} = \mathcal{H}\{x\}(t - \tau)$
     \end{enumerate}
 
+    \begin{definition}[Memoria di un sistema]
+        Un sistema $\mathcal{H}$ si dice dotato di memoria qualora l'uscita del sistema $y(t) := \mathcal{H} x$ ad un dato istante $t$ dipenda dall'ingresso $x(t)$ valutato ad un istante $t_0 < t$.
+    \end{definition}
+
     Un sistema avente proprietà $(1)$ e $(2)$ è detto \textbf{sistema LTI} (dall'inglese \textit{linear time-invariant}), e si dimostra che è possibile ricondurre ogni operatore LTI $\mathcal{H}$ a
     \[
-        \mathcal{H} x = x * h = \int_{\mathbb{R}} x(\tau) h(t - \tau) d\tau \implies \mathcal{F}\{ \mathcal{H} x \} = X(f) H(f)
+        \mathcal{H} x = x * h = \int_{\mathbb{R}} x(t - \tau) h(\tau) d\tau \implies \mathcal{F}\{ \mathcal{H} x \} = X(f) H(f)
     \]
-    dove $(\cdot) * (\cdot): \mathcal{S}' \times \mathcal{S}' \rightarrow \mathcal{S}'$ è l'operatore di convoluzione e $h(t)$ è detta \textit{risposta all'impulso} del sistema $\mathcal{H}$.
+    dove $(\cdot) * (\cdot): \mathcal{S}' \times \mathcal{S}' \rightarrow \mathcal{S}'$ è l'operatore di convoluzione e $h(t)$ è detta \textit{risposta all'impulso} del sistema $\mathcal{H}$. 
+    D'ora in poi il focus dell'attuale sezione saranno i sistemi LTI, a meno che non venga segnalato diversamente.
 
-    \begin{definition}[Memoria di un sistema]
-        
+    \begin{definition}[Stabilità \textit{Bounded Input Bounded Output}]
+        Un sistema $\mathcal{H}$ è detto BIBO-stabile se
+        \[
+            \max_{t \in \mathbb{R}} |x(t)| < \infty \implies \max_{t \in \mathbb{R}} |(\mathcal{H} x)(t)| < \infty
+        \]
     \end{definition}
+
+    \begin{proposition}
+        Un sistema $\mathcal{H}$ è BIBO-stabile se e solo se $h(t) \in L^1$.
+    \end{proposition}
+    \begin{proof}
+        ($\Leftarrow$) Si la disuguaglianza di Young
+        \[
+
+        \]
+        % \[
+        %     (\mathcal{H} x)(t) < \infty \implies 
+        %     \int_{-\infty}^{\infty} x(t - \tau) h(\tau) d\tau < \infty \implies 
+        %     \int_{-\infty}^{\infty} h(\tau) d\tau < \infty
+        % \]
+    \end{proof}
+
+    \begin{definition}[Banda di un sistema]
+        Si definisce la banda di un sistema $\mathcal{H}$ come segue:
+        \begin{itemize}
+            \item Se $H(f)$ ha supporto limitato, allora la banda $B$ diventa $\frac{\mu(\operatorname{supp}(H(f)))}{2}$.
+            \item Se $H(f)$ ha supporto illimitato, si definisce la banda a $-3dB$ ($B_{-3dB}$), una volta definito l'insieme $D \subset \operatorname{supp}(H(f))$ tale per cui $|H(D)| \geq \frac{1}{\sqrt{2}} |H(0)|$, come
+            \[
+                B_{-3dB} = \mu(D)
+            \]
+        \end{itemize}
+    \end{definition}
+
+    \subsection{Causalità di un sistema e real-time signal processing}
+        \begin{definition}[Sistema causale]
+            Un sistema LTI è detto causale quando la sua risposta all'impulso $h(t) = 0$ per ogni $t < 0$.
+        \end{definition}
+
+        La definizione di sistema causale è necessaria nel dominio del \textit{real-time signal processing}, ovvero lo studio dei segnali in tempo reale.
+        Si ipotizzi di avere a disposizione un segnale $x|_{(-\infty, t_0]}$ fino ad un dato istante $t_0$, ovvero $x|_{(-\infty, t_0]}(t) = 0, \forall t > t_0$. L'uscita del segnale in $t_0$ è data da
+        \[
+            \mathcal{H}\{x|_{(-\infty, t_0]}\}(t_0) = x|_{(-\infty, t_0]} * h = \int_{-\infty}^{0} x|_{(-\infty, t_0]}(t_0 - \tau) h(\tau) d\tau + \int_{0}^{\infty} x|_{(-\infty, t_0]}(t_0 - \tau) h(\tau) d\tau
+        \]
+        si può osservare come il primo integrale dipenda da valori futuri di $x|_{(-\infty, t_0]}$, ovvero oltre $t_0$, in quanto $\tau < 0 \implies - \tau > 0 \implies t_0 - \tau > t_0$ che però non esistono ancora.
+        Se $h$ non fosse causale, si avrebbe che $\mathcal{H}\{x|_{(-\infty, t_0]}\}(t_0) \neq \mathcal{H}\{x\}(t_0)$
+
+    \subsection{Distorsione}
+        Un sistema \textbf{non} affetto da distorsione è un sistema tale per cui l'uscita, dato un segnale $x(t)$, è una versione scalata e ritardata dell'ingresso
+        \[
+            (\mathcal{H} x)(t) = K x(t - t_0), \quad K \neq 0, t_0 \geq 0
+        \]
+        Il che implica
+        \[
+            \mathcal{F}\{ K x(t - t_0) \} = K X(f) e^{-i 2 \pi f t_0} \implies H(f) = K e^{-i 2 \pi f t_0}
+        \]
+        In altre parole, il sistema non-distorcente per definizione ha modulo costante e fase lineare.
+
+        \begin{definition}[Distorsione di modulo]
+            Un sistema $\mathcal{H}$ è affetto da distorsione di modulo qualora
+            \[
+                \frac{d }{df} |H(f)| \neq 0 
+            \]
+        \end{definition}
+
+        \begin{definition}[Distorsione di fase]
+            Un sistema $\mathcal{H}$ è affetto da distorsione di fase qualora
+            \[
+                \frac{d}{df} \arg(H(f)) \neq K, \quad K \in \mathbb{R}
+            \]
+        \end{definition}
