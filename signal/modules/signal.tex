@@ -244,6 +244,8 @@
             $\mathcal{F}\{x_1 x_2\} = (\mathcal{F}x_1) * (\mathcal{F}x_2)$
         \end{property}
         \begin{proof}
+            TODO: Refine this proof
+
             Siano $x_1^* = x_1(-t)$ e $x_2^* = x_2(-t)$, con $X_1^*, X_2^*$ rispettive trasformate di Fourier.
             Allora, per (P\ref{prop:conv}), si ha che
             \[
@@ -260,17 +262,20 @@
             \[
                 \mathcal{F} X_2^* = (\mathcal{F} \circ S) X_2 = \mathcal{F}^{-1} X_2 = x_2
             \]
+            \[
+                \mathcal{F}\{\mathcal{F}\{X_1^* * X_2^*\}\} = \mathcal{F}\{x_1 x_2\}
+            \]
 
-            Tenuto conto del fatto che $\mathcal{F}^2 = S$, si ha che
+            Tenuto conto del fatto che $\mathcal{F}^2 = S$
             \begin{align*}
-                \mathcal{F}\{\mathcal{F}\{X_1^* * X_2^*\}\} &= \mathcal{F}^2 \{X_1^* * X_2^*\} \\
+                \mathcal{F}\{\mathcal{F}\{X_1^* * X_2^*\}\} = \mathcal{F}\{x_1 x_2\} &= \mathcal{F}^2 \{X_1^* * X_2^*\} \\
                 &= S \{X_1^* * X_2^*\} \\
                 &= X_1^* * X_2^* \\
                 &= (S X_1) * (S X_2) \\
                 &= X_1 * X_2
             \end{align*}
 
-            Quindi mettendo il tutto insieme, si giunge alla conclusione 
+            Mettendo il tutto insieme, si giunge alla conclusione 
             \[
                 \mathcal{F}\{x_1x_2\} = X_1 * X_2 = (\mathcal{F} x_1) * (\mathcal{F} x_2)
             \]
@@ -363,4 +368,20 @@
         \end{definition}
 
     
-\section{Operatori sui segnali}
+\section{Sistemi}
+    Un sistema è una mappa $\mathcal{H}: \mathcal{S}' \rightarrow \mathcal{S}'$ che associa ad un segnale in ingresso un altro segnale in uscita.
+    I sistemi sono caratterizzati dalle rispettive proprietà:
+    \begin{enumerate}
+        \item Lineare: $\mathcal{H}\{\alpha x_1 + \beta x_2\} = \alpha \mathcal{H}\{x_1\} + \beta \mathcal{H}\{x_2\}$
+        \item Tempo-invariante: $\mathcal{H}\{x(t - \tau)\} = \mathcal{H}\{x\}(t - \tau)$
+    \end{enumerate}
+
+    Un sistema avente proprietà $(1)$ e $(2)$ è detto \textbf{sistema LTI} (dall'inglese \textit{linear time-invariant}), e si dimostra che è possibile ricondurre ogni operatore LTI $\mathcal{H}$ a
+    \[
+        \mathcal{H} x = x * h = \int_{\mathbb{R}} x(\tau) h(t - \tau) d\tau \implies \mathcal{F}\{ \mathcal{H} x \} = X(f) H(f)
+    \]
+    dove $(\cdot) * (\cdot): \mathcal{S}' \times \mathcal{S}' \rightarrow \mathcal{S}'$ è l'operatore di convoluzione e $h(t)$ è detta \textit{risposta all'impulso} del sistema $\mathcal{H}$.
+
+    \begin{definition}[Memoria di un sistema]
+        
+    \end{definition}
