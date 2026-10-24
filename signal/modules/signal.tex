@@ -394,7 +394,7 @@
         \end{definition}
 
 
-    \subsection{Trasformata di segnali periodici}
+    \subsection{Trasformata di segnali periodici}\label{sec:periodic_transform}
         Sia $L^2(\mathbb{R}/T\mathbb{Z})$ lo spazio dei segnali $T$-periodici a quadrato integrabile sul periodo introdotto nella sezione \ref{def:L2-periodic}.
         Si consideri la seguente immersione continua e iniettiva
         \[
@@ -418,11 +418,115 @@
             = \sum_{n \in \mathbb{Z}} a_n \delta(f - n f_0)
         \]
 
-    
-    \subsection{Spettro di potenza}
-        
 
+    \subsection{Operatore di autocorrelazione}
+        \begin{definition}[Autocorrelazione]
+            L'operatore di autocorrelazione $\mathcal{R}: L^2 \rightarrow L^\infty$ è definito come
+            \[
+                (\mathcal{R} x)(t) := \int_{\mathbb{R}} x(\tau) x^*(\tau - t) d\tau = x * Sx^*
+            \]
+            dove $S: L^2 \rightarrow L^2$ è l'operatore specchio ($Sx = x(-t)$).
+        \end{definition}
+
+        \begin{proposition}
+            $\mathcal{R} x = \mathcal{F}^{-1}\{ |X(f)|^2 \}$ 
+        \end{proposition}
+        \begin{proof}
+            Partendo dalla definizione di $\mathcal{R} x = x * (Sx^*)$, grazie al teorema della convoluzione (Proprietà 6 della trasformata di Fourier)
+            \[
+                \mathcal{R} x = x * (Sx^*) = \mathcal{F}^{-1} \{ (\mathcal{F} x)((\mathcal{F} \circ S) x^*) \}
+            \]
+            Si analizzi il termine $(\mathcal{F} \circ S) x^*$
+            \[
+                (\mathcal{F} \circ S)x^*
+                = \int_{\mathbb{R}} x^*(-t)\, e^{-i2\pi f t}\, dt
+                = \left( \int_{\mathbb{R}} x(-t)\, e^{i2\pi f t}\, dt \right)^*
+                \overset{s=-t}{=} \left( \int_{\mathbb{R}} x(s)\, e^{-i2\pi f s}\, ds \right)^*
+                = X^*(f)
+            \]
+            Arrivando quindi alla conclusione
+            \[
+                \mathcal{R} x = \mathcal{F}^{-1} \{ (\mathcal{F} x)((\mathcal{F} \circ S) x^*) \} = \mathcal{F}^{-1} \{ X(f) X^*(f) \} = \mathcal{F}^{-1} \{ |X(f)|^2 \}
+            \]
+        \end{proof}
+
+
+        Alcune delle proprietà dell'operatore di autocorrelazione sono
+        
+        \begin{property}[Energia]
+            L'energia di un segnale $x \in L^2$ vale $||x||^2_2 = (\mathcal{R}x)(0)$
+        \end{property}
+        \begin{proof}
+            Valutando la definizione in $t = 0$
+            \[
+                (\mathcal{R}x)(0) = \int_{\mathbb{R}} x(\tau) x^*(\tau) d\tau = \int_{\mathbb{R}} |x(\tau)|^2 d\tau = ||x||^2_2
+            \]
+        \end{proof}
+
+        \begin{property}[Simmetria]
+            Sia $x \in L^2$, allora $S(\mathcal{R}x) = (\mathcal{R}x)^*$, ovvero $\mathcal{R}x$ è una funzione hermitiana.
+            In particolare, se $x$ è reale allora $S(\mathcal{R}x) = \mathcal{R}x$, ovvero $\mathcal{R}x$ è una funzione pari.
+        \end{property}
+        \begin{proof}
+            \begin{align*}
+                (S\mathcal{R}x)(t) &= (\mathcal{R}x)(-t) = \int_{\mathbb{R}} x(\tau) x^*(\tau + t) d\tau
+                \overset{u = \tau + t}{=} \int_{\mathbb{R}} x(u - t) x^*(u) du \\
+                &= \left( \int_{\mathbb{R}} x(u) x^*(u - t) du \right)^*
+                = (\mathcal{R}x)^*(t)
+            \end{align*}
+            Se $x$ è reale, anche $\mathcal{R}x$ è reale, dunque $(\mathcal{R}x)^* = \mathcal{R}x$ e quindi $S(\mathcal{R}x) = \mathcal{R}x$.
+        \end{proof}
+
+        \begin{property}[Massimo nell'origine]
+            Sia $x \in L^2$, allora $|(\mathcal{R}x)(t)| \leq (\mathcal{R}x)(0)$ per ogni $t \in \mathbb{R}$.
+            In particolare, se $\mathcal{R}x$ è reale, $(\mathcal{R}x)(t) \leq (\mathcal{R}x)(0)$.
+        \end{property}
+        \begin{proof}
+            Per la disuguaglianza di Cauchy-Schwarz in $L^2$
+            \[
+                |(\mathcal{R}x)(t)| = \left| \int_{\mathbb{R}} x(\tau) x^*(\tau - t) d\tau \right|
+                \leq \qty( \int_{\mathbb{R}} |x(\tau)|^2 d\tau )^{\frac{1}{2}} \qty( \int_{\mathbb{R}} |x(\tau - t)|^2 d\tau )^{\frac{1}{2}}
+                = ||x||_2 \, ||x||_2 = (\mathcal{R}x)(0)
+            \]
+            Se $\mathcal{R}x$ è reale, segue $(\mathcal{R}x)(t) \leq |(\mathcal{R}x)(t)| \leq (\mathcal{R}x)(0)$.
+        \end{proof}
     
+
+    \subsection{Spettro di potenza}
+        \begin{definition}[Densità spettrale di potenza]
+            Sia $x \in \mathcal{S}'$ un segnale e si denoti con $x_{\tau}(t)$ la restrizione $x|_{[-\tau, \tau]}(t)$.
+            Sia allora $X_{\tau}(f) = X * 2\tau \operatorname{sinc}(2\tau f)$ la trasformata di $x_{\tau}$.
+            Allora la funzione di densità spettrale di potenza del segnale $x$ è definita come
+            \[
+                P_{x}(f) := \lim_{\tau \rightarrow \infty} \frac{|X_{\tau}(f)|^2}{2 \tau}
+            \]
+        \end{definition}
+
+        Alcune delle proprietà della densità spettrale di potenza sono
+
+        \begin{property}[Non negatività]
+            $P_x(f) \geq 0$ per ogni $f \in \mathbb{R}$.
+        \end{property}
+        \begin{proof}
+            Per ogni $\tau > 0$ si ha che $|X_{\tau}(f)|^2 \geq 0$ e $2\tau > 0$, quindi
+            \[
+                \frac{|X_{\tau}(f)|^2}{2 \tau} \geq 0, \; \forall \tau > 0
+            \]
+            Essendo il limite di una funzione non negativa, anche $P_x(f) = \lim_{\tau \rightarrow \infty} \frac{|X_{\tau}(f)|^2}{2 \tau} \geq 0$.
+        \end{proof}
+
+        \begin{property}[Autocorrelazione di un segnale a potenza finita]
+            Sia $R_x$ la funzione di autocorrelazione (in media temporale) del segnale $x$
+            \[
+                R_x(t) := \lim_{\tau \rightarrow \infty} \frac{1}{2\tau} \int_{-\tau}^{\tau} x(s) x^*(s - t) \, ds
+            \]
+            Allora la densità spettrale di potenza è la trasformata di Fourier dell'autocorrelazione
+            \[
+                P_x = \mathcal{F} R_x, \qquad R_x = \mathcal{F}^{-1} P_x
+            \]
+        \end{property}
+
+ 
 \newpage
 \section{Sistemi}
     Un sistema è una mappa $\mathcal{H}: \mathcal{S}' \rightarrow \mathcal{S}'$ che associa ad un segnale in ingresso un altro segnale in uscita.
@@ -511,76 +615,58 @@
             \]
         \end{definition}
 
-    \subsection{Operatore di autocorrelazione}
-        \begin{definition}[Autocorrelazione]
-            L'operatore di autocorrelazione $\mathcal{R}: L^2 \rightarrow L^\infty$ è definito come
+
+\clearpage
+\section{Segnali discreti}
+    \begin{definition}[Segnale discreto]
+        Per segnale discreto si intente una qualsiasi successione del tipo 
+        \[
+            \{x_n\}_{n \in N \subseteq \mathbb{N}}
+        \]
+    \end{definition}
+
+    \subsection{Campionamento periodico di segnali continui}
+        Sia $x \in C_{0}(\mathbb{R})$ un segnale continuo, si definisce la sua versione campionata a frequenza $f_s = \frac{1}{T_s}$ in $\mathcal{S}'$ il segnale determinato da
+        \[
+            \tilde x = T_{s} \sum_{n \in \mathbb{Z}} x(n T_s) \delta(t - n T_s)
+        \]
+        Definito il pettine di Dirac di periodo $T_s$
+        \[
+            \operatorname{III}_{T_s}(t) := \sum_{n \in \mathbb{Z}} \delta(t - n T_s)
+        \]
+        e osservando che $x(t) \delta(t - n T_s) = x(n T_s) \delta(t - n T_s)$, il segnale campionato si può riscrivere come il prodotto tra $x$ e il pettine
+        \[
+            \tilde x = T_s \sum_{n \in \mathbb{Z}} x(t) \delta(t - n T_s) = T_s \, x(t) \operatorname{III}_{T_s}(t)
+        \]
+        Si osservi allora la trasformata di $\tilde x$: per dualità del teorema della convoluzione (P\ref{prop:conv}), la trasformata di un prodotto è la convoluzione delle trasformate, quindi
+        \[
+            \tilde X(f) = T_s \, \mathcal{F}\{ x \operatorname{III}_{T_s} \} = T_s \, X(f) * \mathcal{F}\{ \operatorname{III}_{T_s} \}(f)
+        \]
+        Rimane da calcolare la trasformata del pettine.
+        Essendo $\operatorname{III}_{T_s}$ un segnale $T_s$-periodico, se ne calcolino (formalmente) i coefficienti di Fourier su un periodo centrato nell'origine
+        \[
+            a_k = \frac{1}{T_s} \int_{-\frac{T_s}{2}}^{\frac{T_s}{2}} \delta(t) e^{-i 2 \pi k f_s t} dt = \frac{1}{T_s} = f_s, \; k \in \mathbb{Z}
+        \]
+        da cui, analogamente a quanto visto in \cref{sec:periodic_transform} (con la serie che converge in $\mathcal{S}'$),
+        \[
+            \operatorname{III}_{T_s}(t) = f_s \sum_{k \in \mathbb{Z}} e^{i 2 \pi k f_s t}
+            \implies
+            \mathcal{F}\{ \operatorname{III}_{T_s} \}(f) = f_s \sum_{k \in \mathbb{Z}} \delta(f - k f_s) = f_s \operatorname{III}_{f_s}(f)
+        \]
+        ovvero la trasformata di un pettine di periodo $T_s$ è un pettine di periodo $f_s$, scalato di $f_s$.
+        Riassemblando, e ricordando che $T_s f_s = 1$ e che $X * \delta(f - k f_s) = X(f - k f_s)$, si ottiene
+        \[
+            \tilde X(f) = T_s \, X(f) * f_s \sum_{k \in \mathbb{Z}} \delta(f - k f_s)
+            = \sum_{k \in \mathbb{Z}} X(f) * \delta(f - k f_s)
+            = \sum_{k \in \mathbb{Z}} X(f - k f_s)
+        \]
+        ovvero lo spettro del segnale campionato è la periodicizzazione di $X$ con periodo $f_s$.
+
+
+        \begin{theorem}[Teorema del campionamento]
+            Dato un segnale $x \in \mathcal{S}'$ reale a banda limitata $B$, è possibile ricostruire il segnale $x$ a partire da un campionamento
             \[
-                (\mathcal{R} x)(t) := \int_{\mathbb{R}} x(\tau) x^*(\tau - t) d\tau = x * Sx^*
+                \{x(n T_s)\}_{n \in \mathbb{Z}}
             \]
-            dove $S: L^2 \rightarrow L^2$ è l'operatore specchio ($Sx = x(-t)$).
-        \end{definition}
-
-        \begin{proposition}
-            $\mathcal{R} x = \mathcal{F}^{-1}\{ |X(f)|^2 \}$ 
-        \end{proposition}
-        \begin{proof}
-            Partendo dalla definizione di $\mathcal{R} x = x * (Sx^*)$, grazie al teorema della convoluzione (Proprietà 6 della trasformata di Fourier)
-            \[
-                \mathcal{R} x = x * (Sx^*) = \mathcal{F}^{-1} \{ (\mathcal{F} x)((\mathcal{F} \circ S) x^*) \}
-            \]
-            Si analizzi il termine $(\mathcal{F} \circ S) x^*$
-            \[
-                (\mathcal{F} \circ S)x^*
-                = \int_{\mathbb{R}} x^*(-t)\, e^{-i2\pi f t}\, dt
-                = \left( \int_{\mathbb{R}} x(-t)\, e^{i2\pi f t}\, dt \right)^*
-                \overset{s=-t}{=} \left( \int_{\mathbb{R}} x(s)\, e^{-i2\pi f s}\, ds \right)^*
-                = X^*(f)
-            \]
-            Arrivando quindi alla conclusione
-            \[
-                \mathcal{R} x = \mathcal{F}^{-1} \{ (\mathcal{F} x)((\mathcal{F} \circ S) x^*) \} = \mathcal{F}^{-1} \{ X(f) X^*(f) \} = \mathcal{F}^{-1} \{ |X(f)|^2 \}
-            \]
-        \end{proof}
-
-
-        Alcune delle proprietà dell'operatore di autocorrelazione sono
-        
-        \begin{property}[Energia]
-            L'energia di un segnale $x \in L^2$ vale $||x||^2_2 = (\mathcal{R}x)(0)$
-        \end{property}
-        \begin{proof}
-            Valutando la definizione in $t = 0$
-            \[
-                (\mathcal{R}x)(0) = \int_{\mathbb{R}} x(\tau) x^*(\tau) d\tau = \int_{\mathbb{R}} |x(\tau)|^2 d\tau = ||x||^2_2
-            \]
-        \end{proof}
-
-        \begin{property}[Simmetria]
-            Sia $x \in L^2$, allora $S(\mathcal{R}x) = (\mathcal{R}x)^*$, ovvero $\mathcal{R}x$ è una funzione hermitiana.
-            In particolare, se $x$ è reale allora $S(\mathcal{R}x) = \mathcal{R}x$, ovvero $\mathcal{R}x$ è una funzione pari.
-        \end{property}
-        \begin{proof}
-            \begin{align*}
-                (S\mathcal{R}x)(t) &= (\mathcal{R}x)(-t) = \int_{\mathbb{R}} x(\tau) x^*(\tau + t) d\tau
-                \overset{u = \tau + t}{=} \int_{\mathbb{R}} x(u - t) x^*(u) du \\
-                &= \left( \int_{\mathbb{R}} x(u) x^*(u - t) du \right)^*
-                = (\mathcal{R}x)^*(t)
-            \end{align*}
-            Se $x$ è reale, anche $\mathcal{R}x$ è reale, dunque $(\mathcal{R}x)^* = \mathcal{R}x$ e quindi $S(\mathcal{R}x) = \mathcal{R}x$.
-        \end{proof}
-
-        \begin{property}[Massimo nell'origine]
-            Sia $x \in L^2$, allora $|(\mathcal{R}x)(t)| \leq (\mathcal{R}x)(0)$ per ogni $t \in \mathbb{R}$.
-            In particolare, se $\mathcal{R}x$ è reale, $(\mathcal{R}x)(t) \leq (\mathcal{R}x)(0)$.
-        \end{property}
-        \begin{proof}
-            Per la disuguaglianza di Cauchy-Schwarz in $L^2$
-            \[
-                |(\mathcal{R}x)(t)| = \left| \int_{\mathbb{R}} x(\tau) x^*(\tau - t) d\tau \right|
-                \leq \qty( \int_{\mathbb{R}} |x(\tau)|^2 d\tau )^{\frac{1}{2}} \qty( \int_{\mathbb{R}} |x(\tau - t)|^2 d\tau )^{\frac{1}{2}}
-                = ||x||_2 \, ||x||_2 = (\mathcal{R}x)(0)
-            \]
-            Se $\mathcal{R}x$ è reale, segue $(\mathcal{R}x)(t) \leq |(\mathcal{R}x)(t)| \leq (\mathcal{R}x)(0)$.
-        \end{proof}
-
-
+            a patto che $f_s = \frac{1}{T_s} > 2B$.
+        \end{theorem}
