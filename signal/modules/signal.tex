@@ -66,6 +66,15 @@
             ||f||_{L^2([a, b])} = \sqrt{\langle f, f \rangle}
         \]
 
+        Equivalentemente, posto $T = b - a$, ogni $f \in L^2([a, b]; \mathbb{C})$ può essere estesa per periodicità a tutto $\mathbb{R}$.
+        Si ottiene così lo spazio $L^2(\mathbb{R}/T\mathbb{Z}; \mathbb{C})$ delle funzioni $x:\mathbb{R}\to\mathbb{C}$ $T$-periodiche e a quadrato integrabile sul periodo
+        \[
+            L^2(\mathbb{R}/T\mathbb{Z}; \mathbb{C}) = \left\{ x : \mathbb{R} \to \mathbb{C} \;\middle|\;
+            x(t+T) = x(t) \text{ q.o.},\; \int_a^{a + T} |x(t)|^2\, dt < \infty \right\}
+        \]
+        dotato dello stesso prodotto scalare (calcolato su un qualsiasi intervallo di lunghezza $T$), il quale si identifica in modo naturale con $L^2([a, b]; \mathbb{C})$.
+        Per tale motivo la serie di Fourier di un segnale su $[a, b]$ è a tutti gli effetti la serie di Fourier di un segnale $T$-periodico.\label{def:L2-periodic}
+
         \begin{definition}[Energia di un segnale]
             Sia $f \in L^2([a, b]; \mathbb{C})$ un segnale.
             L'energia di $f$ è la quantità definita come
@@ -83,10 +92,11 @@
             con $T = b - a$. 
         \end{definition}
 
+
     \subsection{Definizione}
         Data una funzione $f \in L^{2}([a, b]; \mathbb{C})$, per costruzione dello spazio $L^{2}([a, b]; \mathbb{C})$, è possibile scomporla secondo la seguente base ortogonale di Hilbert
         \[
-            \{e^{in 2 \pi f_0 t}\}_{n \in \mathbb{Z}} \implies f(t) = \sum_{-\infty}^{\infty} a_{n} e^{in 2 \pi f_0 t}
+            \{e^{in 2 \pi f_0 t}\}_{n \in \mathbb{Z}} \implies f(t) = \sum_{n \in \mathbb{Z}} a_{n} e^{in 2 \pi f_0 t}
         \]
         con $f_0 = \frac{1}{T}$, $T = b - a$ chiamata frequenza fondamentale. I coefficienti $a_n$ sono dati da
         \[
@@ -115,6 +125,22 @@
                 \sum_{i, j \in \mathbb{Z}} \int_{a}^{b} a_i \overline{a_j} e^{i (i - j) 2 \pi f_0 t} dt = \sum_{k \in \mathbb{Z}} a_k \overline{a_k} \int_{a}^{b} 1 \: dt = T \sum_{k \in \mathbb{Z}} |a_k|^2
             \]
         \end{proof}
+
+
+    \subsection{Estensione a funzioni $T$-periodiche}
+        \begin{theorem}[Teorema della serie di Fourier]\label{thm:fourier_series}
+            Sia $f \in L^2([a, b]; \mathbb{C})$ un segnale e sia $T = b - a$ e $f_0 = \frac{1}{T}$, $f_T \in L^2(\mathbb{R}/T\mathbb{Z}; \mathbb{C})$ la sua estensione $T$-periodica in $\mathbb{R}$.
+            Allora, posto
+            \[
+                a_n = \frac{1}{T} \int_{a}^{b} f(t) e^{-i 2 \pi n f_0 t} dt, \; n \in \mathbb{Z}
+            \]
+            segue che
+            \[
+                f_T = \sum_{n \in \mathbb{Z}} a_n e^{i 2 \pi n f_0 t} 
+            \]
+            quasi ovunque e la serie converge in $L^2(\mathbb{R}/T\mathbb{Z}; \mathbb{C})$.
+        \end{theorem}
+
 
 \clearpage
 \section{Trasformata di Fourier}
@@ -367,7 +393,37 @@
             \]
         \end{definition}
 
+
+    \subsection{Trasformata di segnali periodici}
+        Sia $L^2(\mathbb{R}/T\mathbb{Z})$ lo spazio dei segnali $T$-periodici a quadrato integrabile sul periodo introdotto nella sezione \ref{def:L2-periodic}.
+        Si consideri la seguente immersione continua e iniettiva
+        \[
+            L^2(\mathbb{R}/T\mathbb{Z}) \hookrightarrow \mathcal{S}'(\mathbb{R}),
+            \; \text{dove} \;
+            \langle x, \varphi \rangle = \int_{\mathbb{R}} x(t)\, \varphi(t)\, dt,
+            \quad \varphi \in \mathcal{S}(\mathbb{R}, \mathbb{C}).
+        \]
+        Di conseguenza, dato un segnale $x \in L^2(\mathbb{R}/T\mathbb{Z})$, l'espressione $\mathcal{F}x$ è ben definita e, per il teorema della serie di Fourier (\Cref{thm:fourier_series}), vale
+        \[
+            x = \sum_{n \in \mathbb{Z}} a_{n} e^{i 2 n \pi f_{0} t} \; \text{in} \; L^2(\mathbb{R}/T\mathbb{Z})
+        \]
+        Dato che l'immersione da $L^2(\mathbb{R}/T\mathbb{Z})$ a $\mathcal{S}'$ è continua, si ha che
+        \[
+            x = \sum_{n \in \mathbb{Z}} a_{n} e^{i 2 n \pi f_{0} t} \; \text{in} \; \mathcal{S}'
+        \]
+        Segue allora, dato che l'operatore di Fourier è continuo in $\mathcal{S}'$, che
+        \[
+            \mathcal{F}x = \mathcal{F} \qty{ \sum_{n \in \mathbb{Z}} a_{n} e^{i 2 n \pi f_{0} t} } 
+            = \sum_{n \in \mathbb{Z}} a_n \mathcal{F} \{ e^{i 2 n \pi f_0 t} \}
+            = \sum_{n \in \mathbb{Z}} a_n \delta(f - n f_0)
+        \]
+
     
+    \subsection{Spettro di potenza}
+        
+
+    
+\newpage
 \section{Sistemi}
     Un sistema è una mappa $\mathcal{H}: \mathcal{S}' \rightarrow \mathcal{S}'$ che associa ad un segnale in ingresso un altro segnale in uscita.
     I sistemi sono caratterizzati dalle rispettive proprietà:
@@ -398,15 +454,12 @@
         Un sistema $\mathcal{H}$ è BIBO-stabile se e solo se $h(t) \in L^1$.
     \end{proposition}
     \begin{proof}
-        ($\Leftarrow$) Si la disuguaglianza di Young
+        ($\Leftarrow$) Si consideri la disuguaglianza di Young con $p = 1$ e $q = 2$
         \[
-
+            ||x * h||_{2} \leq ||h||_{1} ||x||_{2}
         \]
-        % \[
-        %     (\mathcal{H} x)(t) < \infty \implies 
-        %     \int_{-\infty}^{\infty} x(t - \tau) h(\tau) d\tau < \infty \implies 
-        %     \int_{-\infty}^{\infty} h(\tau) d\tau < \infty
-        % \]
+
+        TODO: finire questa dimostrazione
     \end{proof}
 
     \begin{definition}[Banda di un sistema]
@@ -431,7 +484,7 @@
             \mathcal{H}\{x|_{(-\infty, t_0]}\}(t_0) = x|_{(-\infty, t_0]} * h = \int_{-\infty}^{0} x|_{(-\infty, t_0]}(t_0 - \tau) h(\tau) d\tau + \int_{0}^{\infty} x|_{(-\infty, t_0]}(t_0 - \tau) h(\tau) d\tau
         \]
         si può osservare come il primo integrale dipenda da valori futuri di $x|_{(-\infty, t_0]}$, ovvero oltre $t_0$, in quanto $\tau < 0 \implies - \tau > 0 \implies t_0 - \tau > t_0$ che però non esistono ancora.
-        Se $h$ non fosse causale, si avrebbe che $\mathcal{H}\{x|_{(-\infty, t_0]}\}(t_0) \neq \mathcal{H}\{x\}(t_0)$
+        Se $h$ non fosse causale, si avrebbe che $\mathcal{H}\{x|_{(-\infty, t_0]}\}(t_0) \neq \mathcal{H}\{x|_{\mathbb{R}}\}(t_0)$.
 
     \subsection{Distorsione}
         Un sistema \textbf{non} affetto da distorsione è un sistema tale per cui l'uscita, dato un segnale $x(t)$, è una versione scalata e ritardata dell'ingresso
@@ -457,3 +510,77 @@
                 \frac{d}{df} \arg(H(f)) \neq K, \quad K \in \mathbb{R}
             \]
         \end{definition}
+
+    \subsection{Operatore di autocorrelazione}
+        \begin{definition}[Autocorrelazione]
+            L'operatore di autocorrelazione $\mathcal{R}: L^2 \rightarrow L^\infty$ è definito come
+            \[
+                (\mathcal{R} x)(t) := \int_{\mathbb{R}} x(\tau) x^*(\tau - t) d\tau = x * Sx^*
+            \]
+            dove $S: L^2 \rightarrow L^2$ è l'operatore specchio ($Sx = x(-t)$).
+        \end{definition}
+
+        \begin{proposition}
+            $\mathcal{R} x = \mathcal{F}^{-1}\{ |X(f)|^2 \}$ 
+        \end{proposition}
+        \begin{proof}
+            Partendo dalla definizione di $\mathcal{R} x = x * (Sx^*)$, grazie al teorema della convoluzione (Proprietà 6 della trasformata di Fourier)
+            \[
+                \mathcal{R} x = x * (Sx^*) = \mathcal{F}^{-1} \{ (\mathcal{F} x)((\mathcal{F} \circ S) x^*) \}
+            \]
+            Si analizzi il termine $(\mathcal{F} \circ S) x^*$
+            \[
+                (\mathcal{F} \circ S)x^*
+                = \int_{\mathbb{R}} x^*(-t)\, e^{-i2\pi f t}\, dt
+                = \left( \int_{\mathbb{R}} x(-t)\, e^{i2\pi f t}\, dt \right)^*
+                \overset{s=-t}{=} \left( \int_{\mathbb{R}} x(s)\, e^{-i2\pi f s}\, ds \right)^*
+                = X^*(f)
+            \]
+            Arrivando quindi alla conclusione
+            \[
+                \mathcal{R} x = \mathcal{F}^{-1} \{ (\mathcal{F} x)((\mathcal{F} \circ S) x^*) \} = \mathcal{F}^{-1} \{ X(f) X^*(f) \} = \mathcal{F}^{-1} \{ |X(f)|^2 \}
+            \]
+        \end{proof}
+
+
+        Alcune delle proprietà dell'operatore di autocorrelazione sono
+        
+        \begin{property}[Energia]
+            L'energia di un segnale $x \in L^2$ vale $||x||^2_2 = (\mathcal{R}x)(0)$
+        \end{property}
+        \begin{proof}
+            Valutando la definizione in $t = 0$
+            \[
+                (\mathcal{R}x)(0) = \int_{\mathbb{R}} x(\tau) x^*(\tau) d\tau = \int_{\mathbb{R}} |x(\tau)|^2 d\tau = ||x||^2_2
+            \]
+        \end{proof}
+
+        \begin{property}[Simmetria]
+            Sia $x \in L^2$, allora $S(\mathcal{R}x) = (\mathcal{R}x)^*$, ovvero $\mathcal{R}x$ è una funzione hermitiana.
+            In particolare, se $x$ è reale allora $S(\mathcal{R}x) = \mathcal{R}x$, ovvero $\mathcal{R}x$ è una funzione pari.
+        \end{property}
+        \begin{proof}
+            \begin{align*}
+                (S\mathcal{R}x)(t) &= (\mathcal{R}x)(-t) = \int_{\mathbb{R}} x(\tau) x^*(\tau + t) d\tau
+                \overset{u = \tau + t}{=} \int_{\mathbb{R}} x(u - t) x^*(u) du \\
+                &= \left( \int_{\mathbb{R}} x(u) x^*(u - t) du \right)^*
+                = (\mathcal{R}x)^*(t)
+            \end{align*}
+            Se $x$ è reale, anche $\mathcal{R}x$ è reale, dunque $(\mathcal{R}x)^* = \mathcal{R}x$ e quindi $S(\mathcal{R}x) = \mathcal{R}x$.
+        \end{proof}
+
+        \begin{property}[Massimo nell'origine]
+            Sia $x \in L^2$, allora $|(\mathcal{R}x)(t)| \leq (\mathcal{R}x)(0)$ per ogni $t \in \mathbb{R}$.
+            In particolare, se $\mathcal{R}x$ è reale, $(\mathcal{R}x)(t) \leq (\mathcal{R}x)(0)$.
+        \end{property}
+        \begin{proof}
+            Per la disuguaglianza di Cauchy-Schwarz in $L^2$
+            \[
+                |(\mathcal{R}x)(t)| = \left| \int_{\mathbb{R}} x(\tau) x^*(\tau - t) d\tau \right|
+                \leq \qty( \int_{\mathbb{R}} |x(\tau)|^2 d\tau )^{\frac{1}{2}} \qty( \int_{\mathbb{R}} |x(\tau - t)|^2 d\tau )^{\frac{1}{2}}
+                = ||x||_2 \, ||x||_2 = (\mathcal{R}x)(0)
+            \]
+            Se $\mathcal{R}x$ è reale, segue $(\mathcal{R}x)(t) \leq |(\mathcal{R}x)(t)| \leq (\mathcal{R}x)(0)$.
+        \end{proof}
+
+
