@@ -403,7 +403,7 @@
             \langle x, \varphi \rangle = \int_{\mathbb{R}} x(t)\, \varphi(t)\, dt,
             \quad \varphi \in \mathcal{S}(\mathbb{R}, \mathbb{C}).
         \]
-        Di conseguenza, dato un segnale $x \in L^2(\mathbb{R}/T\mathbb{Z})$, l'espressione $\mathcal{F}x$ è ben definita e, per il teorema della serie di Fourier (\Cref{thm:fourier_series}), vale
+        Di conseguenza, dato un segnale $x \in L^2(\mathbb{R}/T\mathbb{Z})$, per il teorema della serie di Fourier (\Cref{thm:fourier_series}), vale
         \[
             x = \sum_{n \in \mathbb{Z}} a_{n} e^{i 2 n \pi f_{0} t} \; \text{in} \; L^2(\mathbb{R}/T\mathbb{Z})
         \]
@@ -411,7 +411,7 @@
         \[
             x = \sum_{n \in \mathbb{Z}} a_{n} e^{i 2 n \pi f_{0} t} \; \text{in} \; \mathcal{S}'
         \]
-        Segue allora, dato che l'operatore di Fourier è continuo in $\mathcal{S}'$, che
+        Segue allora che l'espressione $\mathcal{F}x$ è ben definita e dato che l'operatore di Fourier è continuo in $\mathcal{S}'$, che
         \[
             \mathcal{F}x = \mathcal{F} \qty{ \sum_{n \in \mathbb{Z}} a_{n} e^{i 2 n \pi f_{0} t} } 
             = \sum_{n \in \mathbb{Z}} a_n \mathcal{F} \{ e^{i 2 n \pi f_0 t} \}
@@ -530,6 +530,18 @@
 \newpage
 \section{Sistemi}
     Un sistema è una mappa $\mathcal{H}: \mathcal{S}' \rightarrow \mathcal{S}'$ che associa ad un segnale in ingresso un altro segnale in uscita.
+
+    \begin{figure}[ht]
+        \centering
+        \begin{tikzpicture}[>={Stealth[length=2.5mm]}]
+            \node[draw, thick, minimum width=2cm, minimum height=1.2cm] (H) {$\mathcal{H}$};
+            \draw[->, thick] ([xshift=-2cm]H.west) -- node[above] {$x(t)$} (H.west);
+            \draw[->, thick] (H.east) -- node[above] {$y(t)$} ([xshift=2cm]H.east);
+        \end{tikzpicture}
+        \caption{Rappresentazione a scatola nera di un sistema $\mathcal{H}$, con $y = \mathcal{H} x$.}
+        \label{fig:sistema}
+    \end{figure}
+
     I sistemi sono caratterizzati dalle rispettive proprietà:
     \begin{enumerate}
         \item Lineare: $\mathcal{H}\{\alpha x_1 + \beta x_2\} = \alpha \mathcal{H}\{x_1\} + \beta \mathcal{H}\{x_2\}$
@@ -623,6 +635,10 @@
         \[
             \{x_n\}_{n \in N \subseteq \mathbb{N}}
         \]
+        La notazione per un segnale discreto è
+        \[
+            x[n], \; n \in N \subseteq \mathbb{N}
+        \]
     \end{definition}
 
     \subsection{Campionamento periodico di segnali continui}
@@ -640,7 +656,7 @@
         \]
         Si osservi allora la trasformata di $\tilde x$: per dualità del teorema della convoluzione (P\ref{prop:conv}), la trasformata di un prodotto è la convoluzione delle trasformate, quindi
         \[
-            \tilde X(f) = T_s \, \mathcal{F}\{ x \operatorname{III}_{T_s} \} = T_s \, X(f) * \mathcal{F}\{ \operatorname{III}_{T_s} \}(f)
+            \tilde X(f) = T_s \, \mathcal{F}\{ x \operatorname{III}_{T_s} \} = T_s \, (X * \mathcal{F}\{ \operatorname{III}_{T_s} \})
         \]
         Rimane da calcolare la trasformata del pettine.
         Essendo $\operatorname{III}_{T_s}$ un segnale $T_s$-periodico, se ne calcolino (formalmente) i coefficienti di Fourier su un periodo centrato nell'origine
@@ -670,3 +686,335 @@
             \]
             a patto che $f_s = \frac{1}{T_s} > 2B$.
         \end{theorem}
+
+        \subsubsection{Aliasing}
+            Il fenomeno dell'aliasing consiste nell'ottenere, da un segnale campionato, un segnale che è diverso dal segnale originale, e si ottiene quando si campiona un segnale la cui banda $B$ si estende oltre il limite di Nyquist $\frac{f_s}{2}$.
+
+            Una principale soluzione all'aliasing è introdurre, prima di campionare, un filtro detto ``anti-aliasing'', in grado di eliminare (nella realtà attenuare) tutte le frequenze oltre il limite di Nyquist del campionatore.
+
+
+    \subsection{Discrete Fourier Transform (DFT)}
+        Il \textit{Discrete Fourier Transform}, in italiano Trasformata di Fourier Discreta, è una tecnica che permette di calcolare uno spettro discreto a partire da un segnale discreto a campioni finiti.
+
+        Si consideri di avere un segnale campionato finito $x[n]$ con $0 \leq n < N$, campionato alla frequenza $f_s = \frac{1}{T_s}$ e
+        si definisca la finestra di osservabilità come $N T_s$ e lo step in frequenza come $\Delta f = \frac{f_s}{N}$.
+        Il DFT mappa questo vettore di campioni $x[n]$ ad uno spettro $X[k]$ con $0 \leq k < N$ definito nel seguente modo
+        \[
+            X[k] = \sum_{n=0}^{N-1} x[n] e^{-i 2 \pi \frac{kn}{N}}
+        \]
+        La mappa campione $\rightarrow$ spettro introdotta dal DFT è iniettiva, quindi è possibile ricostruire il vettore di campioni a partire dal vettore di spettro
+        \[
+            x[n] = \frac{1}{N} \sum_{k=0}^{N-1} X[k] e^{i 2 \pi \frac{kn}{N}}
+        \]
+
+    \subsection{Sistemi a tempo discreto}
+        Un sistema a tempo discreto è un oggetto matematico in grado di mappare un vettore discreto $x[n]$ in ingresso ad un vettore discreto $y[n]$ in uscita.
+        \begin{figure}[ht]
+            \centering 
+            \begin{tikzpicture}
+                \node[draw, thick, minimum width=2cm, minimum height=1.2cm] (H) {$\mathcal{H}$};
+                \draw[->, thick] ([xshift=-2cm]H.west) -- node[above] {$x[n]$} (H.west);
+                \draw[->, thick] (H.east) -- node[above] {$y[n]$} ([xshift=2cm]H.east);
+            \end{tikzpicture}
+        \end{figure}
+        
+        un sistema a tempo discreto può essere un sitema linear tempo-invariante (LTI), con 
+        \[
+            \mathcal{H}\{x[n]\} = x[n] * h[n] = \sum_{k \in \mathbb{Z}} h[n - k] x[k]
+        \]
+        dove $h[n]$ è una risposta all'impulso del sistema a tempo discreto.
+
+
+    \subsection{Trasformata Z}
+        \begin{definition}
+            Dato un segnale discreto $x[n]$ con $n \in \mathbb{Z}$, si definisce la trasformata Z di $x[n]$ come
+            \[
+                X(z) = \mathcal{Z}\{x\} = \sum_{n \in \mathbb{Z}} x[n] z^{-n}, \qquad z \in \mathcal{R}_{x} \subseteq \mathbb{C}
+            \]
+            con 
+            \[
+                \mathcal{R}_x = \qty{ z \in \mathbb{C} \st \sum_{n \in \mathbb{Z}} |x[n] z^{-n}| < \infty}
+            \]
+        \end{definition}
+
+        La trasformata Z rapprensenta il corrispettivo discreto della trasformata di Laplace nel continuo.
+        L'insieme $\mathcal{R}_{x}$ su cui la trasformata Z converge per un dato segnale $x$ è detto regione di convergenza.
+        Inoltre è possibile dimostrare che $(1)$ $\mathcal{R}_{x}$ è un anello e che $(2)$, per segnali causali ($x[n] = 0, \forall n < 0$), che il raggio della circonferenza esterna è $\infty$.
+
+        Alcune delle proprietà della trasformata Z sono:
+
+        \begin{property}[Linearità]
+            $\mathcal{Z}\{\alpha x[n] + \beta y[n]\} = \alpha X(z) + \beta Y(z)$, con regione di convergenza contenente $\mathcal{R}_{x} \cap \mathcal{R}_{y}$.
+        \end{property}
+
+        \begin{property}[Traslazione]
+            $\mathcal{Z}\{x[n - n_0]\} = z^{-n_0} X(z)$, con regione di convergenza $\mathcal{R}_{x}$, a meno dei punti $z = 0$ e $z = \infty$.
+        \end{property}
+
+        \begin{property}[Modulazione]
+            $\mathcal{Z}\{a^n x[n]\} = X\qty(\frac{z}{a})$, con $a \in \mathbb{C} \setminus \{0\}$ e regione di convergenza $|a| \mathcal{R}_{x}$.
+        \end{property}
+
+        \begin{property}[Inversione temporale]
+            $\mathcal{Z}\{x[-n]\} = X\qty(\frac{1}{z})$, con regione di convergenza $\qty{ z \in \mathbb{C} \st \frac{1}{z} \in \mathcal{R}_{x} }$.
+        \end{property}
+
+        \begin{property}[Coniugazione]
+            $\mathcal{Z}\{x^*[n]\} = X^*(z^*)$, con regione di convergenza $\mathcal{R}_{x}$.
+        \end{property}
+
+        \begin{property}[Derivata di trasformata]
+            $\mathcal{Z}\{n x[n]\} = -z \frac{d}{dz} X(z)$, con regione di convergenza $\mathcal{R}_{x}$.
+        \end{property}
+
+        \begin{property}[Convoluzione]
+            $\mathcal{Z}\{x[n] * y[n]\} = X(z) Y(z)$, con regione di convergenza contenente $\mathcal{R}_{x} \cap \mathcal{R}_{y}$.
+        \end{property}
+
+        \begin{property}[Relazione con la trasformata di Fourier]
+            Se la circonferenza unitaria $|z| = 1$ è contenuta in $\mathcal{R}_{x}$, allora la trasformata di Fourier a tempo discreto di $x[n]$ si ottiene valutando $X(z)$ per $z = e^{i 2 \pi \nu}$, con $\nu = f T_s$ frequenza normalizzata
+            \[
+                X(e^{i 2 \pi \nu}) = \sum_{n \in \mathbb{Z}} x[n] e^{-i 2 \pi \nu n}
+            \]
+        \end{property}
+
+        \begin{property}[Teorema del valore iniziale]
+            Se $x[n]$ è causale, allora $x[0] = \lim_{z \to \infty} X(z)$.
+        \end{property}
+
+        \begin{property}[Teorema del valore finale]
+            Se $x[n]$ è causale e i poli di $(z - 1) X(z)$ sono interni alla circonferenza unitaria, allora $\lim_{n \to \infty} x[n] = \lim_{z \to 1} (z - 1) X(z)$.
+        \end{property}
+
+    \subsection{Discrete Time Fourier Transform (DTFT)}
+        \begin{definition}
+            Dato un segnale discreto $x[n]$ con $n \in \mathbb{Z}$ e $x \in \ell^1$, si definisce la trasformata di Fourier a tempo discreto di $x[n]$ come
+            \[
+                X(e^{i 2 \pi \nu}) = \sum_{n \in \mathbb{Z}} x[n] e^{-i 2 \pi \nu n}, \qquad \nu \in \mathbb{R}
+            \]
+            dove $\nu = f T_s = \frac{f}{f_s}$ è detta frequenza normalizzata.
+        \end{definition}
+
+        La DTFT coincide con la trasformata Z valutata sulla circonferenza unitaria $z = e^{i 2 \pi \nu}$, ed è dunque ben definita qualora $|z| = 1$ sia contenuta in $\mathcal{R}_{x}$.
+        A differenza della trasformata Z, la definizione può essere estesa a segnali $x \in \ell^2$, nel qual caso la serie converge in $L^2$.
+        È possibile ricostruire il segnale a partire dalla sua DTFT mediante la trasformata inversa
+        \[
+            x[n] = \int_{-\frac{1}{2}}^{\frac{1}{2}} X(e^{i 2 \pi \nu}) e^{i 2 \pi \nu n} d\nu
+        \]
+
+        Alcune delle proprietà della DTFT sono:
+
+        \begin{property}[Periodicità]
+            $X(e^{i 2 \pi (\nu + 1)}) = X(e^{i 2 \pi \nu})$, ovvero la DTFT è periodica di periodo $1$ in $\nu$ (di periodo $f_s$ in $f$).
+        \end{property}
+
+        \begin{property}[Linearità]
+            $\mathcal{F}\{\alpha x[n] + \beta y[n]\} = \alpha X(e^{i 2 \pi \nu}) + \beta Y(e^{i 2 \pi \nu})$
+        \end{property}
+
+        \begin{property}[Traslazione]
+            $\mathcal{F}\{x[n - n_0]\} = e^{-i 2 \pi \nu n_0} X(e^{i 2 \pi \nu})$
+        \end{property}
+
+        \begin{property}[Modulazione]
+            $\mathcal{F}\{e^{i 2 \pi \nu_0 n} x[n]\} = X(e^{i 2 \pi (\nu - \nu_0)})$
+        \end{property}
+
+        \begin{property}[Inversione temporale]
+            $\mathcal{F}\{x[-n]\} = X(e^{-i 2 \pi \nu})$
+        \end{property}
+
+        \begin{property}[Simmetria hermitiana]
+            Se $x[n]$ è reale allora $X(e^{-i 2 \pi \nu}) = X^*(e^{i 2 \pi \nu})$.
+        \end{property}
+
+        \begin{property}[Convoluzione]
+            $\mathcal{F}\{x[n] * y[n]\} = X(e^{i 2 \pi \nu}) Y(e^{i 2 \pi \nu})$
+        \end{property}
+
+        \begin{property}[Trasformata di prodotto]
+            Il prodotto nel tempo corrisponde alla convoluzione periodica in frequenza
+            \[
+                \mathcal{F}\{x[n] y[n]\} = \int_{-\frac{1}{2}}^{\frac{1}{2}} X(e^{i 2 \pi \theta}) Y(e^{i 2 \pi (\nu - \theta)}) d\theta
+            \]
+        \end{property}
+
+        \begin{property}[Derivata di trasformata]
+            $\mathcal{F}\{n x[n]\} = \frac{i}{2 \pi} \frac{d}{d\nu} X(e^{i 2 \pi \nu})$
+        \end{property}
+
+        \begin{property}[Parseval]
+            $\displaystyle \sum_{n \in \mathbb{Z}} |x[n]|^2 = \int_{-\frac{1}{2}}^{\frac{1}{2}} |X(e^{i 2 \pi \nu})|^2 d\nu$
+        \end{property}
+
+        \begin{property}[Relazione con il campionamento]
+            Se $x[n] = x_c(n T_s)$ è ottenuto campionando un segnale continuo $x_c$ con trasformata $X_c(f)$, allora
+            \[
+                X(e^{i 2 \pi \nu}) = f_s \sum_{k \in \mathbb{Z}} X_c\qty((\nu - k) f_s)
+            \]
+        \end{property}
+
+        \begin{property}[Relazione con la DFT]
+            Se $x[n]$ è non nullo solo per $0 \leq n < N$, allora la DFT è il campionamento della DTFT in $N$ punti equispaziati nel periodo
+            \[
+                X[k] = X(e^{i 2 \pi \frac{k}{N}}), \qquad 0 \leq k < N
+            \]
+        \end{property}
+
+\clearpage
+\section{Segnali stocastici}
+    \subsection{Prerequisiti}
+        \begin{definition}[Spazio di probabilità]
+            % TODO
+        \end{definition}
+
+        \begin{definition}[Variabile casuale]
+            % TODO
+        \end{definition}
+
+        \begin{definition}[Spazio $L^2(\Omega, \mathcal{F}, P)$]
+            % TODO: variabili casuali a momento secondo finito, identificazione q.c.
+        \end{definition}
+
+        \begin{definition}[Prodotto scalare]
+            % TODO: \langle X, Y \rangle = \mathbb{E}[X Y^*]
+        \end{definition}
+
+        \begin{definition}[Norma]
+            % TODO: ||X|| = \sqrt{\mathbb{E}[|X|^2]}
+        \end{definition}
+
+        \begin{theorem}[Completezza di $L^2(\Omega, \mathcal{F}, P)$]
+            % TODO: L^2 è uno spazio di Hilbert
+        \end{theorem}
+
+        \begin{property}[Disuguaglianza di Cauchy-Schwarz]
+            % TODO
+        \end{property}
+
+        \begin{definition}[Covarianza e correlazione]
+            % TODO
+        \end{definition}
+
+        \begin{definition}[Ortogonalità e incorrelazione]
+            % TODO
+        \end{definition}
+
+        \begin{definition}[Convergenza in media quadratica]
+            % TODO
+        \end{definition}
+
+    \subsection{Definizione}
+    \begin{definition}[Segnale stocastico]
+        Un segnale stocastico, anche detto processo stocastico, è una funzione misurabile del tipo $X: \mathbb{R} \times \Omega \rightarrow \mathbb{R}$, tale per cui, dato uno spazio di probabilità $(\Omega, \mathcal{F}, P)$, si ha che
+        \[
+            \{\omega \in \Omega \st X(t, \omega) \leq a \} \in \mathcal{F}, \qquad t, a \in \mathbb{R}
+        \]
+        
+        Fissato un istante $t$, la mappa $X(t, \omega): \Omega \rightarrow \mathbb{R}$ è una variabile casuale.
+        Viceversa, fissato un $\omega$, la mappa $X(t, \omega): \mathbb{R} \rightarrow \mathbb{R}$ è detta realizzazione del segnale.
+    \end{definition}
+
+    Dato un processo stocastico è possibile costruire i parametri principali di una variabile casuale come mappe
+    \[
+        \begin{aligned}
+            \mu_{X}(t) &: t \mapsto \mu_{X(t)}, & \mu_{X}(t) &= \mathbb{E}[X(t)] = \int_{\mathbb{R}} x f_{X(t)}(x) dx \\
+            \sigma_{X}^2(t) &: t \mapsto \sigma_{X(t)}^2, & \sigma_{X}^2(t) &= \mathbb{E}[(X(t) - \mu_{X(t)})^2] = \mathbb{E}[X^2(t)] - \mu_{X(t)}^2 = \int_{\mathbb{R}} x^2 f_{X(t)}(x) dx - \mu_{X(t)}^2 \\
+            \sigma_{X}(t) &: t \mapsto \sigma_{X(t)}, & \sigma_{X}(t) &= \sqrt{\sigma_{X}^2(t)}
+        \end{aligned}
+    \]
+    le quali, a partire da un instante $t$, portano ai rispettivi parametri (media, varianza e deviazione standard) della variabile casuale $X(t): \Omega \rightarrow \mathbb{R}$.
+
+    \subsection{Autocorrelazione e stazionarietà di un processo stocastico}
+    \begin{definition}[Autocorrelazione di variabili casuali]
+        Sia $X: \mathbb{R} \times \Omega \rightarrow \mathbb{C}$ un processo stocastico.
+        Si definisce l'autocorrelazione fra due istanti $t_1, t_2$ la seguente espressione
+        \[
+            R_{X}(t_1, t_2) = \mathbb{E}[X(t_1)X^*(t_2)]
+        \]
+    \end{definition}
+
+    \begin{definition}[Processo stocastico stazionario in senso lato]
+        Un processo stocastico $X: \mathbb{R} \times \Omega \rightarrow \mathbb{C}$ è detto stazionario in senso lato (in inglese, wide sense stationary) qualora valessero le seguenti condizioni:
+        \begin{enumerate}
+            \item $\mathbb{E}[|X(t)|^2] < \infty$ per qualsiasi $t \in \mathbb{R}$.
+            \item $\mu_{X}(t) = \mu$ per qualsiasi $t \in \mathbb{R}$, con $\mu \in \mathbb{C}$ costante.
+            \item $R_{X}(t_1, t_2) = R_{X}(\tau) = \mathbb{E}[X(t)X^*(t + \tau)]$ per qualsiasi $t \in \mathbb{R}$, con $\tau = t_2 - t_1$.
+        \end{enumerate}
+    \end{definition}
+
+    Alcune delle proprietà di un processo stazionario in senso lato sono:
+
+    \begin{property}[Potenza]
+        $R_{X}(0) = \mathbb{E}[|X(t)|^2]$ è reale e non negativo, e rappresenta la potenza media del processo.
+    \end{property}
+
+    \begin{property}[Simmetria]
+        $R_{X}(-\tau) = R_{X}^*(\tau)$ per qualsiasi $\tau \in \mathbb{R}$, ovvero $R_{X}$ è una funzione hermitiana.
+        In particolare, se il processo è reale, ovvero $X: \mathbb{R} \times \Omega \rightarrow \mathbb{R}$, allora $R_{X}$ è reale e pari, ovvero $R_{X}(-\tau) = R_{X}(\tau)$.
+    \end{property}
+
+    \begin{property}[Massimo nell'origine]
+        $|R_{X}(\tau)| \leq R_{X}(0)$ per qualsiasi $\tau \in \mathbb{R}$.
+    \end{property}
+
+    \begin{property}[Varianza costante]
+        $\sigma_{X}^2(t) = \mathbb{E}[X^2(t)] - \mu^2 = R_{X}(0) - \mu^2$.
+    \end{property}
+
+    \begin{definition}[Processo stocastico ciclostazionario in senso lato]
+        Un processo stocastico è detto ciclostazionario in senso lato (in inglese cyclostationary) con periodo $T$ qualora valessero se seguenti condizioni:
+        \begin{enumerate}
+            \item $\mu_{X}(t) = \mu_{X}(t + T)$
+            \item $R_{X}(t_1, t_2) = R_{X}(t_1 + T, t_2 + T)$
+        \end{enumerate}
+    \end{definition}
+
+    \begin{definition}[Processo stocastico non stazionario]
+        Un processo stocastico è detto non stazionario qualora le sue proprietà $\mu_{X}(t), \sigma_{X}^2(t)$ varino nel tempo.
+    \end{definition}
+
+    \subsection{Analisi in frequenza di processi stocastici WSS}
+        \begin{definition}[Spettro di potenza di un processo WSS]
+            Sia $X: \mathbb{R} \times \Omega \rightarrow \mathbb{C}$ un processo stocastico WSS.
+            Si definisce allora il suo spettro di potenza come
+            \[
+                P_{X}(f) = \mathcal{F}\{R_{X}(\tau)\}
+            \]
+        \end{definition}
+
+        Alcune delle proprietà dello spettro di potenza di un processo WSS sono:
+
+        \begin{property}[Spettro reale]
+            $P_{X}(f) \in \mathbb{R}$ per qualsiasi $f \in \mathbb{R}$, in quanto trasformata di una funzione hermitiana.
+        \end{property}
+
+        \begin{property}[Non negatività]
+            $P_{X}(f) \geq 0$ per qualsiasi $f \in \mathbb{R}$.
+        \end{property}
+
+        \begin{property}[Simmetria]
+            Se il processo è reale, ovvero $X: \mathbb{R} \times \Omega \rightarrow \mathbb{R}$, allora $P_{X}$ è una funzione pari, ovvero $P_{X}(-f) = P_{X}(f)$.
+        \end{property}
+
+        \begin{property}[Potenza]
+            La potenza media del processo è pari all'integrale dello spettro di potenza
+            \[
+                R_{X}(0) = \mathbb{E}[|X(t)|^2] = \int_{\mathbb{R}} P_{X}(f) df
+            \]
+        \end{property}
+
+    \subsection{Rumore}
+        E' possibile definire il rumore in un segnale come un processo stocastico il quale viene poi sommato ad un segnale deterministico, nella forma
+        \[
+            X(t) = s(t) + N(t)
+        \]
+        Dove $X(t)$ è il segnale misurato, $s(t)$ il segnale deterministico sottostante e $N(t)$ un processo stocastico chiamato \textit{rumore}.
+
+        Vi sono diversi tipi di rumore, fra cui:
+        \subsubsection{Rumore gaussiano bianco}
+            Il rumore gaussiano bianco $N(t)$ è un processo stocastico WSS definito dai seguenti parametri:
+            \begin{enumerate}
+                \item Media: $\mu_{N} = 0$
+                \item Autocorrelazione: $R_{N}(\tau) = \frac{N_0}{2} \delta(\tau)$
+            \end{enumerate}
